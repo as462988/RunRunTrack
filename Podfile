@@ -7,5 +7,7 @@ target 'RunRunTruck' do
 
   # Pods for RunRunTruck
    pod 'SwiftLint'
+   pod 'Firebase/Auth'
+   pod 'Firebase/Firestore'
    
 end

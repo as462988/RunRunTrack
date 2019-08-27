@@ -103,6 +103,7 @@
 				091EEB5723153B0200BF066F /* Frameworks */,
 				091EEB5823153B0200BF066F /* Resources */,
 				091EEB712315421700BF066F /* swiftLint */,
+				681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,6 +179,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7475A18004E2FB4C83D8AB70 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
