@@ -128,6 +128,7 @@
 				091EEB5823153B0200BF066F /* Resources */,
 				091EEB712315421700BF066F /* swiftLint */,
 				681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */,
+				37A3CF0C31C383C9191A652B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,6 +204,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		37A3CF0C31C383C9191A652B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
