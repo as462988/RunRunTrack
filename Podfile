@@ -6,5 +6,6 @@ target 'RunRunTruck' do
   use_frameworks!
 
   # Pods for RunRunTruck
-
+   pod 'SwiftLint'
+   
 end
