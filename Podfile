@@ -9,5 +9,7 @@ target 'RunRunTruck' do
    pod 'SwiftLint'
    pod 'Firebase/Auth'
    pod 'Firebase/Firestore'
+   pod 'GoogleMaps'
+   pod 'GooglePlaces'
    
 end
