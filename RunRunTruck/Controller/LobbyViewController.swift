@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class ViewController: UIViewController {
+class LobbyViewController: UIViewController {
 
      @IBOutlet weak var googleMapView: GMSMapView!
 
