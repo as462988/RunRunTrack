@@ -11,28 +11,32 @@ import UIKit
 
 class LobbyViewController: UIViewController {
 
-//     @IBOutlet weak var googleMapView: GMSMapView!
-    
-    var lobbyView = LobbyView()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    self.view.addSubview(lobbyView)
-        navigationController?.isNavigationBarHidden = true
-        setLobbyView()
+    @IBOutlet weak var lobbyView: LobbyView! {
+        
+        didSet {
+            
+            lobbyView.delegate = self
+        }
     }
     
-    func setLobbyView() {
-        
-        lobbyView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            lobbyView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            lobbyView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            lobbyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            lobbyView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
-            ])
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    navigationController?.isNavigationBarHidden = true
+
+    }
+}
+
+extension LobbyViewController: LobbyViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
     }
 }

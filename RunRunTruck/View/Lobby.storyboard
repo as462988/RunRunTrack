@@ -34,9 +34,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjP-Ed-cgZ">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjP-Ed-cgZ" customClass="LobbyView" customModule="RunRunTruck" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xz2-qg-iir" customClass="GMSMapView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iiO-Le-jjz">
+                                        <rect key="frame" x="0.0" y="692" width="414" height="150"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="svE-MR-JJk"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cLy-eM-D3B">
+                                            <size key="itemSize" width="300" height="115"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckInfoCell" id="c01-q4-YWD" customClass="TurckInfoCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                                <rect key="frame" x="57" y="0.0" width="300" height="115"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUH-9V-A93">
+                                                            <rect key="frame" x="129" y="47" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </view>
+                                                <color key="backgroundColor" red="0.58950924869999999" green="0.84520959849999999" blue="0.91693359610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="UUH-9V-A93" firstAttribute="centerY" secondItem="c01-q4-YWD" secondAttribute="centerY" id="pkH-fB-BXC"/>
+                                                    <constraint firstItem="UUH-9V-A93" firstAttribute="centerX" secondItem="c01-q4-YWD" secondAttribute="centerX" id="x9L-9r-AKn"/>
+                                                </constraints>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="xz2-qg-iir" firstAttribute="top" secondItem="jjP-Ed-cgZ" secondAttribute="top" id="1VU-rW-W5s"/>
+                                    <constraint firstAttribute="bottom" secondItem="iiO-Le-jjz" secondAttribute="bottom" constant="20" id="4eW-Gu-il6"/>
+                                    <constraint firstItem="xz2-qg-iir" firstAttribute="leading" secondItem="jjP-Ed-cgZ" secondAttribute="leading" id="6Uj-4j-hjG"/>
+                                    <constraint firstAttribute="bottom" secondItem="xz2-qg-iir" secondAttribute="bottom" id="WuV-pH-LYK"/>
+                                    <constraint firstAttribute="trailing" secondItem="iiO-Le-jjz" secondAttribute="trailing" id="ZLM-GV-i7F"/>
+                                    <constraint firstItem="iiO-Le-jjz" firstAttribute="leading" secondItem="jjP-Ed-cgZ" secondAttribute="leading" id="wXs-6D-tit"/>
+                                    <constraint firstAttribute="trailing" secondItem="xz2-qg-iir" secondAttribute="trailing" id="yaB-kD-K74"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="mapView" destination="xz2-qg-iir" id="ybL-1o-Gk0"/>
+                                    <outlet property="truckCollectionView" destination="iiO-Le-jjz" id="rJP-Aa-do1"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,10 +104,13 @@
                         <viewLayoutGuide key="safeArea" id="rH7-61-2P8"/>
                     </view>
                     <navigationItem key="navigationItem" id="HBG-Bf-tw4"/>
+                    <connections>
+                        <outlet property="lobbyView" destination="jjP-Ed-cgZ" id="8Su-bA-FLH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nog-mX-v4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="25"/>
+            <point key="canvasLocation" x="137.68115942028987" y="24.776785714285712"/>
         </scene>
     </scenes>
 </document>

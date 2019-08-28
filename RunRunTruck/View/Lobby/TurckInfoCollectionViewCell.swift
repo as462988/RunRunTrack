@@ -1,0 +1,13 @@
+//
+//  TurckInfoCollectionViewCell.swift
+//  RunRunTruck
+//
+//  Created by yueh on 2019/8/28.
+//  Copyright © 2019 yueh. All rights reserved.
+//
+
+import UIKit
+
+class TurckInfoCollectionViewCell: UICollectionViewCell {
+    
+}
