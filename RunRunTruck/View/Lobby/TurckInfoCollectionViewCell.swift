@@ -12,4 +12,6 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var truckName: UILabel!
+     @IBOutlet weak var openTime: UILabel!
+     @IBOutlet weak var closeTime: UILabel!
 }
