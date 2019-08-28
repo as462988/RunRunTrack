@@ -7,16 +7,32 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
 
 class LobbyViewController: UIViewController {
 
-     @IBOutlet weak var googleMapView: GMSMapView!
+//     @IBOutlet weak var googleMapView: GMSMapView!
+    
+    var lobbyView = LobbyView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let camera = GMSCameraPosition.camera(withLatitude: 23.963, longitude: 120.522, zoom: 12.0)
-        googleMapView.camera = camera
+    self.view.addSubview(lobbyView)
+        navigationController?.isNavigationBarHidden = true
+        setLobbyView()
+    }
+    
+    func setLobbyView() {
+        
+        lobbyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            lobbyView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            lobbyView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            lobbyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            lobbyView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+            ])
+        
     }
 }

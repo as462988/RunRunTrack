@@ -18,7 +18,7 @@ private enum Tab {
     
     case badge
     
-    func  controller() -> UIViewController{
+    func  controller() -> UIViewController {
         var controller: UIViewController
         
         switch self {
@@ -78,13 +78,10 @@ class TabBarViewController: UITabBarController {
 
     private let tabs: [Tab] = [.lobby, .profile, .badge, .truck]
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewControllers = tabs.map({
-            $0.controller()
-        })
+        viewControllers = tabs.map({ $0.controller()})
     }
     
 }
