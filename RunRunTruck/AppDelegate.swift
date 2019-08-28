@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyD7n_QBYwz7l_3Rf16Uogn3oLMuG3aW9ug")
+        
         return true
     }
 

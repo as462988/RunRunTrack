@@ -10,4 +10,6 @@ import UIKit
 
 class TurckInfoCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var truckName: UILabel!
 }

@@ -50,6 +50,11 @@ class LobbyView: UIView {
         setCollectionView()
     }
     
+    func reloadData() {
+
+        truckCollectionView.reloadData()
+    }
+    
     private func setCollectionView() {
         truckCollectionView.showsHorizontalScrollIndicator = false
         truckCollectionView.collectionViewLayout = cardLayout

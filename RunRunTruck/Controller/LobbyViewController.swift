@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import GoogleMaps
 
 class LobbyViewController: UIViewController {
 
@@ -22,13 +21,26 @@ class LobbyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     navigationController?.isNavigationBarHidden = true
-
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        FirebaseManager.shared.getTruckData { (data) in
+            print(data?[0].name ?? "name")
+            print(data?[0].openTime.dateValue() ?? Data.self)
+            
+            DispatchQueue.main.async {
+                 self.lobbyView.reloadData()
+            }
+        }
     }
 }
 
 extension LobbyViewController: LobbyViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return FirebaseManager.shared.truckData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -37,6 +49,9 @@ extension LobbyViewController: LobbyViewDelegate {
             withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.truckName.text = FirebaseManager.shared.truckData[indexPath.row].name
+        
         return cell
     }
 }
