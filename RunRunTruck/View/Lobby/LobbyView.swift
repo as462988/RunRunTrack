@@ -48,6 +48,16 @@ class LobbyView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setCollectionView()
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 123.123123, longitude: 123.123123, zoom: 15)
+        mapView.camera = camera
+    }
+    
+    func marker(){
+        let position = CLLocationCoordinate2D(latitude: lat, longitude: long)  // lat & long must be Double
+        let marker = GMSMarker(position: position)
+        marker.title = "Hello World"  // 用家按下marker時會顯示出來
+        marker.map = routeDetailMapView
     }
     
     func reloadData() {

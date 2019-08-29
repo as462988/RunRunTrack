@@ -39,6 +39,7 @@ class LobbyViewController: UIViewController {
 }
 
 extension LobbyViewController: LobbyViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return FirebaseManager.shared.truckData.count
     }

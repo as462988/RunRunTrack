@@ -21,6 +21,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.truckName.text = name
         self.openTime.text = openTime
         self.closeTime.text = closeTime
-        
     }
+    
+    
 }
