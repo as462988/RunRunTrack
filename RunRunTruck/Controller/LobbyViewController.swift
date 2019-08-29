@@ -50,13 +50,16 @@ extension LobbyViewController: LobbyViewDelegate {
             return UICollectionViewCell()
         }
         
-        let openTime = FirebaseManager.dateConvertString(date: FirebaseManager.shared.truckData[indexPath.row].openTime.dateValue())
+        let data = FirebaseManager.shared.truckData[indexPath.row]
         
-        let colseTime = FirebaseManager.dateConvertString(date: FirebaseManager.shared.truckData[indexPath.row].closeTime.dateValue())
+        let openTime = FirebaseManager.dateConvertString(
+            date: data.openTime.dateValue())
         
-        cell.truckName.text = FirebaseManager.shared.truckData[indexPath.row].name
-        cell.openTime.text = openTime
-        cell.closeTime.text = colseTime
+        let colseTime = FirebaseManager.dateConvertString(
+            date: data.closeTime.dateValue())
+        
+        cell.setValue(name: data.name, openTime: openTime, closeTime: colseTime, logoImage: data.logoImage)
+
         return cell
     }
 }

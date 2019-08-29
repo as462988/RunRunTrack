@@ -14,4 +14,13 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var truckName: UILabel!
      @IBOutlet weak var openTime: UILabel!
      @IBOutlet weak var closeTime: UILabel!
+    
+    func setValue(name: String, openTime: String, closeTime: String, logoImage: String) {
+        
+        self.logoImage.loadImage(logoImage)
+        self.truckName.text = name
+        self.openTime.text = openTime
+        self.closeTime.text = closeTime
+        
+    }
 }

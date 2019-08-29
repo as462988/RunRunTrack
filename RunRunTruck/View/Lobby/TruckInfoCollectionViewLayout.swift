@@ -16,9 +16,11 @@ class TruckInfoCollectionViewLayout: UICollectionViewFlowLayout {
         scrollDirection = .horizontal
         
         let inset = (collectionView!.frame.size.width - itemSize.width) * 0.5
-        sectionInset = UIEdgeInsets(top: 10, left: inset, bottom: 10, right: inset)
+        sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 10, right: inset)
         
     }
+    
+    var flatWidth: CGFloat = 0
     
     override open var collectionViewContentSize: CGSize {
         if collectionView == nil { return CGSize.zero }
@@ -26,6 +28,7 @@ class TruckInfoCollectionViewLayout: UICollectionViewFlowLayout {
         let itemsCount = CGFloat(collectionView!.numberOfItems(inSection: 0))
         return CGSize(width: collectionView!.bounds.width * itemsCount,
                       height: collectionView!.bounds.height)
+    
     }
     
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
