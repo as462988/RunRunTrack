@@ -25,13 +25,13 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.openTime.text = openTime
         self.closeTime.text = closeTime
     }
-    
+     // swiftlint:disable line_length
     @IBAction func clickGoogleMapBtn() {
         if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            UIApplication.shared.open(URL(string:
-                "comgooglemaps://?center=\(latitude),\(longitude)&zoom=14")!)
+            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&center=\(latitude),\(longitude)&directionsmode=driving&zoom=17")!)
         } else {
             print("Can't use comgooglemaps://")
         }
     }
 }
+// swiftlint:eable line_length
