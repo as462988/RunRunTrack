@@ -9,7 +9,7 @@
 import UIKit
 
 class LobbyViewController: UIViewController {
-
+    
     @IBOutlet weak var lobbyView: LobbyView! {
         
         didSet {
@@ -18,22 +18,25 @@ class LobbyViewController: UIViewController {
         }
     }
     
+    var index: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
         
         FirebaseManager.shared.getTruckData { (data) in
-            print(data?[0].name ?? "name")
-            print(data?[0].openTime.dateValue() ?? Data.self)
-
+            
             DispatchQueue.main.async {
-                self.lobbyView.marker(lat: FirebaseManager.shared.truckData[0].location.latitude,
-                                      long: FirebaseManager.shared.truckData[0].location.longitude)
                 self.lobbyView.reloadData()
+                
+                for dataInfo in FirebaseManager.shared.truckData {
+                    self.lobbyView.marker(lat: dataInfo.location.latitude,
+                                          long: dataInfo.location.longitude,
+                                          name: dataInfo.name)
+                }
             }
         }
     }
-    
 }
 
 extension LobbyViewController: LobbyViewDelegate {
@@ -46,7 +49,7 @@ extension LobbyViewController: LobbyViewDelegate {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
-            return UICollectionViewCell()
+                return UICollectionViewCell()
         }
         
         let data = FirebaseManager.shared.truckData[indexPath.row]
@@ -60,7 +63,7 @@ extension LobbyViewController: LobbyViewDelegate {
         cell.setValue(name: data.name, openTime: openTime, closeTime: colseTime, logoImage: data.logoImage)
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
-
+        
         return cell
     }
 }

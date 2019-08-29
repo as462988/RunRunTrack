@@ -56,13 +56,13 @@ class LobbyView: UIView {
         
     }
     
-    func marker(lat: Double, long: Double) {
+    func marker(lat: Double, long: Double, name: String) {
         let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let marker = GMSMarker(position: position)
         marker.icon = UIImage.asset(.Icon_default)
-        marker.title = FirebaseManager.shared.truckData[0].name// 用家按下marker時會顯示出來
+        marker.title = name// 用家按下marker時會顯示出來
         marker.map = mapView
-        print("aaa")
+
     }
     
     func reloadData() {

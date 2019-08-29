@@ -24,7 +24,6 @@ private enum Tab {
         switch self {
         case .lobby:
             controller = UIStoryboard.lobby.instantiateInitialViewController()!
-    
         case .profile:
             controller = UIStoryboard.profile.instantiateInitialViewController()!
         case .truck:

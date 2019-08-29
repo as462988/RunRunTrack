@@ -34,5 +34,4 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
             print("Can't use comgooglemaps://")
         }
     }
-
 }
