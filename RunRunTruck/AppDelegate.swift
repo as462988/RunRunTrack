@@ -12,6 +12,11 @@ import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    // swiftlint:disable force_cast
+    static let shared = UIApplication.shared.delegate as! AppDelegate
+
+    // swiftlint:enable force_cast
 
     var window: UIWindow?
 
@@ -21,21 +26,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(Bundle.ValueForString(key: Constant.googleMapKey))
         
         return true
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
     }
 }
