@@ -22,6 +22,16 @@ class LobbyViewController: UIViewController {
         super.viewDidLoad()
     navigationController?.isNavigationBarHidden = true
         
+//        FirebaseManager.shared.getTruckData { (data) in
+//            print(data?[0].name ?? "name")
+//            print(data?[0].openTime.dateValue() ?? Data.self)
+//
+//            DispatchQueue.main.async {
+//                self.lobbyView.marker(lat: FirebaseManager.shared.truckData[0].location.latitude,
+//                                      long: FirebaseManager.shared.truckData[0].location.latitude)
+//                self.lobbyView.reloadData()
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +42,10 @@ class LobbyViewController: UIViewController {
             print(data?[0].openTime.dateValue() ?? Data.self)
             
             DispatchQueue.main.async {
-                 self.lobbyView.reloadData()
+                self.lobbyView.reloadData()
+                self.lobbyView.marker(lat: FirebaseManager.shared.truckData[1].location.latitude,
+                                      long: FirebaseManager.shared.truckData[1].location.longitude)
+//                self.lobbyView.marker(lat: 25.033128, long: 121.565806)
             }
         }
     }
@@ -60,7 +73,8 @@ extension LobbyViewController: LobbyViewDelegate {
             date: data.closeTime.dateValue())
         
         cell.setValue(name: data.name, openTime: openTime, closeTime: colseTime, logoImage: data.logoImage)
-
+        
+        print(data.location)
         return cell
     }
 }

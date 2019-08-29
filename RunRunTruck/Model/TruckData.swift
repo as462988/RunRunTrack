@@ -21,6 +21,9 @@ enum Truck: String {
     case openTime
     
     case closeTime
+    
+    case location
+
 }
 
 struct TruckData {
@@ -35,12 +38,15 @@ struct TruckData {
 
     let closeTime: Timestamp
     
+    let location: GeoPoint
+    
     init(_ id: String, _ name: String, _ logoImage: String,
-         _ openTime: Timestamp, _ closeTime: Timestamp) {
+         _ openTime: Timestamp, _ closeTime: Timestamp, _ location: GeoPoint) {
         self.id = id
         self.name = name
         self.logoImage = logoImage
         self.openTime = openTime
         self.closeTime = closeTime
+        self.location = location
     }
 }

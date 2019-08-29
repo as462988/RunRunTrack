@@ -22,6 +22,4 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.openTime.text = openTime
         self.closeTime.text = closeTime
     }
-    
-    
 }

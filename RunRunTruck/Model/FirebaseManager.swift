@@ -38,22 +38,23 @@ class FirebaseManager {
                 completion(nil)
                 return
             }
-            
+    
             for document in snapshot.documents {
                 
                 guard let name = document.data()[Truck.name.rawValue] as? String,
                     let logoImage = document.data()[Truck.logoImage.rawValue] as? String,
-                let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
-                let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp else {return}
+                    let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
+                    let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp,
+                let location = document.data()[Truck.location.rawValue] as? GeoPoint else {return}
              
-                let truck = TruckData(document.documentID, name, logoImage, openTimestamp, closeTimestamp)
+                let truck = TruckData(document.documentID, name, logoImage,
+                                      openTimestamp, closeTimestamp, location)
                 
                 self.truckData.append(truck)
-
             }
             completion(self.truckData)
         }
         
     }
-    
+
 }

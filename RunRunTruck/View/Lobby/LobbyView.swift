@@ -10,7 +10,8 @@ import UIKit
 import GoogleMaps
 
 protocol LobbyViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject {
-
+    
+//    func getLocation()
 }
 
 class LobbyView: UIView {
@@ -49,20 +50,25 @@ class LobbyView: UIView {
         super.awakeFromNib()
         setCollectionView()
         
-        let camera = GMSCameraPosition.camera(withLatitude: 123.123123, longitude: 123.123123, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
+//        mapView.showsUserLocation = true
+        
     }
     
-    func marker(){
-        let position = CLLocationCoordinate2D(latitude: lat, longitude: long)  // lat & long must be Double
+    func marker(lat: Double, long: Double) {
+        let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let marker = GMSMarker(position: position)
-        marker.title = "Hello World"  // 用家按下marker時會顯示出來
-        marker.map = routeDetailMapView
+        marker.icon = UIImage.asset(.Icon_default)
+        marker.title = FirebaseManager.shared.truckData[0].name// 用家按下marker時會顯示出來
+        marker.map = mapView
+        print("aaa")
     }
     
     func reloadData() {
 
         truckCollectionView.reloadData()
+
     }
     
     private func setCollectionView() {
