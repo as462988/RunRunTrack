@@ -155,6 +155,7 @@
                                                     <outlet property="closeTime" destination="QtK-fv-14Q" id="16j-Yk-Ekt"/>
                                                     <outlet property="logoImage" destination="gkk-ss-phs" id="pOd-Dr-FFk"/>
                                                     <outlet property="openTime" destination="N9v-ky-H3d" id="TiC-7H-sgl"/>
+                                                    <outlet property="truckLocation" destination="Mzk-XW-dSc" id="w57-jf-CXf"/>
                                                     <outlet property="truckName" destination="UUH-9V-A93" id="SVZ-jB-Dc0"/>
                                                 </connections>
                                             </collectionViewCell>

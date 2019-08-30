@@ -12,6 +12,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var truckName: UILabel!
+    @IBOutlet weak var truckLocation: UILabel!
      @IBOutlet weak var openTime: UILabel!
      @IBOutlet weak var closeTime: UILabel!
     
@@ -24,6 +25,10 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.truckName.text = name
         self.openTime.text = openTime
         self.closeTime.text = closeTime
+    }
+    
+    func showTruckLocation(_ text: String) {
+        truckLocation.text = text
     }
      // swiftlint:disable line_length
     @IBAction func clickGoogleMapBtn() {

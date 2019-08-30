@@ -19,6 +19,13 @@ class LobbyViewController: UIViewController {
     }
     
     var index: Int = 0
+    var address: [String] = [] {
+        
+        didSet {
+            
+            lobbyView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +34,21 @@ class LobbyViewController: UIViewController {
         FirebaseManager.shared.getTruckData { (data) in
             
             DispatchQueue.main.async {
-                self.lobbyView.reloadData()
-                
+    
                 for dataInfo in FirebaseManager.shared.truckData {
                     self.lobbyView.marker(lat: dataInfo.location.latitude,
                                           long: dataInfo.location.longitude,
                                           name: dataInfo.name)
+                    self.lobbyView.getLocation(lat: dataInfo.location.latitude,
+                                               long: dataInfo.location.longitude,
+                                               completion: { [weak self](data) in
+                                                self?.address.append(data)
+                                                print(self?.address)
+                    })
+                    
+                    self.lobbyView.reloadData()
                 }
+
             }
         }
     }
@@ -60,7 +75,11 @@ extension LobbyViewController: LobbyViewDelegate {
         let colseTime = FirebaseManager.dateConvertString(
             date: data.closeTime.dateValue())
         
-        cell.setValue(name: data.name, openTime: openTime, closeTime: colseTime, logoImage: data.logoImage)
+        cell.setValue(name: data.name,
+                      openTime: openTime,
+                      closeTime: colseTime,
+                      logoImage: data.logoImage)
+
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         

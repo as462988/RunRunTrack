@@ -8,10 +8,11 @@
 
 import UIKit
 import GoogleMaps
+import CoreLocation
+import Contacts
 
 protocol LobbyViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject {
     
-//    func getLocation()
 }
 
 class LobbyView: UIView {
@@ -52,7 +53,6 @@ class LobbyView: UIView {
         
         let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
-//        mapView.showsUserLocation = true
         
     }
     
@@ -65,10 +65,31 @@ class LobbyView: UIView {
 
     }
     
+    func getLocation(lat: Double, long: Double, completion: @escaping (String) -> Void ) {
+        let address = CLGeocoder.init()
+        address.reverseGeocodeLocation(CLLocation.init(latitude: lat, longitude: long)) {(places, error) in
+            
+            var location: String = ""
+            
+            guard error == nil  else {return}
+            
+                if let place = places?.first {
+                    
+                    if let address = place.postalAddress {
+                        
+                        location = address.subAdministrativeArea + address.city + address.street
+                        
+                        print(location)
+                    }
+                }
+            
+            completion(location)
+        }
+    }
+    
     func reloadData() {
 
         truckCollectionView.reloadData()
-
     }
     
     private func setCollectionView() {
