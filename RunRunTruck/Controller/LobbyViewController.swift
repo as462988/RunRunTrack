@@ -29,8 +29,7 @@ class LobbyViewController: UIViewController {
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
                 self.lobbyView.marker(lat: dataInfo.location.latitude,
-                                      long: dataInfo.location.longitude,
-                                      name: dataInfo.name)
+                                      long: dataInfo.location.longitude)
                 
                 self.lobbyView.getLocation(lat: dataInfo.location.latitude,
                                            long: dataInfo.location.longitude,
@@ -83,9 +82,9 @@ extension LobbyViewController: LobbyViewDelegate {
         
         return cell
     }
- 
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-
+        
         var indexNum = Int()
         
         for (index, data) in FirebaseManager.shared.truckData.enumerated() {
@@ -109,8 +108,25 @@ extension LobbyViewController: LobbyViewDelegate {
         return true
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+    
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        print("按我按我")
+        
+        if let myLocation = lobbyView.locationManager.location {
+            
+            let camera = GMSCameraPosition.camera(withLatitude: myLocation.coordinate.latitude,
+                                                  longitude: myLocation.coordinate.longitude ,
+                                                  zoom: 15)
+            mapView.animate(to: camera)
+            
+        } else {
+            print("User's location is unknown")
+        }
         return true
     }
     

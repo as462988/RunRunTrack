@@ -11,12 +11,14 @@ import GoogleMaps
 import CoreLocation
 import Contacts
 
-protocol LobbyViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject, GMSMapViewDelegate {
+protocol LobbyViewDelegate: UICollectionViewDelegate,
+    UICollectionViewDataSource, GMSMapViewDelegate,
+CLLocationManagerDelegate, AnyObject {
     
 }
 
 class LobbyView: UIView {
-
+    
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {
@@ -29,9 +31,9 @@ class LobbyView: UIView {
     
     @IBOutlet weak var mapView: GMSMapView! {
         
-         didSet {
+        didSet {
             
-         mapView.delegate = self.delegate
+            mapView.delegate = self.delegate
             
         }
     }
@@ -47,8 +49,12 @@ class LobbyView: UIView {
             truckCollectionView.delegate = self.delegate
             
             mapView.delegate = self.delegate
+            
+            locationManager.delegate = self.delegate
         }
     }
+    
+    var locationManager = CLLocationManager() 
     
     lazy var cardLayout: TruckInfoCollectionViewLayout = {
         let layout = TruckInfoCollectionViewLayout()
@@ -58,44 +64,68 @@ class LobbyView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         setCollectionView()
+        
+        setMapView()
+        
+        getCurrentLocation()
+        
+    }
+    
+    func setMapView() {
         
         let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
         mapView.settings.myLocationButton = true
+        mapView.isMyLocationEnabled = true
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 160, right: 0)
         
     }
     
-    func marker(lat: Double, long: Double, name: String) {
+    func marker(lat: Double, long: Double) {
+        
         let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let marker = GMSMarker(position: position)
         marker.icon = UIImage.asset(.Icon_default)
-        marker.title = name// 用家按下marker時會顯示出來
         marker.map = mapView
-
+        
     }
-
+    
+    func getCurrentLocation() {
+        
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self.delegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            
+        }
+    }
+    
     func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> ()) {
         let locale = Locale(identifier: "zh_TW")
-
+        
         let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
-
-            CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
-
-                guard let placemark = placemarks?.first, error == nil else {
-
-                    UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-
-                     completion(nil, error)
-
-                    return
-                }
-                 completion(placemark.postalAddress, nil)
+        
+        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
+            
+            guard let placemark = placemarks?.first, error == nil else {
+                
+                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+                
+                completion(nil, error)
+                
+                return
             }
+            completion(placemark.postalAddress, nil)
+        }
     }
     
     func reloadData() {
-
+        
         truckCollectionView.reloadData()
     }
     
