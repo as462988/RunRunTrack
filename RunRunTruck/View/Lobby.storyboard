@@ -68,7 +68,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mzk-XW-dSc">
-                                                            <rect key="frame" x="68" y="50" width="31" height="14.5"/>
+                                                            <rect key="frame" x="108.5" y="50" width="31" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.2156862745" green="0.050980392159999999" blue="0.0" alpha="0.69822880990000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -144,7 +144,8 @@
                                                     <constraint firstItem="beu-Rl-8pE" firstAttribute="top" secondItem="Jy8-uZ-3h6" secondAttribute="bottom" constant="5" id="bFZ-kq-Z77"/>
                                                     <constraint firstItem="Jy8-uZ-3h6" firstAttribute="centerX" secondItem="c01-q4-YWD" secondAttribute="centerX" id="bIk-aV-gza"/>
                                                     <constraint firstItem="QtK-fv-14Q" firstAttribute="centerY" secondItem="Jy8-uZ-3h6" secondAttribute="centerY" id="chz-km-7aG"/>
-                                                    <constraint firstItem="Mzk-XW-dSc" firstAttribute="leading" secondItem="UUH-9V-A93" secondAttribute="leading" id="eZw-Cz-xBU"/>
+                                                    <constraint firstItem="Mzk-XW-dSc" firstAttribute="leading" secondItem="N9v-ky-H3d" secondAttribute="leading" id="eZw-Cz-xBU"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mzk-XW-dSc" secondAttribute="trailing" id="fTk-AC-vJ2"/>
                                                     <constraint firstItem="N9v-ky-H3d" firstAttribute="centerY" secondItem="Jy8-uZ-3h6" secondAttribute="centerY" id="j3J-UG-xQg"/>
                                                     <constraint firstItem="beu-Rl-8pE" firstAttribute="centerX" secondItem="c01-q4-YWD" secondAttribute="centerX" id="mTs-TY-j7y"/>
                                                     <constraint firstItem="N9v-ky-H3d" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="c01-q4-YWD" secondAttribute="leading" id="n3o-SM-KiK"/>

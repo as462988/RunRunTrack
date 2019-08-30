@@ -40,6 +40,8 @@ struct TruckData {
     
     let location: GeoPoint
     
+    var address: String = ""
+    
     init(_ id: String, _ name: String, _ logoImage: String,
          _ openTime: Timestamp, _ closeTime: Timestamp, _ location: GeoPoint) {
         self.id = id

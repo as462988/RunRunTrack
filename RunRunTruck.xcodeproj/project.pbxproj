@@ -28,6 +28,7 @@
 		09329DD8231779AE003C851A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09329DD7231779AE003C851A /* Assets.xcassets */; };
 		09329DDB2317C33F003C851A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDA2317C33F003C851A /* Constant.swift */; };
 		09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDC2317CAE4003C851A /* Bundle+Extension.swift */; };
+		09329DDF2318F81C003C851A /* TruckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDE2318F81B003C851A /* TruckListViewController.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		09329DD7231779AE003C851A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09329DDA2317C33F003C851A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		09329DDC2317CAE4003C851A /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		09329DDE2318F81B003C851A /* TruckListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckListViewController.swift; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 			children = (
 				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
+				09329DDE2318F81B003C851A /* TruckListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
+				09329DDF2318F81C003C851A /* TruckListViewController.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,

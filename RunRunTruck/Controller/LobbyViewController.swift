@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+import CoreLocation
 
 class LobbyViewController: UIViewController {
     
@@ -19,36 +21,32 @@ class LobbyViewController: UIViewController {
     }
     
     var index: Int = 0
-    var address: [String] = [] {
-        
-        didSet {
-            
-            lobbyView.reloadData()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
         
         FirebaseManager.shared.getTruckData { (data) in
-            
-            DispatchQueue.main.async {
-    
-                for dataInfo in FirebaseManager.shared.truckData {
-                    self.lobbyView.marker(lat: dataInfo.location.latitude,
-                                          long: dataInfo.location.longitude,
-                                          name: dataInfo.name)
-                    self.lobbyView.getLocation(lat: dataInfo.location.latitude,
-                                               long: dataInfo.location.longitude,
-                                               completion: { [weak self](data) in
-                                                self?.address.append(data)
-                                                print(self?.address)
-                    })
-                    
-                    self.lobbyView.reloadData()
-                }
-
+            for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
+                self.lobbyView.marker(lat: dataInfo.location.latitude,
+                                      long: dataInfo.location.longitude,
+                                      name: dataInfo.name)
+                
+                self.lobbyView.getLocation(lat: dataInfo.location.latitude,
+                                           long: dataInfo.location.longitude,
+                                           completion: { [weak self](location, error) in
+                                            
+                                            guard let location = location else {return}
+                                            
+                                            let address = location.subAdministrativeArea
+                                                + location.city + location.street
+                                            
+                                            FirebaseManager.shared.truckData[index].address = address
+                                            
+                                            DispatchQueue.main.async {
+                                                self?.lobbyView.reloadData()
+                                            }
+                })
             }
         }
     }
@@ -79,10 +77,32 @@ extension LobbyViewController: LobbyViewDelegate {
                       openTime: openTime,
                       closeTime: colseTime,
                       logoImage: data.logoImage)
-
+        cell.showTruckLocation(data.address)
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         
         return cell
     }
+ 
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        print(marker.position.latitude)
+        
+        self.lobbyView.truckCollectionView.scrollToItem(
+            at: IndexPath(row: 2, section: 0),
+            at: .centeredHorizontally,
+            animated: true)
+        
+        lobbyView.reloadData()
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+         print("我被按了～～～")
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        print("按我按我")
+        return true
+    }
+    
 }

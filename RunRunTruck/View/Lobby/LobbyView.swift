@@ -11,7 +11,7 @@ import GoogleMaps
 import CoreLocation
 import Contacts
 
-protocol LobbyViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject {
+protocol LobbyViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject, GMSMapViewDelegate {
     
 }
 
@@ -27,7 +27,14 @@ class LobbyView: UIView {
         }
     }
     
-    @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var mapView: GMSMapView! {
+        
+         didSet {
+            
+         mapView.delegate = self.delegate
+            
+        }
+    }
     
     weak var delegate: LobbyViewDelegate? {
         
@@ -38,6 +45,8 @@ class LobbyView: UIView {
             truckCollectionView.dataSource = self.delegate
             
             truckCollectionView.delegate = self.delegate
+            
+            mapView.delegate = self.delegate
         }
     }
     
@@ -53,6 +62,7 @@ class LobbyView: UIView {
         
         let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
+        mapView.settings.myLocationButton = true
         
     }
     
@@ -64,27 +74,24 @@ class LobbyView: UIView {
         marker.map = mapView
 
     }
-    
-    func getLocation(lat: Double, long: Double, completion: @escaping (String) -> Void ) {
-        let address = CLGeocoder.init()
-        address.reverseGeocodeLocation(CLLocation.init(latitude: lat, longitude: long)) {(places, error) in
-            
-            var location: String = ""
-            
-            guard error == nil  else {return}
-            
-                if let place = places?.first {
-                    
-                    if let address = place.postalAddress {
-                        
-                        location = address.subAdministrativeArea + address.city + address.street
-                        
-                        print(location)
-                    }
+
+    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> ()) {
+        let locale = Locale(identifier: "zh_TW")
+
+        let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
+
+            CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
+
+                guard let placemark = placemarks?.first, error == nil else {
+
+                    UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+
+                     completion(nil, error)
+
+                    return
                 }
-            
-            completion(location)
-        }
+                 completion(placemark.postalAddress, nil)
+            }
     }
     
     func reloadData() {
@@ -96,4 +103,15 @@ class LobbyView: UIView {
         truckCollectionView.showsHorizontalScrollIndicator = false
         truckCollectionView.collectionViewLayout = cardLayout
     }
+}
+
+extension LobbyView: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        print("我被按了～～～")
+        
+        return true
+    }
+    
 }
