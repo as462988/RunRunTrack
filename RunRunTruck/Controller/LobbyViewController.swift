@@ -87,17 +87,24 @@ extension LobbyViewController: LobbyViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print(marker.position.latitude)
         
+        var indexNum = Int()
+        
+        for (index, num) in FirebaseManager.shared.truckData.enumerated() {
+            
+            if marker.position.latitude == num.location.latitude {
+                
+                indexNum = index
+                print(indexNum)
+            }
+        }
+        
         self.lobbyView.truckCollectionView.scrollToItem(
-            at: IndexPath(row: 2, section: 0),
+            at: IndexPath(row: indexNum, section: 0),
             at: .centeredHorizontally,
             animated: true)
         
         lobbyView.reloadData()
         return true
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-         print("我被按了～～～")
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
