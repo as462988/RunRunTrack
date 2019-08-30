@@ -101,6 +101,11 @@ extension LobbyViewController: LobbyViewDelegate {
             at: .centeredHorizontally,
             animated: true)
         
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude,
+                                              longitude: marker.position.longitude ,
+                                              zoom: 15)
+        mapView.animate(to: camera)
+        
         return true
     }
     
