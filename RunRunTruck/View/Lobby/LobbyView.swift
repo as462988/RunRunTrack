@@ -104,14 +104,3 @@ class LobbyView: UIView {
         truckCollectionView.collectionViewLayout = cardLayout
     }
 }
-
-extension LobbyView: GMSMapViewDelegate {
-    
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        print("我被按了～～～")
-        
-        return true
-    }
-    
-}

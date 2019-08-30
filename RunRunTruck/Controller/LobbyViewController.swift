@@ -85,16 +85,14 @@ extension LobbyViewController: LobbyViewDelegate {
     }
  
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        print(marker.position.latitude)
-        
+
         var indexNum = Int()
         
-        for (index, num) in FirebaseManager.shared.truckData.enumerated() {
+        for (index, data) in FirebaseManager.shared.truckData.enumerated() {
             
-            if marker.position.latitude == num.location.latitude {
+            if marker.position.latitude == data.location.latitude {
                 
                 indexNum = index
-                print(indexNum)
             }
         }
         
@@ -103,7 +101,6 @@ extension LobbyViewController: LobbyViewDelegate {
             at: .centeredHorizontally,
             animated: true)
         
-        lobbyView.reloadData()
         return true
     }
     
