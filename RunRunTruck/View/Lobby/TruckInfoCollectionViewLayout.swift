@@ -20,8 +20,6 @@ class TruckInfoCollectionViewLayout: UICollectionViewFlowLayout {
         
     }
     
-//    var flatWidth: CGFloat = CGFloat(FirebaseManager.shared.truckData.count)
-    
     override open var collectionViewContentSize: CGSize {
         if collectionView == nil { return CGSize.zero }
 

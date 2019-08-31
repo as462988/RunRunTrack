@@ -17,15 +17,16 @@ CLLocationManagerDelegate, AnyObject {
     
 }
 
-class LobbyView: UIView {
+class LobbyView: UIView, UICollectionViewDelegate {
+    static let cardItemSize: CGSize = CGSize(width: 200, height: 130)
     
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {
             
             truckCollectionView.dataSource = self.delegate
-            
             truckCollectionView.delegate = self.delegate
+            
         }
     }
     
@@ -58,7 +59,7 @@ class LobbyView: UIView {
     
     lazy var cardLayout: TruckInfoCollectionViewLayout = {
         let layout = TruckInfoCollectionViewLayout()
-        layout.itemSize = CGSize(width: 200, height: 130)
+        layout.itemSize = LobbyView.cardItemSize
         return layout
     }()
     
@@ -71,6 +72,12 @@ class LobbyView: UIView {
         
         getCurrentLocation()
         
+        print("contentSize: \(truckCollectionView.contentSize)")
+//        self.truckCollectionView.
+//        self.truckCollectionView.addObserver(self,
+//        forKeyPath: #keyPath(UIScrollView.contentOffset),
+//        options: .new, context: nil)
+
     }
     
     func setMapView() {
@@ -92,6 +99,14 @@ class LobbyView: UIView {
         
     }
     
+    func updataMapView(lat: Double, long: Double) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lat,
+                                              longitude: long ,
+                                              zoom: 15)
+        mapView.animate(to: camera)
+    }
+    
     func getCurrentLocation() {
         
         locationManager.requestAlwaysAuthorization()
@@ -105,7 +120,7 @@ class LobbyView: UIView {
         }
     }
     
-    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> ()) {
+    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
         let locale = Locale(identifier: "zh_TW")
         
         let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
@@ -133,4 +148,16 @@ class LobbyView: UIView {
         truckCollectionView.showsHorizontalScrollIndicator = false
         truckCollectionView.collectionViewLayout = cardLayout
     }
+    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        if keyPath == #keyPath(UIScrollView.contentOffset) {
+//            if let offset = change?[NSKeyValueChangeKey.newKey] as? CGPoint {
+////                print(offset.x.truncatingRemainder(dividingBy: LobbyView.cardItemSize.width) == CGFloat.zero)
+////                if offset.x.truncatingRemainder(dividingBy: LobbyView.cardItemSize.width) == CGFloat.zero {
+////
+////                }
+//                print(offset.x)
+//            }
+//        }
+//    }
 }
