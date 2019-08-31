@@ -91,7 +91,7 @@
                                                             <color key="textColor" red="0.2156862745" green="0.050980392159999999" blue="0.0" alpha="0.69822880990000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="gkk-ss-phs">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_logo" translatesAutoresizingMaskIntoConstraints="NO" id="gkk-ss-phs">
                                                             <rect key="frame" x="18" y="10" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="gkk-ss-phs" secondAttribute="height" multiplier="1:1" id="9Nj-zu-UGA"/>
@@ -266,6 +266,7 @@
         <image name="Icon_Info" width="170.66667175292969" height="170.66667175292969"/>
         <image name="Icon_conversation" width="170.66667175292969" height="170.66667175292969"/>
         <image name="Icon_default" width="66.666664123535156" height="66.666664123535156"/>
+        <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
         <image name="Icon_truck" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>

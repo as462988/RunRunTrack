@@ -19,17 +19,21 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     
-    func setValue(name: String, openTime: String, closeTime: String, logoImage: String) {
+    func setValue(name: String, openTime: String, closeTime: String, logoImage: String, truckLocationText: String) {
         
-        self.logoImage.loadImage(logoImage)
+//        self.logoImage.loadImage(logoImage)
         self.truckName.text = name
         self.openTime.text = openTime
         self.closeTime.text = closeTime
+        self.truckLocation.text = truckLocationText
+        
+        if logoImage != "" {
+            self.logoImage.loadImage(logoImage)
+        } else {
+              self.logoImage.image = UIImage.asset(.Icon_logo)
+        }
     }
     
-    func showTruckLocation(_ text: String) {
-        truckLocation.text = text
-    }
      // swiftlint:disable line_length
     @IBAction func clickGoogleMapBtn() {
         if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {

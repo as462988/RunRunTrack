@@ -148,16 +148,4 @@ class LobbyView: UIView, UICollectionViewDelegate {
         truckCollectionView.showsHorizontalScrollIndicator = false
         truckCollectionView.collectionViewLayout = cardLayout
     }
-    
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        if keyPath == #keyPath(UIScrollView.contentOffset) {
-//            if let offset = change?[NSKeyValueChangeKey.newKey] as? CGPoint {
-////                print(offset.x.truncatingRemainder(dividingBy: LobbyView.cardItemSize.width) == CGFloat.zero)
-////                if offset.x.truncatingRemainder(dividingBy: LobbyView.cardItemSize.width) == CGFloat.zero {
-////
-////                }
-//                print(offset.x)
-//            }
-//        }
-//    }
 }

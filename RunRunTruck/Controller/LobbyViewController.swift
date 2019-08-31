@@ -76,37 +76,14 @@ extension LobbyViewController: LobbyViewDelegate {
         cell.setValue(name: data.name,
                       openTime: openTime,
                       closeTime: colseTime,
-                      logoImage: data.logoImage)
-        cell.showTruckLocation(data.address)
+                      logoImage: data.logoImage,
+                      truckLocationText: data.address)
+        print(FirebaseManager.shared.truckData[6].logoImage)
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        willDisplay cell: UICollectionViewCell,
-//                        forItemAt indexPath: IndexPath) {
-//
-//        let  cellCenter = cell.center.x - cell.bounds.width * CGFloat(indexPath.row) - 10.0 * CGFloat(indexPath.row)
-//
-//        print(indexPath.row)
-//
-//        print(Int(cellCenter) )
-//
-//        print(Int(UIScreen.main.bounds.width / 2))
-//
-//        guard Int(UIScreen.main.bounds.width / 2) == Int(cellCenter) else {return}
-//
-//        if indexPath.row != 0 {
-//
-//            lobbyView.updataMapView(lat: FirebaseManager.shared.truckData[indexPath.row-1].location.latitude,
-//                                    long: FirebaseManager.shared.truckData[indexPath.row-1].location.longitude)
-//        }
-////
-////        lobbyView.updataMapView(lat: FirebaseManager.shared.truckData[indexPath.row].location.latitude,
-////                                long: FirebaseManager.shared.truckData[indexPath.row].location.longitude)
-//    }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
