@@ -13,8 +13,20 @@ enum ImageAsset: String {
      // swiftlint:disable identifier_name
     case Icon_default
     
+    case Icon_logo
+    
+    case Icon_home
+    
+    case Icon_info
+    
+    case Icon_car
+    
+    case Icon_brdge
+    
+    case Icon_profile
+    // swiftlint:enable identifier_name
 }
-// swiftlint:enable identifier_name
+
 extension UIImage {
     
     static func asset(_ asset: ImageAsset) -> UIImage? {

@@ -6,9 +6,11 @@ target 'RunRunTruck' do
   use_frameworks!
 
   # Pods for RunRunTruck
+   pod 'Kingfisher'
    pod 'SwiftLint'
    pod 'Firebase/Auth'
    pod 'Firebase/Firestore'
+   pod 'Firebase/Storage'
    pod 'GoogleMaps'
    pod 'GooglePlaces'
    
