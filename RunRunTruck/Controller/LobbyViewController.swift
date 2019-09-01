@@ -29,7 +29,8 @@ class LobbyViewController: UIViewController {
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
                 self.lobbyView.marker(lat: dataInfo.location.latitude,
-                                      long: dataInfo.location.longitude)
+                                      long: dataInfo.location.longitude,
+                                      index: index)
                 
                 self.lobbyView.getLocation(lat: dataInfo.location.latitude,
                                            long: dataInfo.location.longitude,
@@ -81,6 +82,7 @@ extension LobbyViewController: LobbyViewDelegate {
         print(FirebaseManager.shared.truckData[6].logoImage)
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
+        cell.layer.cornerRadius = 20
         
         return cell
     }
@@ -146,7 +148,9 @@ extension LobbyViewController: LobbyViewDelegate {
             targetIndex = roundPage == 0 || roundPage == -1 ? 0 : Int(roundPage)
         }
         
-        lobbyView.truckCollectionView.scrollToItem(at: IndexPath(row: targetIndex, section: 0), at: .centeredHorizontally, animated: true)
+        lobbyView.truckCollectionView.scrollToItem(at: IndexPath(row: targetIndex, section: 0),
+                                                   at: .centeredHorizontally,
+                                                   animated: true)
         
         let location = FirebaseManager.shared.truckData[targetIndex].location
         

@@ -90,11 +90,15 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
     }
     
-    func marker(lat: Double, long: Double) {
+    func marker(lat: Double, long: Double, index: Int) {
         
         let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let marker = GMSMarker(position: position)
+
+//        let iconImage = UIImage(named: FirebaseManager.shared.truckData[index].logoImage)
+//        marker.icon = iconImage
         marker.icon = UIImage.asset(.Icon_default)
+        marker.setIconSize(scaledToSize: .init(width: 40.0, height: 40.0))
         marker.map = mapView
         
     }
@@ -148,4 +152,5 @@ class LobbyView: UIView, UICollectionViewDelegate {
         truckCollectionView.showsHorizontalScrollIndicator = false
         truckCollectionView.collectionViewLayout = cardLayout
     }
+
 }
