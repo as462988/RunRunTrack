@@ -26,7 +26,6 @@ class LobbyViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
       
-        
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
                 
@@ -85,6 +84,7 @@ extension LobbyViewController: LobbyViewDelegate {
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         cell.layer.cornerRadius = 20
+        cell.clipsToBounds = true
         
         return cell
     }

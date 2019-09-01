@@ -18,7 +18,7 @@ CLLocationManagerDelegate, AnyObject {
 }
 
 class LobbyView: UIView, UICollectionViewDelegate {
-    static let cardItemSize: CGSize = CGSize(width: 200, height: 130)
+    static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
     
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
@@ -38,9 +38,6 @@ class LobbyView: UIView, UICollectionViewDelegate {
             
         }
     }
-    
-    var marker: GMSMarker?
-    var markerIconImage: UIImageView?
     
     weak var delegate: LobbyViewDelegate? {
         
@@ -83,35 +80,51 @@ class LobbyView: UIView, UICollectionViewDelegate {
         mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
-        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 160, right: 0)
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
         
     }
     
     func marker(lat: Double, long: Double, index: Int) {
         
         let iconImage = FirebaseManager.shared.truckData[index].logoImage
-
-        let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        let marker = GMSMarker(position: position)
+        
+        let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+        
         if let url = URL(string: iconImage) {
             
-            URLSession.shared.dataTask(with: url) { (data, rsp, err) in
+            URLSession.shared.dataTask(with: url) { [weak self] (data, rsp, err) in
+                
                 DispatchQueue.main.async {
-                    let img = UIImage(data: data!)
-                    let imgView = UIImageView(image: img)
                     
-                    imgView.frame.size = CGSize(width: 50, height: 50)
-                    imgView.contentMode = .scaleAspectFill
-                    imgView.layer.cornerRadius = 25
-                    imgView.clipsToBounds = true
-                    marker.title = "icon"
-                    marker.iconView = imgView
-                    marker.tracksViewChanges = true
-                    marker.map = self.mapView
-                    self.marker = marker
+                    guard let img = UIImage(data: data!) else {return}
+                    
+                     self?.setIconImage(marker: marker, img: img)
                 }
             }.resume()
+        } else {
+            
+            guard let img = UIImage.asset(.Icon_logo) else {return}
+            
+            self.setIconImage(marker: marker, img: img)
+            
         }
+    }
+    
+    func setIconImage(marker: GMSMarker, img: UIImage) {
+        
+        let img = img
+        let imgView = UIImageView(image: img)
+        imgView.frame.size = CGSize(width: 50, height: 50)
+        imgView.contentMode = .scaleAspectFill
+        imgView.layer.cornerRadius = 25
+        imgView.clipsToBounds = true
+        imgView.layer.borderWidth = 3
+        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
+        
+        marker.iconView = imgView
+        marker.tracksViewChanges = true
+        marker.map = self.mapView
+        
     }
     
     func updataMapView(lat: Double, long: Double) {

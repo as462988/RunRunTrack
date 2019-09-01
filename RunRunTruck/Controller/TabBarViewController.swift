@@ -34,7 +34,7 @@ private enum Tab {
         
         controller.tabBarItem = tabBarItem()
         
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: 0.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 5.0, left: 0.0, bottom: -5.0, right: 0.0)
         
         return controller
     }
@@ -45,29 +45,29 @@ private enum Tab {
         case .lobby:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_default),
-                selectedImage: UIImage.asset(.Icon_default)
+                image: UIImage.asset(.Icon_home),
+                selectedImage: UIImage.asset(.Icon_home)
             )
             
         case .truck:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_default),
-                selectedImage: UIImage.asset(.Icon_default)
+                image: UIImage.asset(.Icon_car),
+                selectedImage: UIImage.asset(.Icon_car)
             )
             
         case .badge:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_default),
-                selectedImage: UIImage.asset(.Icon_default)
+                image: UIImage.asset(.Icon_brdge),
+                selectedImage: UIImage.asset(.Icon_brdge)
             )
             
         case .profile:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_default),
-                selectedImage: UIImage.asset(.Icon_default)
+                image: UIImage.asset(.Icon_profile),
+                selectedImage: UIImage.asset(.Icon_profile)
             )
         }
     }
@@ -75,7 +75,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController {
 
-    private let tabs: [Tab] = [.lobby, .profile, .badge, .truck]
+    private let tabs: [Tab] = [.lobby, .truck, .badge, .profile]
     
     override func viewDidLoad() {
         super.viewDidLoad()
