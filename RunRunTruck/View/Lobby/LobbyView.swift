@@ -39,6 +39,9 @@ class LobbyView: UIView, UICollectionViewDelegate {
         }
     }
     
+    var marker: GMSMarker?
+    var markerIconImage: UIImageView?
+    
     weak var delegate: LobbyViewDelegate? {
         
         didSet {
@@ -72,12 +75,6 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
         getCurrentLocation()
         
-        print("contentSize: \(truckCollectionView.contentSize)")
-//        self.truckCollectionView.
-//        self.truckCollectionView.addObserver(self,
-//        forKeyPath: #keyPath(UIScrollView.contentOffset),
-//        options: .new, context: nil)
-
     }
     
     func setMapView() {
@@ -92,15 +89,29 @@ class LobbyView: UIView, UICollectionViewDelegate {
     
     func marker(lat: Double, long: Double, index: Int) {
         
+        let iconImage = FirebaseManager.shared.truckData[index].logoImage
+
         let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let marker = GMSMarker(position: position)
-
-//        let iconImage = UIImage(named: FirebaseManager.shared.truckData[index].logoImage)
-//        marker.icon = iconImage
-        marker.icon = UIImage.asset(.Icon_default)
-        marker.setIconSize(scaledToSize: .init(width: 40.0, height: 40.0))
-        marker.map = mapView
-        
+        if let url = URL(string: iconImage) {
+            
+            URLSession.shared.dataTask(with: url) { (data, rsp, err) in
+                DispatchQueue.main.async {
+                    let img = UIImage(data: data!)
+                    let imgView = UIImageView(image: img)
+                    
+                    imgView.frame.size = CGSize(width: 50, height: 50)
+                    imgView.contentMode = .scaleAspectFill
+                    imgView.layer.cornerRadius = 25
+                    imgView.clipsToBounds = true
+                    marker.title = "icon"
+                    marker.iconView = imgView
+                    marker.tracksViewChanges = true
+                    marker.map = self.mapView
+                    self.marker = marker
+                }
+            }.resume()
+        }
     }
     
     func updataMapView(lat: Double, long: Double) {

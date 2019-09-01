@@ -25,9 +25,11 @@ class LobbyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
-        //監聽collectionView contentOffset 變動
+      
+        
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
+                
                 self.lobbyView.marker(lat: dataInfo.location.latitude,
                                       long: dataInfo.location.longitude,
                                       index: index)
