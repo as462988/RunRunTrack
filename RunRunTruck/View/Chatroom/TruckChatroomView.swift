@@ -73,12 +73,21 @@ class ChatRoomView: UIView {
         return view
     }()
     
+    var alertText: UILabel = {
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.textColor = UIColor(r: 61, g: 61, b: 61)
+        text.textAlignment = .center
+        return text
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.backgroundColor = .white
         self.addSubview(containerView)
         self.addSubview(msgCollectionView)
+        self.addSubview(alertText)
         
         msgCollectionView.delegate = self.delegate
         msgCollectionView.dataSource = self.delegate
@@ -102,7 +111,11 @@ class ChatRoomView: UIView {
             containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 60)
+            containerView.heightAnchor.constraint(equalToConstant: 60),
+            
+            alertText.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            alertText.bottomAnchor.constraint(equalTo: self.containerView.topAnchor, constant: -10),
+            alertText.widthAnchor.constraint(equalTo: self.widthAnchor)
             ])
         
         containerView.addSubview(inputTextField)

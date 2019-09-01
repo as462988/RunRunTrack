@@ -60,7 +60,7 @@ class BadgeViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
- 
+        self.navigationController?.tabBarController?.tabBar.isHidden = false
     }
         
     func getUserBadgeisAchieved() {

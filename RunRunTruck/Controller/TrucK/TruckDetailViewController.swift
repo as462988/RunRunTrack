@@ -37,8 +37,7 @@ class TruckDetailViewController: UIViewController {
         logoImageView.layer.masksToBounds = false
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
-        backBtnBg.clipsToBounds = true
-        
+        backBtnBg.clipsToBounds = true        
     }
     
     override func viewWillLayoutSubviews() {

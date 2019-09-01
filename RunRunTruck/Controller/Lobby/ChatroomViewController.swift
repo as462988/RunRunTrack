@@ -261,8 +261,13 @@ extension ChatroomViewController: ChatMessageCellDelegate {
         }
         
         guard messages[indexPath.item].name != truckData?.name else {
-            //Todo
-            print("封鎖老闆就看不到餐廳最新消息囉！")
+        
+            chatRoomView.alertText.text = "封鎖老闆就看不到餐廳最新消息囉！"
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.chatRoomView.alertText.text = ""
+            }
+            
             return
         }
         

@@ -96,61 +96,14 @@ class AuthViewController: UIViewController {
                 return
             }
             
-//            LKProgressHUD.show()
-            
             switch uiStatus {
             case .userLogin:
                 self?.userLogin()
-//                FirebaseManager.shared.listenUserData()
-//                FirebaseManager.shared.getCurrentUserData(completion: {[weak self] (data) in
-//                    guard data != nil else {
-//                        print("老闆使用了吃貨登入")
-//                        //老闆使用了吃貨登入, 提示請使用者使用老闆登入
-//                        do {
-//                            try Auth.auth().signOut()
-//                        } catch let err {
-//                            print(err.localizedDescription)
-//                        }
-//                        return
-//                    }
-//                    //吃貨登入成功
-//                    FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-////                    LKProgressHUD.showSuccess(text: "登入成功")
-//
-//                       DispatchQueue.main.async {
-//                           self?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                           guard let rootVC = AppDelegate.shared.window?.rootViewController
-//                               as? TabBarViewController else { return }
-//                           rootVC.tabBar.isHidden = false
-//                       }
-//                })
+                
             case .bossLogin:
                 
                 self?.bossLogin()
-//                FirebaseManager.shared.listenUserData()
-//                FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
-//                    guard bossData != nil else {
-//                        print("吃貨使用了老闆登入")
-//                        //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
-//                        do {
-//                            try Auth.auth().signOut()
-//                        } catch let err {
-//                            print(err.localizedDescription)
-//                        }
-//                        return
-//                    }
-//                    //老闆登入成功
-//                    FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-////                    LKProgressHUD.showSuccess(text: "登入成功")
-//
-//                    DispatchQueue.main.async {
-//                        self?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-//                            as? TabBarViewController else { return }
-//                        rootVC.tabBar.isHidden = false
-//                    }
-//                })
-                
+
             }
         
         }
@@ -176,7 +129,7 @@ class AuthViewController: UIViewController {
         //                    LKProgressHUD.showSuccess(text: "登入成功")
                                
                                DispatchQueue.main.async {
-                                   self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                                   self?.presentingViewController?.dismiss(animated: false, completion: nil)
                                    guard let rootVC = AppDelegate.shared.window?.rootViewController
                                        as? TabBarViewController else { return }
                                    rootVC.tabBar.isHidden = false
@@ -203,7 +156,7 @@ class AuthViewController: UIViewController {
         //                    LKProgressHUD.showSuccess(text: "登入成功")
                             
                             DispatchQueue.main.async {
-                                self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                                self?.presentingViewController?.dismiss(animated: false, completion: nil)
                                 guard let rootVC = AppDelegate.shared.window?.rootViewController
                                     as? TabBarViewController else { return }
                                 rootVC.tabBar.isHidden = false

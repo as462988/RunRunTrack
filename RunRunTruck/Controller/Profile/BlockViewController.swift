@@ -36,6 +36,11 @@ class BlockViewController: UIViewController {
     func getBlockUserName() {
         
         if let block = FirebaseManager.shared.currentUser?.block {
+            
+            guard block.count != 0 else {
+                return
+            }
+            
             for num in 0...block.count - 1 {
                 
                 FirebaseManager.shared.getBlockUserName(blockId: block[num]) { [weak self] (userName) in
