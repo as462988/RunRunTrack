@@ -63,7 +63,7 @@ class FirebaseManager {
     
     func setUserData(email: String) {
         
-        guard let uid = Auth.auth().currentUser?.uid else{return}
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
         db.collection("User").document(uid).setData(["email": email]) { error in
             
@@ -109,5 +109,18 @@ class FirebaseManager {
         }
     }
     
-    
+    func signOut() {
+       
+        let firebaseAuth = Auth.auth()
+        
+        do {
+            try firebaseAuth.signOut()
+            
+            self.userID = nil
+            
+        } catch let signOutError as NSError {
+            
+            print ("Error signing out: %@", signOutError)
+        }
+    }
 }

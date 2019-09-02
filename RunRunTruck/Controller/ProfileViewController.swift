@@ -14,4 +14,16 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
+    @IBAction func clickLogoOutBtn(_ sender: Any) {
+        
+        FirebaseManager.shared.signOut()
+        
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let root = appdelegate?.window?.rootViewController as? TabBarViewController
+        
+        root?.selectedIndex = 0
+
+    }
 }
