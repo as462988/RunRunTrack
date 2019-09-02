@@ -80,7 +80,7 @@ extension LobbyViewController: LobbyViewDelegate {
                       closeTime: colseTime,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
-        print(FirebaseManager.shared.truckData[6].logoImage)
+ 
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         cell.layer.cornerRadius = 20
@@ -89,47 +89,14 @@ extension LobbyViewController: LobbyViewDelegate {
         return cell
     }
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        var indexNum = Int()
-        
-        for (index, data) in FirebaseManager.shared.truckData.enumerated() where
-
-            marker.position.latitude == data.location.latitude {
-
-                indexNum = index
-        }
-
-        self.lobbyView.truckCollectionView.scrollToItem(
-            at: IndexPath(row: indexNum, section: 0),
-            at: .centeredHorizontally,
-            animated: true)
-        
-        self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
-
-        return true
-    }
-    
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        
-        if let myLocation = lobbyView.locationManager.location {
-            
-            self.lobbyView.updataMapView(lat: myLocation.coordinate.latitude,
-                                         long: myLocation.coordinate.longitude)
-            
-        } else {
-            print("User's location is unknown")
-        }
-        return true
-    }
-    
+    // MARK: - 滑動 collectionView (paging)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkPage()
         
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("scrollViewDidEndDragging")
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if !self.lobbyView.truckCollectionView.isDecelerating {
                 self.checkPage()
@@ -158,4 +125,63 @@ extension LobbyViewController: LobbyViewDelegate {
         
         lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
     }
+    
+    // MARK: - GoogleMap
+    // 點擊 marker
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        var indexNum = Int()
+        
+        for (index, data) in FirebaseManager.shared.truckData.enumerated() where
+
+            marker.position.latitude == data.location.latitude {
+
+                indexNum = index
+        }
+
+        self.lobbyView.truckCollectionView.scrollToItem(
+            at: IndexPath(row: indexNum, section: 0),
+            at: .centeredHorizontally,
+            animated: true
+        )
+        
+        self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
+
+        return true
+    }
+    
+    //點擊 MyLocationButton
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
+        if let myLocation = lobbyView.locationManager.location {
+            
+            self.lobbyView.updataMapView(lat: myLocation.coordinate.latitude,
+                                         long: myLocation.coordinate.longitude)
+            
+        } else {
+            print("User's location is unknown")
+            
+            let alertController = UIAlertController (title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
+            
+            let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
+                
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)") // Prints true
+                    })
+                }
+            }
+            alertController.addAction(settingsAction)
+            let cancelAction = UIAlertAction(title: "我知道了", style: .default, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        return true
+    }
+
 }
