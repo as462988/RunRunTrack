@@ -80,7 +80,7 @@ extension LobbyViewController: LobbyViewDelegate {
                       closeTime: colseTime,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
-        print(FirebaseManager.shared.truckData[6].logoImage)
+ 
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
         cell.layer.cornerRadius = 20
@@ -89,6 +89,45 @@ extension LobbyViewController: LobbyViewDelegate {
         return cell
     }
     
+    // MARK: - 滑動 collectionView (paging)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.checkPage()
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if !self.lobbyView.truckCollectionView.isDecelerating {
+                self.checkPage()
+            }
+        }
+    }
+    
+    func checkPage() {
+        let page = lobbyView.truckCollectionView.contentOffset.x / LobbyView.cardItemSize.width
+        
+        let roundPage = round(page)
+        
+        var targetIndex = 0
+        
+        if page - 0.5 >= roundPage {
+            targetIndex = Int(roundPage) + 1
+        } else {
+            targetIndex = roundPage == 0 || roundPage == -1 ? 0 : Int(roundPage)
+        }
+        
+        lobbyView.truckCollectionView.scrollToItem(at: IndexPath(row: targetIndex, section: 0),
+                                                   at: .centeredHorizontally,
+                                                   animated: true)
+        
+        let location = FirebaseManager.shared.truckData[targetIndex].location
+        
+        lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
+    }
+    
+    // MARK: - GoogleMap
+    // 點擊 marker
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         var indexNum = Int()
@@ -103,13 +142,15 @@ extension LobbyViewController: LobbyViewDelegate {
         self.lobbyView.truckCollectionView.scrollToItem(
             at: IndexPath(row: indexNum, section: 0),
             at: .centeredHorizontally,
-            animated: true)
+            animated: true
+        )
         
         self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
 
         return true
     }
     
+    //點擊 MyLocationButton
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         
         if let myLocation = lobbyView.locationManager.location {
@@ -142,40 +183,5 @@ extension LobbyViewController: LobbyViewDelegate {
         }
         return true
     }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.checkPage()
-        
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("scrollViewDidEndDragging")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if !self.lobbyView.truckCollectionView.isDecelerating {
-                self.checkPage()
-            }
-        }
-    }
-    
-    func checkPage() {
-        let page = lobbyView.truckCollectionView.contentOffset.x / LobbyView.cardItemSize.width
-        
-        let roundPage = round(page)
-        
-        var targetIndex = 0
-        
-        if page - 0.5 >= roundPage {
-            targetIndex = Int(roundPage) + 1
-        } else {
-            targetIndex = roundPage == 0 || roundPage == -1 ? 0 : Int(roundPage)
-        }
-        
-        lobbyView.truckCollectionView.scrollToItem(at: IndexPath(row: targetIndex, section: 0),
-                                                   at: .centeredHorizontally,
-                                                   animated: true)
-        
-        let location = FirebaseManager.shared.truckData[targetIndex].location
-        
-        lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
-    }
+
 }

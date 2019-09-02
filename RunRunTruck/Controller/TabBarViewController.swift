@@ -34,7 +34,7 @@ private enum Tab {
         
         controller.tabBarItem = tabBarItem()
         
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 5.0, left: 0.0, bottom: -5.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: -4.0, right: 0.0)
         
         return controller
     }
@@ -45,8 +45,8 @@ private enum Tab {
         case .lobby:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_home),
-                selectedImage: UIImage.asset(.Icon_home)
+                image: UIImage.asset(.Icon_default),
+                selectedImage: UIImage.asset(.Icon_default)
             )
             
         case .truck:
@@ -82,5 +82,4 @@ class TabBarViewController: UITabBarController {
 
         viewControllers = tabs.map({ $0.controller()})
     }
-    
 }
