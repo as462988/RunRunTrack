@@ -13,5 +13,6 @@ target 'RunRunTruck' do
    pod 'Firebase/Storage'
    pod 'GoogleMaps'
    pod 'GooglePlaces'
+   pod 'IQKeyboardManager'
    
 end

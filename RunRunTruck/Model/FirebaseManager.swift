@@ -14,11 +14,14 @@ import FirebaseStorage
 class FirebaseManager {
     
     static let shared = FirebaseManager()
+    
     var truckData: [TruckData] = []
     
     let db = Firestore.firestore()
     
     let storage = Storage.storage()
+    
+    var userID: String?
     
     static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let timeZone = TimeZone.init(identifier: "UTC")
@@ -28,10 +31,9 @@ class FirebaseManager {
         formatter.dateFormat = dateFormat
         let date = formatter.string(from: date)
         return date.components(separatedBy: " ").first!
-    }
+        }
     
     //讀取 truckData
-    
     func getTruckData(completion: @escaping ([TruckData]?) -> Void ) {
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error)  in
             guard let snapshot = snapshot else {
@@ -56,5 +58,69 @@ class FirebaseManager {
         }
         
     }
+    
+    //setUserData
+    
+    func setUserData(email: String) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("User").document(uid).setData(["email": email]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    // singUp
+    func singUpWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
 
+                guard error == nil else {
+                    
+                    //todo 顯示無法註冊的原因
+                    let errorCode = AuthErrorCode(rawValue: error!._code)
+                    print(errorCode?.errorMessage ?? "nil")
+              
+                    return
+                }
+                print("Success")
+                completion()
+        }
+    }
+    
+     // singIn
+    func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+
+        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+
+            guard error == nil else {
+                print("didn't singIn")
+                return
+            }
+
+            print("Success")
+            self?.userID = Auth.auth().currentUser?.uid
+            completion()
+        }
+    }
+    
+    func signOut() {
+       
+        let firebaseAuth = Auth.auth()
+        
+        do {
+            try firebaseAuth.signOut()
+            
+            self.userID = nil
+            
+        } catch let signOutError as NSError {
+            
+            print ("Error signing out: %@", signOutError)
+        }
+    }
 }
