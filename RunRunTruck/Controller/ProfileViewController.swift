@@ -8,11 +8,10 @@
 
 import UIKit
 
-class TruckListViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-
 }

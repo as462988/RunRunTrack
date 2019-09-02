@@ -45,8 +45,8 @@ private enum Tab {
         case .lobby:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_default),
-                selectedImage: UIImage.asset(.Icon_default)
+                image: UIImage.asset(.Icon_home),
+                selectedImage: UIImage.asset(.Icon_home)
             )
             
         case .truck:
@@ -73,7 +73,7 @@ private enum Tab {
     }
 }
 
-class TabBarViewController: UITabBarController {
+class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     private let tabs: [Tab] = [.lobby, .truck, .badge, .profile]
     
@@ -81,5 +81,33 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
 
         viewControllers = tabs.map({ $0.controller()})
+        
+        delegate = self
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        
+        guard let navVC = viewController as? UINavigationController,
+            navVC.viewControllers.first is ProfileViewController
+            else {
+                print("No")
+                return true
+                
+        }
+        
+        print("Yes")
+        
+        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            
+            authVC.modalPresentationStyle = .overCurrentContext
+            
+            authVC.navigationController?.isNavigationBarHidden = true
+            
+            present(authVC, animated: false, completion: nil)
+            
+        }
+        
+        return true
     }
 }
