@@ -21,6 +21,8 @@ class FirebaseManager {
     
     let storage = Storage.storage()
     
+    var userID: String?
+    
     static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let timeZone = TimeZone.init(identifier: "UTC")
         let formatter = DateFormatter()
@@ -32,7 +34,6 @@ class FirebaseManager {
         }
     
     //讀取 truckData
-    
     func getTruckData(completion: @escaping ([TruckData]?) -> Void ) {
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error)  in
             guard let snapshot = snapshot else {
@@ -57,10 +58,40 @@ class FirebaseManager {
         }
         
     }
+    
+    //setUserData
+    
+    func setUserData(email: String) {
+        
+        guard let userID = userID else {
+            return
+        }
+        
+        db.collection("User").document(userID).setData(["email": email]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+//rup4
+//        ref = db.collection("User").addDocument(data: [
+//            "email": email
+//        ]) { error in
+//            if let error = error {
+//                print("Error adding document: \(error)")
+//            } else {
+//                print("Document added with ID: \(ref!.documentID)")
+//            }
+//        }
+        
+    }
+    
     // singUp
     func singUpWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
         
-        Auth.auth().createUser(withEmail: email, password: psw) { (authResult, error) in
+        Auth.auth().createUser(withEmail: email, password: psw) { [weak self](authResult, error) in
 
                 guard error == nil else {
                     
@@ -69,7 +100,7 @@ class FirebaseManager {
               
                     return
                 }
-            
+            self?.userID = authResult?.user.uid
                 print("Success")
                 completion()
         }

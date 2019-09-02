@@ -62,6 +62,7 @@ class AuthSignUpViewController: UIViewController {
         FirebaseManager.shared.singUpWithEmail(email: email, psw: psw) {
             
                 self.presentingViewController?.dismiss(animated: false, completion: nil)
+                FirebaseManager.shared.setUserData(email: email)
         }
     }
 }
