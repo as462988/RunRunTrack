@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class AuthViewController: UIViewController {
     
@@ -18,6 +20,9 @@ class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        contentView.layer.cornerRadius = 10
+        contentView.clipsToBounds = true
 
     }
     
@@ -34,6 +39,15 @@ class AuthViewController: UIViewController {
         
         authVC.modalPresentationStyle = .overCurrentContext
         present(authVC, animated: false, completion: nil)
+
+    }
+    
+    @IBAction func signIn(_ sender: Any) {
         
+        guard let email = emailTextField.text,
+            let psw = pswTextField.text else { return }
+        
+//        FirebaseManager.shared.singInWithEmail(email: email, psw: psw,completion: )
+
     }
 }

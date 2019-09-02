@@ -10,6 +10,7 @@
 		090AFB5E231CC8660072E646 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 090AFB5D231CC8660072E646 /* Auth.storyboard */; };
 		090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB60231CD51A0072E646 /* AuthViewController.swift */; };
 		090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */; };
+		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
 		091EEB6323153B0200BF066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6123153B0200BF066F /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		090AFB5D231CC8660072E646 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Auth.storyboard; path = Lobby/Auth.storyboard; sourceTree = "<group>"; };
 		090AFB60231CD51A0072E646 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSignUpViewController.swift; sourceTree = "<group>"; };
+		090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				091EEB8223157F4200BF066F /* UIImage+Extension.swift */,
 				09329DDC2317CAE4003C851A /* Bundle+Extension.swift */,
 				09329DE0231BBBB2003C851A /* UIColor+Extension.swift */,
+				090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
+				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,

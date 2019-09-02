@@ -91,18 +91,13 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         guard let navVC = viewController as? UINavigationController,
             navVC.viewControllers.first is ProfileViewController
             else {
-                print("No")
                 return true
                 
         }
-        
-        print("Yes")
-        
+
         if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
             
             authVC.modalPresentationStyle = .overCurrentContext
-            
-            authVC.navigationController?.isNavigationBarHidden = true
             
             present(authVC, animated: false, completion: nil)
             

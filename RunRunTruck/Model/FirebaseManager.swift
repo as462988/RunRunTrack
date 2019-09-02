@@ -14,6 +14,7 @@ import FirebaseStorage
 class FirebaseManager {
     
     static let shared = FirebaseManager()
+    
     var truckData: [TruckData] = []
     
     let db = Firestore.firestore()
@@ -28,7 +29,7 @@ class FirebaseManager {
         formatter.dateFormat = dateFormat
         let date = formatter.string(from: date)
         return date.components(separatedBy: " ").first!
-    }
+        }
     
     //讀取 truckData
     
@@ -56,5 +57,40 @@ class FirebaseManager {
         }
         
     }
+    // singUp
+    func singUpWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().createUser(withEmail: email, password: psw) { (authResult, error) in
 
+                guard error == nil else {
+                    
+                    let errorCode = AuthErrorCode(rawValue: error!._code)
+                    print(errorCode?.errorMessage ?? "nil")
+              
+                    return
+                }
+            
+                print("Success")
+                completion()
+        }
+    }
+    
+     // singIn
+//    func singInWithEmail(email: String, psw: String, completion: @escaping (Result<Void>) -> Void) {
+//
+//        Auth.auth().signIn(withEmail: email, password: psw) { [weak self] (user, error) in
+//
+//
+//            guard error == nil else {
+//
+//                print("didn't singIn")
+//                completion(Result.failure(error!))
+//                return
+//            }
+//
+//            print("Success")
+//            completion(Result.success(()))
+//        }
+//
+//    }
 }

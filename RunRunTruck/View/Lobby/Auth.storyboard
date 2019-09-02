@@ -65,6 +65,9 @@
                                         <state key="normal" title="會員登入">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signIn:" destination="MSr-eX-sMf" eventType="touchUpInside" id="caZ-xm-cJ2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1N-Sv-aa1">
                                         <rect key="frame" x="142.5" y="297" width="129" height="34"/>
@@ -232,6 +235,9 @@
                                         <state key="normal" title="會員登入">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signUpBTN:" destination="ObB-RV-ldp" eventType="touchUpInside" id="Xu7-mg-IVp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6W-0d-4oE">
                                         <rect key="frame" x="374" y="24" width="24" height="24"/>
@@ -296,6 +302,7 @@
                         <viewLayoutGuide key="safeArea" id="L0k-Jg-vUF"/>
                     </view>
                     <connections>
+                        <outlet property="contentView" destination="kvx-YN-g1d" id="z6F-DY-7JL"/>
                         <outlet property="emailTextField" destination="MWC-ry-YIO" id="5Cd-5c-Ur6"/>
                         <outlet property="pswConfirmTextField" destination="lwW-aY-KDG" id="z5G-qc-xIt"/>
                         <outlet property="pswTextField" destination="f6U-nq-GqO" id="jWp-Ay-lW3"/>
