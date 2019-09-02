@@ -63,11 +63,9 @@ class FirebaseManager {
     
     func setUserData(email: String) {
         
-        guard let userID = userID else {
-            return
-        }
+        guard let uid = Auth.auth().currentUser?.uid else{return}
         
-        db.collection("User").document(userID).setData(["email": email]) { error in
+        db.collection("User").document(uid).setData(["email": email]) { error in
             
             if let error = error {
                 print("Error adding document: \(error)")
@@ -75,53 +73,41 @@ class FirebaseManager {
                 print("Document successfully written!")
             }
         }
-//rup4
-//        ref = db.collection("User").addDocument(data: [
-//            "email": email
-//        ]) { error in
-//            if let error = error {
-//                print("Error adding document: \(error)")
-//            } else {
-//                print("Document added with ID: \(ref!.documentID)")
-//            }
-//        }
-        
     }
     
     // singUp
     func singUpWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
         
-        Auth.auth().createUser(withEmail: email, password: psw) { [weak self](authResult, error) in
+        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
 
                 guard error == nil else {
                     
+                    //todo 顯示無法註冊的原因
                     let errorCode = AuthErrorCode(rawValue: error!._code)
                     print(errorCode?.errorMessage ?? "nil")
               
                     return
                 }
-            self?.userID = authResult?.user.uid
                 print("Success")
                 completion()
         }
     }
     
      // singIn
-//    func singInWithEmail(email: String, psw: String, completion: @escaping (Result<Void>) -> Void) {
-//
-//        Auth.auth().signIn(withEmail: email, password: psw) { [weak self] (user, error) in
-//
-//
-//            guard error == nil else {
-//
-//                print("didn't singIn")
-//                completion(Result.failure(error!))
-//                return
-//            }
-//
-//            print("Success")
-//            completion(Result.success(()))
-//        }
-//
-//    }
+    func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+
+        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+
+            guard error == nil else {
+                print("didn't singIn")
+                return
+            }
+
+            print("Success")
+            self?.userID = Auth.auth().currentUser?.uid
+            completion()
+        }
+    }
+    
+    
 }

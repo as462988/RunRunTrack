@@ -47,7 +47,9 @@ class AuthViewController: UIViewController {
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
-//        FirebaseManager.shared.singInWithEmail(email: email, psw: psw,completion: )
-
+        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) {
+            
+            self.presentingViewController?.dismiss(animated: false, completion: nil)
+        }
     }
 }

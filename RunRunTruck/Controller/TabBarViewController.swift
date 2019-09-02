@@ -89,18 +89,18 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                           shouldSelect viewController: UIViewController) -> Bool {
         
         guard let navVC = viewController as? UINavigationController,
-            navVC.viewControllers.first is ProfileViewController
-            else {
-                return true
+            navVC.viewControllers.first is ProfileViewController else { return true }
+        
+        if FirebaseManager.shared.userID == nil {
+            
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
                 
-        }
-
-        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                present(authVC, animated: false, completion: nil)
+            }
             
-            authVC.modalPresentationStyle = .overCurrentContext
-            
-            present(authVC, animated: false, completion: nil)
-            
+             return false
         }
         
         return true
