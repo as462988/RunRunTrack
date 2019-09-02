@@ -14,13 +14,15 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
     
-    @IBOutlet weak var loginBTN: UIButton!
+    @IBOutlet weak var singInBtn: UIButton!
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pswTextField.delegate = self
+        emailTextField.delegate = self
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
 
@@ -42,7 +44,7 @@ class AuthViewController: UIViewController {
 
     }
     
-    @IBAction func signIn(_ sender: Any) {
+    @IBAction func clickSingInBtn(_ sender: Any) {
         
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
@@ -50,6 +52,25 @@ class AuthViewController: UIViewController {
         FirebaseManager.shared.singInWithEmail(email: email, psw: psw) {
             
             self.presentingViewController?.dismiss(animated: false, completion: nil)
+        }
+    }
+}
+
+extension AuthViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let email = emailTextField.text, let psw = pswTextField.text else {
+            singInBtn.isEnabled = false
+            singInBtn.alpha = 0.5
+            return
+        }
+        if !email.isEmpty && !psw.isEmpty {
+            singInBtn.isEnabled = true
+            singInBtn.alpha = 1
+        } else {
+            singInBtn.isEnabled = false
+            singInBtn.alpha = 0.5
         }
     }
 }

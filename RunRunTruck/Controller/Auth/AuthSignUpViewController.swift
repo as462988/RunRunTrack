@@ -47,18 +47,6 @@ class AuthSignUpViewController: UIViewController {
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
-//        Auth.auth().createUser(withEmail: email, password: psw) { [weak self](authResult, error) in
-//            guard error == nil else {
-//                print(error)
-//                return
-//            }
-//
-//            // useAlert
-//
-//            print("Success")
-//            self?.presentingViewController?.dismiss(animated: false, completion: nil)
-//        }
-        
         FirebaseManager.shared.singUpWithEmail(email: email, psw: psw) {
             
                 self.presentingViewController?.dismiss(animated: false, completion: nil)

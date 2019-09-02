@@ -84,13 +84,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		090AFB5F231CD4FF0072E646 /* New Group */ = {
+		090AFB5F231CD4FF0072E646 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				090AFB60231CD51A0072E646 /* AuthViewController.swift */,
 				090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */,
 			);
-			path = "New Group";
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		091EEB5123153B0200BF066F = {
@@ -146,7 +146,7 @@
 		091EEB7323156BEE00BF066F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				090AFB5F231CD4FF0072E646 /* New Group */,
+				090AFB5F231CD4FF0072E646 /* Auth */,
 				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				09329DDE2318F81B003C851A /* ProfileViewController.swift */,

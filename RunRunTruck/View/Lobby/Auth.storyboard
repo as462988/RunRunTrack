@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AEU-EO-bqN">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-wJ-qqt">
@@ -66,7 +66,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="signIn:" destination="MSr-eX-sMf" eventType="touchUpInside" id="caZ-xm-cJ2"/>
+                                            <action selector="clickSingInBtn:" destination="MSr-eX-sMf" eventType="touchUpInside" id="FGk-kA-8aS"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1N-Sv-aa1">
@@ -114,7 +114,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="AEU-EO-bqN" firstAttribute="top" secondItem="xmE-Lo-MK5" secondAttribute="top" constant="44" id="5lO-H2-O25"/>
+                            <constraint firstItem="AEU-EO-bqN" firstAttribute="top" secondItem="xmE-Lo-MK5" secondAttribute="top" id="5lO-H2-O25"/>
                             <constraint firstItem="ls1-Dr-xff" firstAttribute="trailing" secondItem="QUF-wJ-qqt" secondAttribute="trailing" id="8pg-g2-Rio"/>
                             <constraint firstItem="AEU-EO-bqN" firstAttribute="leading" secondItem="ls1-Dr-xff" secondAttribute="leading" id="RIA-zX-CXZ"/>
                             <constraint firstAttribute="bottom" secondItem="AEU-EO-bqN" secondAttribute="bottom" id="lPb-cg-W6Y"/>
@@ -127,8 +127,8 @@
                     <connections>
                         <outlet property="contentView" destination="QUF-wJ-qqt" id="aag-oC-zeW"/>
                         <outlet property="emailTextField" destination="uM7-5F-OfL" id="Fvy-bS-vqf"/>
-                        <outlet property="loginBTN" destination="X8Z-5i-fcS" id="cgw-WV-nVi"/>
                         <outlet property="pswTextField" destination="c6U-n5-cN0" id="zu0-55-GYA"/>
+                        <outlet property="singInBtn" destination="X8Z-5i-fcS" id="kHa-jk-On9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOX-Mu-gvZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5p-hf-E9l">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvx-YN-g1d">
@@ -294,7 +294,7 @@
                             <constraint firstAttribute="bottom" secondItem="kvx-YN-g1d" secondAttribute="bottom" constant="20" id="07n-MZ-6UB"/>
                             <constraint firstItem="L0k-Jg-vUF" firstAttribute="trailing" secondItem="b5p-hf-E9l" secondAttribute="trailing" id="RcQ-j0-acT"/>
                             <constraint firstItem="L0k-Jg-vUF" firstAttribute="bottom" secondItem="b5p-hf-E9l" secondAttribute="bottom" id="Rri-VH-fy0"/>
-                            <constraint firstItem="b5p-hf-E9l" firstAttribute="top" secondItem="L0k-Jg-vUF" secondAttribute="top" id="VsD-GR-WcD"/>
+                            <constraint firstItem="b5p-hf-E9l" firstAttribute="top" secondItem="u64-4s-CP2" secondAttribute="top" id="VsD-GR-WcD"/>
                             <constraint firstItem="b5p-hf-E9l" firstAttribute="leading" secondItem="L0k-Jg-vUF" secondAttribute="leading" id="ZYB-H2-mh0"/>
                             <constraint firstItem="kvx-YN-g1d" firstAttribute="trailing" secondItem="L0k-Jg-vUF" secondAttribute="trailing" id="gMq-2y-79Z"/>
                             <constraint firstItem="kvx-YN-g1d" firstAttribute="leading" secondItem="L0k-Jg-vUF" secondAttribute="leading" id="myJ-Fy-1CI"/>
