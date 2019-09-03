@@ -123,4 +123,9 @@ class FirebaseManager {
             print ("Error signing out: %@", signOutError)
         }
     }
+    
+    //creatChatRoom
+    func creatChatRoom() {
+        
+    }
 }

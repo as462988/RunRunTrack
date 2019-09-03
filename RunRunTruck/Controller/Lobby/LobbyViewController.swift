@@ -24,7 +24,6 @@ class LobbyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
       
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
@@ -52,6 +51,18 @@ class LobbyViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+         navigationController?.isNavigationBarHidden = true
+
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        self.hidesBottomBarWhenPushed = false
+//    }
 }
 
 extension LobbyViewController: LobbyViewDelegate {
@@ -86,7 +97,17 @@ extension LobbyViewController: LobbyViewDelegate {
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         
+        cell.clickChatRoomBtn.addTarget(self, action: #selector(showChatController), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func showChatController() {
+        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewLayout())
+        self.hidesBottomBarWhenPushed = true
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(chatroomVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
     
     // MARK: - 滑動 collectionView (paging)

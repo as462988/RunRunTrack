@@ -170,6 +170,7 @@
                                                     <constraint firstItem="UUH-9V-A93" firstAttribute="leading" secondItem="gkk-ss-phs" secondAttribute="trailing" constant="10" id="vZo-Kp-vnQ"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="clickChatRoomBtn" destination="A1s-wv-1b5" id="lN2-Mc-VSy"/>
                                                     <outlet property="closeTime" destination="QtK-fv-14Q" id="16j-Yk-Ekt"/>
                                                     <outlet property="logoImage" destination="gkk-ss-phs" id="pOd-Dr-FFk"/>
                                                     <outlet property="openTime" destination="N9v-ky-H3d" id="TiC-7H-sgl"/>

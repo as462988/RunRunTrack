@@ -13,8 +13,9 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var truckName: UILabel!
     @IBOutlet weak var truckLocation: UILabel!
-     @IBOutlet weak var openTime: UILabel!
-     @IBOutlet weak var closeTime: UILabel!
+    @IBOutlet weak var openTime: UILabel!
+    @IBOutlet weak var closeTime: UILabel!
+    @IBOutlet weak var clickChatRoomBtn: UIButton!
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
@@ -29,7 +30,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         if logoImage != "" {
             self.logoImage.loadImage(logoImage)
         } else {
-              self.logoImage.image = UIImage.asset(.Icon_logo)
+            self.logoImage.image = UIImage.asset(.Icon_logo)
         }
     
         setImage()
