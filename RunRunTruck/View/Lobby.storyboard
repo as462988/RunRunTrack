@@ -110,7 +110,7 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                             <state key="normal" title="導航" image="Icon_car">
-                                                                <color key="titleColor" red="0.22745098039215686" green="0.19607843137254902" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleColor" red="0.23918548226356506" green="0.23923307657241821" blue="0.23918247222900391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="clickGoogleMapBtn" destination="c01-q4-YWD" eventType="touchUpInside" id="c0v-S8-Med"/>

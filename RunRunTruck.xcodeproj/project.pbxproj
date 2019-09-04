@@ -37,6 +37,7 @@
 		093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093365F7231E49EB00F0D503 /* ChatMessageCell.swift */; };
 		09336628231ED11600F0D503 /* ChatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09336627231ED11600F0D503 /* ChatroomController.swift */; };
 		0933662A231EDD4A00F0D503 /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09336629231EDD4A00F0D503 /* ChatRoomView.swift */; };
+		0933664F231F97F400F0D503 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933664E231F97F400F0D503 /* Message.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		093365F7231E49EB00F0D503 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		09336627231ED11600F0D503 /* ChatroomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomController.swift; sourceTree = "<group>"; };
 		09336629231EDD4A00F0D503 /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
+		0933664E231F97F400F0D503 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 			children = (
 				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
+				0933664E231F97F400F0D503 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				09336628231ED11600F0D503 /* ChatroomController.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
+				0933664F231F97F400F0D503 /* Message.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,
 				091EEB882316587800BF066F /* LobbyView.swift in Sources */,
 				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
