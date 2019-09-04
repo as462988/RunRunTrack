@@ -20,7 +20,7 @@ class LobbyViewController: UIViewController {
         }
     }
     
-    var index: Int = 0
+//    var index: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +57,6 @@ class LobbyViewController: UIViewController {
          navigationController?.isNavigationBarHidden = true
 
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//        self.hidesBottomBarWhenPushed = false
-//    }
 }
 
 extension LobbyViewController: LobbyViewDelegate {
@@ -103,7 +97,8 @@ extension LobbyViewController: LobbyViewDelegate {
     }
     
     @objc func showChatController() {
-        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewLayout())
+        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
+        
         self.hidesBottomBarWhenPushed = true
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)
@@ -113,7 +108,6 @@ extension LobbyViewController: LobbyViewDelegate {
     // MARK: - 滑動 collectionView (paging)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkPage()
-        
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

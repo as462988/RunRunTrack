@@ -18,6 +18,7 @@ CLLocationManagerDelegate, AnyObject {
 }
 
 class LobbyView: UIView, UICollectionViewDelegate {
+    
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
     
     @IBOutlet weak var truckCollectionView: UICollectionView! {
