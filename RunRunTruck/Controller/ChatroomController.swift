@@ -15,16 +15,18 @@ class ChatroomController: UICollectionViewController {
 
     var chatRoomView = ChatRoomView()
     
-    var message = [Message]()
-    
-    let text = "Example: Chat Text, Example: Chat Text, Example: Chat Texthdheuhuihiuhruiheiurhiuehriuheri"
-    
+    var truckIndex: Int?
+
+    let text = "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text"
+    let text2 = "Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 70, right: 0)
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = .white
+        
         navigationItem.title = "Chatroom"
         
         chatRoomView.backgroundColor = .white
@@ -37,7 +39,17 @@ class ChatroomController: UICollectionViewController {
         view.addSubview(chatRoomView)
         setChatRoomViewLayout()
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        
+        chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        
+        chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
  
+    }
+    
+    
+    @objc func handleSend() {
+        
+        print(chatRoomView.inputTextField.text)
     }
     
     func setChatRoomViewLayout() {
@@ -68,22 +80,76 @@ class ChatroomController: UICollectionViewController {
             withReuseIdentifier: cellId,
             for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
 
-         chatCell.textView.text = text
-        
+        // 呼叫 setupCell
+        if indexPath.item % 3 == 1 {
+            
+            chatCell.textView.text = text
+            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
+            
+            chatCell.nameTextLabel.isHidden = true
+            chatCell.profileImageView.isHidden = true
+            chatCell.bubbleViewTopAnchor?.isActive = true
+            chatCell.bubbleViewTopAnchorWithName?.isActive = false
+            chatCell.bubbleTrailingAnchor?.isActive = true
+            chatCell.bubbleLeadingAnchor?.isActive = false
+            chatCell.bubbleViewHeightAnchor?.isActive = true
+            chatCell.bubbleViewheigHtAnchorWithName?.isActive = false
+        } else {
+            
+            chatCell.textView.text = text2
+            chatCell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            chatCell.textView.textColor = .black
+            
+            chatCell.bubbleTrailingAnchor?.isActive = false
+            chatCell.bubbleLeadingAnchor?.isActive = true
+            chatCell.profileImageView.isHidden = false
+            chatCell.nameTextLabel.isHidden = false
+            chatCell.bubbleViewTopAnchor?.isActive = false
+            chatCell.bubbleViewTopAnchorWithName?.isActive = true
+            
+            chatCell.bubbleViewHeightAnchor?.isActive = false
+            chatCell.bubbleViewheigHtAnchorWithName?.isActive = true
+
+        }
+
         chatCell.bubbleWidthAnchor?.constant = estimateFrameForText(text: self.text).width + 32
         
         return chatCell
 
+    }
+    //test -> message: Message
+    private func setupCell(cell: ChatMessageCell, test: String) {
+        //如果 uid ==  自己的id 執行
+//        if indexPath.item % 3 == 1 {
+//
+//            chatCell.textView.text = text
+//            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
+//
+//        } else {
+//
+//            chatCell.textView.text = text2
+//            chatCell.bubbleView.backgroundColor = .lightGray
+//        }
     }
     
     // 旋轉時不會跑版
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
 }
 
 extension ChatroomController: UICollectionViewDelegateFlowLayout {
-
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -93,8 +159,16 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
         
 //        if let text = message[indexPath.item].text {
 //
-            height = estimateFrameForText(text: self.text).height + 20
+//            height = estimateFrameForText(text: self.text).height + 20
 //        }
+        
+        if indexPath.item % 3 == 1 {
+            
+            height = estimateFrameForText(text: self.text).height + 20
+        } else {
+            
+            height = estimateFrameForText(text: self.text2).height + 70
+        }
         
         return CGSize(width: chatRoomView.frame.width, height: height)
     }

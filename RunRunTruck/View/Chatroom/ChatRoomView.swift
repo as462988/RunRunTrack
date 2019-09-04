@@ -23,7 +23,6 @@ class ChatRoomView: UIView {
         let button = UIButton(type: .system)
         button.setImage(UIImage.asset(.Icon_button), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         return button
     }()
     
@@ -32,7 +31,6 @@ class ChatRoomView: UIView {
         button.setTitle("Send", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         return button
     }()
     
@@ -59,10 +57,6 @@ class ChatRoomView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func handleSend() {
-        print("123")
     }
     
     func setupInputComponents() {

@@ -13,7 +13,7 @@
         <!--Auth View Controller-->
         <scene sceneID="uid-vI-2h8">
             <objects>
-                <viewController id="MSr-eX-sMf" customClass="AuthViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="MSr-eX-sMf" customClass="AuthViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xmE-Lo-MK5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

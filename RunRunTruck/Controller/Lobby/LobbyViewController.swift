@@ -20,7 +20,7 @@ class LobbyViewController: UIViewController {
         }
     }
     
-//    var index: Int = 0
+    var index: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +72,8 @@ extension LobbyViewController: LobbyViewDelegate {
                 return UICollectionViewCell()
         }
         
+        self.index = indexPath.row
+    
         let data = FirebaseManager.shared.truckData[indexPath.row]
         
         let openTime = FirebaseManager.dateConvertString(
@@ -97,9 +99,26 @@ extension LobbyViewController: LobbyViewDelegate {
     }
     
     @objc func showChatController() {
-        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        guard FirebaseManager.shared.userID != nil else {
+            
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                
+                authVC.modalPresentationStyle = .overCurrentContext
+                
+                present(authVC, animated: false, completion: nil)
+            }
+            
+            return
+        }
         
         self.hidesBottomBarWhenPushed = true
+        
+        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        chatroomVC.truckIndex = self.index
+        print(index)
+        
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)
         self.hidesBottomBarWhenPushed = false

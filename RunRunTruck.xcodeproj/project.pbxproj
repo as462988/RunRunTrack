@@ -122,7 +122,7 @@
 		091EEB5C23153B0200BF066F /* RunRunTruck */ = {
 			isa = PBXGroup;
 			children = (
-				09329DD92317C329003C851A /* New Group */,
+				09329DD92317C329003C851A /* Constant */,
 				091EEB922317586900BF066F /* Third Party Wrapper */,
 				091EEB7F23157E1400BF066F /* Extension */,
 				091EEB7423156BF900BF066F /* Model */,
@@ -204,12 +204,12 @@
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
-		09329DD92317C329003C851A /* New Group */ = {
+		09329DD92317C329003C851A /* Constant */ = {
 			isa = PBXGroup;
 			children = (
 				09329DDA2317C33F003C851A /* Constant.swift */,
 			);
-			path = "New Group";
+			path = Constant;
 			sourceTree = "<group>";
 		};
 		093365F4231E36F700F0D503 /* Chatroom */ = {
