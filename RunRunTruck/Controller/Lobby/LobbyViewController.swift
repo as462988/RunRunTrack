@@ -72,7 +72,7 @@ extension LobbyViewController: LobbyViewDelegate {
                 return UICollectionViewCell()
         }
         
-        self.index = indexPath.row
+//        self.index = indexPath.item - 1
     
         let data = FirebaseManager.shared.truckData[indexPath.row]
         
@@ -81,7 +81,8 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let colseTime = FirebaseManager.dateConvertString(
             date: data.closeTime.dateValue())
-        
+        cell.delegate = self
+        cell.configureWithTruckData(truckData: data)
         cell.setValue(name: data.name,
                       openTime: openTime,
                       closeTime: colseTime,
@@ -93,35 +94,8 @@ extension LobbyViewController: LobbyViewDelegate {
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         
-        cell.clickChatRoomBtn.addTarget(self, action: #selector(showChatController), for: .touchUpInside)
         
         return cell
-    }
-    
-    @objc func showChatController() {
-        
-        guard FirebaseManager.shared.userID != nil else {
-            
-            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                
-                authVC.modalPresentationStyle = .overCurrentContext
-                
-                present(authVC, animated: false, completion: nil)
-            }
-            
-            return
-        }
-        
-        self.hidesBottomBarWhenPushed = true
-        
-        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
-        
-        chatroomVC.truckIndex = self.index
-        print(index)
-        
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.pushViewController(chatroomVC, animated: true)
-        self.hidesBottomBarWhenPushed = false
     }
     
     // MARK: - 滑動 collectionView (paging)
@@ -218,4 +192,32 @@ extension LobbyViewController: LobbyViewDelegate {
         return true
     }
 
+}
+
+extension LobbyViewController: TurckInfoCellDelegate {
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
+        
+    }
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
+        
+        //        guard FirebaseManager.shared.userID != nil else {
+        //
+        //            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+        //
+        //                authVC.modalPresentationStyle = .overCurrentContext
+        //
+        //                present(authVC, animated: false, completion: nil)
+        //            }
+        //
+        //            return
+        //        }
+        
+        self.hidesBottomBarWhenPushed = true
+        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatroomVC.truckData = truckData
+
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(chatroomVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
+    }
 }

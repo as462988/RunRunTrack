@@ -12,14 +12,14 @@ import UIKit
 class ChatroomController: UICollectionViewController {
     
     let cellId = "chatroomCell"
-
+    
     var chatRoomView = ChatRoomView()
     
-    var truckIndex: Int?
-
+    var truckData: TruckData?
+    
     let text = "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text"
     let text2 = "Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +35,7 @@ class ChatroomController: UICollectionViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backToRoot))
-
+        
         view.addSubview(chatRoomView)
         setChatRoomViewLayout()
         collectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
@@ -43,13 +43,30 @@ class ChatroomController: UICollectionViewController {
         chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
- 
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        FirebaseManager.shared.getTruckId(truckName: self.truckData?.name ?? "nil")
+    }
     
     @objc func handleSend() {
+        guard let uid = FirebaseManager.shared.userID, let name = FirebaseManager.shared.currentUser?.name else {
+            return
+        }
         
-        print(chatRoomView.inputTextField.text)
+        if let text = chatRoomView.inputTextField.text {
+            
+            print(self.truckData?.name ?? "nil")
+        
+                FirebaseManager.shared.creatChatRoom(
+                    truckName: self.truckData?.name ?? "nil",
+                    uid: uid,
+                    name: name,
+                    text: text)
+        }
     }
     
     func setChatRoomViewLayout() {
@@ -62,24 +79,24 @@ class ChatroomController: UICollectionViewController {
             chatRoomView.heightAnchor.constraint(equalTo: chatRoomView.containerView.heightAnchor)
             ])
     }
-
+    
     @objc func backToRoot() {
-
+        
         self.navigationController?.popViewController(animated: false)
-
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-      guard let chatCell = collectionView.dequeueReusableCell(
+        
+        guard let chatCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellId,
             for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
-
+        
         // 呼叫 setupCell
         if indexPath.item % 3 == 1 {
             
@@ -109,32 +126,36 @@ class ChatroomController: UICollectionViewController {
             
             chatCell.bubbleViewHeightAnchor?.isActive = false
             chatCell.bubbleViewheigHtAnchorWithName?.isActive = true
-
+            
         }
-
+        
         chatCell.bubbleWidthAnchor?.constant = estimateFrameForText(text: self.text).width + 32
         
         return chatCell
-
+        
     }
     //test -> message: Message
     private func setupCell(cell: ChatMessageCell, test: String) {
         //如果 uid ==  自己的id 執行
-//        if indexPath.item % 3 == 1 {
-//
-//            chatCell.textView.text = text
-//            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
-//
-//        } else {
-//
-//            chatCell.textView.text = text2
-//            chatCell.bubbleView.backgroundColor = .lightGray
-//        }
+        //        if indexPath.item % 3 == 1 {
+        //
+        //            chatCell.textView.text = text
+        //            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
+        //
+        //        } else {
+        //
+        //            chatCell.textView.text = text2
+        //            chatCell.bubbleView.backgroundColor = .lightGray
+        //        }
     }
     
     // 旋轉時不會跑版
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -153,14 +174,14 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         var height: CGFloat = 80
         // 這邊要帶入收到的 message
         
-//        if let text = message[indexPath.item].text {
-//
-//            height = estimateFrameForText(text: self.text).height + 20
-//        }
+        //        if let text = message[indexPath.item].text {
+        //
+        //            height = estimateFrameForText(text: self.text).height + 20
+        //        }
         
         if indexPath.item % 3 == 1 {
             

@@ -17,9 +17,13 @@ class FirebaseManager {
     
     var truckData: [TruckData] = []
     
+    var currentUser: UserData?
+    
     let db = Firestore.firestore()
     
     let storage = Storage.storage()
+    
+    var truckID: String?
     
     var userID: String?
     
@@ -34,7 +38,7 @@ class FirebaseManager {
         }
     
     //讀取 truckData
-    func getTruckData(completion: @escaping ([TruckData]?) -> Void ) {
+    func getTruckData(completion: @escaping ([TruckData]?) -> Void) {
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error)  in
             guard let snapshot = snapshot else {
                 completion(nil)
@@ -60,18 +64,40 @@ class FirebaseManager {
     }
     
     //setUserData
-    
-    func setUserData(email: String) {
+    func setUserData(name: String, email: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("User").document(uid).setData(["email": email]) { error in
+        db.collection(User.user.rawValue).document(uid).setData([
+            User.name.rawValue: name,
+            User.email.rawValue: email]
+        ) { error in
             
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
                 print("Document successfully written!")
             }
+        }
+    }
+    
+    //getUserData
+    func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
+         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(User.user.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+            
+            guard let snapshot = snapshot else {
+                completion(nil)
+                return
+            }
+            
+            guard let name = snapshot.data()?[User.name.rawValue] as? String,
+                let email = snapshot.data()?[User.email.rawValue] as? String else { return }
+            
+            self?.currentUser = UserData(name: name, email: email)
+            
+            completion(self?.currentUser)
         }
     }
     
@@ -124,8 +150,40 @@ class FirebaseManager {
         }
     }
     
+    func getTruckId(truckName: String) {
+
+        db.collection(Truck.truck.rawValue).whereField(
+            Truck.name.rawValue,
+            isEqualTo: truckName).getDocuments {[weak self] (snapshot, error) in
+           
+            guard error == nil else {
+                print("Error getting documents")
+                return
+            }
+                for document in snapshot!.documents {
+                   self?.truckID = document.documentID
+
+            }
+        }
+
+    }
+    
     //creatChatRoom
-    func creatChatRoom() {
-        
+    func creatChatRoom(truckName: String, uid: String, name: String, text: String) {
+
+        guard let truckID = self.truckID else {return}
+        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
+            Truck.name.rawValue: name,
+            Truck.uid.rawValue: uid,
+            Truck.text.rawValue: text,
+            Truck.creatTime.rawValue: FieldValue.serverTimestamp()
+        ]) { (error) in
+
+            if let err = error {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
     }
 }

@@ -8,6 +8,16 @@
 
 import UIKit
 
+struct GeoLocation {
+    let lon: Double
+    let lat: Double
+}
+
+protocol TurckInfoCellDelegate {
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation )
+    //TODO: 前往資訊
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
+}
 class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
@@ -19,6 +29,14 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
+    var delegate: TurckInfoCellDelegate?
+    var truckData: TruckData?
+    
+    func configureWithTruckData(truckData: TruckData) {
+        self.truckData = truckData
+        clickChatRoomBtn.addTarget(self, action: #selector(onGotoChatRoom), for: .touchUpInside)
+    }
+    
     
     func setValue(name: String, openTime: String, closeTime: String, logoImage: String, truckLocationText: String) {
         
@@ -43,6 +61,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         } else {
             print("Can't use comgooglemaps://")
         }
+        //TODO: Delegate
     }
     // swiftlint:eable line_length
     
@@ -51,6 +70,12 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.logoImage.contentMode = .scaleAspectFill
         self.logoImage.layer.cornerRadius = self.logoImage.frame.width / 2
         self.logoImage.clipsToBounds = true
+    }
+    
+    @objc private func onGotoChatRoom() {
+        if let truckData = truckData {
+             self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckChatRoom: truckData)
+        }
     }
 
 }

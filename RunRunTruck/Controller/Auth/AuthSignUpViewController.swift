@@ -14,10 +14,12 @@ class AuthSignUpViewController: UIViewController {
     
      @IBOutlet weak var contentView: UIView!
     
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var pswConfirmTextField: UITextField!
     
+    var isNameAvailable = false
     var isEmailAvailable = false
     var isPswAvailable = false
     var isPswConfirmAvailable = false
@@ -44,13 +46,15 @@ class AuthSignUpViewController: UIViewController {
     
     @IBAction func signUpBTN(_ sender: Any) {
         
-        guard let email = emailTextField.text,
+        guard let name = nameTextField.text,
+            let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
         FirebaseManager.shared.singUpWithEmail(email: email, psw: psw) {
             
                 self.presentingViewController?.dismiss(animated: false, completion: nil)
-                FirebaseManager.shared.setUserData(email: email)
+            FirebaseManager.shared.setUserData(name: name, email: email)
+            
         }
     }
 }
@@ -60,6 +64,16 @@ extension AuthSignUpViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         switch  textField {
+            
+        case nameTextField:
+            guard let name = nameTextField.text else { return }
+            
+            if name.isEmpty {
+                isNameAvailable = false
+            } else {
+                isNameAvailable = true
+            }
+            
         case emailTextField:
             guard let email = emailTextField.text else { return }
             
@@ -95,7 +109,7 @@ extension AuthSignUpViewController: UITextFieldDelegate {
     
     func setBtnStatus() {
         
-        if isEmailAvailable && isPswAvailable && isPswConfirmAvailable {
+        if isNameAvailable && isEmailAvailable && isPswAvailable && isPswConfirmAvailable {
             signUpBTN.isEnabled = true
             signUpBTN.alpha = 1
         } else {
