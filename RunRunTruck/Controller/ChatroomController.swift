@@ -15,12 +15,11 @@ class ChatroomController: UICollectionViewController {
     
     var chatRoomView = ChatRoomView() {
         didSet {
-            
             chatRoomView.delegate = self
         }
-        
     }
     var truckData: TruckData?
+    var messages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,27 +45,49 @@ class ChatroomController: UICollectionViewController {
         
         chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
 //
-        observeMessage()
+//        observeMessage()
+        //拿所有在這個聊天室的訊息
+        getMessagesBeenSent()
+//        observerChatRoom()
     }
     
-    func observeMessage() {
-        
+    func getMessagesBeenSent() {
+        if let id = truckData?.id {
+            FirebaseManager.shared.getMessage(truckID: id) { (messages) in
+                if let messages = messages {
+                    self.messages.append(contentsOf: messages) 
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                        //監聽聊天室
+                        self.observerChatRoom()
+                    }
+                }
+            }
+        }
+    }
+    
+    func observerChatRoom() {
         guard let truckID = truckData?.id else {
             print("no turckID")
             return
         }
-        
-        FirebaseManager.shared.observeMessage(truckID: truckID) { [weak self](data) in
-           
+        FirebaseManager.shared.observeMessage(truckID: truckID) { (messages) in
+            self.messages.append(contentsOf: messages)
             DispatchQueue.main.async {
-                 self?.collectionView.reloadData()
-//                self?.collectionView.?layoutIfNeeded()
+                let bottomOffset = CGPoint(x: 0, y:  self.collectionView.contentSize.height - self.collectionView.frame.size.height + self.collectionView.contentInset.bottom)
+                let isNeedToScrollToBottom = self.collectionView.contentOffset.y == bottomOffset.y
+                self.collectionView.reloadData()
+                if (isNeedToScrollToBottom) {
+//                    bottomOffset = CGPoint(x: 0, y:  self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom)
+                    self.collectionView.scrollToItem(at: .init(row: self.messages.count - 1, section: 0), at: .bottom, animated: true)
+//                    self.collectionView.scrollToItem(at: <#T##IndexPath#>, at: ., animated: <#T##Bool#>)
+                }
             }
         }
-        
     }
     
     @objc func handleSend() {
+//        let uid = "SOkhGaqRm3VruZY95oy4y2g5DlS2"
         guard let truckID = truckData?.id,
             let uid = FirebaseManager.shared.userID,
             let name = FirebaseManager.shared.currentUser?.name else {
@@ -106,7 +127,8 @@ class ChatroomController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return FirebaseManager.shared.message.count
+//        return FirebaseManager.shared.message.count
+        return messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView,
@@ -116,7 +138,8 @@ class ChatroomController: UICollectionViewController {
             withReuseIdentifier: cellId,
             for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
         
-        let messageData = FirebaseManager.shared.message[indexPath.item]
+//        let messageData = FirebaseManager.shared.message[indexPath.item]
+        let messageData = messages[indexPath.item]
         
           chatCell.setupCellValue(text: messageData.text, name: messageData.name)
         
@@ -130,8 +153,8 @@ class ChatroomController: UICollectionViewController {
     //test -> message: Message
     private func setupCell(cell: ChatMessageCell, indexPath: IndexPath) {
         
-         let messageData = FirebaseManager.shared.message[indexPath.item]
-        
+//         let messageData = FirebaseManager.shared.message[indexPath.item]
+        let messageData = messages[indexPath.item]
         if messageData.uid == FirebaseManager.shared.userID {
             
             cell.textView.text = messageData.text
@@ -191,8 +214,8 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
         
         var height: CGFloat = 80
         
-        let messageData = FirebaseManager.shared.message[indexPath.item]
-        
+//        let messageData = FirebaseManager.shared.message[indexPath.item]
+        let messageData = messages[indexPath.item]
         if messageData.uid == FirebaseManager.shared.userID {
            
             height = estimateFrameForText(text: messageData.text).height + 20

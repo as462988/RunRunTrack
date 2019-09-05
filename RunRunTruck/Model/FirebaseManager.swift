@@ -175,7 +175,7 @@ class FirebaseManager {
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
 
 //        guard let truckID = self.truckID else {return}
-        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
+    db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
             Truck.name.rawValue: name,
             User.uid.rawValue: uid,
             User.text.rawValue: text,
@@ -191,35 +191,49 @@ class FirebaseManager {
     }
     
     //show ChatRoom Message
-    func observeMessage(truckID: String, completion: @escaping ([Message]?) -> Void) {
+    func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
 
        let ref = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
-        
         ref.addSnapshotListener { (snapshot, error) in
-          
             guard let snapshot = snapshot else {
                 print("Error fetching document: \(error!)")
                 return
             }
-            snapshot.documentChanges.forEach({ [weak self](documentChange) in
-                
+            var rtnMessage: [Message] = []
+            snapshot.documentChanges.forEach({ (documentChange) in
                 if documentChange.type == .added {
-                    
                     let data = documentChange.document.data()
-                    
                     guard let uid = data[User.uid.rawValue] as? String,
                         let name = data[User.name.rawValue] as? String,
                         let text = data[User.text.rawValue] as? String,
                         let creatTime = data[User.creatTime.rawValue] as? Timestamp else {return}
-                    
-                    let messageData = Message(uid, name, text, creatTime)
-                    
-                    self?.message.append(messageData)
+                    rtnMessage.append(Message(uid, name, text, creatTime))
                 }
-                
-                completion(self?.message)
-                
             })
+            if rtnMessage.count > 0 {
+                completion(rtnMessage)
+            }
+        }
+    }
+    
+    func getMessage(truckID: String, completion: @escaping ([Message]?) -> Void) {
+        var rtnMessages:[Message] = []
+        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
+            .getDocuments { (data, err) in
+                guard err == nil else {
+                    completion(nil)
+                    return
+                }
+                data?.documents.forEach({ (snapShot) in
+                    guard let uid = snapShot[User.uid.rawValue] as? String,
+                        let name = snapShot[User.name.rawValue] as? String,
+                        let text = snapShot[User.text.rawValue] as? String,
+                        let createTime = snapShot[User.creatTime.rawValue] as? Timestamp else {
+                            return
+                    }
+                    rtnMessages.append(Message(uid, name, text, createTime))
+                })
+                completion(rtnMessages.count > 0 ? rtnMessages : nil)
         }
     }
 }
