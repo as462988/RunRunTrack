@@ -113,7 +113,7 @@
                                                                 <color key="titleColor" red="0.23918548226356506" green="0.23923307657241821" blue="0.23918247222900391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="clickGoogleMapBtn" destination="c01-q4-YWD" eventType="touchUpInside" id="c0v-S8-Med"/>
+                                                                <action selector="clickGoogleMapBtn" destination="c01-q4-YWD" eventType="touchUpInside" id="TXj-VG-H3c"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beu-Rl-8pE">
@@ -171,6 +171,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="clickChatRoomBtn" destination="A1s-wv-1b5" id="lN2-Mc-VSy"/>
+                                                    <outlet property="clickNavigateBtn" destination="fcP-MH-XYE" id="8Hl-IK-fF9"/>
                                                     <outlet property="closeTime" destination="QtK-fv-14Q" id="16j-Yk-Ekt"/>
                                                     <outlet property="logoImage" destination="gkk-ss-phs" id="pOd-Dr-FFk"/>
                                                     <outlet property="openTime" destination="N9v-ky-H3d" id="TiC-7H-sgl"/>

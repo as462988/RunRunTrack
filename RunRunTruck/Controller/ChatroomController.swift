@@ -13,12 +13,14 @@ class ChatroomController: UICollectionViewController {
     
     let cellId = "chatroomCell"
     
-    var chatRoomView = ChatRoomView()
-    
+    var chatRoomView = ChatRoomView() {
+        didSet {
+            
+            chatRoomView.delegate = self
+        }
+        
+    }
     var truckData: TruckData?
-    
-    let text = "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text"
-    let text2 = "Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr Lorem ipsum dolor sitr"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class ChatroomController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = .white
         
-        navigationItem.title = "Chatroom"
+        navigationItem.title = truckData?.name ?? "nil"
         
         chatRoomView.backgroundColor = .white
         
@@ -43,17 +45,32 @@ class ChatroomController: UICollectionViewController {
         chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-        
+//
+        observeMessage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func observeMessage() {
         
-        FirebaseManager.shared.getTruckId(truckName: self.truckData?.name ?? "nil")
+        guard let truckID = truckData?.id else {
+            print("no turckID")
+            return
+        }
+        
+        FirebaseManager.shared.observeMessage(truckID: truckID) { [weak self](data) in
+           
+            DispatchQueue.main.async {
+                 self?.collectionView.reloadData()
+//                self?.collectionView.?layoutIfNeeded()
+            }
+        }
+        
     }
     
     @objc func handleSend() {
-        guard let uid = FirebaseManager.shared.userID, let name = FirebaseManager.shared.currentUser?.name else {
+        guard let truckID = truckData?.id,
+            let uid = FirebaseManager.shared.userID,
+            let name = FirebaseManager.shared.currentUser?.name else {
+            print("uid nil")
             return
         }
         
@@ -61,11 +78,12 @@ class ChatroomController: UICollectionViewController {
             
             print(self.truckData?.name ?? "nil")
         
-                FirebaseManager.shared.creatChatRoom(
-                    truckName: self.truckData?.name ?? "nil",
-                    uid: uid,
-                    name: name,
-                    text: text)
+            FirebaseManager.shared.creatChatRoom(
+                truckID: truckID,
+                truckName: self.truckData?.name ?? "nil",
+                uid: uid,
+                name: name,
+                text: text)
         }
     }
     
@@ -82,12 +100,13 @@ class ChatroomController: UICollectionViewController {
     
     @objc func backToRoot() {
         
+        FirebaseManager.shared.message = []
         self.navigationController?.popViewController(animated: false)
         
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return FirebaseManager.shared.message.count
     }
     
     override func collectionView(_ collectionView: UICollectionView,
@@ -97,56 +116,51 @@ class ChatroomController: UICollectionViewController {
             withReuseIdentifier: cellId,
             for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
         
-        // 呼叫 setupCell
-        if indexPath.item % 3 == 1 {
-            
-            chatCell.textView.text = text
-            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
-            
-            chatCell.nameTextLabel.isHidden = true
-            chatCell.profileImageView.isHidden = true
-            chatCell.bubbleViewTopAnchor?.isActive = true
-            chatCell.bubbleViewTopAnchorWithName?.isActive = false
-            chatCell.bubbleTrailingAnchor?.isActive = true
-            chatCell.bubbleLeadingAnchor?.isActive = false
-            chatCell.bubbleViewHeightAnchor?.isActive = true
-            chatCell.bubbleViewheigHtAnchorWithName?.isActive = false
-        } else {
-            
-            chatCell.textView.text = text2
-            chatCell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
-            chatCell.textView.textColor = .black
-            
-            chatCell.bubbleTrailingAnchor?.isActive = false
-            chatCell.bubbleLeadingAnchor?.isActive = true
-            chatCell.profileImageView.isHidden = false
-            chatCell.nameTextLabel.isHidden = false
-            chatCell.bubbleViewTopAnchor?.isActive = false
-            chatCell.bubbleViewTopAnchorWithName?.isActive = true
-            
-            chatCell.bubbleViewHeightAnchor?.isActive = false
-            chatCell.bubbleViewheigHtAnchorWithName?.isActive = true
-            
-        }
+        let messageData = FirebaseManager.shared.message[indexPath.item]
         
-        chatCell.bubbleWidthAnchor?.constant = estimateFrameForText(text: self.text).width + 32
+          chatCell.setupCellValue(text: messageData.text, name: messageData.name)
+        
+        self.setupCell(cell: chatCell, indexPath: indexPath)
+        
+        chatCell.bubbleWidthAnchor?.constant = estimateFrameForText(text: messageData.text).width + 32
         
         return chatCell
         
     }
     //test -> message: Message
-    private func setupCell(cell: ChatMessageCell, test: String) {
-        //如果 uid ==  自己的id 執行
-        //        if indexPath.item % 3 == 1 {
-        //
-        //            chatCell.textView.text = text
-        //            chatCell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
-        //
-        //        } else {
-        //
-        //            chatCell.textView.text = text2
-        //            chatCell.bubbleView.backgroundColor = .lightGray
-        //        }
+    private func setupCell(cell: ChatMessageCell, indexPath: IndexPath) {
+        
+         let messageData = FirebaseManager.shared.message[indexPath.item]
+        
+        if messageData.uid == FirebaseManager.shared.userID {
+            
+            cell.textView.text = messageData.text
+            cell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
+            
+            cell.nameTextLabel.isHidden = true
+            cell.profileImageView.isHidden = true
+            cell.bubbleViewTopAnchor?.isActive = true
+            cell.bubbleViewTopAnchorWithName?.isActive = false
+            cell.bubbleTrailingAnchor?.isActive = true
+            cell.bubbleLeadingAnchor?.isActive = false
+            cell.bubbleViewHeightAnchor?.isActive = true
+            cell.bubbleViewheigHtAnchorWithName?.isActive = false
+        } else {
+            
+            cell.textView.text = messageData.text
+            cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            cell.textView.textColor = .black
+            
+            cell.bubbleTrailingAnchor?.isActive = false
+            cell.bubbleLeadingAnchor?.isActive = true
+            cell.profileImageView.isHidden = false
+            cell.nameTextLabel.isHidden = false
+            cell.bubbleViewTopAnchor?.isActive = false
+            cell.bubbleViewTopAnchorWithName?.isActive = true
+            cell.bubbleViewHeightAnchor?.isActive = false
+            cell.bubbleViewheigHtAnchorWithName?.isActive = true
+            
+        }
     }
     
     // 旋轉時不會跑版
@@ -168,7 +182,7 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -176,19 +190,16 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var height: CGFloat = 80
-        // 這邊要帶入收到的 message
         
-        //        if let text = message[indexPath.item].text {
-        //
-        //            height = estimateFrameForText(text: self.text).height + 20
-        //        }
+        let messageData = FirebaseManager.shared.message[indexPath.item]
         
-        if indexPath.item % 3 == 1 {
-            
-            height = estimateFrameForText(text: self.text).height + 20
+        if messageData.uid == FirebaseManager.shared.userID {
+           
+            height = estimateFrameForText(text: messageData.text).height + 20
+        
         } else {
-            
-            height = estimateFrameForText(text: self.text2).height + 70
+
+            height = estimateFrameForText(text: messageData.text).height + 70
         }
         
         return CGSize(width: chatRoomView.frame.width, height: height)
@@ -202,4 +213,15 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
         
         return NSString(string: text).boundingRect(with: size, options: options, attributes: attributes, context: nil)
     }
+}
+
+extension ChatroomController: ChatRoomViewDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        handleSend()
+        
+        return true
+    }
+    
 }

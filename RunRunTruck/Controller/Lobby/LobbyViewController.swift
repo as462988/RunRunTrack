@@ -20,8 +20,6 @@ class LobbyViewController: UIViewController {
         }
     }
     
-    var index: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -72,8 +70,6 @@ extension LobbyViewController: LobbyViewDelegate {
                 return UICollectionViewCell()
         }
         
-//        self.index = indexPath.item - 1
-    
         let data = FirebaseManager.shared.truckData[indexPath.row]
         
         let openTime = FirebaseManager.dateConvertString(
@@ -81,6 +77,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let colseTime = FirebaseManager.dateConvertString(
             date: data.closeTime.dateValue())
+        
         cell.delegate = self
         cell.configureWithTruckData(truckData: data)
         cell.setValue(name: data.name,
@@ -91,9 +88,9 @@ extension LobbyViewController: LobbyViewDelegate {
  
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
+        
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
-        
         
         return cell
     }
@@ -197,6 +194,12 @@ extension LobbyViewController: LobbyViewDelegate {
 extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
+        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(location.lat),\(location.lon)&center=\(location.lat),\(location.lon)&directionsmode=driving&zoom=17")!)
+        } else {
+            print("Can't use comgooglemaps://")
+        }
+        
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
         
@@ -215,6 +218,8 @@ extension LobbyViewController: TurckInfoCellDelegate {
         self.hidesBottomBarWhenPushed = true
         let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
         chatroomVC.truckData = truckData
+        
+//        FirebaseManager.shared.getTruckId(truckName: truckData.name ?? "nil")
 
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)

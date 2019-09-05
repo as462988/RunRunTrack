@@ -75,6 +75,11 @@ class ChatMessageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemwnted")
     }
     
+    func setupCellValue(text: String, name: String){
+        textView.text = text
+        nameTextLabel.text = name
+    }
+    
     func setupLayout() {
         
         NSLayoutConstraint.activate([
@@ -117,7 +122,7 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleViewheigHtAnchorWithName = bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -60)
        bubbleViewheigHtAnchorWithName?.isActive = false
         
-    bubbleView.bottomAnchor.constraint(greaterThanOrEqualTo:self.bottomAnchor)
+    bubbleView.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor)
         
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: bubbleView.topAnchor),

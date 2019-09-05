@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ChatRoomViewDelegate: UITextFieldDelegate, AnyObject {
+    
+}
+
 class ChatRoomView: UIView {
+    
+    weak var delegate: ChatRoomViewDelegate?
     
     let containerView: UIView = {
         let view = UIView()
@@ -53,6 +59,7 @@ class ChatRoomView: UIView {
         
         self.addSubview(containerView)
         setupInputComponents()
+        inputTextField.delegate = self.delegate
     }
     
     required init?(coder aDecoder: NSCoder) {

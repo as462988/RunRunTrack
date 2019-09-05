@@ -13,7 +13,7 @@ struct GeoLocation {
     let lat: Double
 }
 
-protocol TurckInfoCellDelegate {
+protocol TurckInfoCellDelegate: AnyObject {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation )
     //TODO: 前往資訊
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
@@ -26,17 +26,17 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var openTime: UILabel!
     @IBOutlet weak var closeTime: UILabel!
     @IBOutlet weak var clickChatRoomBtn: UIButton!
+    @IBOutlet weak var clickNavigateBtn: UIButton!
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-    var delegate: TurckInfoCellDelegate?
+    weak var delegate: TurckInfoCellDelegate?
     var truckData: TruckData?
     
     func configureWithTruckData(truckData: TruckData) {
         self.truckData = truckData
         clickChatRoomBtn.addTarget(self, action: #selector(onGotoChatRoom), for: .touchUpInside)
     }
-    
     
     func setValue(name: String, openTime: String, closeTime: String, logoImage: String, truckLocationText: String) {
         
@@ -54,19 +54,11 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         setImage()
     }
     
-     // swiftlint:disable line_length
     @IBAction func clickGoogleMapBtn() {
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&center=\(latitude),\(longitude)&directionsmode=driving&zoom=17")!)
-        } else {
-            print("Can't use comgooglemaps://")
-        }
-        //TODO: Delegate
+      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lon: latitude, lat: longitude))
     }
-    // swiftlint:eable line_length
     
     private func setImage() {
-        
         self.logoImage.contentMode = .scaleAspectFill
         self.logoImage.layer.cornerRadius = self.logoImage.frame.width / 2
         self.logoImage.clipsToBounds = true

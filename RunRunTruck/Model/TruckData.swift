@@ -27,12 +27,6 @@ enum Truck: String {
     
     case chatRoom
     
-    case uid
-    
-    case creatTime
-    
-    case text
-
 }
 
 struct TruckData {
@@ -61,15 +55,36 @@ struct TruckData {
         self.location = location
     }
 }
+
+struct Message {
+    
+    var uid: String
+    var name: String
+    var text: String
+    var creatTime: Timestamp
+    
+    init(_ uid: String,_ name: String, _ text: String, _ creatTime: Timestamp) {
+        self.uid = uid
+        self.name = name
+        self.text = text
+        self.creatTime = creatTime
+    }
+}
+
 enum User: String {
     
     case user = "User"
     
+    case uid
+    
     case name
     
     case email
+    
+    case text
+    
+    case creatTime
 }
-
 
 struct UserData {
     

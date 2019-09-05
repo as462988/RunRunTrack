@@ -19,6 +19,8 @@ class FirebaseManager {
     
     var currentUser: UserData?
     
+    var message = [Message]()
+    
     let db = Firestore.firestore()
     
     let storage = Storage.storage()
@@ -160,23 +162,24 @@ class FirebaseManager {
                 print("Error getting documents")
                 return
             }
+                
                 for document in snapshot!.documents {
                    self?.truckID = document.documentID
-
+                    
             }
         }
 
     }
     
     //creatChatRoom
-    func creatChatRoom(truckName: String, uid: String, name: String, text: String) {
+    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
 
-        guard let truckID = self.truckID else {return}
+//        guard let truckID = self.truckID else {return}
         db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
             Truck.name.rawValue: name,
-            Truck.uid.rawValue: uid,
-            Truck.text.rawValue: text,
-            Truck.creatTime.rawValue: FieldValue.serverTimestamp()
+            User.uid.rawValue: uid,
+            User.text.rawValue: text,
+            User.creatTime.rawValue: FieldValue.serverTimestamp()
         ]) { (error) in
 
             if let err = error {
@@ -184,6 +187,39 @@ class FirebaseManager {
             } else {
                 print("Document successfully written!")
             }
+        }
+    }
+    
+    //show ChatRoom Message
+    func observeMessage(truckID: String, completion: @escaping ([Message]?) -> Void) {
+
+       let ref = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
+        
+        ref.addSnapshotListener { (snapshot, error) in
+          
+            guard let snapshot = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            snapshot.documentChanges.forEach({ [weak self](documentChange) in
+                
+                if documentChange.type == .added {
+                    
+                    let data = documentChange.document.data()
+                    
+                    guard let uid = data[User.uid.rawValue] as? String,
+                        let name = data[User.name.rawValue] as? String,
+                        let text = data[User.text.rawValue] as? String,
+                        let creatTime = data[User.creatTime.rawValue] as? Timestamp else {return}
+                    
+                    let messageData = Message(uid, name, text, creatTime)
+                    
+                    self?.message.append(messageData)
+                }
+                
+                completion(self?.message)
+                
+            })
         }
     }
 }
