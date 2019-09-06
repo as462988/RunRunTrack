@@ -76,9 +76,9 @@ struct Message {
     var uid: String
     var name: String
     var text: String
-    var createTime: Int
+    var createTime: Double
     
-    init(_ uid: String, _ name: String, _ text: String, _ createTime: Int) {
+    init(_ uid: String, _ name: String, _ text: String, _ createTime: Double) {
         self.uid = uid
         self.name = name
         self.text = text

@@ -144,7 +144,6 @@ class ChatroomController: UICollectionViewController {
             withReuseIdentifier: cellId,
             for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
         
-//        let messageData = FirebaseManager.shared.message[indexPath.item]
         let messageData = messages[indexPath.item]
         
           chatCell.setupCellValue(text: messageData.text, name: messageData.name)
@@ -156,14 +155,14 @@ class ChatroomController: UICollectionViewController {
         return chatCell
         
     }
-    //test -> message: Message
+
     private func setupCell(cell: ChatMessageCell, indexPath: IndexPath) {
-        
-//         let messageData = FirebaseManager.shared.message[indexPath.item]
+
         let messageData = messages[indexPath.item]
         if messageData.uid == FirebaseManager.shared.userID {
             
             cell.textView.text = messageData.text
+             cell.textView.textColor = .black
             cell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
             
             cell.nameTextLabel.isHidden = true
@@ -179,7 +178,6 @@ class ChatroomController: UICollectionViewController {
             cell.textView.text = messageData.text
             cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
             cell.textView.textColor = .black
-            
             cell.bubbleTrailingAnchor?.isActive = false
             cell.bubbleLeadingAnchor?.isActive = true
             cell.profileImageView.isHidden = false
@@ -219,8 +217,7 @@ extension ChatroomController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var height: CGFloat = 80
-        
-//        let messageData = FirebaseManager.shared.message[indexPath.item]
+
         let messageData = messages[indexPath.item]
         if messageData.uid == FirebaseManager.shared.userID {
            

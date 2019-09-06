@@ -207,12 +207,23 @@ class FirebaseManager {
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
-                    let createTime = data[User.createTime.rawValue] as? Int else {return}
+                    let createTime = data[User.createTime.rawValue] as? Double else {return}
                 
-                if documentChange.type == .added {
-        
+                switch documentChange.type {
+                    
+                case .added:
+                    
                     rtnMessage.append(Message(uid, name, text, createTime))
+                    
+                    print("added: \(text)")
+                    
+                case .modified: print("modified: \(text)")
+                    
+                case .removed: print("removed: \(text)")
+                @unknown default:
+                    fatalError()
                 }
+                
             })
             if rtnMessage.count > 0 {
                 completion(rtnMessage)
@@ -232,7 +243,7 @@ class FirebaseManager {
                     guard let uid = snapShot[User.uid.rawValue] as? String,
                         let name = snapShot[User.name.rawValue] as? String,
                         let text = snapShot[User.text.rawValue] as? String,
-                        let createTime = snapShot[User.createTime.rawValue] as? Int else {
+                        let createTime = snapShot[User.createTime.rawValue] as? Double else {
                             return
                     }
                     rtnMessages.append(Message(uid, name, text, createTime))
