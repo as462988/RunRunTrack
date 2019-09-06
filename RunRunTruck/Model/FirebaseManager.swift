@@ -192,9 +192,12 @@ class FirebaseManager {
     
     //show ChatRoom Message
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
-
-       let ref = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
-        ref.addSnapshotListener { (snapshot, error) in
+        
+            let docRef = db.collection(Truck.truck.rawValue).document(truckID)
+        
+            let order = docRef.collection(Truck.chatRoom.rawValue).order(by: User.createTime.rawValue, descending: false)
+        
+            order.addSnapshotListener { (snapshot, error) in
             guard let snapshot = snapshot else {
                 print("Error fetching document: \(error!)")
                 return

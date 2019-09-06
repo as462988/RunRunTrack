@@ -162,7 +162,7 @@ class ChatroomController: UICollectionViewController {
         if messageData.uid == FirebaseManager.shared.userID {
             
             cell.textView.text = messageData.text
-             cell.textView.textColor = .black
+            cell.textView.textColor = .white
             cell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
             
             cell.nameTextLabel.isHidden = true

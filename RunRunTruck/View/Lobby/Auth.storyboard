@@ -331,6 +331,7 @@
                     <connections>
                         <outlet property="contentView" destination="kvx-YN-g1d" id="z6F-DY-7JL"/>
                         <outlet property="emailTextField" destination="MWC-ry-YIO" id="5Cd-5c-Ur6"/>
+                        <outlet property="nameTextField" destination="BGh-WY-ve9" id="niF-il-6Mc"/>
                         <outlet property="pswConfirmTextField" destination="lwW-aY-KDG" id="z5G-qc-xIt"/>
                         <outlet property="pswTextField" destination="f6U-nq-GqO" id="jWp-Ay-lW3"/>
                         <outlet property="signUpBTN" destination="45F-uW-K6G" id="5nj-ld-n0X"/>
