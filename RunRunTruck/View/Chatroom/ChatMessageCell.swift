@@ -122,8 +122,6 @@ class ChatMessageCell: UICollectionViewCell {
         bubbleViewheigHtAnchorWithName = bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -60)
        bubbleViewheigHtAnchorWithName?.isActive = false
         
-    bubbleView.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor)
-        
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: bubbleView.topAnchor),
             textView.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: 8),

@@ -216,10 +216,13 @@ extension LobbyViewController: TurckInfoCellDelegate {
         //        }
         
         self.hidesBottomBarWhenPushed = true
-        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
-        chatroomVC.truckData = truckData
         
-//        FirebaseManager.shared.getTruckId(truckName: truckData.name ?? "nil")
+        let chatroomVC = ChatroomViewController()
+        
+//        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatroomVC.truckData = truckData
+//
+        FirebaseManager.shared.getTruckId(truckName: truckData.name)
 
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)

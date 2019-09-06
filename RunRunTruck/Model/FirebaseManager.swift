@@ -174,7 +174,6 @@ class FirebaseManager {
     //creatChatRoom
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
 
-//        guard let truckID = self.truckID else {return}
     db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
             Truck.name.rawValue: name,
             User.uid.rawValue: uid,
@@ -195,7 +194,9 @@ class FirebaseManager {
         
             let docRef = db.collection(Truck.truck.rawValue).document(truckID)
         
-            let order = docRef.collection(Truck.chatRoom.rawValue).order(by: User.createTime.rawValue, descending: false)
+            let order = docRef.collection(Truck.chatRoom.rawValue).order(
+                by: User.createTime.rawValue,
+                descending: false)
         
             order.addSnapshotListener { (snapshot, error) in
             guard let snapshot = snapshot else {
@@ -231,27 +232,6 @@ class FirebaseManager {
             if rtnMessage.count > 0 {
                 completion(rtnMessage)
             }
-        }
-    }
-    
-    func getMessage(truckID: String, completion: @escaping ([Message]?) -> Void) {
-        var rtnMessages: [Message] = []
-        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
-            .getDocuments { (data, err) in
-                guard err == nil else {
-                    completion(nil)
-                    return
-                }
-                data?.documents.forEach({ (snapShot) in
-                    guard let uid = snapShot[User.uid.rawValue] as? String,
-                        let name = snapShot[User.name.rawValue] as? String,
-                        let text = snapShot[User.text.rawValue] as? String,
-                        let createTime = snapShot[User.createTime.rawValue] as? Double else {
-                            return
-                    }
-                    rtnMessages.append(Message(uid, name, text, createTime))
-                })
-                completion(rtnMessages.count > 0 ? rtnMessages : nil)
         }
     }
 }

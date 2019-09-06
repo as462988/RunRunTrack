@@ -1,20 +1,37 @@
 //
-//  ChatRoomView.swift
+//  TruckChatroomView.swift
 //  RunRunTruck
 //
-//  Created by yueh on 2019/9/4.
+//  Created by yueh on 2019/9/6.
 //  Copyright © 2019 yueh. All rights reserved.
 //
 
 import UIKit
 
-protocol ChatRoomViewDelegate: UITextFieldDelegate, AnyObject {
+protocol TruckChatroomViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject {
     
 }
 
-class ChatRoomView: UIView {
+class TruckChatroomView: UIView {
     
-    weak var delegate: ChatRoomViewDelegate? 
+    weak var delegate: TruckChatroomViewDelegate? {
+        
+        didSet {
+            msgCollectionView.delegate = self.delegate
+            msgCollectionView.dataSource = self.delegate
+        }
+    }
+    
+    var msgCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.delegate = TruckChatroomView().delegate
+//        collectionView.dataSource = TruckChatroomView().delegate
+        collectionView.backgroundColor = .white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     let containerView: UIView = {
         let view = UIView()
@@ -57,9 +74,14 @@ class ChatRoomView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.backgroundColor = .white
         self.addSubview(containerView)
+        self.addSubview(msgCollectionView)
+        
+        msgCollectionView.delegate = self.delegate
+        msgCollectionView.dataSource = self.delegate
         setupInputComponents()
-        inputTextField.delegate = self.delegate
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,8 +90,14 @@ class ChatRoomView: UIView {
     
     func setupInputComponents() {
         
-        //inputContainerView
+        //msgCollectionView
         NSLayoutConstraint.activate([
+            msgCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            msgCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            msgCollectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            msgCollectionView.bottomAnchor.constraint(equalTo: containerView.topAnchor),
+        
+        //inputContainerView
             containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
@@ -82,24 +110,23 @@ class ChatRoomView: UIView {
         containerView.addSubview(sendTextBtn)
         
         NSLayoutConstraint.activate([
+            //sendBtn
             sendBtn.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
             sendBtn.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             sendBtn.widthAnchor.constraint(equalToConstant: 50),
             sendBtn.heightAnchor.constraint(equalTo: containerView.heightAnchor),
+            
+            //sendTextBtn
             sendTextBtn.centerXAnchor.constraint(equalTo: sendBtn.centerXAnchor),
-            sendTextBtn.centerYAnchor.constraint(equalTo: sendBtn.centerYAnchor)
-            ])
-        
-        //nameTextField
-        NSLayoutConstraint.activate([
+            sendTextBtn.centerYAnchor.constraint(equalTo: sendBtn.centerYAnchor),
+       
+            //nameTextField
             inputTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
             inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             inputTextField.trailingAnchor.constraint(equalTo: sendBtn.leadingAnchor),
-            inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -2)
-            ])
-        
-        //nameSeparatorView
-        NSLayoutConstraint.activate([
+            inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -2),
+
+            //nameSeparatorView
             separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
             separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor),
             separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
@@ -107,4 +134,5 @@ class ChatRoomView: UIView {
             ])
         
     }
+    
 }
