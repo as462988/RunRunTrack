@@ -56,18 +56,33 @@ struct TruckData {
     }
 }
 
+//struct Message {
+//
+//    var uid: String
+//    var name: String
+//    var text: String
+//    var createTime: Timestamp
+//
+//    init(_ uid: String, _ name: String, _ text: String, _ createTime: Timestamp) {
+//        self.uid = uid
+//        self.name = name
+//        self.text = text
+//        self.createTime = createTime
+//    }
+//}
+
 struct Message {
     
     var uid: String
     var name: String
     var text: String
-    var creatTime: Timestamp
+    var createTime: Int
     
-    init(_ uid: String,_ name: String, _ text: String, _ creatTime: Timestamp) {
+    init(_ uid: String, _ name: String, _ text: String, _ createTime: Int) {
         self.uid = uid
         self.name = name
         self.text = text
-        self.creatTime = creatTime
+        self.createTime = createTime
     }
 }
 
@@ -83,7 +98,7 @@ enum User: String {
     
     case text
     
-    case creatTime
+    case createTime
 }
 
 struct UserData {

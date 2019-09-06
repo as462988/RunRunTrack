@@ -179,7 +179,7 @@ class FirebaseManager {
             Truck.name.rawValue: name,
             User.uid.rawValue: uid,
             User.text.rawValue: text,
-            User.creatTime.rawValue: FieldValue.serverTimestamp()
+            User.createTime.rawValue: Date().timeIntervalSince1970
         ]) { (error) in
 
             if let err = error {
@@ -200,14 +200,18 @@ class FirebaseManager {
                 return
             }
             var rtnMessage: [Message] = []
+
             snapshot.documentChanges.forEach({ (documentChange) in
+                
+                let data = documentChange.document.data()
+                guard let uid = data[User.uid.rawValue] as? String,
+                    let name = data[User.name.rawValue] as? String,
+                    let text = data[User.text.rawValue] as? String,
+                    let createTime = data[User.createTime.rawValue] as? Int else {return}
+                
                 if documentChange.type == .added {
-                    let data = documentChange.document.data()
-                    guard let uid = data[User.uid.rawValue] as? String,
-                        let name = data[User.name.rawValue] as? String,
-                        let text = data[User.text.rawValue] as? String,
-                        let creatTime = data[User.creatTime.rawValue] as? Timestamp else {return}
-                    rtnMessage.append(Message(uid, name, text, creatTime))
+        
+                    rtnMessage.append(Message(uid, name, text, createTime))
                 }
             })
             if rtnMessage.count > 0 {
@@ -217,7 +221,7 @@ class FirebaseManager {
     }
     
     func getMessage(truckID: String, completion: @escaping ([Message]?) -> Void) {
-        var rtnMessages:[Message] = []
+        var rtnMessages: [Message] = []
         db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
             .getDocuments { (data, err) in
                 guard err == nil else {
@@ -228,7 +232,7 @@ class FirebaseManager {
                     guard let uid = snapShot[User.uid.rawValue] as? String,
                         let name = snapShot[User.name.rawValue] as? String,
                         let text = snapShot[User.text.rawValue] as? String,
-                        let createTime = snapShot[User.creatTime.rawValue] as? Timestamp else {
+                        let createTime = snapShot[User.createTime.rawValue] as? Int else {
                             return
                     }
                     rtnMessages.append(Message(uid, name, text, createTime))

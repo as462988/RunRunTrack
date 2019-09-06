@@ -75,7 +75,7 @@ class ChatMessageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemwnted")
     }
     
-    func setupCellValue(text: String, name: String){
+    func setupCellValue(text: String, name: String) {
         textView.text = text
         nameTextLabel.text = name
     }

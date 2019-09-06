@@ -53,7 +53,7 @@ class AuthViewController: UIViewController {
             
             self?.presentingViewController?.dismiss(animated: false, completion: nil)
             FirebaseManager.shared.getCurrentUserData(completion: { (data) in
-                print(data?.name)
+
             })
             
         }

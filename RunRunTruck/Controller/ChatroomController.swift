@@ -26,6 +26,7 @@ class ChatroomController: UICollectionViewController {
         
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 70, right: 0)
         collectionView.alwaysBounceVertical = true
+        
         collectionView.backgroundColor = .white
         
         navigationItem.title = truckData?.name ?? "nil"
@@ -44,11 +45,9 @@ class ChatroomController: UICollectionViewController {
         chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-//
-//        observeMessage()
-        //拿所有在這個聊天室的訊息
-        getMessagesBeenSent()
-//        observerChatRoom()
+
+//        getMessagesBeenSent()
+        observerChatRoom()
     }
     
     func getMessagesBeenSent() {
@@ -74,28 +73,33 @@ class ChatroomController: UICollectionViewController {
         FirebaseManager.shared.observeMessage(truckID: truckID) { (messages) in
             self.messages.append(contentsOf: messages)
             DispatchQueue.main.async {
-                let bottomOffset = CGPoint(x: 0, y:  self.collectionView.contentSize.height - self.collectionView.frame.size.height + self.collectionView.contentInset.bottom)
-                let isNeedToScrollToBottom = self.collectionView.contentOffset.y == bottomOffset.y
+//                let bottomOffset = CGPoint(x: 0,
+//                                           y:  self.collectionView.contentSize.height - self.collectionView.frame.size.height + self.collectionView.contentInset.bottom)
+//                let isNeedToScrollToBottom = self.collectionView.contentOffset.y == bottomOffset.y
+                
                 self.collectionView.reloadData()
-                if (isNeedToScrollToBottom) {
-//                    bottomOffset = CGPoint(x: 0, y:  self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom)
-                    self.collectionView.scrollToItem(at: .init(row: self.messages.count - 1, section: 0), at: .bottom, animated: true)
-//                    self.collectionView.scrollToItem(at: <#T##IndexPath#>, at: ., animated: <#T##Bool#>)
-                }
+//                if isNeedToScrollToBottom {
+//
+//                    self.collectionView.scrollToItem(
+//                        at: .init(row: self.messages.count - 1, section: 0),
+//                        at: .bottom, animated: true)
+//
+//                }
             }
         }
     }
     
     @objc func handleSend() {
-//        let uid = "SOkhGaqRm3VruZY95oy4y2g5DlS2"
+
         guard let truckID = truckData?.id,
             let uid = FirebaseManager.shared.userID,
-            let name = FirebaseManager.shared.currentUser?.name else {
+            let name = FirebaseManager.shared.currentUser?.name,
+            let text = chatRoomView.inputTextField.text else {
             print("uid nil")
             return
         }
         
-        if let text = chatRoomView.inputTextField.text {
+        if text != "" {
             
             print(self.truckData?.name ?? "nil")
         
@@ -105,7 +109,9 @@ class ChatroomController: UICollectionViewController {
                 uid: uid,
                 name: name,
                 text: text)
+            chatRoomView.inputTextField.text = ""
         }
+
     }
     
     func setChatRoomViewLayout() {
@@ -127,7 +133,7 @@ class ChatroomController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return FirebaseManager.shared.message.count
+
         return messages.count
     }
     
