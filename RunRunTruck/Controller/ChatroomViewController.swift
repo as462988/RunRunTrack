@@ -10,23 +10,26 @@ import UIKit
 
 class ChatroomViewController: UIViewController {
     
-    var containView = TruckChatroomView(frame: CGRect(x: 0,
-                                                      y: 0,
-                                                      width: UIScreen.main.bounds.width,
-                                                      height: UIScreen.main.bounds.height))
+    var chatRoomView = ChatRoomView()
+    
     var cellId: String = "cellId"
     
     var truckData: TruckData?
+    
     var messages: [Message] = []
-
+    
+    var isFirstLoad = true
+    
+    var isNeedToScrollToBottomWhenUpdated = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.view.addSubview(containView)
+        
+        self.view.addSubview(chatRoomView)
         
         setContainView()
         
-        containView.delegate = self
+        chatRoomView.delegate = self
         
         navigationItem.title = truckData?.name ?? "nil"
         
@@ -35,11 +38,11 @@ class ChatroomViewController: UIViewController {
                                                            target: self,
                                                            action: #selector(backToRoot))
         
-        containView.msgCollectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        chatRoomView.msgCollectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         
-        containView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
-        containView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         observerChatRoom()
     }
@@ -50,27 +53,52 @@ class ChatroomViewController: UIViewController {
             return
         }
         
-        let roomCollectionView = self.containView.msgCollectionView
-        
         FirebaseManager.shared.observeMessage(truckID: truckID) { [weak self] (messages) in
             self?.messages.append(contentsOf: messages)
-            DispatchQueue.main.async {
-                let bottomOffset = roomCollectionView.contentSize.height - roomCollectionView.frame.size.height + roomCollectionView.contentInset.bottom
-                
-                let isNeedToScrollToBottom = roomCollectionView.contentOffset.y == bottomOffset
-                
-                roomCollectionView.reloadData()
-                
-                if isNeedToScrollToBottom {
+            
+            if let weakSelf = self {
+                DispatchQueue.main.async {
+                    let bottomOffsetY = weakSelf.chatRoomView.msgCollectionView.collectionViewLayout.collectionViewContentSize.height + weakSelf.chatRoomView.msgCollectionView.contentInset.bottom -
+                        weakSelf.chatRoomView.msgCollectionView.frame.size.height
+                    let range = bottomOffsetY - weakSelf.chatRoomView.msgCollectionView.contentOffset.y
+                    
+                    if range <= 5 && range >= -5 {
+                        weakSelf.isNeedToScrollToBottomWhenUpdated = true
+                    } else {
+                        weakSelf.isNeedToScrollToBottomWhenUpdated = false
+                    }
 
-                    roomCollectionView.setContentOffset(CGPoint(x: 0, y: bottomOffset), animated: true)
+                    weakSelf.chatRoomView.msgCollectionView.reloadData()
+                    weakSelf.checkIfNeedToScrollToBottom()
                 }
-
+                
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0, execute: {
+//                    weakSelf.checkIfNeedToScrollToBottom()
+//                })
             }
         }
     }
     
+    func checkIfNeedToScrollToBottom() {
+        if messages.count > 0 && isFirstLoad {
+            isFirstLoad = false
+            self.chatRoomView.msgCollectionView.scrollToItem(
+                at: .init(item: messages.count - 1, section: 0),
+                at: .bottom,
+                animated: false)
+            return
+        }
+        if isNeedToScrollToBottomWhenUpdated {
+            chatRoomView.msgCollectionView.scrollToItem(
+                at: .init(item: messages.count - 1, section: 0),
+                at: .bottom,
+                animated: true)
+        }
+    }
+    
     @objc func backToRoot() {
+        
+        isFirstLoad = true
         
         FirebaseManager.shared.message = []
         
@@ -82,7 +110,7 @@ class ChatroomViewController: UIViewController {
         guard let truckID = truckData?.id,
             let uid = FirebaseManager.shared.userID,
             let name = FirebaseManager.shared.currentUser?.name,
-            let text = containView.inputTextField.text else {
+            let text = chatRoomView.inputTextField.text else {
                 print("uid nil")
                 return
         }
@@ -97,32 +125,32 @@ class ChatroomViewController: UIViewController {
                 uid: uid,
                 name: name,
                 text: text)
-            containView.inputTextField.text = ""
+            chatRoomView.inputTextField.text = ""
         }
         
     }
     
-    func setContainView(){
-        containView.translatesAutoresizingMaskIntoConstraints = false
+    func setContainView() {
+        chatRoomView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            containView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            containView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            containView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            containView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            chatRoomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            chatRoomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            chatRoomView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            chatRoomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ])
     }
 }
 
 extension ChatroomViewController: TruckChatroomViewDelegate {
     
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return messages.count
     }
     
-     func collectionView(_ collectionView: UICollectionView,
-                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let chatCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellId,
@@ -131,12 +159,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         let messageData = messages[indexPath.item]
         
         chatCell.setupCellValue(text: messageData.text, name: messageData.name)
-        
-        self.setupCell(cell: chatCell, indexPath: indexPath)
-        
-        chatCell.bubbleWidthAnchor?.constant = estimateFrameForText(text: messageData.text).width + 32
+        chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
         return chatCell
-        
     }
     
     private func setupCell(cell: ChatMessageCell, indexPath: IndexPath) {
@@ -176,10 +200,10 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
     }
-
+    
     // 旋轉時不會跑版
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        containView.msgCollectionView.collectionViewLayout.invalidateLayout()
+        chatRoomView.msgCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -194,19 +218,14 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         var height: CGFloat = 80
         
         let messageData = messages[indexPath.item]
-        if messageData.uid == FirebaseManager.shared.userID {
-            
-            height = estimateFrameForText(text: messageData.text).height + 20
-            
-        } else {
-            height = estimateFrameForText(text: messageData.text).height + 70
-        }
         
-        return CGSize(width: containView.frame.width, height: height)
+        height = estimateFrameForText(text: messageData.text).height
+            + estimateFrameForText(text: messageData.name).height + 20
+        
+        return CGSize(width: chatRoomView.frame.width, height: height)
     }
     
     func estimateFrameForText(text: String) -> CGRect {

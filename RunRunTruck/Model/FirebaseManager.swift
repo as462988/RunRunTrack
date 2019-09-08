@@ -213,21 +213,11 @@ class FirebaseManager {
                     let text = data[User.text.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
                 
-                switch documentChange.type {
-                    
-                case .added:
+                if documentChange.type == .added {
                     
                     rtnMessage.append(Message(uid, name, text, createTime))
-                    
-                    print("added: \(text)")
-                    
-                case .modified: print("modified: \(text)")
-                    
-                case .removed: print("removed: \(text)")
-                @unknown default:
-                    fatalError()
-                }
                 
+                }
             })
             if rtnMessage.count > 0 {
                 completion(rtnMessage)

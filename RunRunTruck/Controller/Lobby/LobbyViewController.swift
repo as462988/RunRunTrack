@@ -219,7 +219,6 @@ extension LobbyViewController: TurckInfoCellDelegate {
         
         let chatroomVC = ChatroomViewController()
         
-//        let chatroomVC = ChatroomController(collectionViewLayout: UICollectionViewFlowLayout())
         chatroomVC.truckData = truckData
 //
         FirebaseManager.shared.getTruckId(truckName: truckData.name)

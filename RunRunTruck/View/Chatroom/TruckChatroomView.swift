@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol TruckChatroomViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, AnyObject {
+protocol TruckChatroomViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AnyObject {
     
 }
 
-class TruckChatroomView: UIView {
+class ChatRoomView: UIView {
     
     weak var delegate: TruckChatroomViewDelegate? {
         
@@ -24,11 +24,12 @@ class TruckChatroomView: UIView {
     
     var msgCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.delegate = TruckChatroomView().delegate
-//        collectionView.dataSource = TruckChatroomView().delegate
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         collectionView.backgroundColor = .white
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -81,7 +82,6 @@ class TruckChatroomView: UIView {
         msgCollectionView.delegate = self.delegate
         msgCollectionView.dataSource = self.delegate
         setupInputComponents()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
