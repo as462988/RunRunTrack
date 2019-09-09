@@ -91,8 +91,11 @@ extension LobbyViewController: LobbyViewDelegate {
         
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
-        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     // MARK: - 滑動 collectionView (paging)
@@ -194,35 +197,46 @@ extension LobbyViewController: LobbyViewDelegate {
 extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(location.lat),\(location.lon)&center=\(location.lat),\(location.lon)&directionsmode=driving&zoom=17")!)
+        let location = "\(location.lat),\(location.lon)"
+        
+        guard let openUrl = URL(string: "comgooglemaps://") else {return}
+        
+        if UIApplication.shared.canOpenURL(openUrl) {
+            
+           guard let url = URL(
+            string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
+            else {
+                return
+            }
+            
+            UIApplication.shared.open(url)
         } else {
             print("Can't use comgooglemaps://")
         }
-        
     }
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
+                       didEnterTruckChatRoom truckData: TruckData) {
         
-        //        guard FirebaseManager.shared.userID != nil else {
-        //
-        //            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-        //
-        //                authVC.modalPresentationStyle = .overCurrentContext
-        //
-        //                present(authVC, animated: false, completion: nil)
-        //            }
-        //
-        //            return
-        //        }
+        guard FirebaseManager.shared.userID != nil else {
+            
+            let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+            
+            guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = true
+                auth.modalPresentationStyle = .overCurrentContext
+                present(auth, animated: false, completion: nil)
+
+            return
+        }
         
         self.hidesBottomBarWhenPushed = true
         
         let chatroomVC = ChatroomViewController()
         
         chatroomVC.truckData = truckData
-//
+        
         FirebaseManager.shared.getTruckId(truckName: truckData.name)
-
+        
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)
         self.hidesBottomBarWhenPushed = false

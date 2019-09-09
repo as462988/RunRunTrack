@@ -14,5 +14,5 @@ target 'RunRunTruck' do
    pod 'GoogleMaps'
    pod 'GooglePlaces'
    pod 'IQKeyboardManager'
-   
+   pod 'lottie-ios'
 end

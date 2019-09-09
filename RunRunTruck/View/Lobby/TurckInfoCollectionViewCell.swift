@@ -9,8 +9,8 @@
 import UIKit
 
 struct GeoLocation {
-    let lon: Double
     let lat: Double
+    let lon: Double
 }
 
 protocol TurckInfoCellDelegate: AnyObject {
@@ -54,8 +54,20 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         setImage()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 20).cgPath
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 0.7
+        layer.shadowColor = UIColor.black.cgColor
+        layer.masksToBounds = false
+        
+    }
+    
     @IBAction func clickGoogleMapBtn() {
-      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lon: latitude, lat: longitude))
+      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lat: latitude, lon: longitude))
     }
     
     private func setImage() {

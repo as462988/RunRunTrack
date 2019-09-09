@@ -18,8 +18,10 @@ class ChatMessageCell: UICollectionViewCell {
     var nameTextLabel: UILabel?
     var textView: UITextView!
     var profileImageView: UIImageView?
+    var bubbleView: UIView!
     
     var textViewHeightAnchor: NSLayoutConstraint?
+     var bubbleHeightAnchor: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +29,8 @@ class ChatMessageCell: UICollectionViewCell {
         self.configureProfileInmageView()
         self.nameTextLabel = createNameLabel()
         self.configureNameLabel()
+        self.bubbleView = createBubbleView()
+        self.configureBubbleView()
         self.textView = createTextView()
         self.configureTextView()
         addViews()
@@ -59,19 +63,31 @@ class ChatMessageCell: UICollectionViewCell {
         }
     }
     
+    final func createBubbleView() -> UIView { return UIView() }
+    
+    func configureBubbleView() {
+        if let bubbleView = self.bubbleView {
+
+            bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            bubbleView.translatesAutoresizingMaskIntoConstraints = false
+            bubbleView.layer.cornerRadius = 6
+        }
+    }
+    
     final func createTextView() -> UITextView { return UITextView() }
     
     func configureTextView() {
         if let textView = self.textView {
             textView.textColor = UIColor(r: 61, g: 61, b: 61)
             textView.font = UIFont.systemFont(ofSize: 16)
-            textView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+//            textView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
+            textView.backgroundColor = .clear
             textView.isEditable = false
             textView.isScrollEnabled = false
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.layer.cornerRadius = 6
-            textView.textContainer.lineFragmentPadding = 3
-            textView.textContainerInset = UIEdgeInsets(top: 1, left: 2, bottom: 1, right: 2)
+            textView.textContainer.lineFragmentPadding = 5
+            textView.textContainerInset = .zero
         }
     }
     
@@ -94,6 +110,7 @@ class ChatMessageCell: UICollectionViewCell {
             self.addSubview(nameLabel)
             
         }
+        self.addSubview(bubbleView)
         self.addSubview(textView)
     }
     
@@ -112,11 +129,22 @@ class ChatMessageCell: UICollectionViewCell {
         nameLabel.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: ChatMessageCell.usrNameLabelHeight).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: ChatMessageCell.userNameLabelWidth).isActive = true
+        //聊天背景
+        bubbleView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
+        bubbleView.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+        bubbleView.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        bubbleHeightAnchor = bubbleView.heightAnchor.constraint(equalToConstant: 1)
+        bubbleHeightAnchor?.isActive = true
+        
         //聊天文字
-        textView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
-        textView.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
-        textView.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
-        textViewHeightAnchor = textView.heightAnchor.constraint(equalToConstant: 1)
-        textViewHeightAnchor?.isActive = true
+        textView.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: 5).isActive = true
+        textView.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: 4).isActive = true
+        textView.trailingAnchor.constraint(equalTo: bubbleView.trailingAnchor).isActive = true
+//        textView.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -2).isActive = true
+        textView.heightAnchor.constraint(equalTo: bubbleView.heightAnchor, constant: -5).isActive = true
+//        textView.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+//        textViewHeightAnchor = textView.heightAnchor.constraint(equalToConstant: 1)
+//        textViewHeightAnchor?.isActive = true
+
     }
 }

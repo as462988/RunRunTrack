@@ -62,8 +62,12 @@ class ChatroomViewController: UIViewController {
             
             if let weakSelf = self {
                 DispatchQueue.main.async {
-                    let bottomOffsetY = weakSelf.chatRoomView.msgCollectionView.collectionViewLayout.collectionViewContentSize.height + weakSelf.chatRoomView.msgCollectionView.contentInset.bottom -
-                        weakSelf.chatRoomView.msgCollectionView.frame.size.height
+                    
+                    let collectionView = weakSelf.chatRoomView.msgCollectionView
+                    
+                    let bottomOffsetY = collectionView.collectionViewLayout.collectionViewContentSize.height +
+                        collectionView.contentInset.bottom -
+                        collectionView.frame.size.height
                     let range = bottomOffsetY - weakSelf.chatRoomView.msgCollectionView.contentOffset.y
                     
                     if range <= 5 && range >= -5 {
@@ -163,7 +167,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.setupCellValue(text: messageData.text, name: nil, image: nil)
             
-            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+            chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
             
@@ -175,7 +180,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: nil)
             
-            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
         }
@@ -206,19 +212,7 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
         var height: CGFloat = 80
         
         let messageData = messages[indexPath.item]
-        
-        //        if collectionView.dequeueReusableCell(
-        //            withReuseIdentifier: cellForSelf,
-        //            for: indexPath) is ChatCellForSelf {
-        //
-        //             height = estimateFrameForText(text: messageData.text).height + 20
-        //
-        //        } else {
-        //
-        //            height = estimateFrameForText(text: messageData.text).height
-        //                + estimateFrameForText(text: messageData.name).height + 20
-        //        }
-        //
+
         if messageData.uid == FirebaseManager.shared.userID {
             
             height = estimateFrameForText(text: messageData.text).height + 20
