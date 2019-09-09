@@ -197,14 +197,25 @@ extension LobbyViewController: LobbyViewDelegate {
 extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(location.lat),\(location.lon)&center=\(location.lat),\(location.lon)&directionsmode=driving&zoom=17")!)
+        let location = "\(location.lat),\(location.lon)"
+        
+        guard let openUrl = URL(string: "comgooglemaps://") else {return}
+        
+        if UIApplication.shared.canOpenURL(openUrl) {
+            
+           guard let url = URL(
+            string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
+            else {
+                return
+            }
+            
+            UIApplication.shared.open(url)
         } else {
             print("Can't use comgooglemaps://")
         }
-        
     }
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
+                       didEnterTruckChatRoom truckData: TruckData) {
         
         guard FirebaseManager.shared.userID != nil else {
             
@@ -212,23 +223,9 @@ extension LobbyViewController: TurckInfoCellDelegate {
             
             guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
                 rootVC.tabBar.isHidden = true
-//                tabBarController?.tabBar.isHidden = true
                 auth.modalPresentationStyle = .overCurrentContext
                 present(auth, animated: false, completion: nil)
-            
-//            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-            
-//            authVC.modalPresentationStyle = .overCurrentContext
-//            authVC.hidesBottomBarWhenPushed = true
-//            authVC.tabBarController?.hidesBottomBarWhenPushed = true
-//            authVC.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-//            authVC.view.isOpaque = true
-                
-//            present(authVC, animated: false, completion: nil)
-//            authVC.hidesBottomBarWhenPushed = true
-//                show(authVC, sender: nil)
-//            }
-            
+
             return
         }
         

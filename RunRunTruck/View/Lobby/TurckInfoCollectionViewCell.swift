@@ -9,8 +9,8 @@
 import UIKit
 
 struct GeoLocation {
-    let lon: Double
     let lat: Double
+    let lon: Double
 }
 
 protocol TurckInfoCellDelegate: AnyObject {
@@ -67,7 +67,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func clickGoogleMapBtn() {
-      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lon: latitude, lat: longitude))
+      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lat: latitude, lon: longitude))
     }
     
     private func setImage() {

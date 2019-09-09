@@ -70,8 +70,8 @@ class ChatMessageCell: UICollectionViewCell {
             textView.isScrollEnabled = false
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.layer.cornerRadius = 6
-            textView.textContainer.lineFragmentPadding = 3
-            textView.textContainerInset = UIEdgeInsets(top: 1, left: 2, bottom: 1, right: 2)
+            textView.textContainer.lineFragmentPadding = 5
+            textView.textContainerInset = UIEdgeInsets(top: 1, left: 0, bottom: 1, right: 0)
         }
     }
     

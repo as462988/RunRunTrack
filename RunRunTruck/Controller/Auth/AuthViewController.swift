@@ -93,6 +93,8 @@ class AuthViewController: UIViewController {
                 
             })
         }
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = false
     }
     
     func handleBossLogin() {

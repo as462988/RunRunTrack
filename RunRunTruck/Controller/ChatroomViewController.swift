@@ -62,8 +62,12 @@ class ChatroomViewController: UIViewController {
             
             if let weakSelf = self {
                 DispatchQueue.main.async {
-                    let bottomOffsetY = weakSelf.chatRoomView.msgCollectionView.collectionViewLayout.collectionViewContentSize.height + weakSelf.chatRoomView.msgCollectionView.contentInset.bottom -
-                        weakSelf.chatRoomView.msgCollectionView.frame.size.height
+                    
+                    let collectionView = weakSelf.chatRoomView.msgCollectionView
+                    
+                    let bottomOffsetY = collectionView.collectionViewLayout.collectionViewContentSize.height +
+                        collectionView.contentInset.bottom -
+                        collectionView.frame.size.height
                     let range = bottomOffsetY - weakSelf.chatRoomView.msgCollectionView.contentOffset.y
                     
                     if range <= 5 && range >= -5 {
