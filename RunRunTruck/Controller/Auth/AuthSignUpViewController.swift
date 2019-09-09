@@ -99,24 +99,7 @@ class AuthSignUpViewController: UIViewController {
 }
 
 extension AuthSignUpViewController: UITextFieldDelegate {
-    
-//    enum BtnStatus {
-//        case enable
-//        case disable
-//    }
-//
-//    // MARK: - 設置 Btn 狀態
-//    func setBtnStatus(_ status: BtnStatus, btn: UIButton) {
-//        switch status {
-//        case .enable:
-//            btn.isUserInteractionEnabled = true
-//            btn.alpha = 1
-//        case .disable:
-//            btn.isUserInteractionEnabled = false
-//            btn.alpha = 0.5
-//        }
-//    }
-    
+
     func checkUserInput() {
         
         guard let name = nameTextField.text,

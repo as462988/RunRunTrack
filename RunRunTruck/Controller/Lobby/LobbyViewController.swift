@@ -91,6 +91,11 @@ extension LobbyViewController: LobbyViewDelegate {
         
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
+//        cell.layer.shadowPath
+//        cell.layer.shadowOffset = CGSize(width: 5, height: 5)
+//        cell.layer.shadowRadius = 5
+//        cell.layer.shadowOpacity = 0.5
+//        cell.layer.shadowColor = UIColor.black.cgColor
         
         return cell
     }
