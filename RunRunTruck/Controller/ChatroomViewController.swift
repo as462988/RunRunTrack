@@ -167,7 +167,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.setupCellValue(text: messageData.text, name: nil, image: nil)
             
-            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+            chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
             
@@ -179,7 +180,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: nil)
             
-            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
         }
@@ -210,19 +212,7 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
         var height: CGFloat = 80
         
         let messageData = messages[indexPath.item]
-        
-        //        if collectionView.dequeueReusableCell(
-        //            withReuseIdentifier: cellForSelf,
-        //            for: indexPath) is ChatCellForSelf {
-        //
-        //             height = estimateFrameForText(text: messageData.text).height + 20
-        //
-        //        } else {
-        //
-        //            height = estimateFrameForText(text: messageData.text).height
-        //                + estimateFrameForText(text: messageData.name).height + 20
-        //        }
-        //
+
         if messageData.uid == FirebaseManager.shared.userID {
             
             height = estimateFrameForText(text: messageData.text).height + 20
