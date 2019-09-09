@@ -91,12 +91,6 @@ extension LobbyViewController: LobbyViewDelegate {
         
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
-//        cell.layer.shadowPath
-//        cell.layer.shadowOffset = CGSize(width: 5, height: 5)
-//        cell.layer.shadowRadius = 5
-//        cell.layer.shadowOpacity = 0.5
-//        cell.layer.shadowColor = UIColor.black.cgColor
-        
         return cell
     }
     
@@ -212,26 +206,25 @@ extension LobbyViewController: TurckInfoCellDelegate {
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
         
-        //        guard FirebaseManager.shared.userID != nil else {
-        //
-        //            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-        //
-        //                authVC.modalPresentationStyle = .overCurrentContext
-        //
-        //                present(authVC, animated: false, completion: nil)
-        //            }
-        //
-        //            return
-        //        }
+        guard FirebaseManager.shared.userID != nil else {
+            
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                
+                present(authVC, animated: false, completion: nil)
+                
+            }
+            
+            return
+        }
         
         self.hidesBottomBarWhenPushed = true
         
         let chatroomVC = ChatroomViewController()
         
         chatroomVC.truckData = truckData
-//
+        
         FirebaseManager.shared.getTruckId(truckName: truckData.name)
-
+        
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(chatroomVC, animated: true)
         self.hidesBottomBarWhenPushed = false

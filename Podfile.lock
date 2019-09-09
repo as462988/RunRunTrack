@@ -98,6 +98,7 @@ PODS:
   - IQKeyboardManager (6.4.0)
   - Kingfisher (5.7.0)
   - leveldb-library (1.20)
+  - lottie-ios (3.1.2)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -114,6 +115,7 @@ DEPENDENCIES:
   - GooglePlaces
   - IQKeyboardManager
   - Kingfisher
+  - lottie-ios
   - SwiftLint
 
 SPEC REPOS:
@@ -138,6 +140,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - Kingfisher
     - leveldb-library
+    - lottie-ios
     - nanopb
     - Protobuf
     - SwiftLint
@@ -163,10 +166,11 @@ SPEC CHECKSUMS:
   IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
   Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: 3e6fcd7efe88d4f9502f80fe0d4bb1b8e27a7958
+PODFILE CHECKSUM: 8df5d1e73710b7ca6b7091fbbfff9e699ed83619
 
 COCOAPODS: 1.7.5

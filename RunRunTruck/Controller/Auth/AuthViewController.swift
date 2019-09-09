@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Lottie
 
 class AuthViewController: UIViewController {
     
@@ -17,6 +18,8 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var singInBtn: UIButton!
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var animationView: AnimationView!
     
     var userLoginIsFinished = false {
         didSet {
@@ -36,10 +39,22 @@ class AuthViewController: UIViewController {
         loginSegment.addTarget(self, action: #selector(handleLoginChange), for: .valueChanged)
         singInBtn.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         checkUserInput()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        playAnimation()
+    }
+    
+    func playAnimation() {
+        
+        animationView.animation = Animation.named("lf30_editor_envOAW")
+        animationView.loopMode = .loop
+        animationView.play()
     }
     
     @IBAction func dismissView(_ sender: Any) {
-        
          presentingViewController?.dismiss(animated: false, completion: nil)
     }
     
@@ -91,22 +106,6 @@ class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: UITextFieldDelegate {
-    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//
-//        guard let email = emailTextField.text, let psw = pswTextField.text else {
-//            singInBtn.isEnabled = false
-//            singInBtn.alpha = 0.5
-//            return
-//        }
-//        if !email.isEmpty && !psw.isEmpty {
-//            singInBtn.isEnabled = true
-//            singInBtn.alpha = 1
-//        } else {
-//            singInBtn.isEnabled = false
-//            singInBtn.alpha = 0.5
-//        }
-//    }
     
     func checkUserInput() {
         

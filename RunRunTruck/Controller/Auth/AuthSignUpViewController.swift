@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Lottie
 
 class AuthSignUpViewController: UIViewController {
     
@@ -20,6 +21,9 @@ class AuthSignUpViewController: UIViewController {
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var pswConfirmTextField: UITextField!
     @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var animationOne: AnimationView!
+    @IBOutlet weak var animationTwo: AnimationView!
+    @IBOutlet weak var animationThird: AnimationView!
     
     var userRegisteIsFinished = false {
         didSet {
@@ -51,6 +55,11 @@ class AuthSignUpViewController: UIViewController {
         segmentRegister.addTarget(self, action: #selector(handleRegisterChange), for: .valueChanged)
         
         checkUserInput()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        playAnimation()
     }
     
     @IBAction func dismissView(_ sender: Any) {
@@ -94,6 +103,35 @@ class AuthSignUpViewController: UIViewController {
         emailTextField.text = ""
         pswTextField.text = ""
         pswConfirmTextField.text = ""
+    }
+    
+    func playAnimation() {
+        
+        let urlFirst = URL(string: "https://assets7.lottiefiles.com/temporary_files/2EMn10.json")
+        let urlSecond = URL(string: "https://assets7.lottiefiles.com/temporary_files/vGyy7K.json")
+        let urlThird = URL(string: "https://assets7.lottiefiles.com/temporary_files/Fpip5r.json")
+        
+        Animation.loadedFrom(url: urlFirst!,
+                             closure: { [weak self](animation) in
+                                self?.animationOne.animation = animation
+                                self?.animationOne.loopMode = .loop
+                                self?.animationOne.play()
+            }, animationCache: nil)
+        
+        Animation.loadedFrom(url: urlSecond!,
+                             closure: { [weak self](animation) in
+                                self?.animationTwo.animation = animation
+                                self?.animationTwo.loopMode = .loop
+                                self?.animationTwo.play()
+            }, animationCache: nil)
+        
+        Animation.loadedFrom(url: urlThird!,
+                             closure: { [weak self](animation) in
+                                self?.animationThird.animation = animation
+                                self?.animationThird.loopMode = .loop
+                                self?.animationThird.play()
+            }, animationCache: nil)
+
     }
 
 }
