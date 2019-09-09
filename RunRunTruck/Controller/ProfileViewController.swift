@@ -9,9 +9,14 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    @IBOutlet weak var clickLogoOutBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        clickLogoOutBtn.layer.cornerRadius = 10
+        clickLogoOutBtn.clipsToBounds = true
 
     }
     
