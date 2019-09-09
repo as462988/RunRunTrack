@@ -55,6 +55,9 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func dismissView(_ sender: Any) {
+        
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = false
          presentingViewController?.dismiss(animated: false, completion: nil)
     }
     

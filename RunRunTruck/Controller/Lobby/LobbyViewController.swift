@@ -208,11 +208,26 @@ extension LobbyViewController: TurckInfoCellDelegate {
         
         guard FirebaseManager.shared.userID != nil else {
             
-            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+            
+            guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = true
+//                tabBarController?.tabBar.isHidden = true
+                auth.modalPresentationStyle = .overCurrentContext
+                present(auth, animated: false, completion: nil)
+            
+//            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            
+//            authVC.modalPresentationStyle = .overCurrentContext
+//            authVC.hidesBottomBarWhenPushed = true
+//            authVC.tabBarController?.hidesBottomBarWhenPushed = true
+//            authVC.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+//            authVC.view.isOpaque = true
                 
-                present(authVC, animated: false, completion: nil)
-                
-            }
+//            present(authVC, animated: false, completion: nil)
+//            authVC.hidesBottomBarWhenPushed = true
+//                show(authVC, sender: nil)
+//            }
             
             return
         }
