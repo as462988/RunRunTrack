@@ -41,5 +41,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We’ll use this to personalize your app experience</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We’ll use this to personalize your app experience</string>
+	<key> GMSServicesAPIKey</key>
+	<string>AIzaSyD7n_QBYwz7l_3Rf16Uogn3oLMuG3aW9ug</string>
 </dict>
 </plist>

@@ -3,25 +3,83 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090AFB5E231CC8660072E646 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 090AFB5D231CC8660072E646 /* Auth.storyboard */; };
+		090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB60231CD51A0072E646 /* AuthViewController.swift */; };
+		090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */; };
+		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
+		091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A323224074008EFCF5 /* ChatroomViewController.swift */; };
+		091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A5232240BF008EFCF5 /* TruckChatroomView.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
-		091EEB6023153B0200BF066F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* ViewController.swift */; };
+		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
 		091EEB6323153B0200BF066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6123153B0200BF066F /* Main.storyboard */; };
-		091EEB6523153B0300BF066F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6423153B0300BF066F /* Assets.xcassets */; };
 		091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6623153B0300BF066F /* LaunchScreen.storyboard */; };
+		091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6F2315415C00BF066F /* GoogleService-Info.plist */; };
+		091EEB762315790E00BF066F /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB752315790E00BF066F /* Lobby.storyboard */; };
+		091EEB78231579D400BF066F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB77231579D400BF066F /* Profile.storyboard */; };
+		091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB7923157A7A00BF066F /* Truck.storyboard */; };
+		091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB7B23157AA500BF066F /* Badge.storyboard */; };
+		091EEB7E23157AE700BF066F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB7D23157AE700BF066F /* TabBarViewController.swift */; };
+		091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8023157E3A00BF066F /* UIStoryboard+Extension.swift */; };
+		091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8223157F4200BF066F /* UIImage+Extension.swift */; };
+		091EEB882316587800BF066F /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB872316587800BF066F /* LobbyView.swift */; };
+		091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8923166C8800BF066F /* TurckInfoCollectionViewCell.swift */; };
+		091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8C23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift */; };
+		091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8E23167CDA00BF066F /* FirebaseManager.swift */; };
+		091EEB912316866700BF066F /* TruckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB902316866700BF066F /* TruckData.swift */; };
+		09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DD523175CD5003C851A /* KingFisherWrapper.swift */; };
+		09329DD8231779AE003C851A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09329DD7231779AE003C851A /* Assets.xcassets */; };
+		09329DDB2317C33F003C851A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDA2317C33F003C851A /* Constant.swift */; };
+		09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDC2317CAE4003C851A /* Bundle+Extension.swift */; };
+		09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDE2318F81B003C851A /* ProfileViewController.swift */; };
+		09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DE0231BBBB2003C851A /* UIColor+Extension.swift */; };
+		093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093365F7231E49EB00F0D503 /* ChatMessageCell.swift */; };
+		0933664F231F97F400F0D503 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933664E231F97F400F0D503 /* Message.swift */; };
+		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
+		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		090AFB5D231CC8660072E646 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Auth.storyboard; path = Lobby/Auth.storyboard; sourceTree = "<group>"; };
+		090AFB60231CD51A0072E646 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSignUpViewController.swift; sourceTree = "<group>"; };
+		090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
+		091508A323224074008EFCF5 /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
+		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		091EEB5F23153B0200BF066F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		091EEB6223153B0200BF066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		091EEB6423153B0300BF066F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		091EEB6723153B0300BF066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		091EEB6923153B0300BF066F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		091EEB6F2315415C00BF066F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		091EEB752315790E00BF066F /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
+		091EEB77231579D400BF066F /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		091EEB7923157A7A00BF066F /* Truck.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Truck.storyboard; sourceTree = "<group>"; };
+		091EEB7B23157AA500BF066F /* Badge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Badge.storyboard; sourceTree = "<group>"; };
+		091EEB7D23157AE700BF066F /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		091EEB8023157E3A00BF066F /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		091EEB8223157F4200BF066F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		091EEB872316587800BF066F /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
+		091EEB8923166C8800BF066F /* TurckInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurckInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		091EEB8C23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckInfoCollectionViewLayout.swift; sourceTree = "<group>"; };
+		091EEB8E23167CDA00BF066F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		091EEB902316866700BF066F /* TruckData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckData.swift; sourceTree = "<group>"; };
+		09329DD523175CD5003C851A /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
+		09329DD7231779AE003C851A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09329DDA2317C33F003C851A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		09329DDC2317CAE4003C851A /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		09329DDE2318F81B003C851A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		09329DE0231BBBB2003C851A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		093365F7231E49EB00F0D503 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		0933664E231F97F400F0D503 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
+		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
+		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
+		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +87,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		090AFB5F231CD4FF0072E646 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				090AFB60231CD51A0072E646 /* AuthViewController.swift */,
+				090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		091EEB5123153B0200BF066F = {
 			isa = PBXGroup;
 			children = (
 				091EEB5C23153B0200BF066F /* RunRunTruck */,
 				091EEB5B23153B0200BF066F /* Products */,
+				87441FB507B2DE3639ACEC09 /* Pods */,
+				1FDFD08E43D4FDF3BC9768C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +124,129 @@
 		091EEB5C23153B0200BF066F /* RunRunTruck */ = {
 			isa = PBXGroup;
 			children = (
+				09329DD92317C329003C851A /* Constant */,
+				091EEB922317586900BF066F /* Third Party Wrapper */,
+				091EEB7F23157E1400BF066F /* Extension */,
+				091EEB7423156BF900BF066F /* Model */,
+				091EEB7323156BEE00BF066F /* Controller */,
+				091EEB7223156BE800BF066F /* View */,
 				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
-				091EEB5F23153B0200BF066F /* ViewController.swift */,
-				091EEB6123153B0200BF066F /* Main.storyboard */,
-				091EEB6423153B0300BF066F /* Assets.xcassets */,
-				091EEB6623153B0300BF066F /* LaunchScreen.storyboard */,
+				09329DD7231779AE003C851A /* Assets.xcassets */,
 				091EEB6923153B0300BF066F /* Info.plist */,
+				091EEB6F2315415C00BF066F /* GoogleService-Info.plist */,
 			);
 			path = RunRunTruck;
+			sourceTree = "<group>";
+		};
+		091EEB7223156BE800BF066F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				093365F4231E36F700F0D503 /* Chatroom */,
+				091EEB8B23166C9100BF066F /* Lobby */,
+				091EEB6123153B0200BF066F /* Main.storyboard */,
+				091EEB6623153B0300BF066F /* LaunchScreen.storyboard */,
+				091EEB752315790E00BF066F /* Lobby.storyboard */,
+				091EEB77231579D400BF066F /* Profile.storyboard */,
+				090AFB5D231CC8660072E646 /* Auth.storyboard */,
+				091EEB7923157A7A00BF066F /* Truck.storyboard */,
+				091EEB7B23157AA500BF066F /* Badge.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		091EEB7323156BEE00BF066F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				09336624231ECAB400F0D503 /* Lobby */,
+				090AFB5F231CD4FF0072E646 /* Auth */,
+				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
+				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
+				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		091EEB7423156BF900BF066F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
+				091EEB902316866700BF066F /* TruckData.swift */,
+				0933664E231F97F400F0D503 /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		091EEB7F23157E1400BF066F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				091EEB8023157E3A00BF066F /* UIStoryboard+Extension.swift */,
+				091EEB8223157F4200BF066F /* UIImage+Extension.swift */,
+				09329DDC2317CAE4003C851A /* Bundle+Extension.swift */,
+				09329DE0231BBBB2003C851A /* UIColor+Extension.swift */,
+				090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		091EEB8B23166C9100BF066F /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				091EEB872316587800BF066F /* LobbyView.swift */,
+				091EEB8923166C8800BF066F /* TurckInfoCollectionViewCell.swift */,
+				091EEB8C23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift */,
+			);
+			path = Lobby;
+			sourceTree = "<group>";
+		};
+		091EEB922317586900BF066F /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				09329DD523175CD5003C851A /* KingFisherWrapper.swift */,
+			);
+			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
+		09329DD92317C329003C851A /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				09329DDA2317C33F003C851A /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		093365F4231E36F700F0D503 /* Chatroom */ = {
+			isa = PBXGroup;
+			children = (
+				091508A5232240BF008EFCF5 /* TruckChatroomView.swift */,
+				093365F7231E49EB00F0D503 /* ChatMessageCell.swift */,
+				09F78E362324F39900FD6099 /* ChatCellForSelf.swift */,
+			);
+			path = Chatroom;
+			sourceTree = "<group>";
+		};
+		09336624231ECAB400F0D503 /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
+			);
+			path = Lobby;
+			sourceTree = "<group>";
+		};
+		1FDFD08E43D4FDF3BC9768C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		87441FB507B2DE3639ACEC09 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */,
+				2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +256,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 091EEB6C23153B0300BF066F /* Build configuration list for PBXNativeTarget "RunRunTruck" */;
 			buildPhases = (
+				7475A18004E2FB4C83D8AB70 /* [CP] Check Pods Manifest.lock */,
 				091EEB5623153B0200BF066F /* Sources */,
 				091EEB5723153B0200BF066F /* Frameworks */,
 				091EEB5823153B0200BF066F /* Resources */,
+				091EEB712315421700BF066F /* swiftLint */,
+				681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */,
+				37A3CF0C31C383C9191A652B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -122,21 +311,125 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				090AFB5E231CC8660072E646 /* Auth.storyboard in Resources */,
+				091EEB78231579D400BF066F /* Profile.storyboard in Resources */,
 				091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */,
-				091EEB6523153B0300BF066F /* Assets.xcassets in Resources */,
+				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
+				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
+				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
+				091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */,
+				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		091EEB712315421700BF066F /* swiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = swiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		37A3CF0C31C383C9191A652B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7475A18004E2FB4C83D8AB70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RunRunTruck-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		091EEB5623153B0200BF066F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				091EEB6023153B0200BF066F /* ViewController.swift in Sources */,
+				091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */,
+				091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */,
+				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
+				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
+				091EEB912316866700BF066F /* TruckData.swift in Sources */,
+				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
+				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
+				09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */,
+				091EEB7E23157AE700BF066F /* TabBarViewController.swift in Sources */,
+				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
+				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
+				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
+				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
+				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
+				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,
+				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
+				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
+				0933664F231F97F400F0D503 /* Message.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,
+				091EEB882316587800BF066F /* LobbyView.swift in Sources */,
+				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
+				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +573,7 @@
 		};
 		091EEB6D23153B0300BF066F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +592,7 @@
 		};
 		091EEB6E23153B0300BF066F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
