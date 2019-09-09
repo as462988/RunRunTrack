@@ -44,7 +44,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="BgJ-AA-emz"/>
                                 </constraints>
-                                <state key="normal" title="登出"/>
+                                <state key="normal" title="登出">
+                                    <color key="titleColor" red="0.94107431173324585" green="0.94123536348342896" blue="0.94106405973434448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="clickLogoOutBtn:" destination="IeC-vD-fem" eventType="touchUpInside" id="xqb-d9-gpv"/>
                                 </connections>

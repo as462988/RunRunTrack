@@ -12,7 +12,9 @@ class ChatroomViewController: UIViewController {
     
     var chatRoomView = ChatRoomView()
     
-    var cellId: String = "cellId"
+    var cellForOther: String = "cellForOther"
+    
+    var cellForSelf: String = "cellForSelf"
     
     var truckData: TruckData?
     
@@ -38,7 +40,9 @@ class ChatroomViewController: UIViewController {
                                                            target: self,
                                                            action: #selector(backToRoot))
         
-        chatRoomView.msgCollectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        chatRoomView.msgCollectionView.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellForOther)
+        
+        chatRoomView.msgCollectionView.register(ChatCellForSelf.self, forCellWithReuseIdentifier: cellForSelf)
         
         chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
@@ -67,14 +71,11 @@ class ChatroomViewController: UIViewController {
                     } else {
                         weakSelf.isNeedToScrollToBottomWhenUpdated = false
                     }
-
+                    
                     weakSelf.chatRoomView.msgCollectionView.reloadData()
                     weakSelf.checkIfNeedToScrollToBottom()
                 }
                 
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0, execute: {
-//                    weakSelf.checkIfNeedToScrollToBottom()
-//                })
             }
         }
     }
@@ -152,48 +153,31 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let chatCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: cellId,
-            for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
-        
         let messageData = messages[indexPath.item]
         
-        chatCell.setupCellValue(text: messageData.text, name: messageData.name)
-        chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
-        return chatCell
-    }
-    
-    private func setupCell(cell: ChatMessageCell, indexPath: IndexPath) {
-        
-        let messageData = messages[indexPath.item]
         if messageData.uid == FirebaseManager.shared.userID {
             
-            cell.textView.text = messageData.text
-            cell.textView.textColor = .white
-            cell.bubbleView.backgroundColor = ChatMessageCell.myMessageColor
+            guard let chatCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: cellForSelf,
+                for: indexPath) as? ChatCellForSelf else { return UICollectionViewCell() }
             
-            cell.nameTextLabel.isHidden = true
-            cell.profileImageView.isHidden = true
-            cell.bubbleViewTopAnchor?.isActive = true
-            cell.bubbleViewTopAnchorWithName?.isActive = false
-            cell.bubbleTrailingAnchor?.isActive = true
-            cell.bubbleLeadingAnchor?.isActive = false
-            cell.bubbleViewHeightAnchor?.isActive = true
-            cell.bubbleViewheigHtAnchorWithName?.isActive = false
+            chatCell.setupCellValue(text: messageData.text, name: nil, image: nil)
+            
+            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+            
+            return chatCell
+            
         } else {
             
-            cell.textView.text = messageData.text
-            cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
-            cell.textView.textColor = .black
-            cell.bubbleTrailingAnchor?.isActive = false
-            cell.bubbleLeadingAnchor?.isActive = true
-            cell.profileImageView.isHidden = false
-            cell.nameTextLabel.isHidden = false
-            cell.bubbleViewTopAnchor?.isActive = false
-            cell.bubbleViewTopAnchorWithName?.isActive = true
-            cell.bubbleViewHeightAnchor?.isActive = false
-            cell.bubbleViewheigHtAnchorWithName?.isActive = true
+            guard let chatCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: cellForOther,
+                for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
             
+            chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: nil)
+            
+            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+            
+            return chatCell
         }
     }
     
@@ -218,13 +202,32 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         var height: CGFloat = 80
         
         let messageData = messages[indexPath.item]
         
-        height = estimateFrameForText(text: messageData.text).height
-            + estimateFrameForText(text: messageData.name).height + 20
-        
+        //        if collectionView.dequeueReusableCell(
+        //            withReuseIdentifier: cellForSelf,
+        //            for: indexPath) is ChatCellForSelf {
+        //
+        //             height = estimateFrameForText(text: messageData.text).height + 20
+        //
+        //        } else {
+        //
+        //            height = estimateFrameForText(text: messageData.text).height
+        //                + estimateFrameForText(text: messageData.name).height + 20
+        //        }
+        //
+        if messageData.uid == FirebaseManager.shared.userID {
+            
+            height = estimateFrameForText(text: messageData.text).height + 20
+            
+        } else {
+            
+            height = estimateFrameForText(text: messageData.text).height
+                + estimateFrameForText(text: messageData.name).height + 20
+        }
         return CGSize(width: chatRoomView.frame.width, height: height)
     }
     

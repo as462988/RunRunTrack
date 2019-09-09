@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol TruckChatroomViewDelegate: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AnyObject {
+protocol TruckChatroomViewDelegate:
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+AnyObject {
     
 }
 
@@ -24,8 +27,6 @@ class ChatRoomView: UIView {
     
     var msgCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         collectionView.backgroundColor = .white
