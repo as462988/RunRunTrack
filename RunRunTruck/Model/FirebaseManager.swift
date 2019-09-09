@@ -17,9 +17,15 @@ class FirebaseManager {
     
     var truckData: [TruckData] = []
     
+    var currentUser: UserData?
+    
+    var message = [Message]()
+    
     let db = Firestore.firestore()
     
     let storage = Storage.storage()
+    
+    var truckID: String?
     
     var userID: String?
     
@@ -34,7 +40,7 @@ class FirebaseManager {
         }
     
     //讀取 truckData
-    func getTruckData(completion: @escaping ([TruckData]?) -> Void ) {
+    func getTruckData(completion: @escaping ([TruckData]?) -> Void) {
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error)  in
             guard let snapshot = snapshot else {
                 completion(nil)
@@ -60,18 +66,40 @@ class FirebaseManager {
     }
     
     //setUserData
-    
-    func setUserData(email: String) {
+    func setUserData(name: String, email: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("User").document(uid).setData(["email": email]) { error in
+        db.collection(User.user.rawValue).document(uid).setData([
+            User.name.rawValue: name,
+            User.email.rawValue: email]
+        ) { error in
             
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
                 print("Document successfully written!")
             }
+        }
+    }
+    
+    //getUserData
+    func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
+         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(User.user.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+            
+            guard let snapshot = snapshot else {
+                completion(nil)
+                return
+            }
+            
+            guard let name = snapshot.data()?[User.name.rawValue] as? String,
+                let email = snapshot.data()?[User.email.rawValue] as? String else { return }
+            
+            self?.currentUser = UserData(name: name, email: email)
+            
+            completion(self?.currentUser)
         }
     }
     
@@ -121,6 +149,79 @@ class FirebaseManager {
         } catch let signOutError as NSError {
             
             print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    func getTruckId(truckName: String) {
+
+        db.collection(Truck.truck.rawValue).whereField(
+            Truck.name.rawValue,
+            isEqualTo: truckName).getDocuments {[weak self] (snapshot, error) in
+           
+            guard error == nil else {
+                print("Error getting documents")
+                return
+            }
+                
+                for document in snapshot!.documents {
+                   self?.truckID = document.documentID
+                    
+            }
+        }
+
+    }
+    
+    //creatChatRoom
+    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
+
+    db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
+            Truck.name.rawValue: name,
+            User.uid.rawValue: uid,
+            User.text.rawValue: text,
+            User.createTime.rawValue: Date().timeIntervalSince1970
+        ]) { (error) in
+
+            if let err = error {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    //show ChatRoom Message
+    func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
+        
+            let docRef = db.collection(Truck.truck.rawValue).document(truckID)
+        
+            let order = docRef.collection(Truck.chatRoom.rawValue).order(
+                by: User.createTime.rawValue,
+                descending: false)
+        
+            order.addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            var rtnMessage: [Message] = []
+
+            snapshot.documentChanges.forEach({ (documentChange) in
+                
+                let data = documentChange.document.data()
+                guard let uid = data[User.uid.rawValue] as? String,
+                    let name = data[User.name.rawValue] as? String,
+                    let text = data[User.text.rawValue] as? String,
+                    let createTime = data[User.createTime.rawValue] as? Double else {return}
+                
+                if documentChange.type == .added {
+                    
+                    rtnMessage.append(Message(uid, name, text, createTime))
+                
+                }
+            })
+            if rtnMessage.count > 0 {
+                completion(rtnMessage)
+            }
         }
     }
 }

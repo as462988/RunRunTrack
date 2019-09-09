@@ -18,6 +18,7 @@ CLLocationManagerDelegate, AnyObject {
 }
 
 class LobbyView: UIView, UICollectionViewDelegate {
+    
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
     
     @IBOutlet weak var truckCollectionView: UICollectionView! {
@@ -94,9 +95,11 @@ class LobbyView: UIView, UICollectionViewDelegate {
             
             URLSession.shared.dataTask(with: url) { [weak self] (data, rsp, err) in
                 
+                guard let data = data else { return }
+                
                 DispatchQueue.main.async {
                     
-                    guard let img = UIImage(data: data!) else {return}
+                    guard let img = UIImage(data: data) else {return}
                     
                      self?.setIconImage(marker: marker, img: img)
                 }

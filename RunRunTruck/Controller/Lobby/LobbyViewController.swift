@@ -20,11 +20,8 @@ class LobbyViewController: UIViewController {
         }
     }
     
-    var index: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
       
         FirebaseManager.shared.getTruckData { (data) in
             for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
@@ -52,6 +49,12 @@ class LobbyViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+         navigationController?.isNavigationBarHidden = true
+
+    }
 }
 
 extension LobbyViewController: LobbyViewDelegate {
@@ -75,6 +78,8 @@ extension LobbyViewController: LobbyViewDelegate {
         let colseTime = FirebaseManager.dateConvertString(
             date: data.closeTime.dateValue())
         
+        cell.delegate = self
+        cell.configureWithTruckData(truckData: data)
         cell.setValue(name: data.name,
                       openTime: openTime,
                       closeTime: colseTime,
@@ -83,6 +88,7 @@ extension LobbyViewController: LobbyViewDelegate {
  
         cell.latitude = data.location.latitude
         cell.longitude = data.location.longitude
+        
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         
@@ -92,7 +98,6 @@ extension LobbyViewController: LobbyViewDelegate {
     // MARK: - 滑動 collectionView (paging)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkPage()
-        
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -184,4 +189,42 @@ extension LobbyViewController: LobbyViewDelegate {
         return true
     }
 
+}
+
+extension LobbyViewController: TurckInfoCellDelegate {
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
+        
+        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(location.lat),\(location.lon)&center=\(location.lat),\(location.lon)&directionsmode=driving&zoom=17")!)
+        } else {
+            print("Can't use comgooglemaps://")
+        }
+        
+    }
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
+        
+        //        guard FirebaseManager.shared.userID != nil else {
+        //
+        //            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+        //
+        //                authVC.modalPresentationStyle = .overCurrentContext
+        //
+        //                present(authVC, animated: false, completion: nil)
+        //            }
+        //
+        //            return
+        //        }
+        
+        self.hidesBottomBarWhenPushed = true
+        
+        let chatroomVC = ChatroomViewController()
+        
+        chatroomVC.truckData = truckData
+//
+        FirebaseManager.shared.getTruckId(truckName: truckData.name)
+
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(chatroomVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
+    }
 }

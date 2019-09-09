@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 enum Truck: String {
+    
     case truck = "Truck"
     
     case id
@@ -23,7 +24,9 @@ enum Truck: String {
     case closeTime
     
     case location
-
+    
+    case chatRoom
+    
 }
 
 struct TruckData {
@@ -50,5 +53,62 @@ struct TruckData {
         self.openTime = openTime
         self.closeTime = closeTime
         self.location = location
+    }
+}
+
+//struct Message {
+//
+//    var uid: String
+//    var name: String
+//    var text: String
+//    var createTime: Timestamp
+//
+//    init(_ uid: String, _ name: String, _ text: String, _ createTime: Timestamp) {
+//        self.uid = uid
+//        self.name = name
+//        self.text = text
+//        self.createTime = createTime
+//    }
+//}
+
+struct Message {
+    
+    var uid: String
+    var name: String
+    var text: String
+    var createTime: Double
+    
+    init(_ uid: String, _ name: String, _ text: String, _ createTime: Double) {
+        self.uid = uid
+        self.name = name
+        self.text = text
+        self.createTime = createTime
+    }
+}
+
+enum User: String {
+    
+    case user = "User"
+    
+    case uid
+    
+    case name
+    
+    case email
+    
+    case text
+    
+    case createTime
+}
+
+struct UserData {
+    
+    let name: String
+    
+    let email: String
+    
+    init(name: String, email: String) {
+        self.name = name
+        self.email = email
     }
 }

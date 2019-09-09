@@ -24,6 +24,14 @@ enum ImageAsset: String {
     case Icon_brdge
     
     case Icon_profile
+    
+    case Icon_button
+    
+    case Icon_back
+    
+    case Icon_cancel
+    
+    case Icon_UserImage
     // swiftlint:enable identifier_name
 }
 
