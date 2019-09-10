@@ -81,20 +81,22 @@ class AuthViewController: UIViewController {
         }
     }
     
-   func handleUserLogin() {
+    func handleUserLogin() {
         
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
         FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] in
             
-            self?.presentingViewController?.dismiss(animated: false, completion: nil)
             FirebaseManager.shared.getCurrentUserData(completion: { (data) in
+                
+                self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                
+                guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = false
                 
             })
         }
-        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = false
     }
     
     func handleBossLogin() {
