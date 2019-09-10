@@ -92,7 +92,8 @@ class AuthViewController: UIViewController {
                 
                 self?.presentingViewController?.dismiss(animated: false, completion: nil)
                 
-                guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+                guard let rootVC = AppDelegate.shared.window?.rootViewController
+                    as? TabBarViewController else { return }
                 rootVC.tabBar.isHidden = false
                 
             })
@@ -100,7 +101,18 @@ class AuthViewController: UIViewController {
     }
     
     func handleBossLogin() {
-        print("Boss")
+        guard let email = emailTextField.text,
+            let psw = pswTextField.text else { return }
+        
+        FirebaseManager.shared.bossSingIn(email: email, psw: psw) {
+            
+            FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
+                self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                guard let rootVC = AppDelegate.shared.window?.rootViewController
+                    as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = false
+            })
+        }
     }
     
     @objc func handleLoginChange() {

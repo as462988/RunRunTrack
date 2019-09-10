@@ -29,6 +29,8 @@ class FirebaseManager {
     
     var userID: String?
     
+    var bossID: String?
+    
     static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let timeZone = TimeZone.init(identifier: "UTC")
         let formatter = DateFormatter()
@@ -85,6 +87,25 @@ class FirebaseManager {
         }
     }
     
+    func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+            
+            guard let snapshot = snapshot else {
+                completion(nil)
+                return
+            }
+            
+            guard let name = snapshot.data()?[Boss.name.rawValue] as? String,
+                let email = snapshot.data()?[Boss.email.rawValue] as? String else { return }
+            
+            self?.currentUser = UserData(name: name, email: email)
+            
+            completion(self?.currentUser)
+        }
+    }
+    
     // singUp
     func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
         
@@ -119,8 +140,7 @@ class FirebaseManager {
             completion()
         }
     }
-    
-    
+
     //setUserData
     func setUserData(name: String, email: String) {
         
@@ -174,6 +194,22 @@ class FirebaseManager {
         }
     }
     
+    func bossSingIn(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+            
+            guard error == nil else {
+                //TODO: 顯示無法登入的原因
+                print("didn't singIn")
+                return
+            }
+            
+            print("Success")
+            self?.bossID = Auth.auth().currentUser?.uid
+            completion()
+        }
+    }
+    // signOut
     func signOut() {
        
         let firebaseAuth = Auth.auth()

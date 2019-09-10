@@ -217,28 +217,28 @@ extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {
         
-        guard FirebaseManager.shared.userID != nil else {
+        guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
             
-            let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+            self.hidesBottomBarWhenPushed = true
             
-            guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
-                rootVC.tabBar.isHidden = true
-                auth.modalPresentationStyle = .overCurrentContext
-                present(auth, animated: false, completion: nil)
-
+            let chatroomVC = ChatroomViewController()
+            
+            chatroomVC.truckData = truckData
+            
+            FirebaseManager.shared.getTruckId(truckName: truckData.name)
+            
+            navigationController?.isNavigationBarHidden = false
+            navigationController?.pushViewController(chatroomVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
             return
         }
         
-        self.hidesBottomBarWhenPushed = true
+        let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
         
-        let chatroomVC = ChatroomViewController()
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = true
+        auth.modalPresentationStyle = .overCurrentContext
+        present(auth, animated: false, completion: nil)
         
-        chatroomVC.truckData = truckData
-        
-        FirebaseManager.shared.getTruckId(truckName: truckData.name)
-        
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.pushViewController(chatroomVC, animated: true)
-        self.hidesBottomBarWhenPushed = false
     }
 }
