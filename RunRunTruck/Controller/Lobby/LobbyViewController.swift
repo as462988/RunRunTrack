@@ -22,9 +22,15 @@ class LobbyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        FirebaseManager.shared.getTruckData { (data) in
-            for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //拿取所有營業中的餐車顯示在地圖
+        FirebaseManager.shared.getOpeningTruckData { (data) in
+            
+            for (index, dataInfo) in FirebaseManager.shared.openIngTruckData.enumerated() {
                 
                 self.lobbyView.marker(lat: dataInfo.location.latitude,
                                       long: dataInfo.location.longitude,
@@ -39,7 +45,7 @@ class LobbyViewController: UIViewController {
                                             let address = location.subAdministrativeArea
                                                 + location.city + location.street
                                             
-                                            FirebaseManager.shared.truckData[index].address = address
+                                            FirebaseManager.shared.openIngTruckData[index].address = address
                                             
                                             DispatchQueue.main.async {
                                                 self?.lobbyView.reloadData()
@@ -47,10 +53,6 @@ class LobbyViewController: UIViewController {
                 })
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
          navigationController?.isNavigationBarHidden = true
 
@@ -60,7 +62,7 @@ class LobbyViewController: UIViewController {
 extension LobbyViewController: LobbyViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return FirebaseManager.shared.truckData.count
+        return FirebaseManager.shared.openIngTruckData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -70,7 +72,7 @@ extension LobbyViewController: LobbyViewDelegate {
                 return UICollectionViewCell()
         }
         
-        let data = FirebaseManager.shared.truckData[indexPath.row]
+        let data = FirebaseManager.shared.openIngTruckData[indexPath.row]
         
         let openTime = FirebaseManager.dateConvertString(
             date: data.openTime.dateValue())
@@ -129,7 +131,7 @@ extension LobbyViewController: LobbyViewDelegate {
                                                    at: .centeredHorizontally,
                                                    animated: true)
         
-        let location = FirebaseManager.shared.truckData[targetIndex].location
+        let location = FirebaseManager.shared.openIngTruckData[targetIndex].location
         
         lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
     }
@@ -140,7 +142,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         var indexNum = Int()
         
-        for (index, data) in FirebaseManager.shared.truckData.enumerated() where
+        for (index, data) in FirebaseManager.shared.openIngTruckData.enumerated() where
 
             marker.position.latitude == data.location.latitude {
 

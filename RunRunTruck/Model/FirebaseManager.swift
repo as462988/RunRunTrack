@@ -15,7 +15,7 @@ class FirebaseManager {
     
     static let shared = FirebaseManager()
     
-    var truckData: [TruckData] = []
+    var openIngTruckData: [TruckData] = []
     
     var currentUser: UserData?
     
@@ -43,7 +43,7 @@ class FirebaseManager {
     
     //讀取 truckData
     func getTruckData(completion: @escaping ([TruckData]?) -> Void) {
-        db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error)  in
+        db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error) in
             guard let snapshot = snapshot else {
                 completion(nil)
                 return
@@ -60,11 +60,40 @@ class FirebaseManager {
                 let truck = TruckData(document.documentID, name, logoImage,
                                       openTimestamp, closeTimestamp, location)
                 
-                self.truckData.append(truck)
+                self.openIngTruckData.append(truck)
             }
-            completion(self.truckData)
+            completion(self.openIngTruckData)
         }
         
+    }
+    
+    //getOpeningTruck
+    
+    func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
+        db.collection(Truck.truck.rawValue).whereField(
+            Truck.open.rawValue, isEqualTo: true).getDocuments { (snapshot, error) in
+                
+                guard let snapshot = snapshot else {
+                    completion(nil)
+                    return
+                }
+                
+                for document in snapshot.documents {
+                    
+                    guard let name = document.data()[Truck.name.rawValue] as? String,
+                        let logoImage = document.data()[Truck.logoImage.rawValue] as? String,
+                        let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
+                        let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp,
+                        let location = document.data()[Truck.location.rawValue] as? GeoPoint else {return}
+                    
+                    let truck = TruckData(document.documentID, name, logoImage,
+                                          openTimestamp, closeTimestamp, location)
+                    
+                    self.openIngTruckData.append(truck)
+                }
+                completion(self.openIngTruckData)
+                
+        }
     }
     
     //getUserData

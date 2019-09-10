@@ -87,7 +87,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
     
     func marker(lat: Double, long: Double, index: Int) {
         
-        let iconImage = FirebaseManager.shared.truckData[index].logoImage
+        let iconImage = FirebaseManager.shared.openIngTruckData[index].logoImage
         
         let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
         

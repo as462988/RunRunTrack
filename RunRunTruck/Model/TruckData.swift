@@ -17,6 +17,8 @@ enum Truck: String {
     
     case name
     
+    case open
+    
     case logoImage
     
     case openTime
