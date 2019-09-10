@@ -247,6 +247,7 @@ class FirebaseManager {
             try firebaseAuth.signOut()
             
             self.userID = nil
+            self.bossID = nil
             
         } catch let signOutError as NSError {
             

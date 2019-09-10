@@ -44,6 +44,8 @@
 		09F78E4D2326728C00FD6099 /*  ElfOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4A2326728C00FD6099 /*  ElfOne.json */; };
 		09F78E4E2326728C00FD6099 /*  ElfThird.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4B2326728C00FD6099 /*  ElfThird.json */; };
 		09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4C2326728C00FD6099 /*  ElfTwo.json */; };
+		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
+		09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E532327A4CA00FD6099 /* UserUIView.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,8 @@
 		09F78E4A2326728C00FD6099 /*  ElfOne.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfOne.json"; sourceTree = "<group>"; };
 		09F78E4B2326728C00FD6099 /*  ElfThird.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfThird.json"; sourceTree = "<group>"; };
 		09F78E4C2326728C00FD6099 /*  ElfTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfTwo.json"; sourceTree = "<group>"; };
+		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
+		09F78E532327A4CA00FD6099 /* UserUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUIView.swift; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
+				09F78E502327974200FD6099 /* Profile */,
 				093365F4231E36F700F0D503 /* Chatroom */,
 				091EEB8B23166C9100BF066F /* Lobby */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
@@ -245,6 +250,15 @@
 				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
 			);
 			path = Lobby;
+			sourceTree = "<group>";
+		};
+		09F78E502327974200FD6099 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09F78E512327976D00FD6099 /* BossUIView.swift */,
+				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		1FDFD08E43D4FDF3BC9768C6 /* Frameworks */ = {
@@ -431,6 +445,7 @@
 				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
 				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
+				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
 				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
 				09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */,
@@ -450,6 +465,7 @@
 				091EEB882316587800BF066F /* LobbyView.swift in Sources */,
 				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
 				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
+				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,25 +10,23 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var clickLogoOutBtn: UIButton!
-
+    @IBOutlet weak var bossUIView: BossUIView!
+    @IBOutlet weak var userUIView: UserUIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        clickLogoOutBtn.layer.cornerRadius = 10
-        clickLogoOutBtn.clipsToBounds = true
-
     }
     
-    @IBAction func clickLogoOutBtn(_ sender: Any) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        FirebaseManager.shared.signOut()
-        
-        let appdelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        let root = appdelegate?.window?.rootViewController as? TabBarViewController
-        
-        root?.selectedIndex = 0
-
+        if FirebaseManager.shared.bossID == nil {
+            userUIView.isHidden = false
+            bossUIView.isHidden = true
+        } else {
+            userUIView.isHidden = true
+            bossUIView.isHidden = false
+        }
     }
+
 }
