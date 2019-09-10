@@ -13,13 +13,15 @@ enum Truck: String {
     
     case truck = "Truck"
     
-    case id
+    case truckId
     
     case name
     
     case open
     
     case logoImage
+    
+    case story
     
     case openTime
     
@@ -58,21 +60,6 @@ struct TruckData {
     }
 }
 
-//struct Message {
-//
-//    var uid: String
-//    var name: String
-//    var text: String
-//    var createTime: Timestamp
-//
-//    init(_ uid: String, _ name: String, _ text: String, _ createTime: Timestamp) {
-//        self.uid = uid
-//        self.name = name
-//        self.text = text
-//        self.createTime = createTime
-//    }
-//}
-
 struct Message {
     
     var uid: String
@@ -109,9 +96,12 @@ struct UserData {
     
     let email: String
     
-    init(name: String, email: String) {
+    let truckId: String?
+    
+    init(name: String, email: String, truckId: String?) {
         self.name = name
         self.email = email
+        self.truckId = truckId
     }
 }
 
@@ -124,5 +114,4 @@ enum Boss: String {
     case name
     
     case email
-
 }

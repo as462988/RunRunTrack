@@ -41,7 +41,7 @@ class FirebaseManager {
         return date.components(separatedBy: " ").first!
         }
     
-    //讀取 truckData
+    // MARK: 讀取 truckData
     func getTruckData(completion: @escaping ([TruckData]?) -> Void) {
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error) in
             guard let snapshot = snapshot else {
@@ -67,7 +67,7 @@ class FirebaseManager {
         
     }
     
-    //getOpeningTruck
+    // MARK: getOpeningTruck
     
     func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
         db.collection(Truck.truck.rawValue).whereField(
@@ -96,7 +96,7 @@ class FirebaseManager {
         }
     }
     
-    //getUserData
+    // MARK: getUserData
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
          guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -110,7 +110,7 @@ class FirebaseManager {
             guard let name = snapshot.data()?[User.name.rawValue] as? String,
                 let email = snapshot.data()?[User.email.rawValue] as? String else { return }
             
-            self?.currentUser = UserData(name: name, email: email)
+            self?.currentUser = UserData(name: name, email: email, truckId: nil)
             
             completion(self?.currentUser)
         }
@@ -127,15 +127,16 @@ class FirebaseManager {
             }
             
             guard let name = snapshot.data()?[Boss.name.rawValue] as? String,
-                let email = snapshot.data()?[Boss.email.rawValue] as? String else { return }
+                let email = snapshot.data()?[Boss.email.rawValue] as? String,
+                let truckId = snapshot.data()?[Truck.truckId.rawValue] as? String  else { return }
             
-            self?.currentUser = UserData(name: name, email: email)
+            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
             
             completion(self?.currentUser)
         }
     }
     
-    // singUp
+    // MARK: singUp
     func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
@@ -170,7 +171,7 @@ class FirebaseManager {
         }
     }
 
-    //setUserData
+    // MARK: setData
     func setUserData(name: String, email: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -194,7 +195,8 @@ class FirebaseManager {
         
         db.collection(Boss.boss.rawValue).document(uid).setData([
             Boss.name.rawValue: name,
-            Boss.email.rawValue: email]
+            Boss.email.rawValue: email,
+            Truck.truckId.rawValue: ""]
         ) { error in
             
             if let error = error {
@@ -206,7 +208,41 @@ class FirebaseManager {
         
     }
     
-     // singIn
+    func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
+        
+        var ref: DocumentReference?
+        
+        ref = db.collection(Truck.truck.rawValue).addDocument(data: [
+            Truck.name.rawValue: name,
+            Truck.logoImage.rawValue: img,
+            Truck.story.rawValue: story,
+            Truck.open.rawValue: false
+            ], completion: { (error) in
+                if let err = error {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document added with ID: \(ref!.documentID)")
+                }
+        })
+        
+        completion(ref!.documentID)
+    }
+    
+    func addTurckIDInBoss(truckId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).updateData([
+            Truck.truckId.rawValue: truckId
+        ]) { (error) in
+            if let err = error {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with")
+            }
+        }
+    }
+
+    // MARK: singIn
     func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
@@ -238,7 +274,7 @@ class FirebaseManager {
             completion()
         }
     }
-    // signOut
+    // MARK: - signOut
     func signOut() {
        
         let firebaseAuth = Auth.auth()
@@ -274,7 +310,7 @@ class FirebaseManager {
 
     }
     
-    //creatChatRoom
+    // MARK: - creatChatRoom
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
 
     db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
@@ -292,7 +328,7 @@ class FirebaseManager {
         }
     }
     
-    //show ChatRoom Message
+    // MARK: - show ChatRoom Message
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
         
             let docRef = db.collection(Truck.truck.rawValue).document(truckID)

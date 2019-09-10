@@ -18,7 +18,6 @@ class UserUIView: UIView {
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
     }
     
-    
     @objc func clickLogoutBtn() {
         
         FirebaseManager.shared.signOut()

@@ -46,6 +46,7 @@
 		09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4C2326728C00FD6099 /*  ElfTwo.json */; };
 		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
 		09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E532327A4CA00FD6099 /* UserUIView.swift */; };
+		09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		09F78E4C2326728C00FD6099 /*  ElfTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfTwo.json"; sourceTree = "<group>"; };
 		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
 		09F78E532327A4CA00FD6099 /* UserUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUIView.swift; sourceTree = "<group>"; };
+		09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBossTruckViewController.swift; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,9 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
+				091EEB8B23166C9100BF066F /* Lobby */,
 				09F78E502327974200FD6099 /* Profile */,
 				093365F4231E36F700F0D503 /* Chatroom */,
-				091EEB8B23166C9100BF066F /* Lobby */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
 				091EEB6623153B0300BF066F /* LaunchScreen.storyboard */,
 				091EEB752315790E00BF066F /* Lobby.storyboard */,
@@ -173,11 +175,11 @@
 		091EEB7323156BEE00BF066F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				09336624231ECAB400F0D503 /* Lobby */,
 				090AFB5F231CD4FF0072E646 /* Auth */,
-				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
-				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
 				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
+				09F78E552327A95500FD6099 /* Profile */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -257,6 +259,15 @@
 			children = (
 				09F78E512327976D00FD6099 /* BossUIView.swift */,
 				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		09F78E552327A95500FD6099 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
+				09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -463,6 +474,7 @@
 				0933664F231F97F400F0D503 /* Message.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,
 				091EEB882316587800BF066F /* LobbyView.swift in Sources */,
+				09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */,
 				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
 				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
 				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,

@@ -14,17 +14,20 @@ class BossUIView: UIView {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var story: UITextView!
     @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var addTruckBtn: UIButton!
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
         setRadius(btn: logoOutBtn)
         setRadius(btn: editBtn)
+        logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
+
     }
     
     func setupValue() {
+        
         
     }
     

@@ -167,7 +167,6 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.setupCellValue(text: messageData.text, name: nil, image: nil)
             
-//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
@@ -179,8 +178,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
                 for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
             
             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: nil)
-            
-//            chatCell.textViewHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height
+
              chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell
