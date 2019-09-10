@@ -148,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="-84.057971014492765" y="159.375"/>
         </scene>
-        <!--Auth Sign Up View Controller-->
+        <!--Auth Register View Controller-->
         <scene sceneID="clv-ZZ-qs4">
             <objects>
-                <viewController storyboardIdentifier="SignUpPage" id="ObB-RV-ldp" customClass="AuthSignUpViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterPage" id="ObB-RV-ldp" customClass="AuthRegisterViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u64-4s-CP2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

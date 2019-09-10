@@ -64,8 +64,8 @@ class AuthViewController: UIViewController {
     @IBAction func signUpPage(_ sender: Any) {
         
         guard let authVC =
-            UIStoryboard.auth.instantiateViewController(withIdentifier: "SignUpPage")
-                as? AuthSignUpViewController else { return }
+            UIStoryboard.auth.instantiateViewController(withIdentifier: "RegisterPage")
+                as? AuthRegisterViewController else { return }
         
         authVC.modalPresentationStyle = .overCurrentContext
         present(authVC, animated: false, completion: nil)
