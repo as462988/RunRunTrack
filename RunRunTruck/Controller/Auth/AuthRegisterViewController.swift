@@ -74,6 +74,7 @@ class AuthRegisterViewController: UIViewController {
         } else {
             handleBossRegister()
         }
+
     }
     
     func handleUserRegister() {
@@ -90,15 +91,7 @@ class AuthRegisterViewController: UIViewController {
     }
     
     func handleBossRegister() {
-        guard let name = nameTextField.text,
-            let email = emailTextField.text,
-            let psw = pswTextField.text else { return }
-        
-        FirebaseManager.shared.bossRegister(email: email, psw: psw) {
-            self.presentingViewController?.dismiss(animated: false, completion: nil)
-            FirebaseManager.shared.setBossData(name: name, email: email)
-            
-        }
+        print("Boss Register")
     }
     
     @objc func handleRegisterChange() {

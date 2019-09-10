@@ -26,17 +26,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-wJ-qqt">
                                 <rect key="frame" x="0.0" y="459" width="414" height="437"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vn9-Qz-fsB">
-                                        <rect key="frame" x="373" y="10" width="25" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="GsM-ZV-H13"/>
-                                            <constraint firstAttribute="width" secondItem="vn9-Qz-fsB" secondAttribute="height" multiplier="1:1" id="HC8-4v-aGh"/>
-                                        </constraints>
-                                        <state key="normal" image="Icon_cancel"/>
-                                        <connections>
-                                            <action selector="dismissView:" destination="MSr-eX-sMf" eventType="touchUpInside" id="vXa-NX-4Fe"/>
-                                        </connections>
-                                    </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KrT-yu-XKX">
                                         <rect key="frame" x="20" y="180" width="374" height="31"/>
                                         <constraints>
@@ -105,6 +94,17 @@
                                             <action selector="signUpPage:" destination="MSr-eX-sMf" eventType="touchUpInside" id="7AJ-lY-WHy"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vn9-Qz-fsB">
+                                        <rect key="frame" x="373" y="10" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="GsM-ZV-H13"/>
+                                            <constraint firstAttribute="width" secondItem="vn9-Qz-fsB" secondAttribute="height" multiplier="1:1" id="HC8-4v-aGh"/>
+                                        </constraints>
+                                        <state key="normal" image="Icon_cancel"/>
+                                        <connections>
+                                            <action selector="dismissView:" destination="MSr-eX-sMf" eventType="touchUpInside" id="vXa-NX-4Fe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -148,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="-84.057971014492765" y="159.375"/>
         </scene>
-        <!--Auth Sign Up View Controller-->
+        <!--Auth Register View Controller-->
         <scene sceneID="clv-ZZ-qs4">
             <objects>
-                <viewController storyboardIdentifier="SignUpPage" id="ObB-RV-ldp" customClass="AuthSignUpViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterPage" id="ObB-RV-ldp" customClass="AuthRegisterViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u64-4s-CP2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

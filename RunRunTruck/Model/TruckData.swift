@@ -112,3 +112,15 @@ struct UserData {
         self.email = email
     }
 }
+
+enum Boss: String {
+    
+    case boss = "Boss"
+    
+    case uid
+    
+    case name
+    
+    case email
+
+}

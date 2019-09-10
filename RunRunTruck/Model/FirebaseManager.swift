@@ -29,6 +29,8 @@ class FirebaseManager {
     
     var userID: String?
     
+    var bossID: String?
+    
     static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let timeZone = TimeZone.init(identifier: "UTC")
         let formatter = DateFormatter()
@@ -65,24 +67,6 @@ class FirebaseManager {
         
     }
     
-    //setUserData
-    func setUserData(name: String, email: String) {
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(User.user.rawValue).document(uid).setData([
-            User.name.rawValue: name,
-            User.email.rawValue: email]
-        ) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
-    }
-    
     //getUserData
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
          guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -103,22 +87,94 @@ class FirebaseManager {
         }
     }
     
+    func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+            
+            guard let snapshot = snapshot else {
+                completion(nil)
+                return
+            }
+            
+            guard let name = snapshot.data()?[Boss.name.rawValue] as? String,
+                let email = snapshot.data()?[Boss.email.rawValue] as? String else { return }
+            
+            self?.currentUser = UserData(name: name, email: email)
+            
+            completion(self?.currentUser)
+        }
+    }
+    
     // singUp
-    func singUpWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+    func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
 
                 guard error == nil else {
                     
-                    //todo 顯示無法註冊的原因
+                    //TODO: 顯示無法註冊的原因
                     let errorCode = AuthErrorCode(rawValue: error!._code)
                     print(errorCode?.errorMessage ?? "nil")
               
                     return
                 }
-                print("Success")
+                print("User Regiuter Success")
                 completion()
         }
+    }
+    
+    func bossRegister(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().createUser(withEmail: email, password: psw) { (bossResult, error) in
+            guard error == nil else {
+                
+                //TODO: 顯示無法註冊的原因
+                let errorCode = AuthErrorCode(rawValue: error!._code)
+                print(errorCode?.errorMessage ?? "nil")
+                
+                return
+            }
+            
+            print("Boss Regiuter Success")
+            completion()
+        }
+    }
+
+    //setUserData
+    func setUserData(name: String, email: String) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(User.user.rawValue).document(uid).setData([
+            User.name.rawValue: name,
+            User.email.rawValue: email]
+        ) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    func setBossData(name: String, email: String) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).setData([
+            Boss.name.rawValue: name,
+            Boss.email.rawValue: email]
+        ) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+        
     }
     
      // singIn
@@ -127,6 +183,7 @@ class FirebaseManager {
         Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
 
             guard error == nil else {
+                //TODO: 顯示無法登入的原因
                 print("didn't singIn")
                 return
             }
@@ -137,6 +194,22 @@ class FirebaseManager {
         }
     }
     
+    func bossSingIn(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+            
+            guard error == nil else {
+                //TODO: 顯示無法登入的原因
+                print("didn't singIn")
+                return
+            }
+            
+            print("Success")
+            self?.bossID = Auth.auth().currentUser?.uid
+            completion()
+        }
+    }
+    // signOut
     func signOut() {
        
         let firebaseAuth = Auth.auth()
