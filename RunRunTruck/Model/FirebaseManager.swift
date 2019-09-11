@@ -241,7 +241,6 @@ class FirebaseManager {
             }
         }
     }
-
     // MARK: singIn
     func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
 

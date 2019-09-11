@@ -29,6 +29,7 @@ class BossUIView: UIView {
     func setupValue() {
         
         
+        
     }
     
     func setRadius(btn: UIButton) {

@@ -80,7 +80,8 @@ class AddBossTruckViewController: UIViewController {
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
-        dismiss(animated: false, completion: nil)
-
+        dismiss(animated: false) {
+            <#code#>
+        }
     }
 }

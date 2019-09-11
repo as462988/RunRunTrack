@@ -178,8 +178,8 @@
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				09336624231ECAB400F0D503 /* Lobby */,
 				090AFB5F231CD4FF0072E646 /* Auth */,
-				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
 				09F78E552327A95500FD6099 /* Profile */,
+				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
