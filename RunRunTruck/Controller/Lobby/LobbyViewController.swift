@@ -32,12 +32,12 @@ class LobbyViewController: UIViewController {
             
             for (index, dataInfo) in FirebaseManager.shared.openIngTruckData.enumerated() {
                 
-                self.lobbyView.marker(lat: dataInfo.location.latitude,
-                                      long: dataInfo.location.longitude,
+                self.lobbyView.marker(lat: dataInfo.location!.latitude,
+                                      long: dataInfo.location!.longitude,
                                       index: index)
                 
-                self.lobbyView.getLocation(lat: dataInfo.location.latitude,
-                                           long: dataInfo.location.longitude,
+                self.lobbyView.getLocation(lat: dataInfo.location!.latitude,
+                                           long: dataInfo.location!.longitude,
                                            completion: { [weak self](location, error) in
                                             
                                             guard let location = location else {return}
@@ -75,10 +75,10 @@ extension LobbyViewController: LobbyViewDelegate {
         let data = FirebaseManager.shared.openIngTruckData[indexPath.row]
         
         let openTime = FirebaseManager.dateConvertString(
-            date: data.openTime.dateValue())
+            date: data.openTime!.dateValue())
         
         let colseTime = FirebaseManager.dateConvertString(
-            date: data.closeTime.dateValue())
+            date: data.closeTime!.dateValue())
         
         cell.delegate = self
         cell.configureWithTruckData(truckData: data)
@@ -88,8 +88,8 @@ extension LobbyViewController: LobbyViewDelegate {
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
  
-        cell.latitude = data.location.latitude
-        cell.longitude = data.location.longitude
+        cell.latitude = data.location!.latitude
+        cell.longitude = data.location!.longitude
         
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
@@ -133,7 +133,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let location = FirebaseManager.shared.openIngTruckData[targetIndex].location
         
-        lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
+        lobbyView.updataMapView(lat: location!.latitude, long: location!.longitude)
     }
     
     // MARK: - GoogleMap
@@ -144,7 +144,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         for (index, data) in FirebaseManager.shared.openIngTruckData.enumerated() where
 
-            marker.position.latitude == data.location.latitude {
+            marker.position.latitude == data.location!.latitude {
 
                 indexNum = index
         }

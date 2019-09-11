@@ -11,30 +11,41 @@ import UIKit
 class BossUIView: UIView {
 
     @IBOutlet weak var logoImage: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var story: UITextView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var storyTextView: UITextView!
     @IBOutlet weak var editBtn: UIButton!
-    @IBOutlet weak var addTruckBtn: UIButton!
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setRadius(btn: logoOutBtn)
-        setRadius(btn: editBtn)
+        setRadius()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
-
+    
     }
     
     func setupValue() {
         
+        guard let data = FirebaseManager.shared.bossTruck else {return}
         
-        
+        nameLabel.text = data.name
+        storyTextView.text = data.story
     }
     
-    func setRadius(btn: UIButton) {
-        btn.layer.cornerRadius = 10
-        btn.clipsToBounds = true
+    func cleanValue() {
+        nameLabel.text = ""
+        storyTextView.text = ""
+    }
+    
+    func setRadius() {
+        
+        editBtn.layer.cornerRadius = 10
+        editBtn.clipsToBounds = true
+        logoOutBtn.layer.cornerRadius = 10
+        logoOutBtn.clipsToBounds = true
+        storyTextView?.layer.cornerRadius = 10
+        storyTextView?.clipsToBounds = true
+        
     }
     
     @objc func clickLogoutBtn() {
@@ -47,5 +58,6 @@ class BossUIView: UIView {
         
         root?.selectedIndex = 0
         
+        cleanValue()
     }
 }

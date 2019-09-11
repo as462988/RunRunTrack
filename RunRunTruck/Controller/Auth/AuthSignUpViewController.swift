@@ -69,35 +69,27 @@ class AuthRegisterViewController: UIViewController {
     
     @objc func handleRegisterBtn() {
         
-        if segmentRegister.selectedSegmentIndex == 0 {
-            handleUserRegister()
-        } else {
-            handleBossRegister()
-        }
-    }
-    
-    func handleUserRegister() {
-        
         guard let name = nameTextField.text,
             let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
-        FirebaseManager.shared.userRegister(email: email, psw: psw) {
+        FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] in
             
-            self.presentingViewController?.dismiss(animated: false, completion: nil)
+            if self?.segmentRegister.selectedSegmentIndex == 0 {
+                
+            self?.presentingViewController?.dismiss(animated: false, completion: nil)
             FirebaseManager.shared.setUserData(name: name, email: email)
-        }
-    }
-    
-    func handleBossRegister() {
-        guard let name = nameTextField.text,
-            let email = emailTextField.text,
-            let psw = pswTextField.text else { return }
-        
-        FirebaseManager.shared.bossRegister(email: email, psw: psw) {
-            self.presentingViewController?.dismiss(animated: false, completion: nil)
+                
+            } else {
+                
+                guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+                        as? AddBossTruckViewController else { return }
+                
+                addTruckVC.modalPresentationStyle = .overCurrentContext
+                self?.present(addTruckVC, animated: false, completion: nil)
+
             FirebaseManager.shared.setBossData(name: name, email: email)
-            
+            }
         }
     }
     

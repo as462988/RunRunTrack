@@ -10,22 +10,20 @@ import UIKit
 
 class AddBossTruckViewController: UIViewController {
     
-    @IBOutlet weak var truckName: UILabel!
-    @IBOutlet weak var truckTextInput: UITextField!
+    @IBOutlet weak var truckTextInput: UITextView!
     @IBOutlet weak var showLogoImage: UIImageView!
      @IBOutlet weak var clickSendBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        truckName.text = FirebaseManager.shared.currentUser?.name
         setLayout()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setValue()
+
     }
     
     func setLayout() {
@@ -37,22 +35,10 @@ class AddBossTruckViewController: UIViewController {
         showLogoImage.layer.masksToBounds = true
     }
     
-    func setValue() {
+    @IBAction func upLoadImageBtn(_ sender: Any) {
         
-        showLogoImage.image = UIImage.asset(.Icon_logo)
-        
-        guard let inputText = truckTextInput.text else {return}
-        
-        if inputText.isEmpty {
-            clickSendBtn.setTitle("新增餐車", for: .normal)
-        } else {
-            clickSendBtn.setTitle("確認編輯", for: .normal)
-        }
-
     }
     
-    @IBAction func upLoadImageBtn(_ sender: Any) {
-    }
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
@@ -62,7 +48,9 @@ class AddBossTruckViewController: UIViewController {
             return
         }
         
-        FirebaseManager.shared.addTurck(name: truckName.text!,
+        let name = FirebaseManager.shared.currentUser?.name
+        
+        FirebaseManager.shared.addTurck(name: name!,
                                         img: "https://firebasestorage.googleapis.com/v0/b/runruntruck.appspot.com/o/images.png?alt=media&token=0dce6bc9-31e8-4d2f-ad04-7ee90cba2654",
                                         story: inputText) { [weak self] (truckID) in
             
@@ -72,7 +60,10 @@ class AddBossTruckViewController: UIViewController {
                 guard let rootVC = AppDelegate.shared.window?.rootViewController
                     as? TabBarViewController else { return }
                 rootVC.tabBar.isHidden = false
-                self?.dismiss(animated: false, completion: nil)
+                let vc = self?.presentingViewController
+                self?.dismiss(animated: false) {
+                    vc?.dismiss(animated: false, completion: nil)
+                }
             }
         }
     }
@@ -80,8 +71,11 @@ class AddBossTruckViewController: UIViewController {
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
-        dismiss(animated: false) {
-            <#code#>
-        }
+        
+//
+//        let vc = presentingViewController
+//        dismiss(animated: false) {
+//            vc?.dismiss(animated: false, completion: nil)
+//        }
     }
 }

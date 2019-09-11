@@ -19,6 +19,8 @@ class FirebaseManager {
     
     var currentUser: UserData?
     
+    var bossTruck: TruckData?
+    
     var message = [Message]()
     
     let db = Firestore.firestore()
@@ -41,32 +43,6 @@ class FirebaseManager {
         return date.components(separatedBy: " ").first!
         }
     
-    // MARK: 讀取 truckData
-    func getTruckData(completion: @escaping ([TruckData]?) -> Void) {
-        db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error) in
-            guard let snapshot = snapshot else {
-                completion(nil)
-                return
-            }
-    
-            for document in snapshot.documents {
-                
-                guard let name = document.data()[Truck.name.rawValue] as? String,
-                    let logoImage = document.data()[Truck.logoImage.rawValue] as? String,
-                    let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
-                    let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp,
-                let location = document.data()[Truck.location.rawValue] as? GeoPoint else {return}
-             
-                let truck = TruckData(document.documentID, name, logoImage,
-                                      openTimestamp, closeTimestamp, location)
-                
-                self.openIngTruckData.append(truck)
-            }
-            completion(self.openIngTruckData)
-        }
-        
-    }
-    
     // MARK: getOpeningTruck
     
     func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
@@ -82,12 +58,13 @@ class FirebaseManager {
                     
                     guard let name = document.data()[Truck.name.rawValue] as? String,
                         let logoImage = document.data()[Truck.logoImage.rawValue] as? String,
+                        let open = document.data()[Truck.open.rawValue] as? Bool,
+                        let story = document.data()[Truck.story.rawValue] as? String,
                         let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
                         let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp,
                         let location = document.data()[Truck.location.rawValue] as? GeoPoint else {return}
-                    
-                    let truck = TruckData(document.documentID, name, logoImage,
-                                          openTimestamp, closeTimestamp, location)
+            
+                    let truck = TruckData(document.documentID, name, logoImage, story, open, openTimestamp, closeTimestamp, location)
                     
                     self.openIngTruckData.append(truck)
                 }
@@ -109,7 +86,7 @@ class FirebaseManager {
             
             guard let name = snapshot.data()?[User.name.rawValue] as? String,
                 let email = snapshot.data()?[User.email.rawValue] as? String else { return }
-            
+        
             self?.currentUser = UserData(name: name, email: email, truckId: nil)
             
             completion(self?.currentUser)
@@ -136,6 +113,28 @@ class FirebaseManager {
         }
     }
     
+    func  getBossTruck() {
+        
+        guard let truckId = currentUser?.truckId else {
+            return
+        }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).getDocument { [weak self] (snapshot, error) in
+            guard let snapshot = snapshot else {
+                return
+            }
+            
+            guard let name = snapshot.data()?[Truck.name.rawValue] as? String,
+                let logoImage = snapshot.data()?[Truck.logoImage.rawValue] as? String,
+                let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
+                let story = snapshot.data()?[Truck.story.rawValue] as? String
+                else {return}
+            
+            self?.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil, nil)
+
+        }
+    }
+    
     // MARK: singUp
     func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
         
@@ -151,23 +150,6 @@ class FirebaseManager {
                 }
                 print("User Regiuter Success")
                 completion()
-        }
-    }
-    
-    func bossRegister(email: String, psw: String, completion: @escaping () -> Void) {
-        
-        Auth.auth().createUser(withEmail: email, password: psw) { (bossResult, error) in
-            guard error == nil else {
-                
-                //TODO: 顯示無法註冊的原因
-                let errorCode = AuthErrorCode(rawValue: error!._code)
-                print(errorCode?.errorMessage ?? "nil")
-                
-                return
-            }
-            
-            print("Boss Regiuter Success")
-            completion()
         }
     }
 
@@ -196,12 +178,15 @@ class FirebaseManager {
         db.collection(Boss.boss.rawValue).document(uid).setData([
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
-            Truck.truckId.rawValue: ""]
-        ) { error in
+            Truck.truckId.rawValue: nil]
+        ) { [weak self] error in
             
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
+                
+                self?.currentUser = UserData(name: name, email: email, truckId: nil)
+                
                 print("Document successfully written!")
             }
         }
@@ -241,6 +226,7 @@ class FirebaseManager {
             }
         }
     }
+    
     // MARK: singIn
     func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
 

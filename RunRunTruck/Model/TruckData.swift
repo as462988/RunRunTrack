@@ -41,19 +41,25 @@ struct TruckData {
     
     let logoImage: String
     
-    let openTime: Timestamp
-
-    let closeTime: Timestamp
+    let open: Bool
     
-    let location: GeoPoint
+    let story: String
+    
+    let openTime: Timestamp?
+
+    let closeTime: Timestamp?
+    
+    let location: GeoPoint?
     
     var address: String = ""
     
-    init(_ id: String, _ name: String, _ logoImage: String,
-         _ openTime: Timestamp, _ closeTime: Timestamp, _ location: GeoPoint) {
+    init(_ id: String, _ name: String, _ logoImage: String, _ story: String, _ open: Bool,
+         _ openTime: Timestamp?, _ closeTime: Timestamp?, _ location: GeoPoint?) {
         self.id = id
         self.name = name
         self.logoImage = logoImage
+        self.open = open
+        self.story = story
         self.openTime = openTime
         self.closeTime = closeTime
         self.location = location

@@ -73,7 +73,7 @@ class AuthViewController: UIViewController {
     }
     
     @objc func handleLogin() {
-        
+
         if loginSegment.selectedSegmentIndex == 0 {
              handleUserLogin()
         } else {
