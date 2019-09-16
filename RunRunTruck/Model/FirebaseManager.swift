@@ -35,7 +35,7 @@ class FirebaseManager {
     
     // MARK: getOpeningTruck
     
-    func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
+    func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: true).addSnapshotListener { (snapshot, error) in
@@ -45,38 +45,41 @@ class FirebaseManager {
                 return
             }
             
+                var rtnTruckDatas:[(TruckData, DocumentChangeType)] = []
             snapshot.documentChanges.forEach({ (documentChange) in
                 let data = documentChange.document.data()
-                
+
                 guard let name = data[Truck.name.rawValue] as? String,
                     let logoImage = data[Truck.logoImage.rawValue] as? String,
                     let open = data[Truck.open.rawValue] as? Bool,
                     let story = data[Truck.story.rawValue] as? String,
                     let openTimestamp = data[Truck.openTime.rawValue] as? Double,
                     let location = data[Truck.location.rawValue] as? GeoPoint else {return}
-                
+
                 let truck = TruckData(documentChange.document.documentID,
                                       name, logoImage, story, open,
                                       openTimestamp, location)
-                
-                if documentChange.type == .added {
-                    
-                    print("added")
-                    self.openIngTruckData.append(truck)
-                    
-                } else if documentChange.type == .removed {
-                    
-                    print("removed")
-                    if let index = self.openIngTruckData.firstIndex(where: { (data) -> Bool in
-                        data.id == documentChange.document.documentID
-                    }) {
-                        
-                        self.openIngTruckData.remove(at: index)
-                    }
-                }
+                rtnTruckDatas.append((truck, documentChange.type))
+//                if documentChange.type == .added {
+//
+//                    print("added")
+////                    self.openIngTruckData.append(truck)
+//
+//
+//                } else if documentChange.type == .removed {
+//
+//                    print("removed")
+//                    if let index = self.openIngTruckData.firstIndex(where: { (data) -> Bool in
+//                        data.id == documentChange.document.documentID
+//                    }) {
+//
+//                        self.openIngTruckData.remove(at: index)
+//                    }
+//                }
             })
-            
-            completion(self.openIngTruckData)
+
+//            completion(self.openIngTruckData)
+                completion(rtnTruckDatas)
         }
         
     }

@@ -24,28 +24,58 @@ class LobbyViewController: UIViewController {
         super.viewDidLoad()
         
         //拿取所有營業中的餐車顯示在地圖
-        FirebaseManager.shared.getOpeningTruckData { (data) in
-            
-            for (index, dataInfo) in FirebaseManager.shared.openIngTruckData.enumerated() {
-                
-                self.lobbyView.marker(lat: dataInfo.location!.latitude,
-                                      long: dataInfo.location!.longitude,
-                                      index: index)
-                
-                self.lobbyView.getLocation(lat: dataInfo.location!.latitude,
-                                           long: dataInfo.location!.longitude,
-                                           completion: { [weak self](location, error) in
-                                            
-                                            guard let location = location else {return}
-                                            
-                                            let address = location.subAdministrativeArea
-                                                + location.city + location.street
-                                            
-                                            FirebaseManager.shared.openIngTruckData[index].address = address
-                                            
-                                            DispatchQueue.main.async {
-                                                self?.lobbyView.reloadData()
-                                            }
+        FirebaseManager.shared.getOpeningTruckData {[weak self] (truckDatas) in
+            if let truckDatas = truckDatas {
+                let dispatchGroup = DispatchGroup()
+                for (index, var truckData) in truckDatas.enumerated() {
+                    
+                    switch truckData.1 {
+                    case .added:
+                        //新增
+                        dispatchGroup.enter()
+                        self?.lobbyView.addMarker(lat: truckData.0.location!.latitude,
+                                                  long: truckData.0.location!.longitude,
+                                                  imageUrl: truckData.0.logoImage)
+                        
+                        self?.lobbyView.getLocationAddress(lat: truckData.0.location!.latitude,
+                                                           long: truckData.0.location!.longitude,
+                                                           completion: {(location, error) in
+
+                                                            guard let location = location else {return}
+
+                                                            let address = location.subAdministrativeArea
+                                                                + location.city + location.street
+
+                                                             truckData.0.address = address
+                                                            FirebaseManager.shared.openIngTruckData.append(truckData.0)
+                                                            dispatchGroup.leave()
+                                                            
+                        })
+                        
+                    case .removed:
+                        //刪除
+                        dispatchGroup.enter()
+                        if let markerIndex = self?.lobbyView.markers.firstIndex(where: { (marker) -> Bool in
+                            return marker.position.longitude == truckData.0.location?.longitude
+                        }) {
+                            self?.lobbyView.markers[markerIndex].map = nil
+                            self?.lobbyView.markers.remove(at: markerIndex)
+                        }
+                        
+                        if let index = FirebaseManager.shared.openIngTruckData.firstIndex(
+                            where: { (truckdata) -> Bool in
+                                return truckdata.id == truckData.0.id
+                        }) {
+                            FirebaseManager.shared.openIngTruckData.remove(at: index)
+                            dispatchGroup.leave()
+                        }
+                    case .modified:
+                        return
+                    }
+
+                }
+                dispatchGroup.notify(queue: .main, execute: {
+                    self?.lobbyView.reloadData()
                 })
             }
         }
@@ -54,8 +84,8 @@ class LobbyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         navigationController?.isNavigationBarHidden = true
-
+        navigationController?.isNavigationBarHidden = true
+        
     }
 }
 
@@ -80,7 +110,7 @@ extension LobbyViewController: LobbyViewDelegate {
                       openTime: data.openTime!,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
- 
+        
         cell.latitude = data.location!.latitude
         cell.longitude = data.location!.longitude
         
@@ -136,12 +166,12 @@ extension LobbyViewController: LobbyViewDelegate {
         var indexNum = Int()
         
         for (index, data) in FirebaseManager.shared.openIngTruckData.enumerated() where
-
+            
             marker.position.latitude == data.location!.latitude {
-
+                
                 indexNum = index
         }
-
+        
         self.lobbyView.truckCollectionView.scrollToItem(
             at: IndexPath(row: indexNum, section: 0),
             at: .centeredHorizontally,
@@ -149,7 +179,7 @@ extension LobbyViewController: LobbyViewDelegate {
         )
         
         self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
-
+        
         return true
     }
     
@@ -186,7 +216,7 @@ extension LobbyViewController: LobbyViewDelegate {
         }
         return true
     }
-
+    
 }
 
 extension LobbyViewController: TurckInfoCellDelegate {
@@ -198,10 +228,10 @@ extension LobbyViewController: TurckInfoCellDelegate {
         
         if UIApplication.shared.canOpenURL(openUrl) {
             
-           guard let url = URL(
-            string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
-            else {
-                return
+            guard let url = URL(
+                string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
+                else {
+                    return
             }
             
             UIApplication.shared.open(url)
