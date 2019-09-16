@@ -33,7 +33,7 @@ enum Truck: String {
 
 struct TruckData {
     
-    let id: String
+    var id: String
     
     let name: String
     

@@ -19,7 +19,6 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if FirebaseManager.shared.bossID != nil {
-            FirebaseManager.shared.getBossTruck()
             guard let bossVc = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: "BossInfoViewController") as? BossInfoViewController else { return }
             

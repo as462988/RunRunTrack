@@ -33,16 +33,6 @@ class FirebaseManager {
     
     var bossID: String?
     
-//    static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
-//        let timeZone = TimeZone.init(identifier: "UTC")
-//        let formatter = DateFormatter()
-//        formatter.timeZone = timeZone
-//        formatter.locale = Locale.init(identifier: "zh_CN")
-//        formatter.dateFormat = dateFormat
-//        let date = formatter.string(from: date)
-//        return date.components(separatedBy: " ").first!
-//    }
-    
     // MARK: getOpeningTruck
     
     func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
@@ -131,13 +121,14 @@ class FirebaseManager {
         }
     }
     
-    func  getBossTruck() {
+    func  getBossTruck(completion: @escaping (TruckData?) -> Void) {
         
         guard let truckId = currentUser?.truckId else {
+            completion(nil)
             return
         }
         
-        db.collection(Truck.truck.rawValue).document(truckId).getDocument { [weak self] (snapshot, error) in
+        db.collection(Truck.truck.rawValue).document(truckId).getDocument {(snapshot, error) in
             guard let snapshot = snapshot else {
                 return
             }
@@ -148,9 +139,11 @@ class FirebaseManager {
                 let story = snapshot.data()?[Truck.story.rawValue] as? String
                 else {return}
             
-            self?.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
-            
+            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
+           
+            completion(self.bossTruck)
         }
+
     }
     
     // MARK: singUp
@@ -245,12 +238,16 @@ class FirebaseManager {
         }
     }
     
-    func changeOpenStatus(status: Bool) {
+    func changeOpenStatus(status: Bool, lat: Double, lon: Double) {
         
         guard let truckId = bossTruck?.id else { return }
         
+        let location = GeoPoint(latitude: lat, longitude: lon)
+        
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status
+            Truck.open.rawValue: status,
+            Truck.openTime.rawValue: Date().timeIntervalSince1970,
+            Truck.location.rawValue: location
         ]) { (error) in
             if let err = error {
                 print("Error modify: \(err)")
@@ -258,7 +255,22 @@ class FirebaseManager {
                 print("Status modify Success")
             }
         }
+    }
+    
+    func closeOpenStatus(status: Bool) {
         
+        guard let truckId = bossTruck?.id else { return }
+
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.open.rawValue: status,
+
+        ]) { (error) in
+            if let err = error {
+                print("Error modify: \(err)")
+            } else {
+                print("Status modify Success")
+            }
+        }
     }
     
     // MARK: singIn
