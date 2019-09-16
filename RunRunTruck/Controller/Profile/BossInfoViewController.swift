@@ -7,10 +7,18 @@
 //
 
 import UIKit
+import GoogleMaps
 
-class BossInfoViewController: UIViewController {
+class BossInfoViewController: UIViewController, BossUIViewDelegate {
 
-    @IBOutlet weak var bossView: BossUIView!
+    @IBOutlet weak var bossView: BossUIView! {
+        didSet {
+            bossView.delegate = self
+        }
+    }
+    
+    var latitude: Double?
+    var longitude: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,5 +36,47 @@ class BossInfoViewController: UIViewController {
         }
 
     }
+    
+    internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
+        self.latitude = position.target.latitude
+        self.longitude = position.target.longitude
+        
+        guard let lat = self.latitude, let lon = self.longitude else {
+            return
+        }
 
+        bossView.getLocation(lat: lat, long: lon) { [weak self] (location, error) in
+            
+            guard let location = location else {return}
+            
+            self?.bossView.addressLabel.text = location.subAdministrativeArea
+                + location.city + location.street
+            
+        }
+        
+    }
+    
+    func clickChenckBtn() {
+        
+        guard let lat = self.latitude, let lon = self.longitude else {return}
+        
+        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+    }
+    
+    func clickCancelBtn() {
+        FirebaseManager.shared.closeOpenStatus(status: bossView.openSwitch.isOn)
+    }
+    
+    func clickLogoutBtn() {
+        
+        FirebaseManager.shared.signOut()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let root = appDelegate?.window?.rootViewController as? TabBarViewController
+        
+        root?.selectedIndex = 0
+        
+    }
 }
