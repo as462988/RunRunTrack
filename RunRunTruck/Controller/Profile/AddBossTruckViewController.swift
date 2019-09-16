@@ -68,10 +68,12 @@ class AddBossTruckViewController: UIViewController {
         }
     }
     @IBAction func clickCancelBtn(_ sender: Any) {
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = false
         
+        print("不給你點！～")
+//        guard let rootVC = AppDelegate.shared.window?.rootViewController
+//            as? TabBarViewController else { return }
+//        rootVC.tabBar.isHidden = false
+//
 //
 //        let vc = presentingViewController
 //        dismiss(animated: false) {

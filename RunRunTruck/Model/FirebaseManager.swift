@@ -15,7 +15,7 @@ class FirebaseManager {
     
     static let shared = FirebaseManager()
     
-    var openIngTruckData: [TruckData] = []
+    var openIngTruckData = [TruckData]()
     
     var currentUser: UserData?
     
@@ -79,13 +79,13 @@ class FirebaseManager {
         
         db.collection(User.user.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
             
-            guard let snapshot = snapshot else {
+            guard let data = snapshot?.data() else {
                 completion(nil)
                 return
             }
             
-            guard let name = snapshot.data()?[User.name.rawValue] as? String,
-                let email = snapshot.data()?[User.email.rawValue] as? String else { return }
+            guard let name = data[User.name.rawValue] as? String,
+                let email = data[User.email.rawValue] as? String else { return }
         
             self?.currentUser = UserData(name: name, email: email, truckId: nil)
             
@@ -98,14 +98,14 @@ class FirebaseManager {
         
         db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
             
-            guard let snapshot = snapshot else {
+            guard let data = snapshot?.data() else {
                 completion(nil)
                 return
             }
             
-            guard let name = snapshot.data()?[Boss.name.rawValue] as? String,
-                let email = snapshot.data()?[Boss.email.rawValue] as? String,
-                let truckId = snapshot.data()?[Truck.truckId.rawValue] as? String  else { return }
+            guard let name = data[Boss.name.rawValue] as? String,
+                let email = data[Boss.email.rawValue] as? String,
+                let truckId = data[Truck.truckId.rawValue] as? String  else { return }
             
             self?.currentUser = UserData(name: name, email: email, truckId: truckId)
             
@@ -227,20 +227,37 @@ class FirebaseManager {
         }
     }
     
+    func changeOpenStatus(status: Bool) {
+        
+        guard let truckId = bossTruck?.id else { return }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.open.rawValue: status
+        ]) { (error) in
+            if let err = error {
+                print("Error modify: \(err)")
+            } else {
+                print("Status modify Success")
+            }
+        }
+        
+    }
+    
     // MARK: singIn
-    func singInWithEmail(email: String, psw: String, completion: @escaping () -> Void) {
+    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
 
             guard error == nil else {
                 //TODO: 顯示無法登入的原因
                 print("didn't singIn")
+                completion(false)
                 return
             }
 
             print("Success")
-            self?.userID = Auth.auth().currentUser?.uid
-            completion()
+//            self?.userID = Auth.auth().currentUser?.uid
+            completion(true)
         }
     }
     
@@ -340,7 +357,6 @@ class FirebaseManager {
                 if documentChange.type == .added {
                     
                     rtnMessage.append(Message(uid, name, text, createTime))
-                
                 }
             })
             if rtnMessage.count > 0 {

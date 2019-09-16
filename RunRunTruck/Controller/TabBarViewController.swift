@@ -99,10 +99,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                 
                 present(authVC, animated: false, completion: nil)
             }
-            
-             return false
+            return false
         }
-        
         return true
     }
+    
 }
