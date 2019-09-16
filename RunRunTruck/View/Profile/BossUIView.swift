@@ -16,14 +16,40 @@ class BossUIView: UIView {
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
-    
+    @IBOutlet weak var datePicker: UIDatePicker!
+     @IBOutlet weak var clickDateBtn: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setRadius()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
     
+        openSwitch.addTarget(self, action: #selector(onChange), for: .valueChanged)
     }
     
+    @objc func onChange(sender: AnyObject) {
+        
+        guard let tempSwitch = sender as? UISwitch else {return}
+        
+        if tempSwitch.isOn {
+            
+            datePicker.isHidden = false
+            clickDateBtn.isHidden = false
+        } else {
+            
+            datePicker.isHidden = true
+            clickDateBtn.isHidden = true
+        }
+    
+    }
+    
+    @IBAction func choseDate(_ sender: Any) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        print("現在選擇時間\(formatter.string(from: datePicker.date))")
+        print(formatter.string(from: datePicker.date))
+    }
+
     func setupValue() {
         
         guard let data = FirebaseManager.shared.bossTruck else {return}

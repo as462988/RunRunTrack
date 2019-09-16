@@ -11,7 +11,7 @@ import Firebase
 import FirebaseAuth
 import Lottie
 
-fileprivate enum LoginVcUIStatus {
+private enum LoginVcUIStatus {
     case userLogin, bossLogin
 }
 
@@ -24,7 +24,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var animationView: AnimationView!
-    private var uiStatus:LoginVcUIStatus = .userLogin
+    private var uiStatus: LoginVcUIStatus = .userLogin
     
     var userLoginIsFinished = false {
         didSet {

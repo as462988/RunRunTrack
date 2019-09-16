@@ -22,10 +22,6 @@ class LobbyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         //拿取所有營業中的餐車顯示在地圖
         FirebaseManager.shared.getOpeningTruckData { (data) in
@@ -53,6 +49,10 @@ class LobbyViewController: UIViewController {
                 })
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
          navigationController?.isNavigationBarHidden = true
 
