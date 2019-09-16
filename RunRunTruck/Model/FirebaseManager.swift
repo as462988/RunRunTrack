@@ -33,15 +33,15 @@ class FirebaseManager {
     
     var bossID: String?
     
-    static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
-        let timeZone = TimeZone.init(identifier: "UTC")
-        let formatter = DateFormatter()
-        formatter.timeZone = timeZone
-        formatter.locale = Locale.init(identifier: "zh_CN")
-        formatter.dateFormat = dateFormat
-        let date = formatter.string(from: date)
-        return date.components(separatedBy: " ").first!
-    }
+//    static func dateConvertString(date: Date, dateFormat: String = "yyyy-MM-dd HH:mm:ss") -> String {
+//        let timeZone = TimeZone.init(identifier: "UTC")
+//        let formatter = DateFormatter()
+//        formatter.timeZone = timeZone
+//        formatter.locale = Locale.init(identifier: "zh_CN")
+//        formatter.dateFormat = dateFormat
+//        let date = formatter.string(from: date)
+//        return date.components(separatedBy: " ").first!
+//    }
     
     // MARK: getOpeningTruck
     
@@ -62,13 +62,12 @@ class FirebaseManager {
                     let logoImage = data[Truck.logoImage.rawValue] as? String,
                     let open = data[Truck.open.rawValue] as? Bool,
                     let story = data[Truck.story.rawValue] as? String,
-                    let openTimestamp = data[Truck.openTime.rawValue] as? Timestamp,
-                    let closeTimestamp = data[Truck.closeTime.rawValue] as? Timestamp,
+                    let openTimestamp = data[Truck.openTime.rawValue] as? Double,
                     let location = data[Truck.location.rawValue] as? GeoPoint else {return}
                 
                 let truck = TruckData(documentChange.document.documentID,
                                       name, logoImage, story, open,
-                                      openTimestamp, closeTimestamp, location)
+                                      openTimestamp, location)
                 
                 if documentChange.type == .added {
                     
@@ -91,34 +90,6 @@ class FirebaseManager {
         }
         
     }
-//
-//    func getOpeningTruckData(completion: @escaping ([TruckData]?) -> Void) {
-//        db.collection(Truck.truck.rawValue).whereField(
-//            Truck.open.rawValue, isEqualTo: true).getDocuments { (snapshot, error) in
-//
-//                guard let snapshot = snapshot else {
-//                    completion(nil)
-//                    return
-//                }
-//
-//                for document in snapshot.documents {
-//
-//                    guard let name = document.data()[Truck.name.rawValue] as? String,
-//                        let logoImage = document.data()[Truck.logoImage.rawValue] as? String,
-//                        let open = document.data()[Truck.open.rawValue] as? Bool,
-//                        let story = document.data()[Truck.story.rawValue] as? String,
-//                        let openTimestamp = document.data()[Truck.openTime.rawValue] as? Timestamp,
-//                        let closeTimestamp = document.data()[Truck.closeTime.rawValue] as? Timestamp,
-//                        let location = document.data()[Truck.location.rawValue] as? GeoPoint else {return}
-//
-//                    let truck = TruckData(document.documentID, name, logoImage, story, open, openTimestamp, closeTimestamp, location)
-//
-//                    self.openIngTruckData.append(truck)
-//                }
-//                completion(self.openIngTruckData)
-//
-//        }
-//    }
     
     // MARK: getUserData
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
@@ -177,7 +148,7 @@ class FirebaseManager {
                 let story = snapshot.data()?[Truck.story.rawValue] as? String
                 else {return}
             
-            self?.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil, nil)
+            self?.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
             
         }
     }
@@ -293,7 +264,7 @@ class FirebaseManager {
     // MARK: singIn
     func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         
-        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
             
             guard error == nil else {
                 //TODO: 顯示無法登入的原因
@@ -303,14 +274,13 @@ class FirebaseManager {
             }
             
             print("Success")
-            //            self?.userID = Auth.auth().currentUser?.uid
             completion(true)
         }
     }
     
     func bossSingIn(email: String, psw: String, completion: @escaping () -> Void) {
         
-        Auth.auth().signIn(withEmail: email, password: psw) {[weak self](user, error) in
+        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
             
             guard error == nil else {
                 //TODO: 顯示無法登入的原因
@@ -319,7 +289,6 @@ class FirebaseManager {
             }
             
             print("Success")
-            self?.bossID = Auth.auth().currentUser?.uid
             completion()
         }
     }

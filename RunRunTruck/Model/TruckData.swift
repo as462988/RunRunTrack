@@ -25,8 +25,6 @@ enum Truck: String {
     
     case openTime
     
-    case closeTime
-    
     case location
     
     case chatRoom
@@ -45,23 +43,20 @@ struct TruckData {
     
     let story: String
     
-    let openTime: Timestamp?
-
-    let closeTime: Timestamp?
+    let openTime: Double?
     
     let location: GeoPoint?
     
     var address: String = ""
     
     init(_ id: String, _ name: String, _ logoImage: String, _ story: String, _ open: Bool,
-         _ openTime: Timestamp?, _ closeTime: Timestamp?, _ location: GeoPoint?) {
+         _ openTime: Double?, _ location: GeoPoint?) {
         self.id = id
         self.name = name
         self.logoImage = logoImage
         self.open = open
         self.story = story
         self.openTime = openTime
-        self.closeTime = closeTime
         self.location = location
     }
 }

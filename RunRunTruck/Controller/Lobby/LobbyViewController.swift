@@ -74,17 +74,10 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let data = FirebaseManager.shared.openIngTruckData[indexPath.row]
         
-        let openTime = FirebaseManager.dateConvertString(
-            date: data.openTime!.dateValue())
-        
-        let colseTime = FirebaseManager.dateConvertString(
-            date: data.closeTime!.dateValue())
-        
         cell.delegate = self
         cell.configureWithTruckData(truckData: data)
         cell.setValue(name: data.name,
-                      openTime: openTime,
-                      closeTime: colseTime,
+                      openTime: data.openTime!,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
  
