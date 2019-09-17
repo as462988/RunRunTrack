@@ -23,7 +23,7 @@ class BossUIView: UIView {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var storyTextView: UITextView!
-    @IBOutlet weak var editBtn: UIButton!
+//    @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
@@ -105,8 +105,8 @@ class BossUIView: UIView {
         
         logoImage.layer.cornerRadius = 25
         logoImage.clipsToBounds = true
-        editBtn.layer.cornerRadius = 10
-        editBtn.clipsToBounds = true
+//        editBtn.layer.cornerRadius = 10
+//        editBtn.clipsToBounds = true
         logoOutBtn.layer.cornerRadius = 10
         logoOutBtn.clipsToBounds = true
         storyTextView?.layer.cornerRadius = 10
@@ -147,7 +147,6 @@ class BossUIView: UIView {
             backgroundView.alpha = 0.4
             backgroundView.backgroundColor = .black
    
-            
         } else {
             
             FirebaseManager.shared.closeOpenStatus(status: openSwitch.isOn)
@@ -160,7 +159,7 @@ class BossUIView: UIView {
     @objc func clickLogoutBtn() {
         
         self.delegate?.clickLogoutBtn()
-    
+        cleanValue()
     }
 
 }

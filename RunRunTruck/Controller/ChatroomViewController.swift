@@ -112,25 +112,50 @@ class ChatroomViewController: UIViewController {
     
     @objc func handleSend() {
         
-        guard let truckID = truckData?.id,
-            let uid = FirebaseManager.shared.userID,
-            let name = FirebaseManager.shared.currentUser?.name,
-            let text = chatRoomView.inputTextField.text else {
-                print("uid nil")
-                return
-        }
-        
-        if text != "" {
+        if let uid = FirebaseManager.shared.userID {
             
-            print(self.truckData?.name ?? "nil")
+            guard let truckID = truckData?.id,
+                let name = FirebaseManager.shared.currentUser?.name,
+                let text = chatRoomView.inputTextField.text else {
+                    print("uid nil")
+                    return
+            }
             
-            FirebaseManager.shared.creatChatRoom(
-                truckID: truckID,
-                truckName: self.truckData?.name ?? "nil",
-                uid: uid,
-                name: name,
-                text: text)
-            chatRoomView.inputTextField.text = ""
+            if text != "" {
+                
+                print(self.truckData?.name ?? "nil")
+                
+                FirebaseManager.shared.creatChatRoom(
+                    truckID: truckID,
+                    truckName: self.truckData?.name ?? "nil",
+                    uid: uid,
+                    name: name,
+                    text: text)
+                chatRoomView.inputTextField.text = ""
+            }
+            
+        } else if let bossId = FirebaseManager.shared.bossID {
+            
+            guard let truckID = truckData?.id,
+                let name = FirebaseManager.shared.currentUser?.name,
+                let text = chatRoomView.inputTextField.text else {
+                    print("uid nil")
+                    return
+            }
+            
+            if text != "" {
+                
+                print(self.truckData?.name ?? "nil")
+                
+                FirebaseManager.shared.creatChatRoom(
+                    truckID: truckID,
+                    truckName: self.truckData?.name ?? "nil",
+                    uid: bossId,
+                    name: name,
+                    text: text)
+                chatRoomView.inputTextField.text = ""
+            }
+            
         }
         
     }
@@ -159,7 +184,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         
         let messageData = messages[indexPath.item]
         
-        if messageData.uid == FirebaseManager.shared.userID {
+        if messageData.uid == FirebaseManager.shared.userID || messageData.uid == FirebaseManager.shared.bossID {
             
             guard let chatCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: cellForSelf,

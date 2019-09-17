@@ -58,7 +58,7 @@
                                                 <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDl-QH-9Ir">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDl-QH-9Ir">
                                                 <rect key="frame" x="40" y="304.5" width="334" height="371.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -75,7 +75,7 @@
                                                 <rect key="frame" x="20" y="734" width="374" height="128"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGO-Kq-lC4">
-                                                        <rect key="frame" x="254.5" y="34" width="60" height="60"/>
+                                                        <rect key="frame" x="207" y="34" width="60" height="60"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ZGO-Kq-lC4" secondAttribute="height" multiplier="1:1" id="2cH-6e-yOb"/>
@@ -86,7 +86,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPt-TE-IGH">
-                                                        <rect key="frame" x="64.5" y="36.5" width="55" height="55"/>
+                                                        <rect key="frame" x="112" y="36.5" width="55" height="55"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="YPt-TE-IGH" secondAttribute="height" multiplier="1:1" id="JHh-zb-N0F"/>
@@ -96,27 +96,14 @@
                                                             <color key="titleColor" red="0.9410743117" green="0.94123536350000003" blue="0.94106405969999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uiv-F5-XcZ">
-                                                        <rect key="frame" x="159.5" y="36.5" width="55" height="55"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="Uiv-F5-XcZ" secondAttribute="height" multiplier="1:1" id="4J7-CE-DIC"/>
-                                                            <constraint firstAttribute="width" constant="55" id="Tbk-JI-Ocw"/>
-                                                        </constraints>
-                                                        <state key="normal" image="Icon_edit">
-                                                            <color key="titleColor" red="0.9410743117" green="0.94123536350000003" blue="0.94106405969999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="YPt-TE-IGH" firstAttribute="centerY" secondItem="Hm1-oz-oUG" secondAttribute="centerY" id="5fe-xr-HI2"/>
-                                                    <constraint firstItem="Uiv-F5-XcZ" firstAttribute="leading" secondItem="YPt-TE-IGH" secondAttribute="trailing" constant="40" id="ODC-nw-3Qf"/>
+                                                    <constraint firstItem="YPt-TE-IGH" firstAttribute="trailing" secondItem="Hm1-oz-oUG" secondAttribute="centerX" constant="-20" id="ISk-hp-y8Q"/>
+                                                    <constraint firstItem="ZGO-Kq-lC4" firstAttribute="leading" secondItem="Hm1-oz-oUG" secondAttribute="centerX" constant="20" id="Lxn-bg-cEz"/>
                                                     <constraint firstAttribute="height" constant="128" id="aJo-Dy-jDC"/>
                                                     <constraint firstItem="ZGO-Kq-lC4" firstAttribute="centerY" secondItem="Hm1-oz-oUG" secondAttribute="centerY" id="fGd-dk-gKA"/>
-                                                    <constraint firstItem="Uiv-F5-XcZ" firstAttribute="centerY" secondItem="Hm1-oz-oUG" secondAttribute="centerY" id="g6Y-n0-0P3"/>
-                                                    <constraint firstItem="ZGO-Kq-lC4" firstAttribute="leading" secondItem="Uiv-F5-XcZ" secondAttribute="trailing" constant="40" id="nO1-Zf-MBu"/>
-                                                    <constraint firstItem="Uiv-F5-XcZ" firstAttribute="centerX" secondItem="Hm1-oz-oUG" secondAttribute="centerX" id="uwF-Uo-GOD"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -226,7 +213,6 @@
                                     <outlet property="addressLabel" destination="l4V-rm-cnu" id="1Xr-i2-P9F"/>
                                     <outlet property="backgroundView" destination="zsb-T0-NqB" id="bAR-EJ-4gJ"/>
                                     <outlet property="cancelBtn" destination="7wm-9a-XHR" id="euA-na-fnG"/>
-                                    <outlet property="editBtn" destination="Uiv-F5-XcZ" id="aQJ-qt-PG9"/>
                                     <outlet property="infoView" destination="Qzt-k4-dQN" id="mXN-h7-brZ"/>
                                     <outlet property="logoImage" destination="dNi-7B-o9P" id="TP8-ZL-H0i"/>
                                     <outlet property="logoOutBtn" destination="ZGO-Kq-lC4" id="db0-aC-am5"/>
@@ -340,7 +326,6 @@
     </scenes>
     <resources>
         <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
-        <image name="Icon_edit" width="170.66667175292969" height="170.66667175292969"/>
         <image name="Icon_logout" width="170.66667175292969" height="170.66667175292969"/>
         <image name="Icon_qrcode" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
