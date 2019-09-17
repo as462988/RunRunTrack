@@ -8,9 +8,14 @@
 
 import UIKit
 
-class CreatQrcodeViewController: UIViewController {
+class CreatQrcodeViewController: UIViewController, QrcodeViewDelegate {
 
-    @IBOutlet weak var qrcodeView: QrcodeView!
+    @IBOutlet weak var qrcodeView: QrcodeView! {
+        
+        didSet {
+            qrcodeView.delegate = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,5 +24,10 @@ class CreatQrcodeViewController: UIViewController {
         rootVC.tabBar.isHidden = true
         qrcodeView.layer.cornerRadius = 20
     }
-
+    
+    func clickCloseBtn() {
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = false
+        dismiss(animated: false, completion: nil)
+    }
 }

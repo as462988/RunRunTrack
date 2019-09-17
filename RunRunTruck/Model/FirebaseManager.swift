@@ -139,8 +139,7 @@ class FirebaseManager {
             guard error == nil else {
                 
                 //TODO: 顯示無法註冊的原因
-                let errorCode = AuthErrorCode(rawValue: error!._code)
-                print(errorCode?.errorMessage ?? "nil")
+                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
                 
                 return
             }
@@ -161,8 +160,6 @@ class FirebaseManager {
             
             if let error = error {
                 print("Error adding document: \(error)")
-            } else {
-                print("Document successfully written!")
             }
         }
     }
@@ -201,8 +198,6 @@ class FirebaseManager {
             ], completion: { (error) in
                 if let err = error {
                     print("Error adding document: \(err)")
-                } else {
-                    print("Document added with ID: \(ref!.documentID)")
                 }
         })
         
@@ -217,46 +212,57 @@ class FirebaseManager {
         ]) { (error) in
             if let err = error {
                 print("Error adding document: \(err)")
-            } else {
-                print("Document added with")
             }
         }
     }
     
-    func changeOpenStatus(status: Bool, lat: Double, lon: Double) {
+    func changeOpenStatus(status: Bool, lat: Double? = nil, lon: Double? = nil) {
         
         guard let truckId = bossTruck?.id else { return }
         
-        let location = GeoPoint(latitude: lat, longitude: lon)
-        
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status,
-            Truck.openTime.rawValue: Date().timeIntervalSince1970,
-            Truck.location.rawValue: location
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
+        if status {
+            let location = GeoPoint(latitude: lat!, longitude: lon!)
+            
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.open.rawValue: status,
+                Truck.openTime.rawValue: Date().timeIntervalSince1970,
+                Truck.location.rawValue: location
+            ]) { (error) in
+                if let err = error {
+                    print("Error modify: \(err)")
+                } else {
+                    print("Status modify Success")
+                }
+            }
+        } else {
+            
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.open.rawValue: status
+            ]) { (error) in
+                if let err = error {
+                    print("Error modify: \(err)")
+                } else {
+                    print("Status modify Success")
+                }
             }
         }
     }
     
-    func closeOpenStatus(status: Bool) {
-        
-        guard let truckId = bossTruck?.id else { return }
-
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
-            }
-        }
-    }
-    
+//    func closeOpenStatus(status: Bool) {
+//
+//        guard let truckId = bossTruck?.id else { return }
+//
+//        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+//            Truck.open.rawValue: status
+//        ]) { (error) in
+//            if let err = error {
+//                print("Error modify: \(err)")
+//            } else {
+//                print("Status modify Success")
+//            }
+//        }
+//    }
+//
     func updataStoryText(text: String) {
         
         guard let truckId = bossTruck?.id else { return }
@@ -289,20 +295,6 @@ class FirebaseManager {
         }
     }
     
-    func bossSingIn(email: String, psw: String, completion: @escaping () -> Void) {
-        
-        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
-            
-            guard error == nil else {
-                //TODO: 顯示無法登入的原因
-                print("didn't singIn")
-                return
-            }
-            
-            print("Success")
-            completion()
-        }
-    }
     // MARK: - signOut
     func signOut() {
         
@@ -342,7 +334,8 @@ class FirebaseManager {
     // MARK: - creatChatRoom
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
         
-        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
+        db.collection(Truck.truck.rawValue).document(truckID).collection(
+            Truck.chatRoom.rawValue).addDocument(data: [
             Truck.name.rawValue: name,
             User.uid.rawValue: uid,
             User.text.rawValue: text,

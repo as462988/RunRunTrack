@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol QrcodeViewDelegate: AnyObject {
+    func clickCloseBtn()
+}
+
 class QrcodeView: UIView {
     
     @IBOutlet weak var qrcodeImage: UIImageView!
@@ -15,7 +19,9 @@ class QrcodeView: UIView {
     @IBOutlet weak var timeLabel: UILabel!
     
     var timer = Timer()
-    var count = 30
+    var count = 5
+    
+   weak var delegate: QrcodeViewDelegate?
 
     override func awakeFromNib() {
         setValue()
@@ -23,11 +29,32 @@ class QrcodeView: UIView {
                                      target: self,
                                      selector: #selector(updateTime),
                                      userInfo: nil, repeats: true)
+        closeBtn.addTarget(self, action: #selector(clickCloseBtn), for: .touchUpInside)
     }
     
     @objc func updateTime() {
-        count -= 1
-        timeLabel.text = " 0: \(count)"
+
+        if count == 0 {
+            stop()
+        } else if count < 10 {
+            
+            count -= 1
+            timeLabel.text = " 0 : 0\(count)"
+        } else {
+            
+            count -= 1
+            timeLabel.text = " 0 : \(count)"
+        }
+    }
+    
+    func stop() {
+        
+        timer.invalidate()
+        
+        count = 0
+        
+        timeLabel.text = "Qrcode 失效囉！"
+
     }
     
     func setValue() {
@@ -49,5 +76,9 @@ class QrcodeView: UIView {
         }
         
         return nil
+    }
+    
+    @objc func clickCloseBtn() {
+        self.delegate?.clickCloseBtn()
     }
 }

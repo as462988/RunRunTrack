@@ -132,41 +132,6 @@ class AuthViewController: UIViewController {
 
     }
     
-//    func handleUserLogin() {
-//
-//        guard let email = emailTextField.text,
-//            let psw = pswTextField.text else { return }
-//
-//        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] in
-//
-//            FirebaseManager.shared.getCurrentUserData(completion: { (data) in
-//
-//                self?.presentingViewController?.dismiss(animated: false, completion: nil)
-//
-//                guard let rootVC = AppDelegate.shared.window?.rootViewController
-//                    as? TabBarViewController else { return }
-//                rootVC.tabBar.isHidden = false
-//
-//            })
-//        }
-//    }
-    
-//    func handleBossLogin() {
-//
-//        guard let email = emailTextField.text,
-//            let psw = pswTextField.text else { return }
-//
-//        FirebaseManager.shared.bossSingIn(email: email, psw: psw) {
-//
-//            FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
-//                self?.presentingViewController?.dismiss(animated: false, completion: nil)
-//                guard let rootVC = AppDelegate.shared.window?.rootViewController
-//                    as? TabBarViewController else { return }
-//                rootVC.tabBar.isHidden = false
-//            })
-//        }
-//    }
-    
     @objc func handleUIStatusChange() {
         uiStatus = loginSegment.selectedSegmentIndex == 0 ? .userLogin : .bossLogin
         updateUIWithStatus()

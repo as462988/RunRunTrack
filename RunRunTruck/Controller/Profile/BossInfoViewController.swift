@@ -66,7 +66,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     }
     
     func clickCancelBtn() {
-        FirebaseManager.shared.closeOpenStatus(status: bossView.openSwitch.isOn)
+        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn)
     }
     
     func clickLogoutBtn() {

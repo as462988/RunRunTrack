@@ -136,7 +136,7 @@ class BossUIView: UIView {
    
         } else {
             
-            FirebaseManager.shared.closeOpenStatus(status: openSwitch.isOn)
+            FirebaseManager.shared.changeOpenStatus(status: openSwitch.isOn)
             openView.isHidden = true
             backgroundView.isHidden = true
             
