@@ -9,10 +9,33 @@
 import UIKit
 
 class BadgeViewController: UIViewController {
+    
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var badgeCollectionView: UICollectionView! {
+        
+        didSet {
+            badgeCollectionView.delegate = self
+            badgeCollectionView.dataSource = self
+        }
+    }
+    
+    var badgeArr: [TruckBadge] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FirebaseManager.shared.getAllLogoImage { [weak self] (truckDatas) in
+            guard let truckDatas = truckDatas else { return }
+            
+            for truckData in truckDatas {
+                
+                self?.badgeArr.append(truckData)
+            }
+            
+            DispatchQueue.main.async {
+                self?.badgeCollectionView.reloadData()
+            }
+        }
 
     }
     
@@ -48,4 +71,46 @@ class BadgeViewController: UIViewController {
 
     }
 
+}
+
+extension BadgeViewController:
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return badgeArr.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let badgeCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        badgeCell.setValue(logo: badgeArr[indexPath.item].logoImage, name: badgeArr[indexPath.item].name)
+        
+        return badgeCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let itemSize = CGSize(
+            width: UIScreen.main.bounds.width / 2 - 20,
+            height: UIScreen.main.bounds.width / 2 - 20)
+        
+        return itemSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        let cellLocation = UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
+        
+        return cellLocation
+    }
+    
 }

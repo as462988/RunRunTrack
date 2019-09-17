@@ -10,4 +10,26 @@ import UIKit
 
 class BadgeCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var logoImage: UIImageView!
+    
+    @IBOutlet weak var truckName: UILabel!
+    
+    func setValue(logo: String, name: String) {
+        
+        logoImage.loadImage(logo, placeHolder: UIImage.asset(.Icon_logo))
+        
+        truckName.text = name
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 20).cgPath
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 0.7
+        layer.shadowColor = UIColor.black.cgColor
+        layer.masksToBounds = false
+        
+    }
 }

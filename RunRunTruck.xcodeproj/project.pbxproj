@@ -47,9 +47,6 @@
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
 		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
 		09F78E492326664D00FD6099 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */; };
-		09F78E4D2326728C00FD6099 /*  ElfOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4A2326728C00FD6099 /*  ElfOne.json */; };
-		09F78E4E2326728C00FD6099 /*  ElfThird.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4B2326728C00FD6099 /*  ElfThird.json */; };
-		09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4C2326728C00FD6099 /*  ElfTwo.json */; };
 		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
 		09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E532327A4CA00FD6099 /* UserUIView.swift */; };
 		09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */; };
@@ -101,9 +98,6 @@
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
 		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
 		09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
-		09F78E4A2326728C00FD6099 /*  ElfOne.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfOne.json"; sourceTree = "<group>"; };
-		09F78E4B2326728C00FD6099 /*  ElfThird.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfThird.json"; sourceTree = "<group>"; };
-		09F78E4C2326728C00FD6099 /*  ElfTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfTwo.json"; sourceTree = "<group>"; };
 		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
 		09F78E532327A4CA00FD6099 /* UserUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUIView.swift; sourceTree = "<group>"; };
 		09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBossTruckViewController.swift; path = ../Profile/AddBossTruckViewController.swift; sourceTree = "<group>"; };
@@ -194,8 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
-				095238C42330A8B10015AEDA /* Badge */,
 				09336624231ECAB400F0D503 /* Lobby */,
+				095238C42330A8B10015AEDA /* Badge */,
 				090AFB5F231CD4FF0072E646 /* Auth */,
 				09F78E552327A95500FD6099 /* Profile */,
 			);
@@ -238,11 +232,8 @@
 		091EEB922317586900BF066F /* Third Party Wrapper */ = {
 			isa = PBXGroup;
 			children = (
-				09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */,
-				09F78E4A2326728C00FD6099 /*  ElfOne.json */,
-				09F78E4B2326728C00FD6099 /*  ElfThird.json */,
-				09F78E4C2326728C00FD6099 /*  ElfTwo.json */,
 				09329DD523175CD5003C851A /* KingFisherWrapper.swift */,
+				09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -397,13 +388,10 @@
 				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
 				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
 				09F78E492326664D00FD6099 /* lf30_editor_envOAW.json in Resources */,
-				09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */,
-				09F78E4E2326728C00FD6099 /*  ElfThird.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
-				09F78E4D2326728C00FD6099 /*  ElfOne.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -116,3 +116,13 @@ enum Boss: String {
     
     case email
 }
+
+struct TruckBadge {
+    let name: String
+    let logoImage: String
+    
+    init(name: String, logoImage: String) {
+        self.name = name
+        self.logoImage = logoImage
+    }
+}

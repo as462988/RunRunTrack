@@ -33,6 +33,30 @@ class FirebaseManager {
     
     var bossID: String?
     
+    //getAllTruck
+    
+    func getAllLogoImage(completion: @escaping ([TruckBadge]?) -> Void) {
+        
+        db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error) in
+            
+            var logoImageArr: [TruckBadge] = []
+            
+            if let err = error {
+                print("Error getting documents: \(err)")
+                completion(nil)
+            } else {
+                for document in snapshot!.documents {
+                    
+                    guard let name = document.data()[Truck.name.rawValue] as? String,
+                        let logoImage = document.data()[Truck.logoImage.rawValue] as? String else {return}
+                    
+                    logoImageArr.append(TruckBadge(name: name, logoImage: logoImage))
+                }
+                completion(logoImageArr)
+            }
+        }
+    }
+    
     // MARK: getOpeningTruck
     
     func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
@@ -247,22 +271,6 @@ class FirebaseManager {
             }
         }
     }
-    
-//    func closeOpenStatus(status: Bool) {
-//
-//        guard let truckId = bossTruck?.id else { return }
-//
-//        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-//            Truck.open.rawValue: status
-//        ]) { (error) in
-//            if let err = error {
-//                print("Error modify: \(err)")
-//            } else {
-//                print("Status modify Success")
-//            }
-//        }
-//    }
-//
     func updataStoryText(text: String) {
         
         guard let truckId = bossTruck?.id else { return }

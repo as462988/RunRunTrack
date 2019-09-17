@@ -37,7 +37,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aLv-WY-JqT">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yWu-O4-vVF">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="4" id="yWu-O4-vVF">
                                     <size key="itemSize" width="255" height="247"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -51,20 +51,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="255" height="247"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tSW-qx-saV">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evo-6b-M2D">
+                                                    <rect key="frame" x="106.5" y="153.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tSW-qx-saV">
                                                     <rect key="frame" x="66" y="10" width="123.5" height="123.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="tSW-qx-saV" secondAttribute="height" multiplier="1:1" id="V0R-xU-Yzz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evo-6b-M2D">
-                                                    <rect key="frame" x="106.5" y="153.5" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Evo-6b-M2D" firstAttribute="top" secondItem="tSW-qx-saV" secondAttribute="bottom" constant="20" id="0Kn-IW-AvF"/>
                                             <constraint firstItem="Evo-6b-M2D" firstAttribute="centerX" secondItem="LJf-MA-XU6" secondAttribute="centerX" id="8Zc-6c-607"/>
@@ -72,6 +73,10 @@
                                             <constraint firstItem="tSW-qx-saV" firstAttribute="height" secondItem="LJf-MA-XU6" secondAttribute="height" multiplier="1:2" id="jLR-JG-tgB"/>
                                             <constraint firstItem="tSW-qx-saV" firstAttribute="centerX" secondItem="LJf-MA-XU6" secondAttribute="centerX" id="wZX-7S-A0f"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="logoImage" destination="tSW-qx-saV" id="vu5-VX-cFS"/>
+                                            <outlet property="truckName" destination="Evo-6b-M2D" id="hig-W5-p0c"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -100,6 +105,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Brdge" id="AM1-aH-vp7"/>
                     <connections>
+                        <outlet property="badgeCollectionView" destination="aLv-WY-JqT" id="eCe-ze-OIZ"/>
                         <outlet property="button" destination="JCi-0v-DzP" id="YUa-6A-1vO"/>
                     </connections>
                 </viewController>
