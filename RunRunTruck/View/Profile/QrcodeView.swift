@@ -19,7 +19,7 @@ class QrcodeView: UIView {
     @IBOutlet weak var timeLabel: UILabel!
     
     var timer = Timer()
-    var count = 5
+    var count = 30
     
    weak var delegate: QrcodeViewDelegate?
 
@@ -58,9 +58,13 @@ class QrcodeView: UIView {
     }
     
     func setValue() {
+        
+        guard let logoImage = FirebaseManager.shared.bossTruck?.logoImage else {
+            return
+        }
         closeBtn.layer.cornerRadius = 20
         closeBtn.clipsToBounds = true
-        qrcodeImage.image = generateQRCode(from: "hahahahahahahahahaaaaaa")
+        qrcodeImage.image = generateQRCode(from: logoImage)
     }
     
     func generateQRCode(from string: String) -> UIImage? {
