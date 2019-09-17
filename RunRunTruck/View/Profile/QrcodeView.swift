@@ -24,7 +24,7 @@ class QrcodeView: UIView {
    weak var delegate: QrcodeViewDelegate?
 
     override func awakeFromNib() {
-        setValue()
+        setLayout()
         timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
                                      selector: #selector(updateTime),
@@ -33,17 +33,25 @@ class QrcodeView: UIView {
     }
     
     @objc func updateTime() {
+        
+        guard let truckId = FirebaseManager.shared.bossTruck?.id else {
+            return
+        }
 
         if count == 0 {
             stop()
+            qrcodeImage.image = generateQRCode(from: "連結失效囉！")
+            
         } else if count < 10 {
             
             count -= 1
             timeLabel.text = " 0 : 0\(count)"
+            qrcodeImage.image = generateQRCode(from: truckId)
         } else {
             
             count -= 1
             timeLabel.text = " 0 : \(count)"
+            qrcodeImage.image = generateQRCode(from: truckId)
         }
     }
     
@@ -57,14 +65,10 @@ class QrcodeView: UIView {
 
     }
     
-    func setValue() {
+    func setLayout() {
         
-        guard let truckId = FirebaseManager.shared.bossTruck?.id else {
-            return
-        }
         closeBtn.layer.cornerRadius = 20
         closeBtn.clipsToBounds = true
-        qrcodeImage.image = generateQRCode(from: truckId)
     }
     
     func generateQRCode(from string: String) -> UIImage? {

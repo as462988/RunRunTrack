@@ -86,14 +86,26 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
-            if let truckId = metadataObj.stringValue {
-                //TODO: 拿到 logo 的 url
-                
+            if metadataObj.stringValue == "連結失效囉！" {
+                print(metadataObj.stringValue)
+            } else if let truckId = metadataObj.stringValue {
+               
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
                 FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
                 print(truckId)
+                
             }
+//
+//            if let truckId = metadataObj.stringValue {
+//
+//                guard let uid = FirebaseManager.shared.userID else {return}
+//
+//                FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
+//                print(truckId)
+//
+//                dismiss(animated: true, completion: nil)
+//            }
         }
     }
 }

@@ -24,7 +24,7 @@ class BadgeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.shared.getAllLogoImage { [weak self] (truckDatas) in
+        FirebaseManager.shared.getAllTruckData { [weak self] (truckDatas) in
             guard let truckDatas = truckDatas else { return }
             
             for truckData in truckDatas {
@@ -44,6 +44,8 @@ class BadgeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        getUserBadgeisAchieved()
+        
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
@@ -55,14 +57,15 @@ class BadgeViewController: UIViewController {
             return
         }
         
-        for (index, id) in badgeArr.enumerated() {
+        for (index, userData) in badgeArr.enumerated() {
             
-            if user.badge.contains(id.truckId) {
+            if user.badge.contains(userData.truckId) {
                 
                 badgeArr[index].isAchieved = true
             }
         }
         
+        self.badgeCollectionView.reloadData()
     }
     
     @IBAction func animateButton(sender: UIButton) {
