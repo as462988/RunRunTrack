@@ -11,7 +11,7 @@ import GoogleMaps
 import CoreLocation
 import Contacts
 
-protocol BossUIViewDelegate: GMSMapViewDelegate, AnyObject {
+protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickChenckBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
@@ -22,8 +22,11 @@ class BossUIView: UIView {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var storyTextView: UITextView!
-//    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var storyTextView: UITextView! {
+        didSet{
+            storyTextView.delegate = self.delegate
+        }
+    }
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
@@ -58,6 +61,7 @@ class BossUIView: UIView {
         openBtn.addTarget(self, action: #selector(clickChenckBtn), for: .touchUpInside)
         
         mapView.delegate = self.delegate
+        storyTextView.delegate = self.delegate
     }
     
     func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {

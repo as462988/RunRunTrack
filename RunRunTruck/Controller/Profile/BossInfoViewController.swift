@@ -79,4 +79,8 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
         root?.selectedIndex = 0
         
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
+    }
 }

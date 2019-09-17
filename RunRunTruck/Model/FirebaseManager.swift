@@ -276,6 +276,22 @@ class FirebaseManager {
         }
     }
     
+    func updataStoryText(text: String) {
+        
+        guard let truckId = bossTruck?.id else { return }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.story.rawValue: text,
+            
+            ]) { (error) in
+                if let err = error {
+                    print("Error modify: \(err)")
+                } else {
+                    print("Status modify Success")
+                }
+        }
+    }
+    
     // MARK: singIn
     func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         
