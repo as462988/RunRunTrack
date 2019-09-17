@@ -34,7 +34,6 @@ class FirebaseManager {
     var bossID: String?
     
     //getAllTruck
-    
     func getAllLogoImage(completion: @escaping ([TruckBadge]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).getDocuments { (snapshot, error) in
@@ -104,7 +103,7 @@ class FirebaseManager {
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String else { return }
             
-            self?.currentUser = UserData(name: name, email: email, truckId: nil)
+            self?.currentUser = UserData(name: name, email: email)
             
             completion(self?.currentUser)
         }
@@ -180,6 +179,18 @@ class FirebaseManager {
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
             User.email.rawValue: email]
+        ) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            }
+        }
+    }
+    
+    func addUserBadge(uid: String, truckImage: String) {
+        
+        db.collection(User.user.rawValue).document(uid).updateData([
+            User.badge.rawValue: [truckImage]]
         ) { error in
             
             if let error = error {

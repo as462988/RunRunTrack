@@ -89,6 +89,8 @@ enum User: String {
     case text
     
     case createTime
+    
+    case badge
 }
 
 struct UserData {
@@ -97,11 +99,14 @@ struct UserData {
     
     let email: String
     
+    let badge: [String]?
+    
     let truckId: String?
     
-    init(name: String, email: String, truckId: String?) {
+    init(name: String, email: String, badge: [String]? = nil, truckId: String? = nil) {
         self.name = name
         self.email = email
+        self.badge = badge
         self.truckId = truckId
     }
 }

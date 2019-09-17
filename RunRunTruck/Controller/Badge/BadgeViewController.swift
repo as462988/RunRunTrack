@@ -49,18 +49,25 @@ class BadgeViewController: UIViewController {
     
     @IBAction func animateButton(sender: UIButton) {
         
-        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+//        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+//
+//        UIView.animate(withDuration: 2.0,
+//                       delay: 0,
+//                       usingSpringWithDamping: CGFloat(0.20),
+//                       initialSpringVelocity: CGFloat(6.0),
+//                       options: UIView.AnimationOptions.allowUserInteraction,
+//                       animations: {
+//                        sender.transform = CGAffineTransform.identity
+//        },
+//                       completion: { Void in()  }
+//        )
         
-        UIView.animate(withDuration: 2.0,
-                       delay: 0,
-                       usingSpringWithDamping: CGFloat(0.20),
-                       initialSpringVelocity: CGFloat(6.0),
-                       options: UIView.AnimationOptions.allowUserInteraction,
-                       animations: {
-                        sender.transform = CGAffineTransform.identity
-        },
-                       completion: { Void in()  }
-        )
+       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+        
+            print("請先登入會員")
+        
+            return
+        }
         
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
@@ -70,7 +77,6 @@ class BadgeViewController: UIViewController {
         show(vc, sender: nil)
 
     }
-
 }
 
 extension BadgeViewController:
@@ -88,7 +94,7 @@ UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
+       
         badgeCell.setValue(logo: badgeArr[indexPath.item].logoImage, name: badgeArr[indexPath.item].name)
         
         return badgeCell

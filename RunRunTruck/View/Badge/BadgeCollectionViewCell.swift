@@ -21,6 +21,13 @@ class BadgeCollectionViewCell: UICollectionViewCell {
         truckName.text = name
     }
     
+    func changeLayout(alpha: CGFloat) {
+        
+        logoImage.alpha = alpha
+        
+        truckName.alpha = alpha
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
