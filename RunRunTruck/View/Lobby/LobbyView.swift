@@ -20,7 +20,7 @@ CLLocationManagerDelegate, AnyObject {
 class LobbyView: UIView, UICollectionViewDelegate {
     
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
-    
+    var markers:[GMSMarker] = []
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {
@@ -85,9 +85,31 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
     }
     
+    func addMarker(lat: Double, long: Double, imageUrl: String) {
+        let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+        markers.append(marker)
+        if let url = URL(string: imageUrl) {
+            
+            URLSession.shared.dataTask(with: url) { [weak self] (data, rsp, err) in
+                
+                guard let data = data else { return }
+                
+                DispatchQueue.main.async {
+                    
+                    guard let img = UIImage(data: data) else {return}
+                    
+                    self?.setIconImage(marker: marker, img: img)
+                }
+                }.resume()
+        } else {
+            guard let img = UIImage.asset(.Icon_logo) else {return}
+            self.setIconImage(marker: marker, img: img)
+        }
+    }
+    
     func marker(lat: Double, long: Double, index: Int) {
         
-        let iconImage = FirebaseManager.shared.truckData[index].logoImage
+        let iconImage = FirebaseManager.shared.openIngTruckData[index].logoImage
         
         let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
         
@@ -151,7 +173,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
         }
     }
     
-    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
+    func getLocationAddress(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
         let locale = Locale(identifier: "zh_TW")
         
         let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
@@ -166,6 +188,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
                 
                 return
             }
+            
             completion(placemark.postalAddress, nil)
         }
     }

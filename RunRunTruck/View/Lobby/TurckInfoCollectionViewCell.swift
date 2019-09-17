@@ -24,7 +24,6 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var truckName: UILabel!
     @IBOutlet weak var truckLocation: UILabel!
     @IBOutlet weak var openTime: UILabel!
-    @IBOutlet weak var closeTime: UILabel!
     @IBOutlet weak var clickChatRoomBtn: UIButton!
     @IBOutlet weak var clickNavigateBtn: UIButton!
     
@@ -38,11 +37,20 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         clickChatRoomBtn.addTarget(self, action: #selector(onGotoChatRoom), for: .touchUpInside)
     }
     
-    func setValue(name: String, openTime: String, closeTime: String, logoImage: String, truckLocationText: String) {
+    func setValue(name: String, openTime: Double, logoImage: String, truckLocationText: String) {
+        
+        let timeStamp = openTime
+        
+        let timeInterval: TimeInterval = TimeInterval(timeStamp)
+        
+        let date: Date = Date(timeIntervalSince1970: timeInterval)
+        
+        let dateFormat: DateFormatter = DateFormatter()
+        
+        dateFormat.dateFormat = "yyyy/MM/dd HH:mm"
         
         self.truckName.text = name
-        self.openTime.text = openTime
-        self.closeTime.text = closeTime
+        self.openTime.text = dateFormat.string(from: date)
         self.truckLocation.text = truckLocationText
         
         if logoImage != "" {

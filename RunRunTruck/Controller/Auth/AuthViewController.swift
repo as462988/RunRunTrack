@@ -11,6 +11,10 @@ import Firebase
 import FirebaseAuth
 import Lottie
 
+private enum LoginVcUIStatus {
+    case userLogin, bossLogin
+}
+
 class AuthViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
@@ -20,6 +24,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var animationView: AnimationView!
+    private var uiStatus: LoginVcUIStatus = .userLogin
     
     var userLoginIsFinished = false {
         didSet {
@@ -36,7 +41,7 @@ class AuthViewController: UIViewController {
         contentView.clipsToBounds = true
         singInBtn.layer.cornerRadius = 10
         singInBtn.clipsToBounds = true
-        loginSegment.addTarget(self, action: #selector(handleLoginChange), for: .valueChanged)
+        loginSegment.addTarget(self, action: #selector(handleUIStatusChange), for: .valueChanged)
         singInBtn.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         checkUserInput()
 
@@ -73,52 +78,107 @@ class AuthViewController: UIViewController {
     }
     
     @objc func handleLogin() {
-        
-        if loginSegment.selectedSegmentIndex == 0 {
-             handleUserLogin()
-        } else {
-            handleBossLogin()
-        }
-    }
-    
-    func handleUserLogin() {
-        
+        //登入
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
-        
-        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] in
-            
-            FirebaseManager.shared.getCurrentUserData(completion: { (data) in
-                
-                self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                
-                guard let rootVC = AppDelegate.shared.window?.rootViewController
-                    as? TabBarViewController else { return }
-                rootVC.tabBar.isHidden = false
-                
-            })
+        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] isSuccess in
+            guard let uiStatus = self?.uiStatus else {
+                return
+            }
+
+            switch uiStatus {
+            case .userLogin:
+                FirebaseManager.shared.getCurrentUserData(completion: {[weak self] (data) in
+                    guard data != nil else {
+                        print("老闆使用了吃貨登入")
+                        //老闆使用了吃貨登入, 提示請使用者使用老闆登入
+                        do {
+                            try Auth.auth().signOut()
+                        } catch let err {
+                            print(err.localizedDescription)
+                        }
+                        return
+                    }
+                    //吃貨登入成功
+                    FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
+                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                    
+                    guard let rootVC = AppDelegate.shared.window?.rootViewController
+                        as? TabBarViewController else { return }
+                    rootVC.tabBar.isHidden = false
+                })
+            case .bossLogin:
+                FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
+                    guard bossData != nil else {
+                        print("吃貨使用了老闆登入")
+                        //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
+                        do {
+                            try Auth.auth().signOut()
+                        } catch let err {
+                            print(err.localizedDescription)
+                        }
+                        return
+                    }
+                    //老闆登入成功
+                    FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
+                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                    guard let rootVC = AppDelegate.shared.window?.rootViewController
+                        as? TabBarViewController else { return }
+                    rootVC.tabBar.isHidden = false
+                })
+
+            }
         }
+
     }
     
-    func handleBossLogin() {
-        guard let email = emailTextField.text,
-            let psw = pswTextField.text else { return }
-        
-        FirebaseManager.shared.bossSingIn(email: email, psw: psw) {
-            
-            FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
-                self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                guard let rootVC = AppDelegate.shared.window?.rootViewController
-                    as? TabBarViewController else { return }
-                rootVC.tabBar.isHidden = false
-            })
-        }
+//    func handleUserLogin() {
+//
+//        guard let email = emailTextField.text,
+//            let psw = pswTextField.text else { return }
+//
+//        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] in
+//
+//            FirebaseManager.shared.getCurrentUserData(completion: { (data) in
+//
+//                self?.presentingViewController?.dismiss(animated: false, completion: nil)
+//
+//                guard let rootVC = AppDelegate.shared.window?.rootViewController
+//                    as? TabBarViewController else { return }
+//                rootVC.tabBar.isHidden = false
+//
+//            })
+//        }
+//    }
+    
+//    func handleBossLogin() {
+//
+//        guard let email = emailTextField.text,
+//            let psw = pswTextField.text else { return }
+//
+//        FirebaseManager.shared.bossSingIn(email: email, psw: psw) {
+//
+//            FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
+//                self?.presentingViewController?.dismiss(animated: false, completion: nil)
+//                guard let rootVC = AppDelegate.shared.window?.rootViewController
+//                    as? TabBarViewController else { return }
+//                rootVC.tabBar.isHidden = false
+//            })
+//        }
+//    }
+    
+    @objc func handleUIStatusChange() {
+        uiStatus = loginSegment.selectedSegmentIndex == 0 ? .userLogin : .bossLogin
+        updateUIWithStatus()
     }
     
-    @objc func handleLoginChange() {
-        
-        let title = loginSegment.titleForSegment(at: loginSegment.selectedSegmentIndex)
-        singInBtn.setTitle(title, for: .normal)
+    func updateUIWithStatus() {
+        switch uiStatus {
+        case .userLogin:
+            singInBtn.setTitle("吃貨登入", for: .normal)
+        case .bossLogin:
+            singInBtn.setTitle("老闆登入", for: .normal)
+        }
         emailTextField.text = ""
         pswTextField.text = ""
     }

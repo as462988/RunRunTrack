@@ -73,6 +73,8 @@ private enum Tab {
     }
 }
 
+import Firebase
+
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     private let tabs: [Tab] = [.lobby, .truck, .badge, .profile]
@@ -83,6 +85,29 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         viewControllers = tabs.map({ $0.controller()})
         
         delegate = self
+        
+//        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+//            
+//            guard user != nil else {
+//                
+//                return
+//            }
+//            
+//            if FirebaseManager.shared.bossID != nil {
+//                
+//                guard let bossVc = UIStoryboard.profile.instantiateViewController(
+//                    withIdentifier: "BossInfoViewController") as? BossInfoViewController else { return }
+//                
+//                self?.viewControllers?[3] = UINavigationController(rootViewController: bossVc)
+//                
+//            } else if FirebaseManager.shared.userID != nil {
+//                
+//                guard let userVc = UIStoryboard.profile.instantiateViewController(
+//                    withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+//                
+//                self?.viewControllers?[3] = UINavigationController(rootViewController: userVc)
+//            }
+//        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController,
@@ -99,10 +124,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
                 
                 present(authVC, animated: false, completion: nil)
             }
-            
-             return false
+            return false
         }
-        
         return true
     }
+    
 }
