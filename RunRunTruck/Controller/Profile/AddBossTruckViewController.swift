@@ -49,9 +49,9 @@ class AddBossTruckViewController: UIViewController {
         }
         
         let name = FirebaseManager.shared.currentUser?.name
-        
+        let url = "https://firebasestorage.googleapis.com/v0/b/runruntruck.appspot.com/o/images.png?alt=media&token=0dce6bc9-31e8-4d2f-ad04-7ee90cba2654"
         FirebaseManager.shared.addTurck(name: name!,
-                                        img: "https://firebasestorage.googleapis.com/v0/b/runruntruck.appspot.com/o/images.png?alt=media&token=0dce6bc9-31e8-4d2f-ad04-7ee90cba2654",
+                                        img: url,
                                         story: inputText) { [weak self] (truckID) in
             
              FirebaseManager.shared.addTurckIDInBoss(truckId: truckID)

@@ -20,6 +20,8 @@ class LobbyViewController: UIViewController {
         }
     }
     
+    let addressManager = AddressManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +39,7 @@ class LobbyViewController: UIViewController {
                                                   long: truckData.0.location!.longitude,
                                                   imageUrl: truckData.0.logoImage)
                         
-                        self?.lobbyView.getLocationAddress(lat: truckData.0.location!.latitude,
+                        self?.addressManager.getLocationAddress(lat: truckData.0.location!.latitude,
                                                            long: truckData.0.location!.longitude,
                                                            completion: {(location, error) in
 

@@ -19,6 +19,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     
     var latitude: Double?
     var longitude: Double?
+    let addressManager = AddressManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
             return
         }
 
-        bossView.getLocation(lat: lat, long: lon) { [weak self] (location, error) in
+        self.addressManager.getLocationAddress(lat: lat, long: lon) { [weak self] (location, error) in
             
             guard let location = location else {return}
             

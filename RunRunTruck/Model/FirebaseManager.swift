@@ -45,7 +45,7 @@ class FirebaseManager {
                 return
             }
             
-                var rtnTruckDatas:[(TruckData, DocumentChangeType)] = []
+                var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
             snapshot.documentChanges.forEach({ (documentChange) in
                 let data = documentChange.document.data()
 
@@ -60,25 +60,7 @@ class FirebaseManager {
                                       name, logoImage, story, open,
                                       openTimestamp, location)
                 rtnTruckDatas.append((truck, documentChange.type))
-//                if documentChange.type == .added {
-//
-//                    print("added")
-////                    self.openIngTruckData.append(truck)
-//
-//
-//                } else if documentChange.type == .removed {
-//
-//                    print("removed")
-//                    if let index = self.openIngTruckData.firstIndex(where: { (data) -> Bool in
-//                        data.id == documentChange.document.documentID
-//                    }) {
-//
-//                        self.openIngTruckData.remove(at: index)
-//                    }
-//                }
             })
-
-//            completion(self.openIngTruckData)
                 completion(rtnTruckDatas)
         }
         
@@ -265,8 +247,7 @@ class FirebaseManager {
         guard let truckId = bossTruck?.id else { return }
 
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status,
-
+            Truck.open.rawValue: status
         ]) { (error) in
             if let err = error {
                 print("Error modify: \(err)")
@@ -281,8 +262,7 @@ class FirebaseManager {
         guard let truckId = bossTruck?.id else { return }
         
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.story.rawValue: text,
-            
+            Truck.story.rawValue: text
             ]) { (error) in
                 if let err = error {
                     print("Error modify: \(err)")
