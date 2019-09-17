@@ -32,6 +32,8 @@ class BadgeViewController: UIViewController {
                 self?.badgeArr.append(truckData)
             }
             
+            self?.getUserBadgeisAchieved()
+            
             DispatchQueue.main.async {
                 self?.badgeCollectionView.reloadData()
             }
@@ -45,6 +47,22 @@ class BadgeViewController: UIViewController {
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
+    }
+    
+    func getUserBadgeisAchieved() {
+        
+        guard let user = FirebaseManager.shared.currentUser else {
+            return
+        }
+        
+        for (index, id) in badgeArr.enumerated() {
+            
+            if user.badge.contains(id.truckId) {
+                
+                badgeArr[index].isAchieved = true
+            }
+        }
+        
     }
     
     @IBAction func animateButton(sender: UIButton) {
@@ -94,9 +112,18 @@ UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
             return UICollectionViewCell()
         }
-       
-        badgeCell.setValue(logo: badgeArr[indexPath.item].logoImage, name: badgeArr[indexPath.item].name)
         
+         badgeCell.setValue(logo: badgeArr[indexPath.item].logoImage, name: badgeArr[indexPath.item].name)
+        
+        if badgeArr[indexPath.item].isAchieved {
+            
+            badgeCell.changeLayout(alpha: 1)
+            
+        } else {
+            
+            badgeCell.changeLayout(alpha: 0.2)
+        }
+       
         return badgeCell
     }
     

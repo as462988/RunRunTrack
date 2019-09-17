@@ -46,11 +46,16 @@ class FirebaseManager {
             } else {
                 for document in snapshot!.documents {
                     
-                    guard let name = document.data()[Truck.name.rawValue] as? String,
-                        let logoImage = document.data()[Truck.logoImage.rawValue] as? String else {return}
+                    guard let truck = document.data()[Truck.truckId.rawValue] as? String,
+                        let name = document.data()[Truck.name.rawValue] as? String,
+                        let logoImage = document.data()[Truck.logoImage.rawValue] as? String else {
+                            
+                        continue
+                    }
                     
-                    logoImageArr.append(TruckBadge(name: name, logoImage: logoImage))
+                    logoImageArr.append(TruckBadge(truckId: truck, name: name, logoImage: logoImage))
                 }
+
                 completion(logoImageArr)
             }
         }
@@ -101,9 +106,10 @@ class FirebaseManager {
             }
             
             guard let name = data[User.name.rawValue] as? String,
-                let email = data[User.email.rawValue] as? String else { return }
+                let email = data[User.email.rawValue] as? String,
+                let badge = data[User.badge.rawValue] as? [String] else { return }
             
-            self?.currentUser = UserData(name: name, email: email)
+            self?.currentUser = UserData(name: name, email: email, badge: badge)
             
             completion(self?.currentUser)
         }
@@ -187,10 +193,10 @@ class FirebaseManager {
         }
     }
     
-    func addUserBadge(uid: String, truckImage: String) {
+    func addUserBadge(uid: String, truckId: String) {
         
         db.collection(User.user.rawValue).document(uid).updateData([
-            User.badge.rawValue: [truckImage]]
+            User.badge.rawValue: [truckId]]
         ) { error in
             
             if let error = error {
@@ -222,21 +228,22 @@ class FirebaseManager {
     }
     
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
-        
-        var ref: DocumentReference?
-        
-        ref = db.collection(Truck.truck.rawValue).addDocument(data: [
+ 
+        let ref = db.collection(Truck.truck.rawValue).document()
+
+        ref.setData([
+            Truck.truckId.rawValue: ref.documentID,
             Truck.name.rawValue: name,
             Truck.logoImage.rawValue: img,
             Truck.story.rawValue: story,
             Truck.open.rawValue: false
-            ], completion: { (error) in
-                if let err = error {
-                    print("Error adding document: \(err)")
-                }
-        })
+        ]) { (error) in
+            if let err = error {
+                print("Error adding document: \(err)")
+            }
+        }
         
-        completion(ref!.documentID)
+        completion(ref.documentID)
     }
     
     func addTurckIDInBoss(truckId: String) {

@@ -99,11 +99,11 @@ struct UserData {
     
     let email: String
     
-    let badge: [String]?
+    let badge: [String]
     
     let truckId: String?
     
-    init(name: String, email: String, badge: [String]? = nil, truckId: String? = nil) {
+    init(name: String, email: String, badge: [String] = [], truckId: String? = nil) {
         self.name = name
         self.email = email
         self.badge = badge
@@ -123,10 +123,17 @@ enum Boss: String {
 }
 
 struct TruckBadge {
+    
+    let truckId: String
+    
     let name: String
+    
     let logoImage: String
     
-    init(name: String, logoImage: String) {
+    var isAchieved: Bool = false
+    
+    init(truckId: String, name: String, logoImage: String) {
+        self.truckId = truckId
         self.name = name
         self.logoImage = logoImage
     }

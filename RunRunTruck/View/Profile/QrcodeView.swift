@@ -59,12 +59,12 @@ class QrcodeView: UIView {
     
     func setValue() {
         
-        guard let logoImage = FirebaseManager.shared.bossTruck?.logoImage else {
+        guard let truckId = FirebaseManager.shared.bossTruck?.id else {
             return
         }
         closeBtn.layer.cornerRadius = 20
         closeBtn.clipsToBounds = true
-        qrcodeImage.image = generateQRCode(from: logoImage)
+        qrcodeImage.image = generateQRCode(from: truckId)
     }
     
     func generateQRCode(from string: String) -> UIImage? {
