@@ -86,28 +86,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         delegate = self
         
-//        Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-//            
-//            guard user != nil else {
-//                
-//                return
-//            }
-//            
-//            if FirebaseManager.shared.bossID != nil {
-//                
-//                guard let bossVc = UIStoryboard.profile.instantiateViewController(
-//                    withIdentifier: "BossInfoViewController") as? BossInfoViewController else { return }
-//                
-//                self?.viewControllers?[3] = UINavigationController(rootViewController: bossVc)
-//                
-//            } else if FirebaseManager.shared.userID != nil {
-//                
-//                guard let userVc = UIStoryboard.profile.instantiateViewController(
-//                    withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
-//                
-//                self?.viewControllers?[3] = UINavigationController(rootViewController: userVc)
-//            }
-//        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController,

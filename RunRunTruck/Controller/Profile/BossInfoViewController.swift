@@ -81,6 +81,17 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
         
     }
     
+    func creatQrcode() {
+        
+       guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
+        withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+        
+        qrcodeVc.modalPresentationStyle = .overCurrentContext
+        
+        present(qrcodeVc, animated: false, completion: nil)
+
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
     }

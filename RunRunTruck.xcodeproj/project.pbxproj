@@ -39,6 +39,8 @@
 		093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093365F7231E49EB00F0D503 /* ChatMessageCell.swift */; };
 		095238BC23307AB60015AEDA /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BB23307AB50015AEDA /* AddressManager.swift */; };
 		095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BD233086880015AEDA /* PushNoAnimationSegue.swift */; };
+		095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */; };
+		095238C2233093A90015AEDA /* QrcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C1233093A90015AEDA /* QrcodeView.swift */; };
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
 		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
 		09F78E492326664D00FD6099 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */; };
@@ -88,6 +90,8 @@
 		093365F7231E49EB00F0D503 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		095238BB23307AB50015AEDA /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
 		095238BD233086880015AEDA /* PushNoAnimationSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNoAnimationSegue.swift; sourceTree = "<group>"; };
+		095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatQrcodeViewController.swift; sourceTree = "<group>"; };
+		095238C1233093A90015AEDA /* QrcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrcodeView.swift; sourceTree = "<group>"; };
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
 		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
 		09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
@@ -267,6 +271,7 @@
 			children = (
 				09F78E512327976D00FD6099 /* BossUIView.swift */,
 				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+				095238C1233093A90015AEDA /* QrcodeView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
 				09F78E582328E96B00FD6099 /* BossInfoViewController.swift */,
 				09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */,
+				095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -464,6 +470,7 @@
 				091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */,
 				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
 				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
+				095238C2233093A90015AEDA /* QrcodeView.swift in Sources */,
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
 				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
@@ -476,6 +483,7 @@
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
 				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,
 				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
+				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
