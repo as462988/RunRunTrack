@@ -26,8 +26,6 @@ class FirebaseManager {
     
     let db = Firestore.firestore()
     
-    let storage = Storage.storage()
-    
     var truckID: String?
     
     var userID: String?
