@@ -19,7 +19,16 @@ class BadgeViewController: UIViewController {
         }
     }
     
+    let getBadgeView: GetBadgeView = {
+       let view = GetBadgeView()
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        view.isHidden = true
+        return view
+    }()
+    
     var badgeArr: [TruckBadge] = []
+    
+    var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +47,8 @@ class BadgeViewController: UIViewController {
                 self?.badgeCollectionView.reloadData()
             }
         }
+        
+        self.view.addSubview(getBadgeView)
 
     }
     
@@ -45,10 +56,10 @@ class BadgeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         getUserBadgeisAchieved()
-        self.navigationController?.navigationBar.barTintColor = .white
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = false
+//        self.navigationController?.navigationBar.barTintColor = .white
+//        guard let rootVC = AppDelegate.shared.window?.rootViewController
+//            as? TabBarViewController else { return }
+//        rootVC.tabBar.isHidden = false
     }
     
     func getUserBadgeisAchieved() {
@@ -69,20 +80,6 @@ class BadgeViewController: UIViewController {
     }
     
     @IBAction func animateButton(sender: UIButton) {
-        
-//        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-//
-//        UIView.animate(withDuration: 2.0,
-//                       delay: 0,
-//                       usingSpringWithDamping: CGFloat(0.20),
-//                       initialSpringVelocity: CGFloat(6.0),
-//                       options: UIView.AnimationOptions.allowUserInteraction,
-//                       animations: {
-//                        sender.transform = CGAffineTransform.identity
-//        },
-//                       completion: { Void in()  }
-//        )
-        
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
         
             print("請先登入會員")
@@ -94,11 +91,12 @@ class BadgeViewController: UIViewController {
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = true
         
-        let vc = UIStoryboard.badge.instantiateViewController(withIdentifier: "scannerVC")
+       guard let scannerVC = UIStoryboard.badge.instantiateViewController(
+        withIdentifier: "scannerVC") as? QRScannerController else {return}
         
-//        present(vc, animated: false, completion: nil)
-//
-        show(vc, sender: nil)
+        scannerVC.delegate = self
+        
+        show(scannerVC, sender: nil)
     }
 }
 
@@ -151,4 +149,32 @@ UICollectionViewDelegateFlowLayout {
         return cellLocation
     }
     
+}
+
+extension BadgeViewController: QRScannerControllerDelegate {
+    
+    func didFinishScanner(truckId: String) {
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+        getBadgeView.isHidden = false
+        getBadgeView.backgroundColor = .clear
+
+        if let index = self.badgeArr.firstIndex(where: { (data) -> Bool in
+            return data.truckId == truckId
+        }) {
+            getBadgeView.setImage(imageUrl: badgeArr[index].logoImage)
+            getBadgeView.animateAppear()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            
+            self.navigationController?.isNavigationBarHidden = false
+            self.navigationController?.navigationBar.barTintColor = .white
+            guard let rootVC = AppDelegate.shared.window?.rootViewController
+                as? TabBarViewController else { return }
+            rootVC.tabBar.isHidden = false
+            self.getBadgeView.isHidden = true
+        }
+    }
 }

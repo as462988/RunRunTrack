@@ -14,6 +14,7 @@ class BadgeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var truckName: UILabel!
     
+    
     func setValue(logo: String, name: String) {
         
         logoImage.loadImage(logo, placeHolder: UIImage.asset(.Icon_logo))
