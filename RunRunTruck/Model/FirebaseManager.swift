@@ -129,22 +129,6 @@ class FirebaseManager {
             print("Current data: \(data)")
             
         }
-    
-//        db.collection(User.user.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
-//
-//            guard let data = snapshot?.data() else {
-//                completion(nil)
-//                return
-//            }
-//
-//            guard let name = data[User.name.rawValue] as? String,
-//                let email = data[User.email.rawValue] as? String,
-//                let badge = data[User.badge.rawValue] as? [String] else { return }
-//
-//            self?.currentUser = UserData(name: name, email: email, badge: badge)
-//
-//            completion(self?.currentUser)
-//        }
     }
     
     func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
@@ -216,8 +200,9 @@ class FirebaseManager {
         
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
-            User.email.rawValue: email]
-        ) { error in
+            User.email.rawValue: email,
+            User.badge.rawValue: []
+        ]) { error in
             
             if let error = error {
                 print("Error adding document: \(error)")

@@ -29,6 +29,8 @@ enum ImageAsset: String {
     
     case Icon_back
     
+    case Icon_whiteBack
+    
     case Icon_cancel
     
     case Icon_UserImage

@@ -18,6 +18,14 @@ class QRScannerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.navigationBar.barTintColor = .black
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage.asset(.Icon_whiteBack),
+            style: .plain,
+            target: self,
+            action: #selector(back))
+        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInDualCamera],
             mediaType: AVMediaType.video, position: .back)
@@ -64,6 +72,20 @@ class QRScannerController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    @objc func back() {
+        navigationController?.popViewController(animated: true)
+        
+    }
+    // MARK: - 狀態列的顯示
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
@@ -86,26 +108,18 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
-            if metadataObj.stringValue == "連結失效囉！" {
-                print(metadataObj.stringValue)
-            } else if let truckId = metadataObj.stringValue {
+            if let truckId = metadataObj.stringValue {
                
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
                 FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
                 print(truckId)
                 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+
+                    self?.navigationController?.popViewController(animated: true)
+                })
             }
-//
-//            if let truckId = metadataObj.stringValue {
-//
-//                guard let uid = FirebaseManager.shared.userID else {return}
-//
-//                FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
-//                print(truckId)
-//
-//                dismiss(animated: true, completion: nil)
-//            }
         }
     }
 }

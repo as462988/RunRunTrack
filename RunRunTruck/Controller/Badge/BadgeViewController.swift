@@ -45,7 +45,7 @@ class BadgeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         getUserBadgeisAchieved()
-        
+        self.navigationController?.navigationBar.barTintColor = .white
         guard let rootVC = AppDelegate.shared.window?.rootViewController
             as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
@@ -95,8 +95,10 @@ class BadgeViewController: UIViewController {
         rootVC.tabBar.isHidden = true
         
         let vc = UIStoryboard.badge.instantiateViewController(withIdentifier: "scannerVC")
+        
+//        present(vc, animated: false, completion: nil)
+//
         show(vc, sender: nil)
-
     }
 }
 
