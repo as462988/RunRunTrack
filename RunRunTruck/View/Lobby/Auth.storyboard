@@ -393,10 +393,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ijm-ws-1V5">
-                                <rect key="frame" x="0.0" y="290" width="414" height="606"/>
+                                <rect key="frame" x="0.0" y="346" width="414" height="550"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wZ-gN-f8U">
-                                        <rect key="frame" x="0.0" y="538" width="414" height="48"/>
+                                        <rect key="frame" x="138" y="482" width="138" height="48"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="qs5-e7-0X5"/>
@@ -408,27 +408,20 @@
                                             <action selector="clickSendBtn:" destination="rlo-tu-zTy" eventType="touchUpInside" id="m4h-fi-r7O"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LogoImage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHB-Bc-bfG">
-                                        <rect key="frame" x="20" y="10" width="121" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Dtc-Bz-wnZ">
-                                        <rect key="frame" x="87" y="60" width="240" height="128"/>
+                                        <rect key="frame" x="138" y="40" width="138" height="138"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="3wt-a1-CEc"/>
-                                            <constraint firstAttribute="width" secondItem="Dtc-Bz-wnZ" secondAttribute="height" multiplier="15:8" id="Jkm-fc-QX1"/>
+                                            <constraint firstAttribute="width" secondItem="Dtc-Bz-wnZ" secondAttribute="height" multiplier="1:1" id="VBP-Mk-RTz"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="story" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq5-ly-6hV">
-                                        <rect key="frame" x="20" y="262" width="64.5" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="品牌故事" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq5-ly-6hV">
+                                        <rect key="frame" x="166" y="218" width="82" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIW-wA-8zQ">
-                                        <rect key="frame" x="20" y="318" width="374" height="200"/>
+                                        <rect key="frame" x="20" y="262" width="374" height="200"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="請分享你們的故事 讓我們一同參與。 -------------------------- 還沒想到嗎！？  沒關係 登入之後都還可以編輯喔！" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nQC-m1-M4h">
                                                 <rect key="frame" x="30" y="20" width="314" height="160"/>
@@ -450,47 +443,35 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhk-Id-cHN">
-                                        <rect key="frame" x="87" y="208" width="240" height="34"/>
-                                        <state key="normal" title="上傳照片">
+                                        <rect key="frame" x="241.5" y="143.5" width="34.5" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jhk-Id-cHN" secondAttribute="height" multiplier="1:1" id="3ej-cC-OFy"/>
+                                        </constraints>
+                                        <state key="normal" image="Icon_button">
                                             <color key="titleColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="upLoadImageBtn:" destination="rlo-tu-zTy" eventType="touchUpInside" id="IJ6-r1-K3N"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1P-aT-1Ub">
-                                        <rect key="frame" x="359" y="10" width="35" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="7OU-Ni-NpJ"/>
-                                            <constraint firstAttribute="width" secondItem="u1P-aT-1Ub" secondAttribute="height" multiplier="1:1" id="cOp-OJ-Zqp"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="Icon_cancel"/>
-                                        <connections>
-                                            <action selector="clickCancelBtn:" destination="rlo-tu-zTy" eventType="touchUpInside" id="bpr-vI-gos"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Yq5-ly-6hV" firstAttribute="top" secondItem="jhk-Id-cHN" secondAttribute="bottom" constant="20" id="9XJ-gn-ZWw"/>
+                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="bottom" secondItem="Dtc-Bz-wnZ" secondAttribute="bottom" id="3WU-6V-faX"/>
+                                    <constraint firstItem="Yq5-ly-6hV" firstAttribute="centerX" secondItem="Ijm-ws-1V5" secondAttribute="centerX" id="A5C-6V-eB4"/>
                                     <constraint firstItem="OIW-wA-8zQ" firstAttribute="leading" secondItem="Ijm-ws-1V5" secondAttribute="leading" constant="20" id="Ddf-iw-md7"/>
                                     <constraint firstAttribute="trailing" secondItem="OIW-wA-8zQ" secondAttribute="trailing" constant="20" id="Hjb-sZ-VW7"/>
-                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="centerX" secondItem="Ijm-ws-1V5" secondAttribute="centerX" id="NRD-wW-2a5"/>
                                     <constraint firstAttribute="bottom" secondItem="2wZ-gN-f8U" secondAttribute="bottom" constant="20" id="O3Q-Uh-PtF"/>
                                     <constraint firstItem="OIW-wA-8zQ" firstAttribute="top" secondItem="Yq5-ly-6hV" secondAttribute="bottom" constant="20" id="Ode-eN-bhi"/>
+                                    <constraint firstItem="Dtc-Bz-wnZ" firstAttribute="top" secondItem="Ijm-ws-1V5" secondAttribute="top" constant="40" id="VzX-KR-EoK"/>
                                     <constraint firstItem="2wZ-gN-f8U" firstAttribute="top" secondItem="OIW-wA-8zQ" secondAttribute="bottom" constant="20" id="WBt-x6-AY7"/>
-                                    <constraint firstItem="u1P-aT-1Ub" firstAttribute="top" secondItem="EHB-Bc-bfG" secondAttribute="top" id="XRZ-iC-LY2"/>
-                                    <constraint firstItem="Dtc-Bz-wnZ" firstAttribute="top" secondItem="EHB-Bc-bfG" secondAttribute="bottom" constant="20" id="Ydu-io-zfD"/>
-                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="leading" secondItem="Dtc-Bz-wnZ" secondAttribute="leading" id="YeV-UK-q02"/>
-                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="top" secondItem="Dtc-Bz-wnZ" secondAttribute="bottom" constant="20" id="Ym0-QH-Sjy"/>
-                                    <constraint firstItem="EHB-Bc-bfG" firstAttribute="leading" secondItem="Ijm-ws-1V5" secondAttribute="leading" constant="20" id="dUP-We-6tJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="2wZ-gN-f8U" secondAttribute="trailing" id="gHR-mz-LwI"/>
-                                    <constraint firstItem="EHB-Bc-bfG" firstAttribute="top" secondItem="Ijm-ws-1V5" secondAttribute="top" constant="10" id="ivE-TX-R8h"/>
-                                    <constraint firstAttribute="trailing" secondItem="u1P-aT-1Ub" secondAttribute="trailing" constant="20" id="nLo-od-sf6"/>
-                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="trailing" secondItem="Dtc-Bz-wnZ" secondAttribute="trailing" id="rhH-HR-To3"/>
+                                    <constraint firstItem="2wZ-gN-f8U" firstAttribute="centerX" secondItem="Ijm-ws-1V5" secondAttribute="centerX" id="WQF-tV-Y5n"/>
+                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="trailing" secondItem="Dtc-Bz-wnZ" secondAttribute="trailing" id="XyN-f0-hch"/>
+                                    <constraint firstItem="jhk-Id-cHN" firstAttribute="width" secondItem="Dtc-Bz-wnZ" secondAttribute="width" multiplier="1:4" id="Y7x-eO-gTj"/>
+                                    <constraint firstItem="2wZ-gN-f8U" firstAttribute="width" secondItem="Ijm-ws-1V5" secondAttribute="width" multiplier="1:3" id="rXh-C7-71G"/>
                                     <constraint firstItem="Dtc-Bz-wnZ" firstAttribute="centerX" secondItem="Ijm-ws-1V5" secondAttribute="centerX" id="rhw-TO-cAe"/>
-                                    <constraint firstItem="Yq5-ly-6hV" firstAttribute="leading" secondItem="EHB-Bc-bfG" secondAttribute="leading" id="v4B-zF-VH3"/>
-                                    <constraint firstItem="2wZ-gN-f8U" firstAttribute="leading" secondItem="Ijm-ws-1V5" secondAttribute="leading" id="wwQ-zr-JSw"/>
+                                    <constraint firstItem="Dtc-Bz-wnZ" firstAttribute="width" secondItem="Ijm-ws-1V5" secondAttribute="width" multiplier="1:3" id="ueV-SP-A0P"/>
+                                    <constraint firstItem="Yq5-ly-6hV" firstAttribute="top" secondItem="Dtc-Bz-wnZ" secondAttribute="bottom" constant="40" id="yrr-vI-x9c"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -510,6 +491,7 @@
                         <outlet property="clickSendBtn" destination="2wZ-gN-f8U" id="X1Z-H2-iej"/>
                         <outlet property="showLogoImage" destination="Dtc-Bz-wnZ" id="mJW-tb-2e7"/>
                         <outlet property="truckTextInput" destination="nQC-m1-M4h" id="eei-gf-m4q"/>
+                        <outlet property="upLoadImage" destination="jhk-Id-cHN" id="1Vz-es-dXu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00k-C6-YIx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -518,6 +500,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
         <image name="Icon_cancel" width="40" height="40"/>
         <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
     </resources>
