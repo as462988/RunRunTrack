@@ -56,10 +56,10 @@ class BadgeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         getUserBadgeisAchieved()
-        self.navigationController?.navigationBar.barTintColor = .white
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = false
+//        self.navigationController?.navigationBar.barTintColor = .white
+//        guard let rootVC = AppDelegate.shared.window?.rootViewController
+//            as? TabBarViewController else { return }
+//        rootVC.tabBar.isHidden = false
     }
     
     func getUserBadgeisAchieved() {
@@ -155,15 +155,26 @@ extension BadgeViewController: QRScannerControllerDelegate {
     
     func didFinishScanner(truckId: String) {
         
+        self.navigationController?.isNavigationBarHidden = true
+        
         getBadgeView.isHidden = false
         getBadgeView.backgroundColor = .clear
 
         if let index = self.badgeArr.firstIndex(where: { (data) -> Bool in
             return data.truckId == truckId
         }) {
-            
             getBadgeView.setImage(imageUrl: badgeArr[index].logoImage)
-            getBadgeView.animate()
+            getBadgeView.animateAppear()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            
+            self.navigationController?.isNavigationBarHidden = false
+            self.navigationController?.navigationBar.barTintColor = .white
+            guard let rootVC = AppDelegate.shared.window?.rootViewController
+                as? TabBarViewController else { return }
+            rootVC.tabBar.isHidden = false
+            self.getBadgeView.isHidden = true
         }
     }
 }

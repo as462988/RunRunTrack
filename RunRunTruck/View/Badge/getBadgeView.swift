@@ -32,35 +32,52 @@ class GetBadgeView: UIView {
     }
     
     func setImage(imageUrl: String) {
-        img.loadImage(imageUrl,placeHolder: UIImage.asset(.Icon_logo))
+        img.loadImage(imageUrl, placeHolder: UIImage.asset(.Icon_logo))
         img.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
         img.center = self.center
         img.layer.borderWidth = 5
         img.layer.borderColor = UIColor.lightGray.cgColor
         img.layer.cornerRadius = 150
+        img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
     }
     
-    func animate() {
+    func animateAppear() {
         let group = CAAnimationGroup()
-        group.beginTime = CACurrentMediaTime() + 0.5
-        group.duration = 3
+        group.beginTime = CACurrentMediaTime() + 1
+        group.duration = 5
         group.fillMode = .backwards
         group.timingFunction = CAMediaTimingFunction(name: .easeOut)
         
         let scale = CASpringAnimation(keyPath: "transform.scale")
         scale.fromValue = 0.1
         scale.toValue = 1
-        //        scale.duration = 5
-        //        scale.initialVelocity = 0.0
-        
+
         let border = CASpringAnimation(keyPath: "borderWidth")
         border.fromValue = 150
         border.toValue = 5
-        //        border.beginTime = CACurrentMediaTime() + 2
-        //        border.duration = 5
-        //        border.initialVelocity = 0.0
+
         group.animations = [scale, border]
         img.layer.add(group, forKey: nil)
     }
+    
+//    func animateDisAppear() {
+//        
+//        let group = CAAnimationGroup()
+////        group.beginTime = CACurrentMediaTime() + 1
+//        group.duration = 10
+//        group.fillMode = .backwards
+//        group.timingFunction = CAMediaTimingFunction(name: .easeOut)
+//        
+//        let scale = CASpringAnimation(keyPath: "transform.scale")
+//        scale.fromValue = 1
+//        scale.toValue = 0
+//
+//        let border = CASpringAnimation(keyPath: "borderWidth")
+//        border.fromValue = 0
+//        border.toValue = 150
+//
+//        group.animations = [scale, border]
+//        img.layer.add(group, forKey: nil)
+//    }
 }
