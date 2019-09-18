@@ -10,12 +10,31 @@ import UIKit
 
 class UserUIView: UIView {
 
- @IBOutlet weak var logoOutBtn: UIButton!
+    @IBOutlet weak var logoOutBtn: UIButton!
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        setLayout()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
+    }
+    
+    func setupValue(name: String, image: String? = nil) {
+        
+        logoImage.loadImage(image, placeHolder: UIImage.asset(.Icon_logo))
+        nameLabel.text = name
+    }
+    
+    func setLayout() {
+        
+        logoImage.layer.cornerRadius = UIScreen.main.bounds.width / 3 / 2
+        logoImage.clipsToBounds = true
+        logoImage.contentMode = .scaleAspectFill
+        
+        logoOutBtn.layer.cornerRadius = 10
+        logoOutBtn.clipsToBounds = true
+        
     }
     
     @objc func clickLogoutBtn() {

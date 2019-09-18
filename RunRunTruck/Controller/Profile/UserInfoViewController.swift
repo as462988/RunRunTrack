@@ -15,5 +15,14 @@ class UserInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.navigationController?.isNavigationBarHidden = true
+        
+        FirebaseManager.shared.getCurrentUserData { (userData) in
+            
+            guard let data = userData else {return}
+            
+            self.userView.setupValue(name: data.name)
+        }
+        
     }
 }
