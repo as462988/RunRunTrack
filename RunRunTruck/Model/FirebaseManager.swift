@@ -10,7 +10,8 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
-
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class FirebaseManager {
     
     static let shared = FirebaseManager()
@@ -33,34 +34,70 @@ class FirebaseManager {
     
     var bossID: String?
     
+    //getAllTruck
+    func getAllTruckData(completion: @escaping ([TruckBadge]?) -> Void) {
+        
+        db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
+            
+            var logoImageArr: [TruckBadge] = []
+            
+            if let err = error {
+                print("Error getting documents: \(err)")
+                completion(nil)
+            } else {
+                
+                snapshot?.documentChanges.forEach({ (documentChange) in
+                    let data = documentChange.document.data()
+                    
+                    guard let truckId = data[Truck.truckId.rawValue] as? String,
+                        let name = data[Truck.name.rawValue] as? String,
+                        let logoImage = data[Truck.logoImage.rawValue] as? String else {
+                            
+                            return
+                    }
+                    
+                    if documentChange.type == .added {
+                        
+                        logoImageArr.append(TruckBadge(truckId: truckId, name: name, logoImage: logoImage))
+                        
+                    } else if documentChange.type == .removed {
+                        print("remove")
+                    }
+                })
+                completion(logoImageArr)
+                
+            }
+        }
+    }
+    
     // MARK: getOpeningTruck
     
     func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: true).addSnapshotListener { (snapshot, error) in
-            
-            guard let snapshot = snapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            
+                
+                guard let snapshot = snapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                
                 var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
-            snapshot.documentChanges.forEach({ (documentChange) in
-                let data = documentChange.document.data()
-
-                guard let name = data[Truck.name.rawValue] as? String,
-                    let logoImage = data[Truck.logoImage.rawValue] as? String,
-                    let open = data[Truck.open.rawValue] as? Bool,
-                    let story = data[Truck.story.rawValue] as? String,
-                    let openTimestamp = data[Truck.openTime.rawValue] as? Double,
-                    let location = data[Truck.location.rawValue] as? GeoPoint else {return}
-
-                let truck = TruckData(documentChange.document.documentID,
-                                      name, logoImage, story, open,
-                                      openTimestamp, location)
-                rtnTruckDatas.append((truck, documentChange.type))
-            })
+                snapshot.documentChanges.forEach({ (documentChange) in
+                    let data = documentChange.document.data()
+                    
+                    guard let name = data[Truck.name.rawValue] as? String,
+                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+                        let open = data[Truck.open.rawValue] as? Bool,
+                        let story = data[Truck.story.rawValue] as? String,
+                        let openTimestamp = data[Truck.openTime.rawValue] as? Double,
+                        let location = data[Truck.location.rawValue] as? GeoPoint else {return}
+                    
+                    let truck = TruckData(documentChange.document.documentID,
+                                          name, logoImage, story, open,
+                                          openTimestamp, location)
+                    rtnTruckDatas.append((truck, documentChange.type))
+                })
                 completion(rtnTruckDatas)
         }
         
@@ -70,19 +107,27 @@ class FirebaseManager {
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection(User.user.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
             
-            guard let data = snapshot?.data() else {
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
                 completion(nil)
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
                 return
             }
             
             guard let name = data[User.name.rawValue] as? String,
-                let email = data[User.email.rawValue] as? String else { return }
+                let email = data[User.email.rawValue] as? String,
+                let badge = data[User.badge.rawValue] as? [String] else { return }
             
-            self?.currentUser = UserData(name: name, email: email, truckId: nil)
+            self?.currentUser = UserData(name: name, email: email, badge: badge)
             
             completion(self?.currentUser)
+            print("Current data: \(data)")
+            
         }
     }
     
@@ -125,10 +170,10 @@ class FirebaseManager {
                 else {return}
             
             self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
-           
+            
             completion(self.bossTruck)
         }
-
+        
     }
     
     // MARK: singUp
@@ -139,8 +184,7 @@ class FirebaseManager {
             guard error == nil else {
                 
                 //TODO: 顯示無法註冊的原因
-                let errorCode = AuthErrorCode(rawValue: error!._code)
-                print(errorCode?.errorMessage ?? "nil")
+                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
                 
                 return
             }
@@ -156,13 +200,25 @@ class FirebaseManager {
         
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
-            User.email.rawValue: email]
-        ) { error in
+            User.email.rawValue: email,
+            User.badge.rawValue: []
+        ]) { error in
             
             if let error = error {
                 print("Error adding document: \(error)")
-            } else {
-                print("Document successfully written!")
+            }
+        }
+    }
+    
+    func addUserBadge(uid: String, truckId: String) {
+        
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.badge.rawValue: FieldValue.arrayUnion([truckId])
+        ]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
             }
         }
     }
@@ -191,22 +247,21 @@ class FirebaseManager {
     
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
-        var ref: DocumentReference?
+        let ref = db.collection(Truck.truck.rawValue).document()
         
-        ref = db.collection(Truck.truck.rawValue).addDocument(data: [
+        ref.setData([
+            Truck.truckId.rawValue: ref.documentID,
             Truck.name.rawValue: name,
             Truck.logoImage.rawValue: img,
             Truck.story.rawValue: story,
             Truck.open.rawValue: false
-            ], completion: { (error) in
-                if let err = error {
-                    print("Error adding document: \(err)")
-                } else {
-                    print("Document added with ID: \(ref!.documentID)")
-                }
-        })
+        ]) { (error) in
+            if let err = error {
+                print("Error adding document: \(err)")
+            }
+        }
         
-        completion(ref!.documentID)
+        completion(ref.documentID)
     }
     
     func addTurckIDInBoss(truckId: String) {
@@ -217,58 +272,53 @@ class FirebaseManager {
         ]) { (error) in
             if let err = error {
                 print("Error adding document: \(err)")
-            } else {
-                print("Document added with")
             }
         }
     }
     
-    func changeOpenStatus(status: Bool, lat: Double, lon: Double) {
+    func changeOpenStatus(status: Bool, lat: Double? = nil, lon: Double? = nil) {
         
         guard let truckId = bossTruck?.id else { return }
         
-        let location = GeoPoint(latitude: lat, longitude: lon)
-        
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status,
-            Truck.openTime.rawValue: Date().timeIntervalSince1970,
-            Truck.location.rawValue: location
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
-            }
-        }
-    }
-    
-    func closeOpenStatus(status: Bool) {
-        
-        guard let truckId = bossTruck?.id else { return }
-
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.open.rawValue: status
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
-            }
-        }
-    }
-    
-    func updataStoryText(text: String) {
-        
-        guard let truckId = bossTruck?.id else { return }
-        
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.story.rawValue: text
+        if status {
+            let location = GeoPoint(latitude: lat!, longitude: lon!)
+            
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.open.rawValue: status,
+                Truck.openTime.rawValue: Date().timeIntervalSince1970,
+                Truck.location.rawValue: location
             ]) { (error) in
                 if let err = error {
                     print("Error modify: \(err)")
                 } else {
                     print("Status modify Success")
                 }
+            }
+        } else {
+            
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.open.rawValue: status
+            ]) { (error) in
+                if let err = error {
+                    print("Error modify: \(err)")
+                } else {
+                    print("Status modify Success")
+                }
+            }
+        }
+    }
+    func updataStoryText(text: String) {
+        
+        guard let truckId = bossTruck?.id else { return }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.story.rawValue: text
+        ]) { (error) in
+            if let err = error {
+                print("Error modify: \(err)")
+            } else {
+                print("Status modify Success")
+            }
         }
     }
     
@@ -289,20 +339,6 @@ class FirebaseManager {
         }
     }
     
-    func bossSingIn(email: String, psw: String, completion: @escaping () -> Void) {
-        
-        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
-            
-            guard error == nil else {
-                //TODO: 顯示無法登入的原因
-                print("didn't singIn")
-                return
-            }
-            
-            print("Success")
-            completion()
-        }
-    }
     // MARK: - signOut
     func signOut() {
         
@@ -342,18 +378,19 @@ class FirebaseManager {
     // MARK: - creatChatRoom
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
         
-        db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue).addDocument(data: [
-            Truck.name.rawValue: name,
-            User.uid.rawValue: uid,
-            User.text.rawValue: text,
-            User.createTime.rawValue: Date().timeIntervalSince1970
-        ]) { (error) in
-            
-            if let err = error {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
+        db.collection(Truck.truck.rawValue).document(truckID).collection(
+            Truck.chatRoom.rawValue).addDocument(data: [
+                Truck.name.rawValue: name,
+                User.uid.rawValue: uid,
+                User.text.rawValue: text,
+                User.createTime.rawValue: Date().timeIntervalSince1970
+            ]) { (error) in
+                
+                if let err = error {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
         }
     }
     

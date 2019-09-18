@@ -89,6 +89,8 @@ enum User: String {
     case text
     
     case createTime
+    
+    case badge
 }
 
 struct UserData {
@@ -97,11 +99,14 @@ struct UserData {
     
     let email: String
     
+    let badge: [String]
+    
     let truckId: String?
     
-    init(name: String, email: String, truckId: String?) {
+    init(name: String, email: String, badge: [String] = [], truckId: String? = nil) {
         self.name = name
         self.email = email
+        self.badge = badge
         self.truckId = truckId
     }
 }
@@ -115,4 +120,21 @@ enum Boss: String {
     case name
     
     case email
+}
+
+struct TruckBadge {
+    
+    let truckId: String
+    
+    let name: String
+    
+    let logoImage: String
+    
+    var isAchieved: Bool = false
+    
+    init(truckId: String, name: String, logoImage: String) {
+        self.truckId = truckId
+        self.name = name
+        self.logoImage = logoImage
+    }
 }

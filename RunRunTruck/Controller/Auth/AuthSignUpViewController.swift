@@ -88,7 +88,7 @@ class AuthRegisterViewController: UIViewController {
                 addTruckVC.modalPresentationStyle = .overCurrentContext
                 self?.present(addTruckVC, animated: false, completion: nil)
 
-            FirebaseManager.shared.setBossData(name: name, email: email)
+                FirebaseManager.shared.setBossData(name: name, email: email)
             }
         }
     }

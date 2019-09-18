@@ -20,7 +20,7 @@ CLLocationManagerDelegate, AnyObject {
 class LobbyView: UIView, UICollectionViewDelegate {
     
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
-    var markers:[GMSMarker] = []
+    var markers: [GMSMarker] = []
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {

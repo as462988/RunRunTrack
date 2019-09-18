@@ -15,6 +15,7 @@ protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickChenckBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
+    func creatQrcode()
 }
 
 class BossUIView: UIView {
@@ -23,11 +24,12 @@ class BossUIView: UIView {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var storyTextView: UITextView! {
-        didSet{
+        didSet {
             storyTextView.delegate = self.delegate
         }
     }
     @IBOutlet weak var logoOutBtn: UIButton!
+    @IBOutlet weak var creatQrcodeBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
     //open View
@@ -60,28 +62,11 @@ class BossUIView: UIView {
         
         openBtn.addTarget(self, action: #selector(clickChenckBtn), for: .touchUpInside)
         
+        creatQrcodeBtn.addTarget(self, action: #selector(creatQrcode), for: .touchUpInside)
+        
         mapView.delegate = self.delegate
         storyTextView.delegate = self.delegate
     }
-    
-//    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
-//        let locale = Locale(identifier: "zh_TW")
-//        
-//        let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
-//        
-//        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
-//            
-//            guard let placemark = placemarks?.first, error == nil else {
-//                
-//                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-//                
-//                completion(nil, error)
-//                
-//                return
-//            }
-//            completion(placemark.postalAddress, nil)
-//        }
-//    }
     
     func setMapView() {
         
@@ -109,8 +94,6 @@ class BossUIView: UIView {
         
         logoImage.layer.cornerRadius = 25
         logoImage.clipsToBounds = true
-//        editBtn.layer.cornerRadius = 10
-//        editBtn.clipsToBounds = true
         logoOutBtn.layer.cornerRadius = 10
         logoOutBtn.clipsToBounds = true
         storyTextView?.layer.cornerRadius = 10
@@ -153,7 +136,7 @@ class BossUIView: UIView {
    
         } else {
             
-            FirebaseManager.shared.closeOpenStatus(status: openSwitch.isOn)
+            FirebaseManager.shared.changeOpenStatus(status: openSwitch.isOn)
             openView.isHidden = true
             backgroundView.isHidden = true
             
@@ -164,6 +147,12 @@ class BossUIView: UIView {
         
         self.delegate?.clickLogoutBtn()
         cleanValue()
+    }
+    
+    @objc func creatQrcode() {
+        
+        self.delegate?.creatQrcode()
+
     }
 
 }

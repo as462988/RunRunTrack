@@ -39,12 +39,14 @@
 		093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093365F7231E49EB00F0D503 /* ChatMessageCell.swift */; };
 		095238BC23307AB60015AEDA /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BB23307AB50015AEDA /* AddressManager.swift */; };
 		095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BD233086880015AEDA /* PushNoAnimationSegue.swift */; };
+		095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */; };
+		095238C2233093A90015AEDA /* QrcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C1233093A90015AEDA /* QrcodeView.swift */; };
+		095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C52330A8D40015AEDA /* BadgeViewController.swift */; };
+		095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */; };
+		095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238CA2330ABDF0015AEDA /* QRScannerController.swift */; };
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
 		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
 		09F78E492326664D00FD6099 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */; };
-		09F78E4D2326728C00FD6099 /*  ElfOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4A2326728C00FD6099 /*  ElfOne.json */; };
-		09F78E4E2326728C00FD6099 /*  ElfThird.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4B2326728C00FD6099 /*  ElfThird.json */; };
-		09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F78E4C2326728C00FD6099 /*  ElfTwo.json */; };
 		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
 		09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E532327A4CA00FD6099 /* UserUIView.swift */; };
 		09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */; };
@@ -88,12 +90,14 @@
 		093365F7231E49EB00F0D503 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		095238BB23307AB50015AEDA /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
 		095238BD233086880015AEDA /* PushNoAnimationSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNoAnimationSegue.swift; sourceTree = "<group>"; };
+		095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatQrcodeViewController.swift; sourceTree = "<group>"; };
+		095238C1233093A90015AEDA /* QrcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrcodeView.swift; sourceTree = "<group>"; };
+		095238C52330A8D40015AEDA /* BadgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewController.swift; sourceTree = "<group>"; };
+		095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCollectionViewCell.swift; sourceTree = "<group>"; };
+		095238CA2330ABDF0015AEDA /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
 		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
 		09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
-		09F78E4A2326728C00FD6099 /*  ElfOne.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfOne.json"; sourceTree = "<group>"; };
-		09F78E4B2326728C00FD6099 /*  ElfThird.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfThird.json"; sourceTree = "<group>"; };
-		09F78E4C2326728C00FD6099 /*  ElfTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " ElfTwo.json"; sourceTree = "<group>"; };
 		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
 		09F78E532327A4CA00FD6099 /* UserUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUIView.swift; sourceTree = "<group>"; };
 		09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBossTruckViewController.swift; path = ../Profile/AddBossTruckViewController.swift; sourceTree = "<group>"; };
@@ -164,10 +168,11 @@
 		091EEB7223156BE800BF066F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				095238C72330A9460015AEDA /* Badge */,
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
 				091EEB8B23166C9100BF066F /* Lobby */,
-				09F78E502327974200FD6099 /* Profile */,
 				093365F4231E36F700F0D503 /* Chatroom */,
+				09F78E502327974200FD6099 /* Profile */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
 				091EEB6623153B0300BF066F /* LaunchScreen.storyboard */,
 				091EEB752315790E00BF066F /* Lobby.storyboard */,
@@ -184,9 +189,9 @@
 			children = (
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				09336624231ECAB400F0D503 /* Lobby */,
+				095238C42330A8B10015AEDA /* Badge */,
 				090AFB5F231CD4FF0072E646 /* Auth */,
 				09F78E552327A95500FD6099 /* Profile */,
-				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -227,11 +232,8 @@
 		091EEB922317586900BF066F /* Third Party Wrapper */ = {
 			isa = PBXGroup;
 			children = (
-				09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */,
-				09F78E4A2326728C00FD6099 /*  ElfOne.json */,
-				09F78E4B2326728C00FD6099 /*  ElfThird.json */,
-				09F78E4C2326728C00FD6099 /*  ElfTwo.json */,
 				09329DD523175CD5003C851A /* KingFisherWrapper.swift */,
+				09F78E482326664D00FD6099 /* lf30_editor_envOAW.json */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -258,8 +260,26 @@
 			isa = PBXGroup;
 			children = (
 				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
+				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
 			);
 			path = Lobby;
+			sourceTree = "<group>";
+		};
+		095238C42330A8B10015AEDA /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				095238C52330A8D40015AEDA /* BadgeViewController.swift */,
+				095238CA2330ABDF0015AEDA /* QRScannerController.swift */,
+			);
+			path = Badge;
+			sourceTree = "<group>";
+		};
+		095238C72330A9460015AEDA /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */,
+			);
+			path = Badge;
 			sourceTree = "<group>";
 		};
 		09F78E502327974200FD6099 /* Profile */ = {
@@ -267,6 +287,7 @@
 			children = (
 				09F78E512327976D00FD6099 /* BossUIView.swift */,
 				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+				095238C1233093A90015AEDA /* QrcodeView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -277,6 +298,7 @@
 				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
 				09F78E582328E96B00FD6099 /* BossInfoViewController.swift */,
 				09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */,
+				095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -366,13 +388,10 @@
 				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
 				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
 				09F78E492326664D00FD6099 /* lf30_editor_envOAW.json in Resources */,
-				09F78E4F2326728C00FD6099 /*  ElfTwo.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */,
-				09F78E4E2326728C00FD6099 /*  ElfThird.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
-				09F78E4D2326728C00FD6099 /*  ElfOne.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +483,7 @@
 				091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */,
 				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
 				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
+				095238C2233093A90015AEDA /* QrcodeView.swift in Sources */,
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
 				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
@@ -473,9 +493,12 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */,
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
 				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,
+				095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */,
 				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
+				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
@@ -483,6 +506,7 @@
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
 				095238BC23307AB60015AEDA /* AddressManager.swift in Sources */,
+				095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */,
 				09F78E592328E96B00FD6099 /* BossInfoViewController.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,
 				091EEB882316587800BF066F /* LobbyView.swift in Sources */,

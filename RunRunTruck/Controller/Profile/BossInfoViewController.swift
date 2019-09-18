@@ -66,7 +66,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     }
     
     func clickCancelBtn() {
-        FirebaseManager.shared.closeOpenStatus(status: bossView.openSwitch.isOn)
+        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn)
     }
     
     func clickLogoutBtn() {
@@ -79,6 +79,17 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
         
         root?.selectedIndex = 0
         
+    }
+    
+    func creatQrcode() {
+        
+       guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
+        withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+        
+        qrcodeVc.modalPresentationStyle = .overCurrentContext
+        
+        present(qrcodeVc, animated: false, completion: nil)
+
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
