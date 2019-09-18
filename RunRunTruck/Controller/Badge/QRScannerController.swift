@@ -9,12 +9,19 @@
 import UIKit
 import AVFoundation
 
+protocol QRScannerControllerDelegate: AnyObject {
+    
+    func didFinishScanner(truckId: String)
+}
+
 class QRScannerController: UIViewController {
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
-
+    
+    weak var delegate: QRScannerControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -116,8 +123,9 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 print(truckId)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
-
+                    
                     self?.navigationController?.popViewController(animated: true)
+                    self?.delegate?.didFinishScanner(truckId: truckId)
                 })
             }
         }
