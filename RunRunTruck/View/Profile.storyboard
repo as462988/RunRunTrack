@@ -382,8 +382,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="8bi-2V-Gue"/>
                     <connections>
-                        <segue destination="IeC-vD-fem" kind="show" identifier="bossInfo" customClass="PushNoAnimationSegue" customModule="RunRunTruck" customModuleProvider="target" id="Eax-hI-cT7"/>
-                        <segue destination="KXd-ym-MfT" kind="showDetail" identifier="userInfo" customClass="PushNoAnimationSegue" customModule="RunRunTruck" customModuleProvider="target" id="zht-n6-8cK"/>
+                        <segue destination="IeC-vD-fem" kind="show" identifier="bossInfo" customClass="PushNoAnimationSegue" customModule="RunRunTruck" customModuleProvider="target" animates="NO" id="Eax-hI-cT7"/>
+                        <segue destination="KXd-ym-MfT" kind="showDetail" identifier="userInfo" customClass="PushNoAnimationSegue" customModule="RunRunTruck" customModuleProvider="target" animates="NO" id="zht-n6-8cK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6V-XT-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
