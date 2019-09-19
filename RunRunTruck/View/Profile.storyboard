@@ -373,6 +373,13 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P19-ri-3Pq">
+                                        <rect key="frame" x="239" y="123.5" width="34.5" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="P19-ri-3Pq" secondAttribute="height" multiplier="1:1" id="isM-iS-u5y"/>
+                                        </constraints>
+                                        <state key="normal" image="Icon_button"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -383,7 +390,10 @@
                                     <constraint firstAttribute="bottom" secondItem="YVt-7B-eyH" secondAttribute="bottom" constant="20" id="X23-x0-Ihn"/>
                                     <constraint firstItem="gAP-it-6SX" firstAttribute="centerX" secondItem="E6C-vw-yyQ" secondAttribute="centerX" id="X9A-ij-Okf"/>
                                     <constraint firstAttribute="trailing" secondItem="2H7-sW-PDx" secondAttribute="trailing" constant="20" id="Xs1-NV-ddE"/>
+                                    <constraint firstItem="P19-ri-3Pq" firstAttribute="bottom" secondItem="gAP-it-6SX" secondAttribute="bottom" id="e2g-lY-lN8"/>
                                     <constraint firstItem="gAP-it-6SX" firstAttribute="width" secondItem="E6C-vw-yyQ" secondAttribute="width" multiplier="1:3" id="eH7-a0-okH"/>
+                                    <constraint firstItem="P19-ri-3Pq" firstAttribute="centerX" secondItem="gAP-it-6SX" secondAttribute="trailing" constant="-20" id="hTc-V5-yOQ"/>
+                                    <constraint firstItem="P19-ri-3Pq" firstAttribute="width" secondItem="gAP-it-6SX" secondAttribute="width" multiplier="1:4" id="ho8-Oe-rsh"/>
                                     <constraint firstItem="gAP-it-6SX" firstAttribute="top" secondItem="E6C-vw-yyQ" secondAttribute="top" constant="20" id="iAL-Hd-TV6"/>
                                     <constraint firstItem="YVt-7B-eyH" firstAttribute="top" secondItem="2H7-sW-PDx" secondAttribute="bottom" constant="20" id="oUu-YP-gZe"/>
                                     <constraint firstItem="YVt-7B-eyH" firstAttribute="centerX" secondItem="E6C-vw-yyQ" secondAttribute="centerX" id="ulT-73-acH"/>
@@ -392,6 +402,7 @@
                                     <outlet property="logoImage" destination="gAP-it-6SX" id="2nm-Sb-WHP"/>
                                     <outlet property="logoOutBtn" destination="YVt-7B-eyH" id="fc7-zk-NtL"/>
                                     <outlet property="nameLabel" destination="gzK-lH-xA3" id="SQb-RG-83U"/>
+                                    <outlet property="upLoadImage" destination="P19-ri-3Pq" id="pGE-Sg-Owq"/>
                                 </connections>
                             </view>
                         </subviews>

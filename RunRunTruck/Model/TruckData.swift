@@ -86,6 +86,8 @@ enum User: String {
     
     case email
     
+    case image
+    
     case text
     
     case createTime
@@ -98,6 +100,8 @@ struct UserData {
     let name: String
     
     let email: String
+    
+    let
     
     let badge: [String]
     

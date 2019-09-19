@@ -119,7 +119,8 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String] else { return }
+                let badge = data[User.badge.rawValue] as? [String],
+                let image = data[User.image.rawValue] as? String else { return }
             
             self?.currentUser = UserData(name: name, email: email, badge: badge)
             
@@ -199,7 +200,8 @@ class FirebaseManager {
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
             User.email.rawValue: email,
-            User.badge.rawValue: []
+            User.badge.rawValue: [],
+            User.image.rawValue: ""
         ]) { error in
             
             if let error = error {
