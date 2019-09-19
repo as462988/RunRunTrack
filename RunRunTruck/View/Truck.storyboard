@@ -38,19 +38,44 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3To-vy-zcP">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="382" height="243"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="16" minY="20" maxX="16" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckCell" id="dZ4-Vb-kFp">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckCell" id="dZ4-Vb-kFp" customClass="TrcukCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="20" width="382" height="243"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="243"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
+                                                    <rect key="frame" x="18" y="10" width="354" height="121.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSa-aj-Ger">
+                                                    <rect key="frame" x="18" y="136.5" width="354" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="10" id="801-4g-eJX"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="1:2" id="GzL-gb-zj9"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GSa-aj-Ger" secondAttribute="bottom" id="TIi-5U-lfK"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="10" id="Y5i-aF-bhH"/>
+                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="cBj-9T-H7y"/>
+                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="top" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="5" id="cDf-ry-JIR"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" constant="10" id="eUK-PA-Fhj"/>
+                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="leading" secondItem="1O9-yr-SSD" secondAttribute="leading" id="pfi-hd-zsI"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="truckImage" destination="1O9-yr-SSD" id="twY-jr-zeW"/>
+                                            <outlet property="truckNameLabel" destination="GSa-aj-Ger" id="7Ys-Kf-YsB"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -65,10 +90,13 @@
                         <viewLayoutGuide key="safeArea" id="hCa-Gk-Sm3"/>
                     </view>
                     <navigationItem key="navigationItem" title="TruckInfo" id="QMK-JJ-Bm5"/>
+                    <connections>
+                        <outlet property="truckCollectionView" destination="VBW-pP-Orc" id="uQO-He-S0C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1uh-UD-sYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130" y="40"/>
+            <point key="canvasLocation" x="128.98550724637681" y="39.508928571428569"/>
         </scene>
         <!--Truck Detail View Controller-->
         <scene sceneID="fFT-uZ-4AM">

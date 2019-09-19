@@ -305,8 +305,8 @@
 		09E6C4A1233367F2009EA849 /* TrucK */ = {
 			isa = PBXGroup;
 			children = (
-				09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */,
 				09E6C4A623338C9B009EA849 /* TruckViewController.swift */,
+				09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */,
 			);
 			path = TrucK;
 			sourceTree = "<group>";

@@ -33,7 +33,7 @@ class BadgeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.shared.getAllTruckData { [weak self] (truckDatas) in
+        FirebaseManager.shared.getAllTruckDataForBadge { [weak self] (truckDatas) in
             guard let truckDatas = truckDatas else { return }
             
             for truckData in truckDatas {

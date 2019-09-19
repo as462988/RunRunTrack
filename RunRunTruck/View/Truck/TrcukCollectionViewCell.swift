@@ -9,5 +9,14 @@
 import UIKit
 
 class TrcukCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var truckImage: UIImageView!
     
+    @IBOutlet weak var truckNameLabel: UILabel!
+    
+    func setValue(name: String, image: String) {
+        
+        truckImage.loadImage(image)
+        
+        truckNameLabel.text = name
+    }
 }

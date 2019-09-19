@@ -84,7 +84,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    @objc private func enterTruckInfo(){
+    @objc private func enterTruckInfo() {
         
         if let truckData = truckData {
             self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckInfo: truckData)

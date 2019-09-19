@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
@@ -34,7 +34,7 @@ class FirebaseManager {
     
     // MARK: About Truck
         //getAllTruck
-    func getAllTruckData(completion: @escaping ([TruckBadge]?) -> Void) {
+    func getAllTruckDataForBadge(completion: @escaping ([TruckBadge]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
             
@@ -64,6 +64,50 @@ class FirebaseManager {
                     }
                 })
                 completion(logoImageArr)
+                
+            }
+        }
+    }
+    
+    func getAllTruckData(completion: @escaping ([TruckData]?) -> Void) {
+        
+        let order = db.collection(Truck.truck.rawValue).order(by: Truck.open.rawValue, descending: true)
+        
+        var allTruckData: [TruckData] = []
+        
+        var openTimestamp: Double?
+        
+        var location: GeoPoint?
+        
+        order.addSnapshotListener { (snapshot, error) in
+            if let err = error {
+                print("Error getting documents: \(err)")
+                completion(nil)
+            } else {
+                
+                snapshot?.documentChanges.forEach({ (documentChange) in
+                    let data = documentChange.document.data()
+                    
+                    guard let name = data[Truck.name.rawValue] as? String,
+                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+                        let open = data[Truck.open.rawValue] as? Bool,
+                        let story = data[Truck.story.rawValue] as? String else {return}
+                    
+                    openTimestamp = data[Truck.openTime.rawValue] as? Double
+                    
+                    location = data[Truck.location.rawValue] as? GeoPoint
+                    
+                    if documentChange.type == .added {
+                        
+                        allTruckData.append(TruckData(documentChange.document.documentID,
+                                              name, logoImage, story, open,
+                                              openTimestamp, location))
+                        
+                    } else if documentChange.type == .removed {
+                        print("remove")
+                    }
+                })
+                completion(allTruckData)
                 
             }
         }
