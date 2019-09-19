@@ -109,12 +109,21 @@
                                         <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faO-Ue-vG4">
+                                        <rect key="frame" x="347.5" y="220.5" width="46.5" height="47"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="faO-Ue-vG4" secondAttribute="height" multiplier="1:1" id="mn9-Iy-eLn"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="Icon_button"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="3T7-vX-ET5" firstAttribute="centerX" secondItem="l8D-Wz-2f0" secondAttribute="centerX" id="0yN-pc-M92"/>
+                                    <constraint firstItem="faO-Ue-vG4" firstAttribute="top" secondItem="fMf-oR-T3t" secondAttribute="bottom" constant="5" id="15x-V2-nUV"/>
                                     <constraint firstAttribute="trailing" secondItem="3T7-vX-ET5" secondAttribute="trailing" constant="20" id="45g-Ue-gBT"/>
                                     <constraint firstItem="jc7-MW-9jE" firstAttribute="width" secondItem="l8D-Wz-2f0" secondAttribute="width" multiplier="1:4" id="4cn-PQ-mZU"/>
+                                    <constraint firstItem="faO-Ue-vG4" firstAttribute="trailing" secondItem="ex1-Vm-7fp" secondAttribute="trailing" id="90C-fp-Uez"/>
                                     <constraint firstItem="jc7-MW-9jE" firstAttribute="centerX" secondItem="l8D-Wz-2f0" secondAttribute="centerX" id="Dop-Wt-DMq"/>
                                     <constraint firstItem="3T7-vX-ET5" firstAttribute="leading" secondItem="l8D-Wz-2f0" secondAttribute="leading" constant="20" id="GLT-Ui-IUC"/>
                                     <constraint firstItem="jc7-MW-9jE" firstAttribute="centerY" secondItem="fMf-oR-T3t" secondAttribute="bottom" id="QIB-Zr-yzh"/>
@@ -122,6 +131,7 @@
                                     <constraint firstAttribute="trailing" secondItem="ex1-Vm-7fp" secondAttribute="trailing" constant="20" id="VJi-9e-Khr"/>
                                     <constraint firstAttribute="trailing" secondItem="fMf-oR-T3t" secondAttribute="trailing" id="XVT-FI-wsa"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="height" secondItem="l8D-Wz-2f0" secondAttribute="height" multiplier="1:4" id="dG5-Os-j7L"/>
+                                    <constraint firstItem="faO-Ue-vG4" firstAttribute="bottom" secondItem="jc7-MW-9jE" secondAttribute="bottom" id="hBe-IT-XOZ"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="leading" secondItem="l8D-Wz-2f0" secondAttribute="leading" id="jeP-Em-8Ee"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3T7-vX-ET5" secondAttribute="bottom" constant="20" id="qqi-8N-WFp"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="top" secondItem="l8D-Wz-2f0" secondAttribute="top" id="ucW-4T-8Wl"/>
@@ -164,6 +174,7 @@
                     <connections>
                         <outlet property="backBtn" destination="7OV-Y9-7UP" id="5oU-oL-8Hi"/>
                         <outlet property="backBtnBg" destination="HJB-6k-IIt" id="xKg-mp-nQu"/>
+                        <outlet property="favoriteBtn" destination="faO-Ue-vG4" id="BL6-qg-Oze"/>
                         <outlet property="infoImageView" destination="fMf-oR-T3t" id="uO8-7e-7IN"/>
                         <outlet property="locationLabel" destination="DQc-qX-p2B" id="vY4-FO-90E"/>
                         <outlet property="logoImageView" destination="jc7-MW-9jE" id="GIe-Bb-rO1"/>
@@ -177,6 +188,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
         <image name="Icon_whiteBack" width="40" height="40"/>
         <image name="map" width="184" height="184"/>
     </resources>
