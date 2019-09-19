@@ -48,6 +48,8 @@
 		095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238CA2330ABDF0015AEDA /* QRScannerController.swift */; };
 		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
 		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
+		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
+		09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */; };
 		09EA2BE22332172B00FC8347 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */; };
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
 		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
@@ -104,6 +106,8 @@
 		095238CA2330ABDF0015AEDA /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
 		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
+		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
+		09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrcukCollectionViewCell.swift; sourceTree = "<group>"; };
 		09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
 		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 		091EEB7223156BE800BF066F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				09E6C4A823338D8C009EA849 /* Truck */,
 				095238C72330A9460015AEDA /* Badge */,
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
 				091EEB8B23166C9100BF066F /* Lobby */,
@@ -301,8 +306,17 @@
 			isa = PBXGroup;
 			children = (
 				09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */,
+				09E6C4A623338C9B009EA849 /* TruckViewController.swift */,
 			);
 			path = TrucK;
+			sourceTree = "<group>";
+		};
+		09E6C4A823338D8C009EA849 /* Truck */ = {
+			isa = PBXGroup;
+			children = (
+				09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */,
+			);
+			path = Truck;
 			sourceTree = "<group>";
 		};
 		09F78E502327974200FD6099 /* Profile */ = {
@@ -526,8 +540,10 @@
 				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
 				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
+				09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
+				09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */,
 				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
