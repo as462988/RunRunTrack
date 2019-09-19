@@ -26,7 +26,7 @@ class LobbyViewController: UIViewController {
         super.viewDidLoad()
 
         //拿取所有營業中的餐車顯示在地圖
-        FirebaseManager.shared.getOpeningTruckData {[weak self] (truckDatas) in
+        FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
             if let truckDatas = truckDatas {
                 let dispatchGroup = DispatchGroup()
                 for var truckData in truckDatas {

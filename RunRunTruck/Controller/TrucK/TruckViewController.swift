@@ -18,42 +18,110 @@ class TruckViewController: UIViewController {
     }
     
     var allTruckArr = [TruckData]()
+    var openTruckArr = [TruckData]()
+    var disOpenTruckArr = [TruckData]()
+    
     let addressManager = AddressManager()
-
+    let dispatchGroup = DispatchGroup()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.shared.getAllTruckData { [weak self] (data) in
-            guard let truckDatas = data else {return}
-            
-            for truckData in truckDatas {
-                
-                self?.allTruckArr.append(truckData)
-                
-            }
+        FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
+            if let truckDatas = truckDatas {
 
-            
-            DispatchQueue.main.async {
-                self?.truckCollectionView.reloadData()
+                for var truckData in truckDatas {
+
+                    switch truckData.1 {
+                    case .added:
+                        //新增
+                        self?.addressManager.getLocationAddress(
+                            lat: truckData.0.location!.latitude,
+                            long: truckData.0.location!.longitude,
+                            completion: {(location, error) in
+                                
+                                guard let location = location else {return}
+                                
+                                let address = location.subAdministrativeArea
+                                    + location.city + location.street
+                                
+                                truckData.0.address = address
+                                self?.openTruckArr.append(truckData.0)
+                                
+                                DispatchQueue.main.async {
+                                    self?.truckCollectionView.reloadData()
+                                }
+
+                        })
+
+                    case .removed:
+                        //刪除
+
+                        if let index = self?.openTruckArr.firstIndex(
+                            where: { (truckdata) -> Bool in
+                                return truckdata.id == truckData.0.id
+                        }) {
+                            self?.openTruckArr.remove(at: index)
+                        }
+                    case .modified: break
+                    @unknown default:
+                        fatalError()
+                    }
+                }
+
             }
         }
+        
+        FirebaseManager.shared.getOpeningTruckData(isOpen: false) {[weak self] (truckDatas) in
+            if let truckDatas = truckDatas {
+                
+                for var truckData in truckDatas {
+                    
+                    switch truckData.1 {
+                    case .added:
+                        //新增
+                        self?.disOpenTruckArr.append(truckData.0)
+                        
+                        DispatchQueue.main.async {
+                            self?.truckCollectionView.reloadData()
+                        }
+              
+                    case .removed:
+                        //刪除
+                        
+                        if let index = self?.disOpenTruckArr.firstIndex(
+                            where: { (truckdata) -> Bool in
+                                return truckdata.id == truckData.0.id
+                        }) {
+                            self?.disOpenTruckArr.remove(at: index)
+                        }
+                    case .modified: break
+                    @unknown default:
+                        fatalError()
+                    }
+                }
+                
+            }
+        }
+        
     }
     
-    func transAddress(index: Int){
+    func transAddress(index: Int) {
         
-        guard let truckLocation = allTruckArr[index].location else {
+        guard let truckLocation = openTruckArr[index].location else {
             return
         }
         
-        addressManager.getLocationAddress(lat: truckLocation.latitude,
-                                          long: truckLocation.longitude) { [weak self] (location, error) in
-                                           
-                                            guard let location = location else {return}
-                                            
-                                            let address = location.subAdministrativeArea
-                                                + location.city + location.street
-                                            
-                                            self?.allTruckArr[index].address = address
+        addressManager.getLocationAddress(
+            lat: truckLocation.latitude,
+            long: truckLocation.longitude) { [weak self] (location, error) in
+                
+                guard let location = location else {return}
+                
+                let address = location.subAdministrativeArea
+                    + location.city + location.street
+                
+                self?.openTruckArr[index].address = address
                                             
         }
     }
@@ -65,7 +133,9 @@ UICollectionViewDelegate,
 UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allTruckArr.count
+      print(openTruckArr.count)
+        print("\(openTruckArr.count) + \(disOpenTruckArr.count)")
+        return openTruckArr.count + disOpenTruckArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -76,10 +146,29 @@ UICollectionViewDataSource {
                 return UICollectionViewCell()
         }
         
-        transAddress(index: indexPath.item)
+        allTruckArr = openTruckArr + disOpenTruckArr
+        
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
                            image: allTruckArr[indexPath.item].logoImage)
-        truckCell.backgroundColor = .yellow
+        
+//        if indexPath.item < openTruckArr.count {
+//
+//        transAddress(index: indexPath.item)
+//        truckCell.setValue(name: openTruckArr[indexPath.item].name,
+//                           image: openTruckArr[indexPath.item].logoImage)
+//            print(openTruckArr[indexPath.item].name, openTruckArr[indexPath.item].open)
+//        truckCell.backgroundColor = .yellow
+//
+//             return truckCell
+//        } else if indexPath.item >= openTruckArr.count {
+//
+//            let index = indexPath.item - openTruckArr.count
+//
+//            truckCell.setValue(name: disOpenTruckArr[index].name,
+//                               image: disOpenTruckArr[index].logoImage)
+//
+//        return truckCell
+//        }
         
         return truckCell
     }
@@ -100,7 +189,7 @@ UICollectionViewDataSource {
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
             withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
-            
+        
         truckVC.detailInfo = allTruckArr[indexPath.item]
         
         navigationController?.isNavigationBarHidden = true

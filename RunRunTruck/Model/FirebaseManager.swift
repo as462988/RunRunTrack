@@ -68,55 +68,50 @@ class FirebaseManager {
             }
         }
     }
+//    
+//    func getAllTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+//        
+//        let order = db.collection(Truck.truck.rawValue).order(by: Truck.open.rawValue, descending: true)
+//        
+//        var allTruckData: [(TruckData, DocumentChangeType)] = []
+//        
+//        var openTimestamp: Double?
+//        
+//        var location: GeoPoint?
+//        
+//        order.addSnapshotListener { (snapshot, error) in
+//            if let err = error {
+//                print("Error getting documents: \(err)")
+//                completion(nil)
+//            } else {
+//                
+//                snapshot?.documentChanges.forEach({ (documentChange) in
+//                    let data = documentChange.document.data()
+//                    
+//                    guard let name = data[Truck.name.rawValue] as? String,
+//                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+//                        let open = data[Truck.open.rawValue] as? Bool,
+//                        let story = data[Truck.story.rawValue] as? String else {return}
+//                    
+//                    openTimestamp = data[Truck.openTime.rawValue] as? Double
+//                    
+//                    location = data[Truck.location.rawValue] as? GeoPoint
+//                    
+//                    let truck = TruckData(documentChange.document.documentID,
+//                                          name, logoImage, story, open,
+//                                          openTimestamp, location)
+//                    allTruckData.append((truck, documentChange.type))
+//                })
+//                completion(allTruckData)
+//                
+//            }
+//        }
+//    }
     
-    func getAllTruckData(completion: @escaping ([TruckData]?) -> Void) {
-        
-        let order = db.collection(Truck.truck.rawValue).order(by: Truck.open.rawValue, descending: true)
-        
-        var allTruckData: [TruckData] = []
-        
-        var openTimestamp: Double?
-        
-        var location: GeoPoint?
-        
-        order.addSnapshotListener { (snapshot, error) in
-            if let err = error {
-                print("Error getting documents: \(err)")
-                completion(nil)
-            } else {
-                
-                snapshot?.documentChanges.forEach({ (documentChange) in
-                    let data = documentChange.document.data()
-                    
-                    guard let name = data[Truck.name.rawValue] as? String,
-                        let logoImage = data[Truck.logoImage.rawValue] as? String,
-                        let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String else {return}
-                    
-                    openTimestamp = data[Truck.openTime.rawValue] as? Double
-                    
-                    location = data[Truck.location.rawValue] as? GeoPoint
-                    
-                    if documentChange.type == .added {
-                        
-                        allTruckData.append(TruckData(documentChange.document.documentID,
-                                              name, logoImage, story, open,
-                                              openTimestamp, location))
-                        
-                    } else if documentChange.type == .removed {
-                        print("remove")
-                    }
-                })
-                completion(allTruckData)
-                
-            }
-        }
-    }
-    
-    func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+    func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).whereField(
-            Truck.open.rawValue, isEqualTo: true).addSnapshotListener { (snapshot, error) in
+            Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
                 guard let snapshot = snapshot else {
                     print("Error fetching document: \(error!)")
