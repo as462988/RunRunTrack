@@ -22,14 +22,25 @@ class UserInfoViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         FirebaseManager.shared.getCurrentUserData { (userData) in
             
             guard let data = userData else {return}
             
+            if data.image == nil {
+            
             self.userView.setupValue(name: data.name)
+                
+            } else {
+                self.userView.setupValue(name: data.name, image: data.image)
+            }
         }
-        
     }
+    
 }
 
 extension UserInfoViewController: UserUIViewDelegate {
@@ -63,7 +74,7 @@ extension UserInfoViewController: openChoseCameraManagerDelegate {
                     
                     guard let imageUrl = url else {return}
                     
-                    self?.userView.logoImage.loadImage(imageUrl)
+                    FirebaseManager.shared.updataUserImage(image: imageUrl)
             }
             
         }

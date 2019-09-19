@@ -101,15 +101,16 @@ struct UserData {
     
     let email: String
     
-    let
+    let image: String?
     
     let badge: [String]
     
     let truckId: String?
     
-    init(name: String, email: String, badge: [String] = [], truckId: String? = nil) {
+    init(name: String, email: String, image: String? = nil, badge: [String] = [], truckId: String? = nil) {
         self.name = name
         self.email = email
+        self.image = image
         self.badge = badge
         self.truckId = truckId
     }

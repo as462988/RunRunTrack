@@ -32,7 +32,8 @@ class FirebaseManager {
     
     var bossID: String?
     
-    //getAllTruck
+    // MARK: About Truck
+        //getAllTruck
     func getAllTruckData(completion: @escaping ([TruckBadge]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
@@ -68,8 +69,6 @@ class FirebaseManager {
         }
     }
     
-    // MARK: getOpeningTruck
-    
     func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -101,150 +100,6 @@ class FirebaseManager {
         
     }
     
-    // MARK: getUserData
-    func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
-            
-            guard let document = snapshot else {
-                print("Error fetching document: \(error!)")
-                completion(nil)
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            
-            guard let name = data[User.name.rawValue] as? String,
-                let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String],
-                let image = data[User.image.rawValue] as? String else { return }
-            
-            self?.currentUser = UserData(name: name, email: email, badge: badge)
-            
-            completion(self?.currentUser)
-            print("Current data: \(data)")
-            
-        }
-    }
-    
-    func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
-            
-            guard let data = snapshot?.data() else {
-                completion(nil)
-                return
-            }
-            
-            guard let name = data[Boss.name.rawValue] as? String,
-                let email = data[Boss.email.rawValue] as? String,
-                let truckId = data[Truck.truckId.rawValue] as? String  else { return }
-            
-            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
-            
-            completion(self?.currentUser)
-        }
-    }
-    
-    func  getBossTruck(completion: @escaping (TruckData?) -> Void) {
-        
-        guard let truckId = currentUser?.truckId else {
-            completion(nil)
-            return
-        }
-        
-        db.collection(Truck.truck.rawValue).document(truckId).getDocument {(snapshot, error) in
-            guard let snapshot = snapshot else {
-                return
-            }
-            
-            guard let name = snapshot.data()?[Truck.name.rawValue] as? String,
-                let logoImage = snapshot.data()?[Truck.logoImage.rawValue] as? String,
-                let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
-                let story = snapshot.data()?[Truck.story.rawValue] as? String
-                else {return}
-            
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
-            
-            completion(self.bossTruck)
-        }
-        
-    }
-    
-    // MARK: singUp
-    func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
-        
-        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-            
-            guard error == nil else {
-                
-                //TODO: 顯示無法註冊的原因
-                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
-                
-                return
-            }
-            print("User Regiuter Success")
-            completion()
-        }
-    }
-    
-    // MARK: setData
-    func setUserData(name: String, email: String) {
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(User.user.rawValue).document(uid).setData([
-            User.name.rawValue: name,
-            User.email.rawValue: email,
-            User.badge.rawValue: [],
-            User.image.rawValue: ""
-        ]) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            }
-        }
-    }
-    
-    func addUserBadge(uid: String, truckId: String) {
-        
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.badge.rawValue: FieldValue.arrayUnion([truckId])
-        ]) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            }
-        }
-    }
-    
-    func setBossData(name: String, email: String) {
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(Boss.boss.rawValue).document(uid).setData([
-            Boss.name.rawValue: name,
-            Boss.email.rawValue: email,
-            Truck.truckId.rawValue: nil]
-        ) { [weak self] error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                
-                self?.currentUser = UserData(name: name, email: email, truckId: nil)
-                
-                print("Document successfully written!")
-            }
-        }
-        
-    }
-    
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
         let ref = db.collection(Truck.truck.rawValue).document()
@@ -262,18 +117,6 @@ class FirebaseManager {
         }
         
         completion(ref.documentID)
-    }
-    
-    func addTurckIDInBoss(truckId: String) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection(Boss.boss.rawValue).document(uid).updateData([
-            Truck.truckId.rawValue: truckId
-        ]) { (error) in
-            if let err = error {
-                print("Error adding document: \(err)")
-            }
-        }
     }
     
     func changeOpenStatus(status: Bool, lat: Double? = nil, lon: Double? = nil) {
@@ -307,6 +150,7 @@ class FirebaseManager {
             }
         }
     }
+    
     func updataStoryText(text: String) {
         
         guard let truckId = bossTruck?.id else { return }
@@ -319,40 +163,6 @@ class FirebaseManager {
             } else {
                 print("Status modify Success")
             }
-        }
-    }
-    
-    // MARK: singIn
-    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        
-        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
-            
-            guard error == nil else {
-                //TODO: 顯示無法登入的原因
-                print("didn't singIn")
-                completion(false)
-                return
-            }
-            
-            print("Success")
-            completion(true)
-        }
-    }
-    
-    // MARK: - signOut
-    func signOut() {
-        
-        let firebaseAuth = Auth.auth()
-        
-        do {
-            try firebaseAuth.signOut()
-            
-            self.userID = nil
-            self.bossID = nil
-            
-        } catch let signOutError as NSError {
-            
-            print ("Error signing out: %@", signOutError)
         }
     }
     
@@ -374,8 +184,212 @@ class FirebaseManager {
         }
         
     }
+
+    // MARK: About User
     
-    // MARK: - creatChatRoom
+    func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+            
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                completion(nil)
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            
+            guard let name = data[User.name.rawValue] as? String,
+                let email = data[User.email.rawValue] as? String,
+                let badge = data[User.badge.rawValue] as? [String] else { return }
+            
+            if let image = data[User.image.rawValue] as? String {
+            
+            self?.currentUser = UserData(name: name, email: email, image: image, badge: badge)
+            
+            } else {
+                
+                self?.currentUser = UserData(name: name, email: email, badge: badge)
+            }
+
+            completion(self?.currentUser)
+            print("Current data: \(data)")
+        }
+    }
+    
+    func setUserData(name: String, email: String) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(User.user.rawValue).document(uid).setData([
+            User.name.rawValue: name,
+            User.email.rawValue: email,
+            User.badge.rawValue: []
+        ]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            }
+        }
+    }
+    
+    func updataUserImage(image: String) {
+        
+        guard let uid = self.userID else {
+            return
+        }
+        
+        db.collection(User.user.rawValue).document(uid).updateData([
+            User.image.rawValue: image
+            ])
+    }
+    
+    func addUserBadge(uid: String, truckId: String) {
+        
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.badge.rawValue: FieldValue.arrayUnion([truckId])
+        ]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            }
+        }
+    }
+    
+    // MARK: About Boss
+    func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+            
+            guard let data = snapshot?.data() else {
+                completion(nil)
+                return
+            }
+            
+            guard let name = data[Boss.name.rawValue] as? String,
+                let email = data[Boss.email.rawValue] as? String,
+                let truckId = data[Truck.truckId.rawValue] as? String  else { return }
+            
+            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
+            
+            completion(self?.currentUser)
+        }
+    }
+    
+    func getBossTruck(completion: @escaping (TruckData?) -> Void) {
+        
+        guard let truckId = currentUser?.truckId else {
+            completion(nil)
+            return
+        }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).getDocument {(snapshot, error) in
+            guard let snapshot = snapshot else {
+                return
+            }
+            
+            guard let name = snapshot.data()?[Truck.name.rawValue] as? String,
+                let logoImage = snapshot.data()?[Truck.logoImage.rawValue] as? String,
+                let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
+                let story = snapshot.data()?[Truck.story.rawValue] as? String
+                else {return}
+            
+            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
+            
+            completion(self.bossTruck)
+        }
+        
+    }
+    
+    func setBossData(name: String, email: String) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        db.collection(Boss.boss.rawValue).document(uid).setData([
+            Boss.name.rawValue: name,
+            Boss.email.rawValue: email,
+            Truck.truckId.rawValue: nil]
+        ) { [weak self] error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                
+                self?.currentUser = UserData(name: name, email: email, truckId: nil)
+                
+                print("Document successfully written!")
+            }
+        }
+        
+    }
+    
+    func addTurckIDInBoss(truckId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection(Boss.boss.rawValue).document(uid).updateData([
+            Truck.truckId.rawValue: truckId
+        ]) { (error) in
+            if let err = error {
+                print("Error adding document: \(err)")
+            }
+        }
+    }
+    
+    // MARK: About Register/SingIn
+    func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
+        
+        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
+            
+            guard error == nil else {
+                
+                //TODO: 顯示無法註冊的原因
+                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
+                
+                return
+            }
+            print("User Regiuter Success")
+            completion()
+        }
+    }
+
+    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
+            
+            guard error == nil else {
+                //TODO: 顯示無法登入的原因
+                print("didn't singIn")
+                completion(false)
+                return
+            }
+            
+            print("Success")
+            completion(true)
+        }
+    }
+
+    func signOut() {
+        
+        let firebaseAuth = Auth.auth()
+        
+        do {
+            try firebaseAuth.signOut()
+            
+            self.userID = nil
+            self.bossID = nil
+            
+        } catch let signOutError as NSError {
+            
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    // MARK: About ChatRoom
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
         
         db.collection(Truck.truck.rawValue).document(truckID).collection(
@@ -393,8 +407,7 @@ class FirebaseManager {
                 }
         }
     }
-    
-    // MARK: - show ChatRoom Message
+
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
         
         let docRef = db.collection(Truck.truck.rawValue).document(truckID)
