@@ -124,6 +124,8 @@ class ChatroomViewController: UIViewController {
                 
                 creatChatMessage(id: boosId, text: text)
             }
+            
+            chatRoomView.inputTextField.text = ""
         }
         
     }

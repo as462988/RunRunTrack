@@ -10,7 +10,7 @@ import UIKit
 
 class ChatCellForSelf: ChatMessageCell {
     
-    override func createProfileInmageView() -> UIImageView? { return nil }
+    override func createProfileBgImageView() -> UIImageView? { return nil }
     override func createNameLabel() -> UILabel? { return nil }
     
     override func configureTextView() {
