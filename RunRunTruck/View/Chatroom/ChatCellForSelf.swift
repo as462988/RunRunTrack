@@ -17,7 +17,6 @@ class ChatCellForSelf: ChatMessageCell {
         super.configureTextView()
         
         textView.textColor = .white
-//        textView.backgroundColor = UIColor(r: 61, g: 61, b: 61)
         textView.backgroundColor = .clear
     }
     

@@ -47,7 +47,7 @@ class ChatMessageCell: UICollectionViewCell {
         if let imageView = self.profileImageView {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.layer.cornerRadius = imageView.frame.width / 2
-            imageView.layer.masksToBounds = true
+            imageView.clipsToBounds = true
             imageView.contentMode = ContentMode.scaleAspectFill
         }
     }
@@ -80,7 +80,6 @@ class ChatMessageCell: UICollectionViewCell {
         if let textView = self.textView {
             textView.textColor = UIColor(r: 61, g: 61, b: 61)
             textView.font = UIFont.systemFont(ofSize: 16)
-//            textView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
             textView.backgroundColor = .clear
             textView.isEditable = false
             textView.isScrollEnabled = false

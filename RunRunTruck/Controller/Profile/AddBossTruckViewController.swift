@@ -37,7 +37,7 @@ class AddBossTruckViewController: UIViewController {
         clickSendBtn.layer.cornerRadius = 20
         clickSendBtn.layer.masksToBounds = true
         
-        showLogoImage.layer.cornerRadius = UIScreen.main.bounds.width / 3 / 2
+        showLogoImage.layer.cornerRadius = showLogoImage.frame.width / 2
         showLogoImage.layer.masksToBounds = true
         showLogoImage.layer.borderWidth = 1
         showLogoImage.layer.borderColor = UIColor.gray.cgColor

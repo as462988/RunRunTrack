@@ -37,10 +37,10 @@ class UserUIView: UIView {
     
     func setLayout() {
         
-        logoImage.layer.cornerRadius = UIScreen.main.bounds.width / 3 / 2
-        logoImage.clipsToBounds = true
+        logoImage.layer.cornerRadius = logoImage.bounds.width / 2
         logoImage.contentMode = .scaleAspectFill
-        
+        logoImage.clipsToBounds = true
+
         logoOutBtn.layer.cornerRadius = 10
         logoOutBtn.clipsToBounds = true
         

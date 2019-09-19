@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
-import FirebaseStorage
+
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class FirebaseManager {
@@ -390,6 +390,25 @@ class FirebaseManager {
     }
     
     // MARK: About ChatRoom
+    
+    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String, text: String) {
+        db.collection(Truck.truck.rawValue).document(truckID).collection(
+            
+            Truck.chatRoom.rawValue).addDocument(data: [
+                Truck.name.rawValue: name,
+                User.uid.rawValue: uid,
+                User.image.rawValue: image,
+                User.text.rawValue: text,
+                User.createTime.rawValue: Date().timeIntervalSince1970
+            ]) { (error) in
+                if let err = error {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+        }
+    }
+    
     func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
         
         db.collection(Truck.truck.rawValue).document(truckID).collection(
@@ -429,11 +448,12 @@ class FirebaseManager {
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
+                    let image = data[User.image.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
                 
                 if documentChange.type == .added {
                     
-                    rtnMessage.append(Message(uid, name, text, createTime))
+                    rtnMessage.append(Message(uid, name, image, text, createTime))
                 }
             })
             if rtnMessage.count > 0 {

@@ -65,12 +65,14 @@ struct Message {
     
     var uid: String
     var name: String
+    var image: String
     var text: String
     var createTime: Double
     
-    init(_ uid: String, _ name: String, _ text: String, _ createTime: Double) {
+    init(_ uid: String, _ name: String, _ image: String, _ text: String, _ createTime: Double) {
         self.uid = uid
         self.name = name
+        self.image = image
         self.text = text
         self.createTime = createTime
     }

@@ -92,7 +92,7 @@ class BossUIView: UIView {
     
     func setLayout() {
         
-        logoImage.layer.cornerRadius = UIScreen.main.bounds.width / 3 / 2
+        logoImage.layer.cornerRadius = logoImage.frame.width / 2
         logoImage.clipsToBounds = true
         logoImage.contentMode = .scaleAspectFill
  

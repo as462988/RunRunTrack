@@ -70,7 +70,7 @@ extension UserInfoViewController: openChoseCameraManagerDelegate {
             
             FirebaseStorageManager.shared.upLoadTruckLogo(
                 imageName: uniqueString,
-                data: uploadData) { [weak self] (url) in
+                data: uploadData) { (url) in
                     
                     guard let imageUrl = url else {return}
                     
