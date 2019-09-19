@@ -71,8 +71,9 @@ class LobbyViewController: UIViewController {
                             FirebaseManager.shared.openIngTruckData.remove(at: index)
                             dispatchGroup.leave()
                         }
-                    case .modified:
-                        return
+                    case .modified: break
+                    @unknown default:
+                            fatalError()
                     }
 
                 }
@@ -268,4 +269,19 @@ extension LobbyViewController: TurckInfoCellDelegate {
         present(auth, animated: false, completion: nil)
         
     }
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData) {
+        
+        self.hidesBottomBarWhenPushed = true
+        
+        guard let truckVC = UIStoryboard.truck.instantiateViewController(
+            withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+        
+        truckVC.detailInfo = truckData
+        
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.pushViewController(truckVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
+
+    }
+    
 }
