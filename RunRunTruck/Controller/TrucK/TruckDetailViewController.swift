@@ -13,9 +13,7 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var infoImageView: UIImageView!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var showLocationLabel: UILabel!
-    @IBOutlet weak var showTimeLabel: UILabel!
+    @IBOutlet weak var showLocationTextView: UITextView!
     
     @IBOutlet weak var storyLabel: UILabel!
     
@@ -23,6 +21,7 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var backBtnBg: UIView!
     
     var detailInfo: TruckData?
+    let dateManager = TransformTimeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +51,21 @@ class TruckDetailViewController: UIViewController {
         logoImageView.loadImage(detailInfo.logoImage, placeHolder: UIImage.asset(.Icon_logo))
         
         storyLabel.text = detailInfo.story
-        showLocationLabel.text = detailInfo.address
-        showTimeLabel.text = ""
+        
+        if detailInfo.openTime == nil {
+            
+            locationLabel.isHidden = true
+            showLocationTextView.isHidden = true
+        }
+        
+        if detailInfo.open {
+            locationLabel.text = "現在出沒在..."
+            showLocationTextView.text = detailInfo.address
+        } else {
+            locationLabel.text = "最近出沒在..."
+            showLocationTextView.text = detailInfo.address
+
+        }
         
     }
     

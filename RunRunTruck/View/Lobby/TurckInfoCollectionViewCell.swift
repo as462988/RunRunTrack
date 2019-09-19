@@ -43,12 +43,6 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     func setValue(name: String, openTime: Double, logoImage: String, truckLocationText: String) {
         
-//        let timeStamp = openTime
-        
-//        let timeInterval: TimeInterval = TimeInterval(timeStamp)
-        
-//        let date: Date = Date(timeIntervalSince1970: openTime)
-        
         self.truckName.text = name
         self.openTime.text = dateManager.dateToString(time: openTime)
         self.truckLocation.text = truckLocationText
