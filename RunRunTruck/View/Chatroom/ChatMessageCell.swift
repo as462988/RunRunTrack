@@ -17,7 +17,8 @@ class ChatMessageCell: UICollectionViewCell {
     
     var nameTextLabel: UILabel?
     var textView: UITextView!
-    var profileImageView: UIImageView?
+    var profileBgImageView: UIImageView?
+    var userImageView: UIImageView?
     var bubbleView: UIView!
     
     var textViewHeightAnchor: NSLayoutConstraint?
@@ -25,8 +26,10 @@ class ChatMessageCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.profileImageView = createProfileInmageView()
-        self.configureProfileInmageView()
+        self.profileBgImageView = createProfileBgImageView()
+        self.configureProfileImageView()
+        self.userImageView = createUserImageView()
+        self.configureUserImageView()
         self.nameTextLabel = createNameLabel()
         self.configureNameLabel()
         self.bubbleView = createBubbleView()
@@ -41,14 +44,23 @@ class ChatMessageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemwnted")
     }
     
-    func createProfileInmageView() -> UIImageView? { return UIImageView() }
+    func createProfileBgImageView() -> UIImageView? { return UIImageView() }
     
-    func configureProfileInmageView() {
-        if let imageView = self.profileImageView {
+    func configureProfileImageView() {
+        if let imageView = self.profileBgImageView {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.layer.cornerRadius = imageView.frame.width / 2
-            imageView.layer.masksToBounds = true
+            imageView.clipsToBounds = true
             imageView.contentMode = ContentMode.scaleAspectFill
+        }
+    }
+    
+     func createUserImageView() -> UIImageView? { return UIImageView() }
+    
+    func configureUserImageView() {
+        
+        if let profileImageView = self.userImageView {
+            profileImageView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -80,7 +92,6 @@ class ChatMessageCell: UICollectionViewCell {
         if let textView = self.textView {
             textView.textColor = UIColor(r: 61, g: 61, b: 61)
             textView.font = UIFont.systemFont(ofSize: 16)
-//            textView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
             textView.backgroundColor = .clear
             textView.isEditable = false
             textView.isScrollEnabled = false
@@ -95,15 +106,25 @@ class ChatMessageCell: UICollectionViewCell {
         if let nameLabel = nameTextLabel {
             nameLabel.text = name
         }
-        if let imageView = profileImageView {
-            imageView.image = UIImage.asset(.Icon_UserImage)
+        if let profileBgimageView = profileBgImageView {
+            profileBgimageView.image = UIImage.asset(.Icon_UserImage)
+        }
+        if let userImageView = userImageView {
+            userImageView.loadImage(image)
+            userImageView.layer.cornerRadius = ChatMessageCell.avatarImgWidth * 2 / 3 / 2
+            userImageView.contentMode = .scaleAspectFill
+            userImageView.clipsToBounds = true
         }
         textView.text = text
     }
     
     final func addViews() {
-        if let imageView = profileImageView {
-            self.addSubview(imageView)
+        if let profileBgimageView = profileBgImageView {
+            self.addSubview(profileBgimageView)
+        }
+        
+        if let userImageView = userImageView {
+           self.addSubview(userImageView)
         }
         
         if let  nameLabel = nameTextLabel {
@@ -116,17 +137,30 @@ class ChatMessageCell: UICollectionViewCell {
     
     func setupLayout() {
         
-        guard let nameLabel = nameTextLabel, let imageView = profileImageView else {
+        guard let nameLabel = nameTextLabel, let profileBgimageView = profileBgImageView,
+            let userImageView = userImageView  else {
             return
         }
         
-        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
-        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgWidth).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgHeight).isActive = true
+        profileBgimageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
+        profileBgimageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        profileBgimageView.widthAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgWidth).isActive = true
+        profileBgimageView.heightAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgHeight).isActive = true
+        userImageView.centerXAnchor.constraint(equalTo: profileBgimageView.centerXAnchor).isActive = true
+        userImageView.centerYAnchor.constraint(equalTo: profileBgimageView.centerYAnchor).isActive = true
+        
+        userImageView.widthAnchor.constraint(equalTo: profileBgimageView.widthAnchor,
+                                             multiplier: 2/3).isActive = true
+        
+        userImageView.heightAnchor.constraint(equalTo: profileBgimageView.heightAnchor,
+                                             multiplier: 2/3).isActive = true
+//        userImageView.widthAnchor.constraint(
+//            equalToConstant: ChatMessageCell.avatarImgWidth - 15).isActive = true
+//        userImageView.heightAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgHeight - 15).isActive = true
+        
         //名稱
-        nameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: profileBgimageView.trailingAnchor, constant: 4).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: profileBgimageView.topAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: ChatMessageCell.usrNameLabelHeight).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: ChatMessageCell.userNameLabelWidth).isActive = true
         //聊天背景

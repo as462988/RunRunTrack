@@ -13,7 +13,9 @@
 		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
 		091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A323224074008EFCF5 /* ChatroomViewController.swift */; };
 		091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A5232240BF008EFCF5 /* TruckChatroomView.swift */; };
+
 		09168BBD23328478002E1737 /* getBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168BBC23328478002E1737 /* getBadgeView.swift */; };
+		09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* openChoseCameraManager.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
 		091EEB6323153B0200BF066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6123153B0200BF066F /* Main.storyboard */; };
@@ -65,6 +67,7 @@
 		091508A323224074008EFCF5 /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
 		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
+		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 				095238BB23307AB50015AEDA /* AddressManager.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
 				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
+				09168B9C2332458B002E1737 /* openChoseCameraManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -500,6 +504,7 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */,
 				095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */,
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
 				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,

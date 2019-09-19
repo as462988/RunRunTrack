@@ -10,14 +10,13 @@ import UIKit
 
 class ChatCellForSelf: ChatMessageCell {
     
-    override func createProfileInmageView() -> UIImageView? { return nil }
+    override func createProfileBgImageView() -> UIImageView? { return nil }
     override func createNameLabel() -> UILabel? { return nil }
     
     override func configureTextView() {
         super.configureTextView()
         
         textView.textColor = .white
-//        textView.backgroundColor = UIColor(r: 61, g: 61, b: 61)
         textView.backgroundColor = .clear
     }
     

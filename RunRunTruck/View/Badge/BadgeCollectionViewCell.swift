@@ -13,12 +13,13 @@ class BadgeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     
     @IBOutlet weak var truckName: UILabel!
-    
-    
+        
     func setValue(logo: String, name: String) {
         
         logoImage.loadImage(logo, placeHolder: UIImage.asset(.Icon_logo))
-        
+        logoImage.contentMode = .scaleAspectFill
+        logoImage.clipsToBounds = true
+        logoImage.layer.cornerRadius = self.bounds.height / 4
         truckName.text = name
     }
     

@@ -8,14 +8,42 @@
 
 import UIKit
 
+protocol UserUIViewDelegate: AnyObject {
+    func clickUpLoadBtn()
+}
+
 class UserUIView: UIView {
 
- @IBOutlet weak var logoOutBtn: UIButton!
+    @IBOutlet weak var logoOutBtn: UIButton!
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+     @IBOutlet weak var upLoadImage: UIButton!
+    
+    weak var delegate: UserUIViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        setLayout()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
+        
+        upLoadImage.addTarget(self, action: #selector(choseUpLoadImage), for: .touchUpInside)
+    }
+    
+    func setupValue(name: String, image: String? = nil) {
+        
+        logoImage.loadImage(image, placeHolder: UIImage.asset(.Icon_logo))
+        nameLabel.text = name
+    }
+    
+    func setLayout() {
+        
+        logoImage.layer.cornerRadius = logoImage.bounds.width / 2
+        logoImage.contentMode = .scaleAspectFill
+        logoImage.clipsToBounds = true
+
+        logoOutBtn.layer.cornerRadius = 10
+        logoOutBtn.clipsToBounds = true
+        
     }
     
     @objc func clickLogoutBtn() {
@@ -27,6 +55,10 @@ class UserUIView: UIView {
         let root = appDelegate?.window?.rootViewController as? TabBarViewController
         
         root?.selectedIndex = 0
+    }
+    
+    @objc func choseUpLoadImage() {
         
+        self.delegate?.clickUpLoadBtn()
     }
 }

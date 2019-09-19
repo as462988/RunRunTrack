@@ -14,8 +14,6 @@ class FirebaseStorageManager {
    static let shared = FirebaseStorageManager()
     
     let storageRef = Storage.storage().reference()
-    
-    
     // 上傳圖片
     func upLoadTruckLogo(imageName: String, data: Data, completion: @escaping ((String)?) -> Void) {
         

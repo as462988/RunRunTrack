@@ -17,10 +17,14 @@ class AddBossTruckViewController: UIViewController {
     
     var logoImageUrl: String?
     
+    let openChoseCamera = OpenChoseCameraManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setLayout()
+        openChoseCamera.delegate = self
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +37,7 @@ class AddBossTruckViewController: UIViewController {
         clickSendBtn.layer.cornerRadius = 20
         clickSendBtn.layer.masksToBounds = true
         
-        showLogoImage.layer.cornerRadius = UIScreen.main.bounds.width / 3 / 2
+        showLogoImage.layer.cornerRadius = showLogoImage.frame.width / 2
         showLogoImage.layer.masksToBounds = true
         showLogoImage.layer.borderWidth = 1
         showLogoImage.layer.borderColor = UIColor.gray.cgColor
@@ -48,42 +52,7 @@ class AddBossTruckViewController: UIViewController {
     
     func showImagePickerAlert() {
         
-        let imagePickerController = UIImagePickerController()
-        
-        imagePickerController.delegate = self
-        
-        let imagePickerAlertController = UIAlertController(
-            title: "上傳圖片",
-            message: "請選擇要上傳的圖片",
-            preferredStyle: .actionSheet)
-        
-        let imageFromLibAction = UIAlertAction(title: "照片圖庫", style: .default) { (Void) in
-            
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                
-                imagePickerController.sourceType = .photoLibrary
-                self.present(imagePickerController, animated: true, completion: nil)
-            }
-        }
-        let imageFromCameraAction = UIAlertAction(title: "相機", style: .default) { (Void) in
-            
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (Void) in
-            
-            imagePickerAlertController.dismiss(animated: true, completion: nil)
-        }
-        
-        imagePickerAlertController.addAction(imageFromLibAction)
-        imagePickerAlertController.addAction(imageFromCameraAction)
-        imagePickerAlertController.addAction(cancelAction)
-        
-        present(imagePickerAlertController, animated: true, completion: nil)
+        openChoseCamera.showImagePickerAlert(self)
         
     }
     
@@ -119,40 +88,36 @@ class AddBossTruckViewController: UIViewController {
     }
 }
 
-extension AddBossTruckViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    internal func imagePickerController(_ picker: UIImagePickerController,
-                                        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+extension AddBossTruckViewController: openChoseCameraManagerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         var selectedImageFromPicker: UIImage?
-        
-        // 取得從 UIImagePickerController 選擇的檔案
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            selectedImageFromPicker = pickedImage
-            showLogoImage.image = selectedImageFromPicker
- 
-        }
-        
-        // 可以自動產生一組獨一無二的 ID 號碼，方便等一下上傳圖片的命名
         let uniqueString = NSUUID().uuidString
         
-        // 當判斷有 selectedImage 時，我們會在 if 判斷式裡將圖片上傳
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+         
+            selectedImageFromPicker = pickedImage
+            showLogoImage.image = selectedImageFromPicker
+        }
+        
         if let selectedImage = selectedImageFromPicker {
             
-            if let uploadData = selectedImage.pngData() {
-                
-                FirebaseStorageManager.shared.upLoadTruckLogo(
-                    imageName: uniqueString,
-                    data: uploadData) { (url) in
-                                                                
+            guard let uploadData = selectedImage.pngData() else {return}
+            
+             FirebaseStorageManager.shared.upLoadTruckLogo(
+                imageName: uniqueString,
+                data: uploadData) { [weak self] (url) in
+                    
                     guard let imageUrl = url else {return}
-                        
-                        self.logoImageUrl = imageUrl
-                }
+                    
+                    self?.logoImageUrl = imageUrl
             }
+            
         }
         
         dismiss(animated: true, completion: nil)
     }
+    
 }
