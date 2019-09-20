@@ -71,6 +71,10 @@ class FirebaseManager {
 
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
+        var openTimestamp: Double?
+        var location: GeoPoint?
+        var detailImage: String?
+        
         db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
@@ -86,13 +90,20 @@ class FirebaseManager {
                     guard let name = data[Truck.name.rawValue] as? String,
                         let logoImage = data[Truck.logoImage.rawValue] as? String,
                         let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String,
-                        let openTimestamp = data[Truck.openTime.rawValue] as? Double,
-                        let location = data[Truck.location.rawValue] as? GeoPoint else {return}
+                        let story = data[Truck.story.rawValue] as? String else {return}
+                    
+                         openTimestamp = data[Truck.openTime.rawValue] as? Double
+                         location = data[Truck.location.rawValue] as? GeoPoint
+                        detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,
-                                          name, logoImage, story, open,
-                                          openTimestamp, location)
+                                          name, logoImage,
+                                          detailImage,
+                                          story,
+                                          open,
+                                          openTimestamp,
+                                          location)
+                    
                     rtnTruckDatas.append((truck, documentChange.type))
                 })
                 completion(rtnTruckDatas)
@@ -157,6 +168,21 @@ class FirebaseManager {
         
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.story.rawValue: text
+        ]) { (error) in
+            if let err = error {
+                print("Error modify: \(err)")
+            } else {
+                print("Status modify Success")
+            }
+        }
+    }
+    
+    func updataDetailImageText(image: String) {
+        
+        guard let truckId = bossTruck?.id else { return }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.detailImage.rawValue: image
         ]) { (error) in
             if let err = error {
                 print("Error modify: \(err)")
@@ -282,6 +308,8 @@ class FirebaseManager {
     
     func getBossTruck(completion: @escaping (TruckData?) -> Void) {
         
+        var detailImage: String?
+        
         guard let truckId = currentUser?.truckId else {
             completion(nil)
             return
@@ -297,8 +325,10 @@ class FirebaseManager {
                 let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
                 let story = snapshot.data()?[Truck.story.rawValue] as? String
                 else {return}
+        
+            detailImage = snapshot.data()?[Truck.detailImage.rawValue] as? String
             
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
+            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil)
             
             completion(self.bossTruck)
         }

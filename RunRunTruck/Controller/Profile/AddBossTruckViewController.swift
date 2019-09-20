@@ -17,13 +17,13 @@ class AddBossTruckViewController: UIViewController {
     
     var logoImageUrl: String?
     
-    let openChoseCamera = OpenChoseCameraManager()
+    let openChoseCameraManager = OpenChoseCameraManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setLayout()
-        openChoseCamera.delegate = self
+        openChoseCameraManager.delegate = self
   
     }
     
@@ -47,13 +47,14 @@ class AddBossTruckViewController: UIViewController {
     }
     
     @IBAction func upLoadImageBtn(_ sender: Any) {
-        showImagePickerAlert()
+        
+        openChoseCameraManager.showImagePickerAlert(self)
     }
     
-    func showImagePickerAlert() {
-        
-        openChoseCamera.showImagePickerAlert(self)
-    }
+//    func showImagePickerAlert() {
+//
+//        openChoseCameraManager.showImagePickerAlert(self)
+//    }
     
     @IBAction func clickSendBtn(_ sender: Any) {
         
@@ -88,13 +89,27 @@ class AddBossTruckViewController: UIViewController {
 }
 
 extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
-
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        openChoseCamera.upLoadImage(image: showLogoImage, info: info)
-        
-        dismiss(animated: true, completion: nil)
+        openChoseCameraManager.upLoadImage(
+            image: showLogoImage,
+            info: info) { [weak self] (data) in
+                
+                guard let data = data else {return}
+                
+                FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: Truck.logoImage.rawValue,
+                    imageName: data.1,
+                    data: data.0) { (url) in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        FirebaseManager.shared.updataUserImage(image: imageUrl)
+                }
+                
+                self?.dismiss(animated: true, completion: nil)
+        }
     }
-    
 }

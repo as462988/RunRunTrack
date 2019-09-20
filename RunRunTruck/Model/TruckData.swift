@@ -21,6 +21,8 @@ enum Truck: String {
     
     case logoImage
     
+    case detailImage
+    
     case story
     
     case openTime
@@ -39,6 +41,8 @@ struct TruckData {
     
     let logoImage: String
     
+    let detailImage: String?
+    
     let open: Bool
     
     let story: String
@@ -49,11 +53,14 @@ struct TruckData {
     
     var address: String = ""
     
-    init(_ id: String, _ name: String, _ logoImage: String, _ story: String, _ open: Bool,
+    init(_ id: String, _ name: String,
+         _ logoImage: String, _ detailImage: String?,
+         _ story: String, _ open: Bool,
          _ openTime: Double?, _ location: GeoPoint?) {
         self.id = id
         self.name = name
         self.logoImage = logoImage
+        self.detailImage = detailImage
         self.open = open
         self.story = story
         self.openTime = openTime

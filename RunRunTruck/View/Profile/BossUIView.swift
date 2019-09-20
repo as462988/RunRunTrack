@@ -11,7 +11,7 @@ import GoogleMaps
 import CoreLocation
 import Contacts
 
-protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, OpenChoseCameraManagerDelegate, AnyObject {
+protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickChenckBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
@@ -47,7 +47,7 @@ class BossUIView: UIView {
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
     @IBOutlet weak var pinImage: UIImageView!
-    
+        
     weak var delegate: BossUIViewDelegate?
 
     override func awakeFromNib() {
@@ -83,9 +83,10 @@ class BossUIView: UIView {
         mapView.bringSubviewToFront(pinImage)
     }
 
-    func setupValue(name: String, story: String, image: String, open: Bool) {
-
+    func setupValue(name: String, story: String, image: String, detailImage: String, open: Bool) {
+        
         logoImage.loadImage(image, placeHolder: UIImage.asset(.Icon_logo))
+        self.detailImage.loadImage(detailImage)
         nameLabel.text = name
         storyTextView.text = story
         openSwitch.isOn = open

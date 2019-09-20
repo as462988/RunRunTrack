@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class BossInfoViewController: UIViewController, BossUIViewDelegate {
+class BossInfoViewController: UIViewController {
 
     @IBOutlet weak var bossView: BossUIView! {
         didSet {
@@ -27,6 +27,8 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
         
         self.navigationController?.isNavigationBarHidden = true
         
+        openChoseCamera.delegate = self
+        
         FirebaseManager.shared.getBossTruck { [weak self](data) in
             
             guard let data = data else {return}
@@ -34,6 +36,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
             self?.bossView.setupValue(name: data.name,
                                 story: data.story,
                                 image: data.logoImage,
+                                detailImage: data.detailImage ?? "",
                                 open: data.open)
         }
 
@@ -56,8 +59,10 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
                 + location.city + location.street
             
         }
-        
     }
+}
+
+extension BossInfoViewController: BossUIViewDelegate {
     
     func clickChenckBtn() {
         
@@ -84,13 +89,13 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     
     func creatQrcode() {
         
-       guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-        withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+        guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
         
         qrcodeVc.modalPresentationStyle = .overCurrentContext
         
         present(qrcodeVc, animated: false, completion: nil)
-
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -100,5 +105,29 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     func clickChangeImage() {
         print("aaaaa")
         openChoseCamera.showImagePickerAlert(self)
+    }
+}
+
+extension BossInfoViewController: OpenChoseCameraManagerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        openChoseCamera.upLoadImage(
+            image: bossView.detailImage,
+            info: info) { (data) in
+                guard let data = data else {return}
+                
+                FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: Truck.detailImage.rawValue,
+                    imageName: data.1,
+                    data: data.0, completion: { (url) in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        FirebaseManager.shared.updataDetailImageText(image: imageUrl)
+                })
+        }
+        
     }
 }

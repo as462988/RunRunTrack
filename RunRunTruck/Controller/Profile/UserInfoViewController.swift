@@ -60,8 +60,22 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        openChoseCameraManager.upLoadImage(image: userView.logoImage,
-                                           info: info)
+        openChoseCameraManager.upLoadImage(
+            image: userView.logoImage,
+            info: info) { (data) in
+                
+                guard let data = data else {return}
+                
+                FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: Truck.logoImage.rawValue,
+                    imageName: data.1,
+                    data: data.0) { (url) in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        FirebaseManager.shared.updataUserImage(image: imageUrl)
+                }
+        }
         dismiss(animated: true, completion: nil)
     }
 }

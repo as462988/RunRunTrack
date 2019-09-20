@@ -57,7 +57,9 @@ class OpenChoseCameraManager {
         
     }
     
-    func upLoadImage(image: UIImageView, info: [UIImagePickerController.InfoKey: Any]){
+    func upLoadImage(image: UIImageView,
+                     info: [UIImagePickerController.InfoKey: Any],
+                     completion: @escaping ((Data, String)?) -> Void) {
         
         var selectedImageFromPicker: UIImage?
         let uniqueString = NSUUID().uuidString
@@ -70,19 +72,12 @@ class OpenChoseCameraManager {
         
         if var selectedImage = selectedImageFromPicker {
             
-            selectedImage = selectedImage.resizeImage(targetSize: CGSize(width: 200, height: 200))
+            selectedImage = selectedImage.resizeImage(targetSize: CGSize(width: 400, height: 400))
             
             guard let uploadData = selectedImage.pngData() else {return}
-            
-            FirebaseStorageManager.shared.upLoadUserLogo(
-                imageName: uniqueString,
-                data: uploadData) { (url) in
-                    
-                    guard let imageUrl = url else {return}
-                    
-                    FirebaseManager.shared.updataUserImage(image: imageUrl)
-            }
-            
+
+            completion((uploadData, uniqueString))
+
         }
         
     }

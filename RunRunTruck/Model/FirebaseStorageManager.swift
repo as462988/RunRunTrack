@@ -15,9 +15,9 @@ class FirebaseStorageManager {
     
     let storageRef = Storage.storage().reference()
     // 上傳圖片
-    func upLoadUserLogo(imageName: String, data: Data, completion: @escaping ((String)?) -> Void) {
+    func upLoadUserLogo(type: String, imageName: String, data: Data, completion: @escaping ((String)?) -> Void) {
         
-        let upLoadImageRef = storageRef.child("\(imageName).jpg")
+        let upLoadImageRef = storageRef.child("\(type)/\(imageName).jpg")
         
         let metadata = StorageMetadata()
         
