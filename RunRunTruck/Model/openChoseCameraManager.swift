@@ -9,18 +9,16 @@
 import Foundation
 import UIKit
 
-protocol openChoseCameraManagerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+protocol OpenChoseCameraManagerDelegate: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
 }
 class OpenChoseCameraManager {
     
-    weak var delegate: openChoseCameraManagerDelegate?
+    weak var delegate: OpenChoseCameraManagerDelegate?
     
     func showImagePickerAlert(_ vc: UIViewController) {
         
         let imagePickerController = UIImagePickerController()
-        
-//       weak var delegate: openChoseCameraManagerDelegate?
         
         imagePickerController.delegate = delegate
         
@@ -58,4 +56,35 @@ class OpenChoseCameraManager {
         vc.present(imagePickerAlertController, animated: true, completion: nil)
         
     }
+    
+    func upLoadImage(image: UIImageView, info: [UIImagePickerController.InfoKey: Any]){
+        
+        var selectedImageFromPicker: UIImage?
+        let uniqueString = NSUUID().uuidString
+        
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            selectedImageFromPicker = pickedImage
+            image.image = selectedImageFromPicker
+        }
+        
+        if var selectedImage = selectedImageFromPicker {
+            
+            selectedImage = selectedImage.resizeImage(targetSize: CGSize(width: 200, height: 200))
+            
+            guard let uploadData = selectedImage.pngData() else {return}
+            
+            FirebaseStorageManager.shared.upLoadUserLogo(
+                imageName: uniqueString,
+                data: uploadData) { (url) in
+                    
+                    guard let imageUrl = url else {return}
+                    
+                    FirebaseManager.shared.updataUserImage(image: imageUrl)
+            }
+            
+        }
+        
+    }
+    
 }

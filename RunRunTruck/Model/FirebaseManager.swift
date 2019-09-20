@@ -206,10 +206,9 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String] else { return }
             
-            if let image = data[User.image.rawValue] as? String {
-            
-            self?.currentUser = UserData(name: name, email: email, image: image, badge: badge)
-            
+            if let image = data[User.logoImage.rawValue] as? String {
+
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email, badge: badge)
@@ -243,7 +242,7 @@ class FirebaseManager {
         }
         
         db.collection(User.user.rawValue).document(uid).updateData([
-            User.image.rawValue: image
+            User.logoImage.rawValue: image
             ])
     }
     
@@ -397,7 +396,7 @@ class FirebaseManager {
             Truck.chatRoom.rawValue).addDocument(data: [
                 Truck.name.rawValue: name,
                 User.uid.rawValue: uid,
-                User.image.rawValue: image,
+                User.logoImage.rawValue: image,
                 User.text.rawValue: text,
                 User.createTime.rawValue: Date().timeIntervalSince1970
             ]) { (error) in
@@ -468,7 +467,7 @@ class FirebaseManager {
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
-                    let image = data[User.image.rawValue] as? String,
+                    let image = data[User.logoImage.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
                 
                 if documentChange.type == .added {

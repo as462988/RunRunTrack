@@ -53,7 +53,6 @@ class AddBossTruckViewController: UIViewController {
     func showImagePickerAlert() {
         
         openChoseCamera.showImagePickerAlert(self)
-        
     }
     
     @IBAction func clickSendBtn(_ sender: Any) {
@@ -88,34 +87,12 @@ class AddBossTruckViewController: UIViewController {
     }
 }
 
-extension AddBossTruckViewController: openChoseCameraManagerDelegate {
+extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        var selectedImageFromPicker: UIImage?
-        let uniqueString = NSUUID().uuidString
-        
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-         
-            selectedImageFromPicker = pickedImage
-            showLogoImage.image = selectedImageFromPicker
-        }
-        
-        if let selectedImage = selectedImageFromPicker {
-            
-            guard let uploadData = selectedImage.pngData() else {return}
-            
-             FirebaseStorageManager.shared.upLoadTruckLogo(
-                imageName: uniqueString,
-                data: uploadData) { [weak self] (url) in
-                    
-                    guard let imageUrl = url else {return}
-                    
-                    self?.logoImageUrl = imageUrl
-            }
-            
-        }
+        openChoseCamera.upLoadImage(image: showLogoImage, info: info)
         
         dismiss(animated: true, completion: nil)
     }

@@ -11,17 +11,19 @@ import GoogleMaps
 import CoreLocation
 import Contacts
 
-protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
+protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, OpenChoseCameraManagerDelegate, AnyObject {
     func clickChenckBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
     func creatQrcode()
+    func clickChangeImage()
 }
 
 class BossUIView: UIView {
 
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var detailImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var storyTextView: UITextView! {
         didSet {
@@ -55,7 +57,11 @@ class BossUIView: UIView {
         openView.isHidden = true
         
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
-    
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickChangeImage))
+        
+        detailImage.addGestureRecognizer(tapGestureRecognizer)
+        
         openSwitch.addTarget(self, action: #selector(onChange), for: .valueChanged)
         
         cancelBtn.addTarget(self, action: #selector(clickCancelBtn), for: .touchUpInside)
@@ -157,5 +163,9 @@ class BossUIView: UIView {
         self.delegate?.creatQrcode()
 
     }
-
+    
+    @objc func clickChangeImage() {
+        
+        self.delegate?.clickChangeImage()
+    }
 }

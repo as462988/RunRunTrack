@@ -31,14 +31,19 @@ class UserInfoViewController: UIViewController {
             
             guard let data = userData else {return}
             
-            if data.image == nil {
+            if data.logoImage == nil {
             
             self.userView.setupValue(name: data.name)
                 
             } else {
-                self.userView.setupValue(name: data.name, image: data.image)
+                self.userView.setupValue(name: data.name, image: data.logoImage)
             }
         }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        userView.setLayout()
     }
     
 }
@@ -50,36 +55,13 @@ extension UserInfoViewController: UserUIViewDelegate {
     }
 }
 
-extension UserInfoViewController: openChoseCameraManagerDelegate {
+extension UserInfoViewController: OpenChoseCameraManagerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        var selectedImageFromPicker: UIImage?
-        let uniqueString = NSUUID().uuidString
-        
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            selectedImageFromPicker = pickedImage
-            userView.logoImage.image = selectedImageFromPicker
-        }
-        
-        if let selectedImage = selectedImageFromPicker {
-            
-            guard let uploadData = selectedImage.pngData() else {return}
-            
-            FirebaseStorageManager.shared.upLoadTruckLogo(
-                imageName: uniqueString,
-                data: uploadData) { (url) in
-                    
-                    guard let imageUrl = url else {return}
-                    
-                    FirebaseManager.shared.updataUserImage(image: imageUrl)
-            }
-            
-        }
-        
+        openChoseCameraManager.upLoadImage(image: userView.logoImage,
+                                           info: info)
         dismiss(animated: true, completion: nil)
-        
     }
 }

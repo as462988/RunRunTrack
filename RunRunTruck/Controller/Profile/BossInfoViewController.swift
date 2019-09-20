@@ -20,6 +20,7 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     var latitude: Double?
     var longitude: Double?
     let addressManager = AddressManager()
+    let openChoseCamera = OpenChoseCameraManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,5 +95,10 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
+    }
+    
+    func clickChangeImage() {
+        print("aaaaa")
+        openChoseCamera.showImagePickerAlert(self)
     }
 }

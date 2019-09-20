@@ -134,7 +134,7 @@ class ChatroomViewController: UIViewController {
         
         guard let truckID = truckData?.id,
             let name = FirebaseManager.shared.currentUser?.name,
-            let image = FirebaseManager.shared.currentUser?.image else {
+            let image = FirebaseManager.shared.currentUser?.logoImage else {
                 print("uid nil")
                 return
         }
@@ -189,7 +189,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
                 withReuseIdentifier: cellForOther,
                 for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
             
-             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: messageData.image)
+             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: messageData.logoImage)
              chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
             return chatCell

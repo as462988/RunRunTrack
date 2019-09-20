@@ -23,7 +23,6 @@ class UserUIView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setLayout()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
         
         upLoadImage.addTarget(self, action: #selector(choseUpLoadImage), for: .touchUpInside)
