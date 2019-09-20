@@ -35,8 +35,8 @@ class BossUIView: UIView {
     @IBOutlet weak var creatQrcodeBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var animationView: AnimationView!
-    
+    @IBOutlet weak var tapAnimationView: AnimationView!
+
     //open View
     @IBOutlet weak var openView: UIView!
     @IBOutlet weak var mapView: GMSMapView! {
@@ -49,8 +49,9 @@ class BossUIView: UIView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
-    @IBOutlet weak var pinImage: UIImageView!
-        
+        @IBOutlet weak var loactionAnimationView: AnimationView!
+//    @IBOutlet weak var pinImage: UIImageView!
+    
     weak var delegate: BossUIViewDelegate?
 
     override func awakeFromNib() {
@@ -83,7 +84,7 @@ class BossUIView: UIView {
         mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
-        mapView.bringSubviewToFront(pinImage)
+        mapView.bringSubviewToFront(loactionAnimationView)
     }
 
     func setupValue(name: String, story: String, image: String, detailImage: String, open: Bool) {

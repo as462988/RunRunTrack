@@ -157,16 +157,27 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoX-fJ-Y7n" customClass="GMSMapView">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="350"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_button" translatesAutoresizingMaskIntoConstraints="NO" id="eXE-Ic-q2D">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yw-xS-Nk9" customClass="AnimationView" customModule="Lottie">
                                                         <rect key="frame" x="172" y="160" width="30" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="30" id="mdF-Sv-NOA"/>
+                                                            <constraint firstAttribute="width" secondItem="1yw-xS-Nk9" secondAttribute="height" multiplier="1:1" id="9Ke-AX-bcw"/>
+                                                            <constraint firstAttribute="width" constant="30" id="fec-0h-Lt2"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_button" translatesAutoresizingMaskIntoConstraints="NO" id="eXE-Ic-q2D">
+                                                        <rect key="frame" x="162" y="150" width="50" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="mdF-Sv-NOA"/>
                                                             <constraint firstAttribute="width" secondItem="eXE-Ic-q2D" secondAttribute="height" multiplier="1:1" id="u9i-7c-V51"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.1759090297" green="0.57496153999999999" blue="0.78508428100000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="1yw-xS-Nk9" firstAttribute="centerX" secondItem="UoX-fJ-Y7n" secondAttribute="centerX" id="2HP-cs-AWK"/>
+                                                    <constraint firstItem="1yw-xS-Nk9" firstAttribute="centerY" secondItem="UoX-fJ-Y7n" secondAttribute="centerY" id="Hvi-06-cGb"/>
                                                     <constraint firstItem="eXE-Ic-q2D" firstAttribute="centerY" secondItem="UoX-fJ-Y7n" secondAttribute="centerY" id="MYW-c9-dzq"/>
                                                     <constraint firstItem="eXE-Ic-q2D" firstAttribute="centerX" secondItem="UoX-fJ-Y7n" secondAttribute="centerX" id="NT7-RK-xg4"/>
                                                     <constraint firstAttribute="height" constant="350" id="lqj-OX-E2r"/>
@@ -231,12 +242,12 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="addressLabel" destination="l4V-rm-cnu" id="1Xr-i2-P9F"/>
-                                    <outlet property="animationView" destination="IHm-xN-Bxq" id="d4Y-SN-qLq"/>
                                     <outlet property="backgroundView" destination="zsb-T0-NqB" id="bAR-EJ-4gJ"/>
                                     <outlet property="cancelBtn" destination="7wm-9a-XHR" id="euA-na-fnG"/>
                                     <outlet property="creatQrcodeBtn" destination="YPt-TE-IGH" id="omv-Ti-5rX"/>
                                     <outlet property="detailImage" destination="OIx-Yy-t50" id="BfN-Dk-k97"/>
                                     <outlet property="infoView" destination="Qzt-k4-dQN" id="mXN-h7-brZ"/>
+                                    <outlet property="loactionAnimationView" destination="1yw-xS-Nk9" id="Cj4-bQ-4nY"/>
                                     <outlet property="logoImage" destination="dNi-7B-o9P" id="TP8-ZL-H0i"/>
                                     <outlet property="logoOutBtn" destination="ZGO-Kq-lC4" id="db0-aC-am5"/>
                                     <outlet property="mapView" destination="UoX-fJ-Y7n" id="d7X-Zp-UC5"/>
@@ -244,8 +255,8 @@
                                     <outlet property="openBtn" destination="woF-YX-Vud" id="PoR-nM-m0b"/>
                                     <outlet property="openSwitch" destination="Gyh-FQ-fb9" id="XJN-Qn-xas"/>
                                     <outlet property="openView" destination="4H8-97-jLF" id="Txg-w2-JeJ"/>
-                                    <outlet property="pinImage" destination="eXE-Ic-q2D" id="I6p-Aa-9Si"/>
                                     <outlet property="storyTextView" destination="eDl-QH-9Ir" id="sop-Ft-yLy"/>
+                                    <outlet property="tapAnimationView" destination="IHm-xN-Bxq" id="u9d-qj-CTY"/>
                                 </connections>
                             </view>
                         </subviews>

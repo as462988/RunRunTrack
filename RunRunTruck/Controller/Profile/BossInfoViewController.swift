@@ -45,22 +45,30 @@ class BossInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        playAnimation()
+        playTapAnimation()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func playAnimation() {
+    func playTapAnimation() {
 
-        bossView.animationView.animation = Animation.named(Lottie.handGesture.rawValue)
-        bossView.animationView.loopMode = .repeat(2)
-        bossView.animationView.play()
+        bossView.tapAnimationView.animation = Animation.named(Lottie.handGesture.rawValue)
+        bossView.tapAnimationView.loopMode = .repeat(2)
+        bossView.tapAnimationView.play()
+    }
     
+    func playLocationAnimation() {
+        
+        bossView.loactionAnimationView.animation = Animation.named(Lottie.location.rawValue)
+        bossView.loactionAnimationView.loopMode = .loop
+        bossView.loactionAnimationView.play()
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
+        playLocationAnimation()
         
         self.latitude = position.target.latitude
         self.longitude = position.target.longitude
