@@ -54,7 +54,7 @@ class AuthViewController: UIViewController {
     
     func playAnimation() {
         
-        animationView.animation = Animation.named("lf30_editor_envOAW")
+        animationView.animation = Animation.named(Lottie.profile.rawValue)
         animationView.loopMode = .loop
         animationView.play()
     }

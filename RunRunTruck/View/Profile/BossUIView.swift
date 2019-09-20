@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import Contacts
+import Lottie
 
 protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickChenckBtn()
@@ -34,6 +35,8 @@ class BossUIView: UIView {
     @IBOutlet weak var creatQrcodeBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var animationView: AnimationView!
+    
     //open View
     @IBOutlet weak var openView: UIView!
     @IBOutlet weak var mapView: GMSMapView! {

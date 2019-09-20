@@ -62,17 +62,7 @@ class BadgeViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = .white
  
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear")
- 
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = true
-
-    }
-    
+        
     func getUserBadgeisAchieved() {
         
         guard let user = FirebaseManager.shared.currentUser else {

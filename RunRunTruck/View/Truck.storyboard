@@ -36,12 +36,12 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VBW-pP-Orc">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3To-vy-zcP">
                                     <size key="itemSize" width="382" height="243"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="16" minY="20" maxX="16" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckCell" id="dZ4-Vb-kFp" customClass="TrcukCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
@@ -52,24 +52,35 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
-                                                    <rect key="frame" x="18" y="10" width="354" height="162"/>
+                                                    <rect key="frame" x="28" y="10" width="334" height="162"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSa-aj-Ger">
-                                                    <rect key="frame" x="18" y="177" width="354" height="21.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <rect key="frame" x="28" y="182" width="334" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-YE-AYy" customClass="AnimationView" customModule="Lottie">
+                                                    <rect key="frame" x="311" y="182" width="51" height="51"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="OKK-YE-AYy" secondAttribute="height" multiplier="1:1" id="odB-M0-4FF"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="10" id="801-4g-eJX"/>
+                                            <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="20" id="801-4g-eJX"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="2:3" id="GzL-gb-zj9"/>
+                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="Lf1-pJ-mcj"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GSa-aj-Ger" secondAttribute="bottom" id="TIi-5U-lfK"/>
-                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="10" id="Y5i-aF-bhH"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="20" id="Y5i-aF-bhH"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="cBj-9T-H7y"/>
-                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="top" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="5" id="cDf-ry-JIR"/>
+                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="top" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="10" id="cDf-ry-JIR"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" constant="10" id="eUK-PA-Fhj"/>
+                                            <constraint firstAttribute="bottom" secondItem="OKK-YE-AYy" secondAttribute="bottom" constant="10" id="mJu-3H-2fl"/>
+                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="top" secondItem="GSa-aj-Ger" secondAttribute="top" id="mh9-Vx-L6b"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="leading" secondItem="1O9-yr-SSD" secondAttribute="leading" id="pfi-hd-zsI"/>
                                         </constraints>
                                         <connections>
@@ -167,6 +178,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faO-Ue-vG4">
                                         <rect key="frame" x="352.5" y="235.5" width="41.5" height="41.5"/>
+                                        <color key="backgroundColor" red="0.047058823529411764" green="0.10588235294117647" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="faO-Ue-vG4" secondAttribute="height" multiplier="1:1" id="mn9-Iy-eLn"/>
                                         </constraints>

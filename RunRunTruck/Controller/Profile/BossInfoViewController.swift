@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Lottie
 
 class BossInfoViewController: UIViewController {
 
@@ -39,11 +40,23 @@ class BossInfoViewController: UIViewController {
                                 detailImage: data.detailImage ?? "",
                                 open: data.open)
         }
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        handGester()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    func handGester() {
+
+        bossView.animationView.animation = Animation.named(Lottie.handGesture.rawValue)
+        bossView.animationView.loopMode = .repeat(2)
+        bossView.animationView.play()
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {

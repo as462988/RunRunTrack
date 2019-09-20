@@ -40,10 +40,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzt-k4-dQN">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_car" translatesAutoresizingMaskIntoConstraints="NO" id="OIx-Yy-t50">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OIx-Yy-t50">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="287.5"/>
-                                                <color key="backgroundColor" red="0.30196078430000001" green="0.31764705879999999" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.2470588235" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                             </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHm-xN-Bxq" customClass="AnimationView" customModule="Lottie">
+                                                <rect key="frame" x="342.5" y="225.5" width="51.5" height="52"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="IHm-xN-Bxq" secondAttribute="height" multiplier="1:1" id="lUV-Pv-F6C"/>
+                                                </constraints>
+                                            </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dNi-7B-o9P">
                                                 <rect key="frame" x="155.5" y="235.5" width="103.5" height="103.5"/>
                                                 <constraints>
@@ -126,9 +133,12 @@
                                             <constraint firstItem="eDl-QH-9Ir" firstAttribute="top" secondItem="rfA-Vj-Znc" secondAttribute="bottom" constant="10" id="XOH-61-0J5"/>
                                             <constraint firstItem="rfA-Vj-Znc" firstAttribute="trailing" secondItem="Qzt-k4-dQN" secondAttribute="centerX" id="a9P-xY-aFz"/>
                                             <constraint firstItem="Gyh-FQ-fb9" firstAttribute="centerY" secondItem="rfA-Vj-Znc" secondAttribute="centerY" id="akT-fB-1f5"/>
+                                            <constraint firstItem="IHm-xN-Bxq" firstAttribute="width" secondItem="Qzt-k4-dQN" secondAttribute="width" multiplier="1:8" id="bDu-UD-C6d"/>
                                             <constraint firstItem="rfA-Vj-Znc" firstAttribute="top" secondItem="BZf-9X-hnF" secondAttribute="bottom" constant="20" id="buY-fa-Hnl"/>
+                                            <constraint firstItem="IHm-xN-Bxq" firstAttribute="trailing" secondItem="OIx-Yy-t50" secondAttribute="trailing" constant="-20" id="d9I-Bm-Meu"/>
                                             <constraint firstAttribute="trailing" secondItem="Hm1-oz-oUG" secondAttribute="trailing" constant="20" id="dfY-0i-ZA5"/>
                                             <constraint firstItem="dNi-7B-o9P" firstAttribute="centerY" secondItem="OIx-Yy-t50" secondAttribute="bottom" id="fRe-0E-S4y"/>
+                                            <constraint firstItem="IHm-xN-Bxq" firstAttribute="bottom" secondItem="OIx-Yy-t50" secondAttribute="bottom" constant="-10" id="hxT-d1-snT"/>
                                             <constraint firstItem="OIx-Yy-t50" firstAttribute="height" secondItem="Qzt-k4-dQN" secondAttribute="height" multiplier="1:3" id="mtV-Ul-57y"/>
                                             <constraint firstAttribute="trailing" secondItem="OIx-Yy-t50" secondAttribute="trailing" id="r6V-8d-Rkw"/>
                                             <constraint firstItem="OIx-Yy-t50" firstAttribute="leading" secondItem="Qzt-k4-dQN" secondAttribute="leading" id="sKn-cl-I6k"/>
@@ -221,6 +231,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="addressLabel" destination="l4V-rm-cnu" id="1Xr-i2-P9F"/>
+                                    <outlet property="animationView" destination="IHm-xN-Bxq" id="d4Y-SN-qLq"/>
                                     <outlet property="backgroundView" destination="zsb-T0-NqB" id="bAR-EJ-4gJ"/>
                                     <outlet property="cancelBtn" destination="7wm-9a-XHR" id="euA-na-fnG"/>
                                     <outlet property="creatQrcodeBtn" destination="YPt-TE-IGH" id="omv-Ti-5rX"/>
@@ -458,7 +469,6 @@
     </scenes>
     <resources>
         <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
-        <image name="Icon_car" width="40" height="40"/>
         <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
         <image name="Icon_logout" width="170.66667175292969" height="170.66667175292969"/>
         <image name="Icon_qrcode" width="170.66667175292969" height="170.66667175292969"/>

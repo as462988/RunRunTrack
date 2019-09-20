@@ -19,4 +19,15 @@ class TrcukCollectionViewCell: UICollectionViewCell {
         
         truckNameLabel.text = name
     }
+    
+    func modifyLayout() {
+        
+    }
+    
+    override func layoutSubviews() {
+        
+        truckImage.layer.cornerRadius = 10
+        truckImage.clipsToBounds = true
+    }
+    
 }
