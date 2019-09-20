@@ -62,28 +62,40 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-YE-AYy" customClass="AnimationView" customModule="Lottie">
                                                     <rect key="frame" x="311" y="182" width="51" height="51"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="OKK-YE-AYy" secondAttribute="height" multiplier="1:1" id="odB-M0-4FF"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4V-yp-uRw">
+                                                    <rect key="frame" x="28" y="211" width="278" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="20" id="801-4g-eJX"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="R4V-yp-uRw" secondAttribute="bottom" id="8FB-jW-wYJ"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="2:3" id="GzL-gb-zj9"/>
                                             <constraint firstItem="OKK-YE-AYy" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="Lf1-pJ-mcj"/>
+                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="leading" secondItem="R4V-yp-uRw" secondAttribute="trailing" constant="5" id="MOm-hz-3i6"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GSa-aj-Ger" secondAttribute="bottom" id="TIi-5U-lfK"/>
+                                            <constraint firstItem="R4V-yp-uRw" firstAttribute="top" secondItem="GSa-aj-Ger" secondAttribute="bottom" constant="5" id="Wko-ke-qaI"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="20" id="Y5i-aF-bhH"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="cBj-9T-H7y"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="top" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="10" id="cDf-ry-JIR"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" constant="10" id="eUK-PA-Fhj"/>
+                                            <constraint firstItem="R4V-yp-uRw" firstAttribute="leading" secondItem="GSa-aj-Ger" secondAttribute="leading" id="ioH-xe-eqc"/>
                                             <constraint firstAttribute="bottom" secondItem="OKK-YE-AYy" secondAttribute="bottom" constant="10" id="mJu-3H-2fl"/>
                                             <constraint firstItem="OKK-YE-AYy" firstAttribute="top" secondItem="GSa-aj-Ger" secondAttribute="top" id="mh9-Vx-L6b"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="leading" secondItem="1O9-yr-SSD" secondAttribute="leading" id="pfi-hd-zsI"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="addressLabel" destination="R4V-yp-uRw" id="Fme-bi-x9L"/>
+                                            <outlet property="animationView" destination="OKK-YE-AYy" id="lE4-X5-RBJ"/>
                                             <outlet property="truckImage" destination="1O9-yr-SSD" id="twY-jr-zeW"/>
                                             <outlet property="truckNameLabel" destination="GSa-aj-Ger" id="7Ys-Kf-YsB"/>
                                         </connections>

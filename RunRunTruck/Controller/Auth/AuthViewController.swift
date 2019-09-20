@@ -22,6 +22,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var singInBtn: UIButton!
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var errorResultLabel: UILabel!
     
     @IBOutlet weak var animationView: AnimationView!
     private var uiStatus: LoginVcUIStatus = .userLogin
@@ -49,6 +50,7 @@ class AuthViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        errorResultLabel.isHidden = true
         playAnimation()
     }
     
@@ -74,20 +76,29 @@ class AuthViewController: UIViewController {
         
         authVC.modalPresentationStyle = .overCurrentContext
         present(authVC, animated: false, completion: nil)
-
+        emptyText()
     }
     
     @objc func handleLogin() {
         //登入
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
-        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] isSuccess in
+        
+        FirebaseManager.shared.singInWithEmail(email: email, psw: psw) { [weak self] (isSuccess, result) in
+            
+            guard isSuccess else {
+                self?.errorResultLabel.isHidden = false
+                self?.errorResultLabel.text = result
+                return
+            }
+            
             guard let uiStatus = self?.uiStatus else {
                 return
             }
-
+            
             switch uiStatus {
             case .userLogin:
+                
                 FirebaseManager.shared.getCurrentUserData(completion: {[weak self] (data) in
                     guard data != nil else {
                         print("老闆使用了吃貨登入")
@@ -126,8 +137,9 @@ class AuthViewController: UIViewController {
                         as? TabBarViewController else { return }
                     rootVC.tabBar.isHidden = false
                 })
-
+                
             }
+        
         }
 
     }
@@ -148,8 +160,13 @@ class AuthViewController: UIViewController {
             emailTextField.text = "boss@gmail.com"
             pswTextField.text = "bossboss"
         }
-//        emailTextField.text = ""
-//        pswTextField.text = ""
+//        emptyText()
+    }
+    
+    func emptyText() {
+        emailTextField.text = ""
+        pswTextField.text = ""
+        errorResultLabel.text = ""
     }
 }
 

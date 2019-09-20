@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import Lottie
 
 class TrcukCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var truckImage: UIImageView!
     
     @IBOutlet weak var truckNameLabel: UILabel!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var animationView: AnimationView!
     
     func setValue(name: String, image: String) {
         
@@ -19,11 +24,7 @@ class TrcukCollectionViewCell: UICollectionViewCell {
         
         truckNameLabel.text = name
     }
-    
-    func modifyLayout() {
-        
-    }
-    
+
     override func layoutSubviews() {
         
         truckImage.layer.cornerRadius = 10

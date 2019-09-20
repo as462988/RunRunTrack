@@ -370,35 +370,32 @@ class FirebaseManager {
     }
     
     // MARK: About Register/SingIn
-    func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
+    func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-            
+
             guard error == nil else {
                 
-                //TODO: 顯示無法註冊的原因
-                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
-                
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                completion(false, errorCode.errorMessage)
                 return
             }
-            print("User Regiuter Success")
-            completion()
+            completion(true, "Success")
         }
     }
 
-    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
             
             guard error == nil else {
-                //TODO: 顯示無法登入的原因
-                print("didn't singIn")
-                completion(false)
+
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                completion(false, errorCode.errorMessage)
                 return
             }
-            
-            print("Success")
-            completion(true)
+
+            completion(true, "Success")
         }
     }
 

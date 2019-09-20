@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class TruckViewController: UIViewController {
     
@@ -93,9 +94,6 @@ class TruckViewController: UIViewController {
                                 truckData.0.address = address
                                 self?.disOpenTruckArr.append(truckData.0)
                                 
-//                                DispatchQueue.main.async {
-//                                    self?.truckCollectionView.reloadData()
-//                                }
                         })
                         
                         } else {
@@ -130,6 +128,13 @@ class TruckViewController: UIViewController {
 
         self.navigationController?.isNavigationBarHidden = false
     }
+    
+    func handGester(view: AnimationView) {
+        
+        view.animation = Animation.named(Lottie.openTruck.rawValue)
+        view.loopMode = .loop
+        view.play()
+    }
 
 }
 
@@ -138,7 +143,7 @@ UICollectionViewDelegate,
 UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      print(openTruckArr.count)
+        print(openTruckArr.count)
         print("\(openTruckArr.count) + \(disOpenTruckArr.count)")
         return openTruckArr.count + disOpenTruckArr.count
     }
@@ -155,6 +160,17 @@ UICollectionViewDataSource {
         
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
                            image: allTruckArr[indexPath.item].detailImage ?? "")
+        
+        if allTruckArr[indexPath.item].open {
+            
+            truckCell.animationView.isHidden = false
+//            truckCell.addressLabel.isHidden = false
+//            truckCell.addressLabel.text = allTruckArr[indexPath.item].address
+            handGester(view: truckCell.animationView)
+        } else {
+            truckCell.animationView.isHidden = true
+//            truckCell.addressLabel.isHidden = true
+        }
 
         return truckCell
     }

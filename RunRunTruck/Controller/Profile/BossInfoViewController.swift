@@ -45,18 +45,19 @@ class BossInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        handGester()
+        playAnimation()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    func handGester() {
+    func playAnimation() {
 
         bossView.animationView.animation = Animation.named(Lottie.handGesture.rawValue)
         bossView.animationView.loopMode = .repeat(2)
         bossView.animationView.play()
+    
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -120,7 +121,6 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func clickChangeImage() {
-        print("aaaaa")
         openChoseCamera.showImagePickerAlert(self)
     }
 }
