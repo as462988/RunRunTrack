@@ -51,11 +51,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="243"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
-                                                    <rect key="frame" x="18" y="10" width="354" height="121.5"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
+                                                    <rect key="frame" x="18" y="10" width="354" height="162"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSa-aj-Ger">
-                                                    <rect key="frame" x="18" y="136.5" width="354" height="21.5"/>
+                                                    <rect key="frame" x="18" y="177" width="354" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="10" id="801-4g-eJX"/>
-                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="1:2" id="GzL-gb-zj9"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="2:3" id="GzL-gb-zj9"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GSa-aj-Ger" secondAttribute="bottom" id="TIi-5U-lfK"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="10" id="Y5i-aF-bhH"/>
                                             <constraint firstItem="GSa-aj-Ger" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="cBj-9T-H7y"/>
@@ -109,7 +109,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l8D-Wz-2f0">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-oR-T3t">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-oR-T3t">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="287.5"/>
                                         <color key="backgroundColor" red="0.1759090297" green="0.57496153999999999" blue="0.78508428100000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
@@ -129,7 +129,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kqH-n8-j5R">
-                                                <rect key="frame" x="20" y="50.5" width="334" height="40"/>
+                                                <rect key="frame" x="10" y="50.5" width="354" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ouY-Hc-SBi"/>
@@ -150,8 +150,8 @@
                                         <constraints>
                                             <constraint firstItem="kqH-n8-j5R" firstAttribute="top" secondItem="DQc-qX-p2B" secondAttribute="bottom" constant="10" id="Jcc-JT-tmg"/>
                                             <constraint firstItem="DQc-qX-p2B" firstAttribute="centerX" secondItem="ex1-Vm-7fp" secondAttribute="centerX" id="ObH-tC-dbU"/>
-                                            <constraint firstAttribute="trailing" secondItem="kqH-n8-j5R" secondAttribute="trailing" constant="20" id="QNe-nb-mxs"/>
-                                            <constraint firstItem="kqH-n8-j5R" firstAttribute="leading" secondItem="ex1-Vm-7fp" secondAttribute="leading" constant="20" id="Rdm-V6-ILV"/>
+                                            <constraint firstAttribute="trailing" secondItem="kqH-n8-j5R" secondAttribute="trailing" constant="10" id="QNe-nb-mxs"/>
+                                            <constraint firstItem="kqH-n8-j5R" firstAttribute="leading" secondItem="ex1-Vm-7fp" secondAttribute="leading" constant="10" id="Rdm-V6-ILV"/>
                                             <constraint firstAttribute="bottom" secondItem="kqH-n8-j5R" secondAttribute="bottom" constant="20" id="SmG-7m-8cK"/>
                                             <constraint firstAttribute="trailing" secondItem="mCc-fJ-VJq" secondAttribute="trailing" id="TG5-po-5kd"/>
                                             <constraint firstItem="mCc-fJ-VJq" firstAttribute="width" secondItem="ex1-Vm-7fp" secondAttribute="width" multiplier="1:3" id="hvX-fC-ZSM"/>

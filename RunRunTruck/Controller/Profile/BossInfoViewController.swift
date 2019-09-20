@@ -42,6 +42,10 @@ class BossInfoViewController: UIViewController {
 
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         self.latitude = position.target.latitude

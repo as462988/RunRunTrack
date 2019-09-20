@@ -145,7 +145,7 @@ UICollectionViewDataSource {
         allTruckArr = openTruckArr + disOpenTruckArr
         
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
-                           image: allTruckArr[indexPath.item].logoImage)
+                           image: allTruckArr[indexPath.item].detailImage ?? "")
 
         return truckCell
     }

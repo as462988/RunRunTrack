@@ -30,6 +30,10 @@ class TruckDetailViewController: UIViewController {
         backBtn.addTarget(self, action: #selector(backToRoot), for: .touchUpInside)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     func setLayout() {
         logoImageView.layer.cornerRadius = logoImageView.bounds.height / 2
         logoImageView.layer.masksToBounds = false
@@ -49,6 +53,7 @@ class TruckDetailViewController: UIViewController {
         guard let detailInfo = detailInfo else { return }
         
         logoImageView.loadImage(detailInfo.logoImage, placeHolder: UIImage.asset(.Icon_logo))
+        infoImageView.loadImage(detailInfo.detailImage,placeHolder: UIImage.asset(.Icon_car))
         
         storyLabel.text = detailInfo.story
         

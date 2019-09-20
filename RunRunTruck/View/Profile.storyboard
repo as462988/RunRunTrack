@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="STv-Ad-bTd">
             <objects>
-                <navigationController id="DQM-e2-M2z" sceneMemberID="viewController">
+                <navigationController id="DQM-e2-M2z" customClass="NavigationController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MTk-iD-i3l">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

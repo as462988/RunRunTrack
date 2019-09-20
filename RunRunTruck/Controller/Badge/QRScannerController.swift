@@ -78,6 +78,7 @@ class QRScannerController: UIViewController {
             return
         }
     }
+
     
     @objc func back() {
         navigationController?.popViewController(animated: true)

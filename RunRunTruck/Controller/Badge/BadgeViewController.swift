@@ -58,10 +58,6 @@ class BadgeViewController: UIViewController {
         getUserBadgeisAchieved()
         print("viewWillAppear")
         
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = false
-        
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
  
