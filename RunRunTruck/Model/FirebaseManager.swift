@@ -68,46 +68,7 @@ class FirebaseManager {
             }
         }
     }
-//    
-//    func getAllTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
-//        
-//        let order = db.collection(Truck.truck.rawValue).order(by: Truck.open.rawValue, descending: true)
-//        
-//        var allTruckData: [(TruckData, DocumentChangeType)] = []
-//        
-//        var openTimestamp: Double?
-//        
-//        var location: GeoPoint?
-//        
-//        order.addSnapshotListener { (snapshot, error) in
-//            if let err = error {
-//                print("Error getting documents: \(err)")
-//                completion(nil)
-//            } else {
-//                
-//                snapshot?.documentChanges.forEach({ (documentChange) in
-//                    let data = documentChange.document.data()
-//                    
-//                    guard let name = data[Truck.name.rawValue] as? String,
-//                        let logoImage = data[Truck.logoImage.rawValue] as? String,
-//                        let open = data[Truck.open.rawValue] as? Bool,
-//                        let story = data[Truck.story.rawValue] as? String else {return}
-//                    
-//                    openTimestamp = data[Truck.openTime.rawValue] as? Double
-//                    
-//                    location = data[Truck.location.rawValue] as? GeoPoint
-//                    
-//                    let truck = TruckData(documentChange.document.documentID,
-//                                          name, logoImage, story, open,
-//                                          openTimestamp, location)
-//                    allTruckData.append((truck, documentChange.type))
-//                })
-//                completion(allTruckData)
-//                
-//            }
-//        }
-//    }
-    
+
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -464,6 +425,26 @@ class FirebaseManager {
                     print("Document successfully written!")
                 }
         }
+    }
+    
+    func deleteChatRoom(truckID: String) {
+        
+       let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
+        
+       collection.getDocuments { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {return}
+            
+            let docs = snapshot.documents
+            
+            for doc in docs {
+                
+               collection.document(doc.documentID).delete()
+                
+            }
+        
+        }
+        
     }
 
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {

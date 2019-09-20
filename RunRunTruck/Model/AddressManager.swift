@@ -31,4 +31,5 @@ class AddressManager {
             completion(placemark.postalAddress, nil)
         }
     }
+
 }

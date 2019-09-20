@@ -139,6 +139,7 @@ class BossUIView: UIView {
         } else {
             
             FirebaseManager.shared.changeOpenStatus(status: openSwitch.isOn)
+            FirebaseManager.shared.deleteChatRoom(truckID: (FirebaseManager.shared.currentUser?.truckId)!)
             openView.isHidden = true
             backgroundView.isHidden = true
             

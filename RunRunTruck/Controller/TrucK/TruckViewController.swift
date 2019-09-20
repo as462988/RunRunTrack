@@ -39,19 +39,18 @@ class TruckViewController: UIViewController {
                             lat: truckData.0.location!.latitude,
                             long: truckData.0.location!.longitude,
                             completion: {(location, error) in
-                                
+
                                 guard let location = location else {return}
-                                
+
                                 let address = location.subAdministrativeArea
                                     + location.city + location.street
-                                
+
                                 truckData.0.address = address
                                 self?.openTruckArr.append(truckData.0)
-                                
+
                                 DispatchQueue.main.async {
                                     self?.truckCollectionView.reloadData()
                                 }
-
                         })
 
                     case .removed:
@@ -80,7 +79,25 @@ class TruckViewController: UIViewController {
                     switch truckData.1 {
                     case .added:
                         //新增
-                        self?.disOpenTruckArr.append(truckData.0)
+
+                        self?.addressManager.getLocationAddress(
+                            lat: truckData.0.location!.latitude,
+                            long: truckData.0.location!.longitude,
+                            completion: {(location, error) in
+                                
+                                guard let location = location else {return}
+                                
+                                let address = location.subAdministrativeArea
+                                    + location.city + location.street
+                                
+                                truckData.0.address = address
+                                self?.disOpenTruckArr.append(truckData.0)
+                                
+                                DispatchQueue.main.async {
+                                    self?.truckCollectionView.reloadData()
+                                }
+                                
+                        })
                         
                         DispatchQueue.main.async {
                             self?.truckCollectionView.reloadData()
@@ -105,27 +122,6 @@ class TruckViewController: UIViewController {
         }
         
     }
-    
-    func transAddress(index: Int) {
-        
-        guard let truckLocation = openTruckArr[index].location else {
-            return
-        }
-        
-        addressManager.getLocationAddress(
-            lat: truckLocation.latitude,
-            long: truckLocation.longitude) { [weak self] (location, error) in
-                
-                guard let location = location else {return}
-                
-                let address = location.subAdministrativeArea
-                    + location.city + location.street
-                
-                self?.openTruckArr[index].address = address
-                                            
-        }
-    }
-    
 }
 
 extension TruckViewController:
@@ -150,26 +146,7 @@ UICollectionViewDataSource {
         
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
                            image: allTruckArr[indexPath.item].logoImage)
-        
-//        if indexPath.item < openTruckArr.count {
-//
-//        transAddress(index: indexPath.item)
-//        truckCell.setValue(name: openTruckArr[indexPath.item].name,
-//                           image: openTruckArr[indexPath.item].logoImage)
-//            print(openTruckArr[indexPath.item].name, openTruckArr[indexPath.item].open)
-//        truckCell.backgroundColor = .yellow
-//
-//             return truckCell
-//        } else if indexPath.item >= openTruckArr.count {
-//
-//            let index = indexPath.item - openTruckArr.count
-//
-//            truckCell.setValue(name: disOpenTruckArr[index].name,
-//                               image: disOpenTruckArr[index].logoImage)
-//
-//        return truckCell
-//        }
-        
+
         return truckCell
     }
     
