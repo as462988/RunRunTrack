@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rPs-GD-sfE">
             <objects>
-                <navigationController id="4vf-XS-cly" sceneMemberID="viewController">
+                <navigationController id="4vf-XS-cly" customClass="NavigationController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lgg-VW-GtG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
