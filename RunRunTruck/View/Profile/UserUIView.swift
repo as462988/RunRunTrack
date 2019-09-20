@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 protocol UserUIViewDelegate: AnyObject {
     func clickUpLoadBtn()
@@ -17,7 +18,7 @@ class UserUIView: UIView {
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-     @IBOutlet weak var upLoadImage: UIButton!
+    @IBOutlet weak var animationView: AnimationView!
     
     weak var delegate: UserUIViewDelegate?
     
@@ -25,7 +26,9 @@ class UserUIView: UIView {
         super.awakeFromNib()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
         
-        upLoadImage.addTarget(self, action: #selector(choseUpLoadImage), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
+        animationView.addGestureRecognizer(tapGesture)
+        
     }
     
     func setupValue(name: String, image: String? = nil) {
@@ -39,7 +42,8 @@ class UserUIView: UIView {
         logoImage.layer.cornerRadius = logoImage.bounds.width / 2
         logoImage.contentMode = .scaleAspectFill
         logoImage.clipsToBounds = true
-
+        animationView.layer.cornerRadius = animationView.bounds.width / 2
+        logoOutBtn.clipsToBounds = true
         logoOutBtn.layer.cornerRadius = 10
         logoOutBtn.clipsToBounds = true
         

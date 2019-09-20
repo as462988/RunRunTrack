@@ -130,6 +130,13 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
+        if let image = FirebaseManager.shared.currentUser?.logoImage {
+            
+            FirebaseStorageManager.shared.deleteImageFile(
+                type: Truck.detailImage.rawValue,
+                imageName: image)
+        }
+        
         openChoseCamera.upLoadImage(
             image: bossView.detailImage,
             info: info) { (data) in
@@ -137,8 +144,8 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                 
                 FirebaseStorageManager.shared.upLoadUserLogo(
                     type: Truck.detailImage.rawValue,
-                    imageName: data.1,
-                    data: data.0, completion: { (url) in
+                    imageName: FirebaseManager.shared.currentUser!.name,
+                    data: data, completion: { (url) in
                         
                         guard let imageUrl = url else {return}
                         
@@ -146,5 +153,6 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                 })
         }
         
+            self.dismiss(animated: true, completion: nil)
     }
 }

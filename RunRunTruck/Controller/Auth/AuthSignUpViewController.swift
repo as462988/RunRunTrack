@@ -59,12 +59,24 @@ class AuthRegisterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    
         playAnimation()
     }
     
     @IBAction func dismissView(_ sender: Any) {
         
         presentingViewController?.dismiss(animated: false, completion: nil)
+    }
+    
+    func getText() {
+        
+        var i = 1
+        nameTextField.text = "boss\(i)"
+        emailTextField.text = "boss\(i)@gmail.com"
+        pswTextField.text = "bossboss"
+        pswConfirmTextField.text = "bossboss"
+        
+        i += 1
     }
     
     @objc func handleRegisterBtn() {
@@ -98,10 +110,11 @@ class AuthRegisterViewController: UIViewController {
         let title = segmentRegister.titleForSegment(at: segmentRegister.selectedSegmentIndex)
         registerBtn.setTitle(title, for: .normal)
         
-        nameTextField.text = ""
-        emailTextField.text = ""
-        pswTextField.text = ""
-        pswConfirmTextField.text = ""
+//        nameTextField.text = ""
+//        emailTextField.text = ""
+//        pswTextField.text = ""
+//        pswConfirmTextField.text = ""
+        getText()
     }
     
     func playAnimation() {

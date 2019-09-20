@@ -44,11 +44,17 @@ class FirebaseStorageManager {
         }
 
     }
-    
-    // 將圖片傳回 dataBase
-    
-    func setImageToDataBase() {
+
+    func deleteImageFile(type: String, imageName: String){
         
+        let desertRef = storageRef.child("\(type)/\(imageName).jpg")
+        // Delete the file
+        desertRef.delete { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("delete success")
+            }
+        }
     }
-    
 }

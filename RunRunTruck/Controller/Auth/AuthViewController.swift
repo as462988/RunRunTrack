@@ -141,11 +141,15 @@ class AuthViewController: UIViewController {
         switch uiStatus {
         case .userLogin:
             singInBtn.setTitle("吃貨登入", for: .normal)
+            emailTextField.text = "yueh@gmail.com"
+            pswTextField.text = "yuehyueh"
         case .bossLogin:
             singInBtn.setTitle("老闆登入", for: .normal)
+            emailTextField.text = "boss@gmail.com"
+            pswTextField.text = "bossboss"
         }
-        emailTextField.text = ""
-        pswTextField.text = ""
+//        emailTextField.text = ""
+//        pswTextField.text = ""
     }
 }
 

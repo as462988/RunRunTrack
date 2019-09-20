@@ -79,10 +79,10 @@ class TruckViewController: UIViewController {
                     switch truckData.1 {
                     case .added:
                         //新增
-
+                        if let location = truckData.0.location {
                         self?.addressManager.getLocationAddress(
-                            lat: truckData.0.location!.latitude,
-                            long: truckData.0.location!.longitude,
+                            lat: location.latitude,
+                            long: location.longitude,
                             completion: {(location, error) in
                                 
                                 guard let location = location else {return}
@@ -93,12 +93,14 @@ class TruckViewController: UIViewController {
                                 truckData.0.address = address
                                 self?.disOpenTruckArr.append(truckData.0)
                                 
-                                DispatchQueue.main.async {
-                                    self?.truckCollectionView.reloadData()
-                                }
-                                
+//                                DispatchQueue.main.async {
+//                                    self?.truckCollectionView.reloadData()
+//                                }
                         })
                         
+                        } else {
+                            self?.disOpenTruckArr.append(truckData.0)
+                        }
                         DispatchQueue.main.async {
                             self?.truckCollectionView.reloadData()
                         }

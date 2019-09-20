@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Lottie
 
 class AddBossTruckViewController: UIViewController {
     
     @IBOutlet weak var truckTextInput: UITextView!
     @IBOutlet weak var showLogoImage: UIImageView!
     @IBOutlet weak var clickSendBtn: UIButton!
-    @IBOutlet weak var upLoadImage: UIButton!
+    @IBOutlet weak var animationView: AnimationView!
     
     var logoImageUrl: String?
     
@@ -22,20 +23,29 @@ class AddBossTruckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLayout()
         openChoseCameraManager.delegate = self
-  
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
+        animationView.addGestureRecognizer(tapGesture)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        handGester()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setLayout()
     }
     
     func setLayout() {
         
         clickSendBtn.layer.cornerRadius = 20
         clickSendBtn.layer.masksToBounds = true
+        
+        animationView.layer.cornerRadius = animationView.frame.width / 2
+        animationView.layer.masksToBounds = true
         
         showLogoImage.layer.cornerRadius = showLogoImage.frame.width / 2
         showLogoImage.layer.masksToBounds = true
@@ -46,16 +56,17 @@ class AddBossTruckViewController: UIViewController {
         
     }
     
-    @IBAction func upLoadImageBtn(_ sender: Any) {
+    @objc func choseUpLoadImage() {
         
         openChoseCameraManager.showImagePickerAlert(self)
     }
     
-//    func showImagePickerAlert() {
-//
-//        openChoseCameraManager.showImagePickerAlert(self)
-//    }
-    
+    func handGester() {
+        animationView.animation = Animation.named(Lottie.camera.rawValue)
+        animationView.loopMode = .loop
+        animationView.play()
+    }
+
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
@@ -101,12 +112,12 @@ extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
                 
                 FirebaseStorageManager.shared.upLoadUserLogo(
                     type: Truck.logoImage.rawValue,
-                    imageName: data.1,
-                    data: data.0) { (url) in
+                    imageName: FirebaseManager.shared.currentUser!.name,
+                    data: data) { url in
                         
                         guard let imageUrl = url else {return}
                         
-                        FirebaseManager.shared.updataUserImage(image: imageUrl)
+                        self?.logoImageUrl = imageUrl
                 }
                 
                 self?.dismiss(animated: true, completion: nil)
