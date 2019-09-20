@@ -28,11 +28,9 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if FirebaseManager.shared.bossID != nil {
-//            guard let bossVc = UIStoryboard.profile.instantiateViewController(
-//                withIdentifier: "BossInfoViewController") as? BossInfoViewController else { return }
-            
+
             performSegue(withIdentifier: "bossInfo", sender: nil)
-//            show(bossVc, sender: nil)
+
         } else if FirebaseManager.shared.userID != nil {
             guard let userVc = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }

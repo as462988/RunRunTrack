@@ -147,6 +147,7 @@
                                                 <connections>
                                                     <outlet property="clickChatRoomBtn" destination="A1s-wv-1b5" id="lN2-Mc-VSy"/>
                                                     <outlet property="clickNavigateBtn" destination="fcP-MH-XYE" id="8Hl-IK-fF9"/>
+                                                    <outlet property="clickTruckInfoBtn" destination="beu-Rl-8pE" id="sST-qE-vq9"/>
                                                     <outlet property="logoImage" destination="gkk-ss-phs" id="pOd-Dr-FFk"/>
                                                     <outlet property="openTime" destination="N9v-ky-H3d" id="TiC-7H-sgl"/>
                                                     <outlet property="truckLocation" destination="Mzk-XW-dSc" id="w57-jf-CXf"/>

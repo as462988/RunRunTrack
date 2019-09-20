@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
@@ -34,7 +34,7 @@ class FirebaseManager {
     
     // MARK: About Truck
         //getAllTruck
-    func getAllTruckData(completion: @escaping ([TruckBadge]?) -> Void) {
+    func getAllTruckDataForBadge(completion: @escaping ([TruckBadge]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
             
@@ -68,11 +68,15 @@ class FirebaseManager {
             }
         }
     }
-    
-    func getOpeningTruckData(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+
+    func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+        
+        var openTimestamp: Double?
+        var location: GeoPoint?
+        var detailImage: String?
         
         db.collection(Truck.truck.rawValue).whereField(
-            Truck.open.rawValue, isEqualTo: true).addSnapshotListener { (snapshot, error) in
+            Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
                 guard let snapshot = snapshot else {
                     print("Error fetching document: \(error!)")
@@ -86,13 +90,20 @@ class FirebaseManager {
                     guard let name = data[Truck.name.rawValue] as? String,
                         let logoImage = data[Truck.logoImage.rawValue] as? String,
                         let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String,
-                        let openTimestamp = data[Truck.openTime.rawValue] as? Double,
-                        let location = data[Truck.location.rawValue] as? GeoPoint else {return}
+                        let story = data[Truck.story.rawValue] as? String else {return}
+                    
+                         openTimestamp = data[Truck.openTime.rawValue] as? Double
+                         location = data[Truck.location.rawValue] as? GeoPoint
+                        detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,
-                                          name, logoImage, story, open,
-                                          openTimestamp, location)
+                                          name, logoImage,
+                                          detailImage,
+                                          story,
+                                          open,
+                                          openTimestamp,
+                                          location)
+                    
                     rtnTruckDatas.append((truck, documentChange.type))
                 })
                 completion(rtnTruckDatas)
@@ -166,6 +177,21 @@ class FirebaseManager {
         }
     }
     
+    func updataDetailImageText(image: String) {
+        
+        guard let truckId = bossTruck?.id else { return }
+        
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.detailImage.rawValue: image
+        ]) { (error) in
+            if let err = error {
+                print("Error modify: \(err)")
+            } else {
+                print("Status modify Success")
+            }
+        }
+    }
+    
     func getTruckId(truckName: String) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -206,10 +232,9 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String] else { return }
             
-            if let image = data[User.image.rawValue] as? String {
-            
-            self?.currentUser = UserData(name: name, email: email, image: image, badge: badge)
-            
+            if let image = data[User.logoImage.rawValue] as? String {
+
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email, badge: badge)
@@ -243,7 +268,7 @@ class FirebaseManager {
         }
         
         db.collection(User.user.rawValue).document(uid).updateData([
-            User.image.rawValue: image
+            User.logoImage.rawValue: image
             ])
     }
     
@@ -283,6 +308,8 @@ class FirebaseManager {
     
     func getBossTruck(completion: @escaping (TruckData?) -> Void) {
         
+        var detailImage: String?
+        
         guard let truckId = currentUser?.truckId else {
             completion(nil)
             return
@@ -298,8 +325,10 @@ class FirebaseManager {
                 let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
                 let story = snapshot.data()?[Truck.story.rawValue] as? String
                 else {return}
+        
+            detailImage = snapshot.data()?[Truck.detailImage.rawValue] as? String
             
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, story, open, nil, nil)
+            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil)
             
             completion(self.bossTruck)
         }
@@ -341,35 +370,32 @@ class FirebaseManager {
     }
     
     // MARK: About Register/SingIn
-    func userRegister(email: String, psw: String, completion: @escaping () -> Void) {
+    func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-            
+
             guard error == nil else {
                 
-                //TODO: 顯示無法註冊的原因
-                print(AuthErrorCode(rawValue: error!._code)?.errorMessage ?? "nil")
-                
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                completion(false, errorCode.errorMessage)
                 return
             }
-            print("User Regiuter Success")
-            completion()
+            completion(true, "Success")
         }
     }
 
-    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
             
             guard error == nil else {
-                //TODO: 顯示無法登入的原因
-                print("didn't singIn")
-                completion(false)
+
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                completion(false, errorCode.errorMessage)
                 return
             }
-            
-            print("Success")
-            completion(true)
+
+            completion(true, "Success")
         }
     }
 
@@ -397,7 +423,7 @@ class FirebaseManager {
             Truck.chatRoom.rawValue).addDocument(data: [
                 Truck.name.rawValue: name,
                 User.uid.rawValue: uid,
-                User.image.rawValue: image,
+                User.logoImage.rawValue: image,
                 User.text.rawValue: text,
                 User.createTime.rawValue: Date().timeIntervalSince1970
             ]) { (error) in
@@ -426,6 +452,26 @@ class FirebaseManager {
                 }
         }
     }
+    
+    func deleteChatRoom(truckID: String) {
+        
+       let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
+        
+       collection.getDocuments { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {return}
+            
+            let docs = snapshot.documents
+            
+            for doc in docs {
+                
+               collection.document(doc.documentID).delete()
+                
+            }
+        
+        }
+        
+    }
 
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
         
@@ -448,7 +494,7 @@ class FirebaseManager {
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
-                    let image = data[User.image.rawValue] as? String,
+                    let image = data[User.logoImage.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
                 
                 if documentChange.type == .added {

@@ -24,6 +24,7 @@ class AuthRegisterViewController: UIViewController {
     @IBOutlet weak var animationOne: AnimationView!
     @IBOutlet weak var animationTwo: AnimationView!
     @IBOutlet weak var animationThird: AnimationView!
+     @IBOutlet weak var errorResultLabel: UILabel!
     
     var userRegisteIsFinished = false {
         didSet {
@@ -59,6 +60,7 @@ class AuthRegisterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        errorResultLabel.isHidden = true
         playAnimation()
     }
     
@@ -73,21 +75,27 @@ class AuthRegisterViewController: UIViewController {
             let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
-        FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] in
+        FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] (isSuccess, result) in
+            
+            guard isSuccess else {
+                self?.errorResultLabel.isHidden = false
+                self?.errorResultLabel.text = result
+                return
+            }
             
             if self?.segmentRegister.selectedSegmentIndex == 0 {
                 
-            self?.presentingViewController?.dismiss(animated: false, completion: nil)
-            FirebaseManager.shared.setUserData(name: name, email: email)
+                self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                FirebaseManager.shared.setUserData(name: name, email: email)
                 
             } else {
                 
                 guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
-                        as? AddBossTruckViewController else { return }
+                    as? AddBossTruckViewController else { return }
                 
                 addTruckVC.modalPresentationStyle = .overCurrentContext
                 self?.present(addTruckVC, animated: false, completion: nil)
-
+                
                 FirebaseManager.shared.setBossData(name: name, email: email)
             }
         }
@@ -97,11 +105,27 @@ class AuthRegisterViewController: UIViewController {
         
         let title = segmentRegister.titleForSegment(at: segmentRegister.selectedSegmentIndex)
         registerBtn.setTitle(title, for: .normal)
+//        emptyText()
+        getText()
+    }
+    
+    func getText() {
         
+        var i = 4
+        nameTextField.text = "boss\(i)"
+        emailTextField.text = "boss\(i)@gmail.com"
+        pswTextField.text = "bossboss"
+        pswConfirmTextField.text = "bossboss"
+        
+        i += 1
+    }
+    
+    func emptyText() {
         nameTextField.text = ""
         emailTextField.text = ""
         pswTextField.text = ""
         pswConfirmTextField.text = ""
+        errorResultLabel.text = ""
     }
     
     func playAnimation() {
@@ -147,12 +171,13 @@ extension AuthRegisterViewController: UITextFieldDelegate {
         if name.isEmpty, email.isEmpty, psw.isEmpty, pswConfirm.isEmpty {
            
             userRegisteIsFinished = false
-            
+            errorResultLabel.text = "請輸入完整資料～"
         } else {
             
             guard pswConfirm.elementsEqual(psw) else {
                
             userRegisteIsFinished = false
+            errorResultLabel.text = "兩次密碼輸入不一致喔！"
                 return
             }
             

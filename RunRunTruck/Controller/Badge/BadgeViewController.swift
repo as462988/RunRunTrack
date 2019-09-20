@@ -33,7 +33,7 @@ class BadgeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.shared.getAllTruckData { [weak self] (truckDatas) in
+        FirebaseManager.shared.getAllTruckDataForBadge { [weak self] (truckDatas) in
             guard let truckDatas = truckDatas else { return }
             
             for truckData in truckDatas {
@@ -56,9 +56,13 @@ class BadgeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         getUserBadgeisAchieved()
-
+        print("viewWillAppear")
+        
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barTintColor = .white
+ 
     }
-    
+        
     func getUserBadgeisAchieved() {
         
         guard let user = FirebaseManager.shared.currentUser else {
@@ -83,10 +87,6 @@ class BadgeViewController: UIViewController {
         
             return
         }
-        
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController else { return }
-        rootVC.tabBar.isHidden = true
         
        guard let scannerVC = UIStoryboard.badge.instantiateViewController(
         withIdentifier: "scannerVC") as? QRScannerController else {return}
@@ -166,11 +166,6 @@ extension BadgeViewController: QRScannerControllerDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             
-            self.navigationController?.isNavigationBarHidden = false
-            self.navigationController?.navigationBar.barTintColor = .white
-            guard let rootVC = AppDelegate.shared.window?.rootViewController
-                as? TabBarViewController else { return }
-            rootVC.tabBar.isHidden = false
             self.getBadgeView.isHidden = true
         }
     }

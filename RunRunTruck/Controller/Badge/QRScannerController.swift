@@ -78,12 +78,7 @@ class QRScannerController: UIViewController {
             return
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setNeedsStatusBarAppearanceUpdate()
-    }
+
     
     @objc func back() {
         navigationController?.popViewController(animated: true)

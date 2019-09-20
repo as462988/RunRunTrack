@@ -15,7 +15,7 @@ struct GeoLocation {
 
 protocol TurckInfoCellDelegate: AnyObject {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation )
-    //TODO: 前往資訊
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData)
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
 }
 class TurckInfoCollectionViewCell: UICollectionViewCell {
@@ -26,6 +26,9 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var openTime: UILabel!
     @IBOutlet weak var clickChatRoomBtn: UIButton!
     @IBOutlet weak var clickNavigateBtn: UIButton!
+    @IBOutlet weak var clickTruckInfoBtn: UIButton!
+    
+    let dateManager = TransformTimeManager()
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
@@ -35,22 +38,13 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     func configureWithTruckData(truckData: TruckData) {
         self.truckData = truckData
         clickChatRoomBtn.addTarget(self, action: #selector(onGotoChatRoom), for: .touchUpInside)
+        clickTruckInfoBtn.addTarget(self, action: #selector(enterTruckInfo), for: .touchUpInside)
     }
     
     func setValue(name: String, openTime: Double, logoImage: String, truckLocationText: String) {
         
-        let timeStamp = openTime
-        
-        let timeInterval: TimeInterval = TimeInterval(timeStamp)
-        
-        let date: Date = Date(timeIntervalSince1970: timeInterval)
-        
-        let dateFormat: DateFormatter = DateFormatter()
-        
-        dateFormat.dateFormat = "yyyy/MM/dd HH:mm"
-        
         self.truckName.text = name
-        self.openTime.text = dateFormat.string(from: date)
+        self.openTime.text = dateManager.dateToString(time: openTime)
         self.truckLocation.text = truckLocationText
         
         if logoImage != "" {
@@ -89,5 +83,11 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
              self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckChatRoom: truckData)
         }
     }
-
+    
+    @objc private func enterTruckInfo() {
+        
+        if let truckData = truckData {
+            self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckInfo: truckData)
+        }
+    }
 }

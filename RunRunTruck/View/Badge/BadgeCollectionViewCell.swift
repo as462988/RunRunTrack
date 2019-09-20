@@ -39,6 +39,5 @@ class BadgeCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.7
         layer.shadowColor = UIColor.black.cgColor
         layer.masksToBounds = false
-        
     }
 }

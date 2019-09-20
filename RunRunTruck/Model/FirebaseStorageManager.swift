@@ -15,11 +15,15 @@ class FirebaseStorageManager {
     
     let storageRef = Storage.storage().reference()
     // 上傳圖片
-    func upLoadTruckLogo(imageName: String, data: Data, completion: @escaping ((String)?) -> Void) {
+    func upLoadUserLogo(type: String, imageName: String, data: Data, completion: @escaping ((String)?) -> Void) {
         
-        let upLoadImageRef = storageRef.child("\(imageName).jpg")
+        let upLoadImageRef = storageRef.child("\(type)/\(imageName).jpg")
         
-        upLoadImageRef.putData(data, metadata: nil) { (metadata, error) in
+        let metadata = StorageMetadata()
+        
+        metadata.contentType = "image/jpeg"
+        
+        upLoadImageRef.putData(data, metadata: metadata) { (metadata, error) in
              guard error == nil else {
                 completion(nil)
                 return
@@ -40,11 +44,17 @@ class FirebaseStorageManager {
         }
 
     }
-    
-    // 將圖片傳回 dataBase
-    
-    func setImageToDataBase() {
+
+    func deleteImageFile(type: String, imageName: String){
         
+        let desertRef = storageRef.child("\(type)/\(imageName).jpg")
+        // Delete the file
+        desertRef.delete { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("delete success")
+            }
+        }
     }
-    
 }

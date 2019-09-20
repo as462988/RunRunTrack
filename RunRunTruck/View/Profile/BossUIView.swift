@@ -10,18 +10,21 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import Contacts
+import Lottie
 
 protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickChenckBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
     func creatQrcode()
+    func clickChangeImage()
 }
 
 class BossUIView: UIView {
 
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var detailImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var storyTextView: UITextView! {
         didSet {
@@ -32,6 +35,8 @@ class BossUIView: UIView {
     @IBOutlet weak var creatQrcodeBtn: UIButton!
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var tapAnimationView: AnimationView!
+
     //open View
     @IBOutlet weak var openView: UIView!
     @IBOutlet weak var mapView: GMSMapView! {
@@ -44,7 +49,8 @@ class BossUIView: UIView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
-    @IBOutlet weak var pinImage: UIImageView!
+        @IBOutlet weak var loactionAnimationView: AnimationView!
+//    @IBOutlet weak var pinImage: UIImageView!
     
     weak var delegate: BossUIViewDelegate?
 
@@ -55,7 +61,11 @@ class BossUIView: UIView {
         openView.isHidden = true
         
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
-    
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickChangeImage))
+        
+        detailImage.addGestureRecognizer(tapGestureRecognizer)
+        
         openSwitch.addTarget(self, action: #selector(onChange), for: .valueChanged)
         
         cancelBtn.addTarget(self, action: #selector(clickCancelBtn), for: .touchUpInside)
@@ -74,12 +84,13 @@ class BossUIView: UIView {
         mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
-        mapView.bringSubviewToFront(pinImage)
+        mapView.bringSubviewToFront(loactionAnimationView)
     }
 
-    func setupValue(name: String, story: String, image: String, open: Bool) {
-
+    func setupValue(name: String, story: String, image: String, detailImage: String, open: Bool) {
+        
         logoImage.loadImage(image, placeHolder: UIImage.asset(.Icon_logo))
+        self.detailImage.loadImage(detailImage)
         nameLabel.text = name
         storyTextView.text = story
         openSwitch.isOn = open
@@ -139,6 +150,7 @@ class BossUIView: UIView {
         } else {
             
             FirebaseManager.shared.changeOpenStatus(status: openSwitch.isOn)
+            FirebaseManager.shared.deleteChatRoom(truckID: (FirebaseManager.shared.currentUser?.truckId)!)
             openView.isHidden = true
             backgroundView.isHidden = true
             
@@ -156,5 +168,9 @@ class BossUIView: UIView {
         self.delegate?.creatQrcode()
 
     }
-
+    
+    @objc func clickChangeImage() {
+        
+        self.delegate?.clickChangeImage()
+    }
 }

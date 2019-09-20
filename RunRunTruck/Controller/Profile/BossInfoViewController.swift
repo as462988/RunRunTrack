@@ -8,8 +8,9 @@
 
 import UIKit
 import GoogleMaps
+import Lottie
 
-class BossInfoViewController: UIViewController, BossUIViewDelegate {
+class BossInfoViewController: UIViewController {
 
     @IBOutlet weak var bossView: BossUIView! {
         didSet {
@@ -20,11 +21,14 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     var latitude: Double?
     var longitude: Double?
     let addressManager = AddressManager()
+    let openChoseCamera = OpenChoseCameraManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        openChoseCamera.delegate = self
         
         FirebaseManager.shared.getBossTruck { [weak self](data) in
             
@@ -33,12 +37,38 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
             self?.bossView.setupValue(name: data.name,
                                 story: data.story,
                                 image: data.logoImage,
+                                detailImage: data.detailImage ?? "",
                                 open: data.open)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        playTapAnimation()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    func playTapAnimation() {
 
+        bossView.tapAnimationView.animation = Animation.named(Lottie.handGesture.rawValue)
+        bossView.tapAnimationView.loopMode = .repeat(2)
+        bossView.tapAnimationView.play()
+    }
+    
+    func playLocationAnimation() {
+        
+        bossView.loactionAnimationView.animation = Animation.named(Lottie.location.rawValue)
+        bossView.loactionAnimationView.loopMode = .loop
+        bossView.loactionAnimationView.play()
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
+        playLocationAnimation()
         
         self.latitude = position.target.latitude
         self.longitude = position.target.longitude
@@ -55,8 +85,10 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
                 + location.city + location.street
             
         }
-        
     }
+}
+
+extension BossInfoViewController: BossUIViewDelegate {
     
     func clickChenckBtn() {
         
@@ -83,16 +115,52 @@ class BossInfoViewController: UIViewController, BossUIViewDelegate {
     
     func creatQrcode() {
         
-       guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-        withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+        guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
         
         qrcodeVc.modalPresentationStyle = .overCurrentContext
         
         present(qrcodeVc, animated: false, completion: nil)
-
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
+    }
+    
+    func clickChangeImage() {
+        openChoseCamera.showImagePickerAlert(self)
+    }
+}
+
+extension BossInfoViewController: OpenChoseCameraManagerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let image = FirebaseManager.shared.currentUser?.logoImage {
+            
+            FirebaseStorageManager.shared.deleteImageFile(
+                type: Truck.detailImage.rawValue,
+                imageName: image)
+        }
+        
+        openChoseCamera.upLoadImage(
+            image: bossView.detailImage,
+            info: info) { (data) in
+                guard let data = data else {return}
+                
+                FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: Truck.detailImage.rawValue,
+                    imageName: FirebaseManager.shared.currentUser!.name,
+                    data: data, completion: { (url) in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        FirebaseManager.shared.updataDetailImageText(image: imageUrl)
+                })
+        }
+        
+            self.dismiss(animated: true, completion: nil)
     }
 }

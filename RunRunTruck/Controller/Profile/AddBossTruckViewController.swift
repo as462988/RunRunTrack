@@ -7,35 +7,45 @@
 //
 
 import UIKit
+import Lottie
 
 class AddBossTruckViewController: UIViewController {
     
     @IBOutlet weak var truckTextInput: UITextView!
     @IBOutlet weak var showLogoImage: UIImageView!
     @IBOutlet weak var clickSendBtn: UIButton!
-    @IBOutlet weak var upLoadImage: UIButton!
+    @IBOutlet weak var animationView: AnimationView!
     
     var logoImageUrl: String?
     
-    let openChoseCamera = OpenChoseCameraManager()
+    let openChoseCameraManager = OpenChoseCameraManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLayout()
-        openChoseCamera.delegate = self
-  
+        openChoseCameraManager.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
+        animationView.addGestureRecognizer(tapGesture)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        handGester()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setLayout()
     }
     
     func setLayout() {
         
         clickSendBtn.layer.cornerRadius = 20
         clickSendBtn.layer.masksToBounds = true
+        
+        animationView.layer.cornerRadius = animationView.frame.width / 2
+        animationView.layer.masksToBounds = true
         
         showLogoImage.layer.cornerRadius = showLogoImage.frame.width / 2
         showLogoImage.layer.masksToBounds = true
@@ -46,16 +56,17 @@ class AddBossTruckViewController: UIViewController {
         
     }
     
-    @IBAction func upLoadImageBtn(_ sender: Any) {
-        showImagePickerAlert()
+    @objc func choseUpLoadImage() {
+        
+        openChoseCameraManager.showImagePickerAlert(self)
     }
     
-    func showImagePickerAlert() {
-        
-        openChoseCamera.showImagePickerAlert(self)
-        
+    func handGester() {
+        animationView.animation = Animation.named(Lottie.camera.rawValue)
+        animationView.loopMode = .loop
+        animationView.play()
     }
-    
+
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
@@ -88,36 +99,28 @@ class AddBossTruckViewController: UIViewController {
     }
 }
 
-extension AddBossTruckViewController: openChoseCameraManagerDelegate {
-
+extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        var selectedImageFromPicker: UIImage?
-        let uniqueString = NSUUID().uuidString
-        
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-         
-            selectedImageFromPicker = pickedImage
-            showLogoImage.image = selectedImageFromPicker
+        openChoseCameraManager.upLoadImage(
+            image: showLogoImage,
+            info: info) { [weak self] (data) in
+                
+                guard let data = data else {return}
+                
+                FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: Truck.logoImage.rawValue,
+                    imageName: FirebaseManager.shared.currentUser!.name,
+                    data: data) { url in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        self?.logoImageUrl = imageUrl
+                }
+                
+                self?.dismiss(animated: true, completion: nil)
         }
-        
-        if let selectedImage = selectedImageFromPicker {
-            
-            guard let uploadData = selectedImage.pngData() else {return}
-            
-             FirebaseStorageManager.shared.upLoadTruckLogo(
-                imageName: uniqueString,
-                data: uploadData) { [weak self] (url) in
-                    
-                    guard let imageUrl = url else {return}
-                    
-                    self?.logoImageUrl = imageUrl
-            }
-            
-        }
-        
-        dismiss(animated: true, completion: nil)
     }
-    
 }

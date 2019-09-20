@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class UserInfoViewController: UIViewController {
 
@@ -27,20 +28,33 @@ class UserInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+         handGester()
+        
         FirebaseManager.shared.getCurrentUserData { (userData) in
             
             guard let data = userData else {return}
             
-            if data.image == nil {
+            if data.logoImage == nil {
             
             self.userView.setupValue(name: data.name)
                 
             } else {
-                self.userView.setupValue(name: data.name, image: data.image)
+                self.userView.setupValue(name: data.name, image: data.logoImage)
             }
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        userView.setLayout()
+    }
+    
+    func handGester() {
+        
+        userView.animationView.animation = Animation.named(Lottie.camera.rawValue)
+        userView.animationView.loopMode = .repeat(2)
+        userView.animationView.play()
+    }
 }
 
 extension UserInfoViewController: UserUIViewDelegate {
@@ -50,36 +64,36 @@ extension UserInfoViewController: UserUIViewDelegate {
     }
 }
 
-extension UserInfoViewController: openChoseCameraManagerDelegate {
+extension UserInfoViewController: OpenChoseCameraManagerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        var selectedImageFromPicker: UIImage?
-        let uniqueString = NSUUID().uuidString
+        if let image = FirebaseManager.shared.currentUser?.logoImage {
         
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            selectedImageFromPicker = pickedImage
-            userView.logoImage.image = selectedImageFromPicker
+        FirebaseStorageManager.shared.deleteImageFile(
+            type: User.logoImage.rawValue,
+            imageName: image)
         }
         
-        if let selectedImage = selectedImageFromPicker {
-            
-            guard let uploadData = selectedImage.pngData() else {return}
-            
-            FirebaseStorageManager.shared.upLoadTruckLogo(
-                imageName: uniqueString,
-                data: uploadData) { (url) in
-                    
-                    guard let imageUrl = url else {return}
-                    
-                    FirebaseManager.shared.updataUserImage(image: imageUrl)
-            }
-            
+        openChoseCameraManager.upLoadImage(
+            image: userView.logoImage,
+            info: info) { (data) in
+                
+                guard let data = data else {return}
+                
+                 FirebaseStorageManager.shared.upLoadUserLogo(
+                    type: User.logoImage.rawValue,
+                    imageName: FirebaseManager.shared.currentUser?.name ?? "",
+                    data: data,
+                    completion: { (url) in
+                        
+                        guard let imageUrl = url else {return}
+                        
+                        FirebaseManager.shared.updataUserImage(image: imageUrl)
+                 })
+                
         }
-        
         dismiss(animated: true, completion: nil)
-        
     }
 }
