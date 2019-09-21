@@ -82,7 +82,8 @@ class BadgeViewController: UIViewController {
     
     @IBAction func animateButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-        
+            
+        //TODO: 請先登入會員
             print("請先登入會員")
         
             return

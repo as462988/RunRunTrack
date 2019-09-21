@@ -48,6 +48,11 @@ class BossInfoViewController: UIViewController {
         playTapAnimation()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        bossView.setLayout()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

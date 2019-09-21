@@ -230,14 +230,15 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String] else { return }
+                let badge = data[User.badge.rawValue] as? [String],
+                let block = data[User.block.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
 
-            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge)
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, badge: badge)
+                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block)
             }
 
             completion(self?.currentUser)
@@ -252,7 +253,8 @@ class FirebaseManager {
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
             User.email.rawValue: email,
-            User.badge.rawValue: []
+            User.badge.rawValue: [],
+            User.block.rawValue: []
         ]) { error in
             
             if let error = error {
@@ -278,6 +280,19 @@ class FirebaseManager {
             
             User.badge.rawValue: FieldValue.arrayUnion([truckId])
         ]) { error in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            }
+        }
+    }
+    
+    func addUserBlock(uid: String, blockId: String) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.block.rawValue: FieldValue.arrayUnion([blockId])
+            
+        ]) { (error) in
             
             if let error = error {
                 print("Error adding document: \(error)")
@@ -417,7 +432,7 @@ class FirebaseManager {
     
     // MARK: About ChatRoom
     
-    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String, text: String) {
+    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String?, text: String) {
         db.collection(Truck.truck.rawValue).document(truckID).collection(
             
             Truck.chatRoom.rawValue).addDocument(data: [
@@ -488,14 +503,17 @@ class FirebaseManager {
             }
             var rtnMessage: [Message] = []
             
+            var image: String?
+            
             snapshot.documentChanges.forEach({ (documentChange) in
                 
                 let data = documentChange.document.data()
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
-                    let image = data[User.logoImage.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
+                
+                image = data[User.logoImage.rawValue] as? String
                 
                 if documentChange.type == .added {
                     

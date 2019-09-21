@@ -245,8 +245,8 @@ extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {
         
-//        guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
-//
+        guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
+
             self.hidesBottomBarWhenPushed = true
             
             let chatroomVC = ChatroomViewController()
@@ -258,15 +258,15 @@ extension LobbyViewController: TurckInfoCellDelegate {
             navigationController?.isNavigationBarHidden = false
             navigationController?.pushViewController(chatroomVC, animated: true)
             self.hidesBottomBarWhenPushed = false
-//            return
-//        }
+            return
+        }
         
-//        let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
-//
-//        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
-//        rootVC.tabBar.isHidden = true
-//        auth.modalPresentationStyle = .overCurrentContext
-//        present(auth, animated: false, completion: nil)
+        let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = true
+        auth.modalPresentationStyle = .overCurrentContext
+        present(auth, animated: false, completion: nil)
         
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData) {

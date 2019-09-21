@@ -51,6 +51,11 @@ class ChatroomViewController: UIViewController {
         observerChatRoom()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+ 
+    }
+    
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
             print("no turckID")
@@ -132,12 +137,16 @@ class ChatroomViewController: UIViewController {
     
     func creatChatMessage(id: String, text: String) {
         
+        var image: String?
+        
         guard let truckID = truckData?.id,
-            let name = FirebaseManager.shared.currentUser?.name,
-            let image = FirebaseManager.shared.currentUser?.logoImage else {
+            let name = FirebaseManager.shared.currentUser?.name
+            else {
                 print("uid nil")
                 return
         }
+        
+        image = FirebaseManager.shared.currentUser?.logoImage
         
         FirebaseManager.shared.creatChatRoomOne(
             truckID: truckID,
@@ -200,10 +209,6 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        return false
-//    }
-    
     // 旋轉時不會跑版
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         chatRoomView.msgCollectionView.collectionViewLayout.invalidateLayout()
@@ -221,26 +226,34 @@ extension ChatroomViewController: ChatMessageCellDelegate {
     
     func passLongGesture(cell: UICollectionViewCell) {
         
-        let collectionView = self.chatRoomView.msgCollectionView
+        let currentUserId = FirebaseManager.shared.userID
         
-        guard let indexPath = collectionView.indexPath(for: cell) else {
-            return
+        if currentUserId != nil {
+            
+            let collectionView = self.chatRoomView.msgCollectionView
+            
+            guard let indexPath = collectionView.indexPath(for: cell) else {
+                return
+            }
+            
+            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let text = "封鎖此用戶"
+            
+            let action = UIAlertAction(title: text, style: .default) { (action) in
+                print("block \(self.messages[indexPath.item].name)")
+                
+                FirebaseManager.shared.addUserBlock(
+                    uid: currentUserId!,
+                    blockId: self.messages[indexPath.item].uid)
+            }
+            
+            controller.addAction(action)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            controller.addAction(cancelAction)
+            present(controller, animated: true, completion: nil)
         }
-        
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let text = "封鎖此用戶"
-        
-        let action = UIAlertAction(title: text, style: .default) { (action) in
-            print("block \(self.messages[indexPath.item].name)")
-        }
-        
-        controller.addAction(action)
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
-        
     }
 }
 
