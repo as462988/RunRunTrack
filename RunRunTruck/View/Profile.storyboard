@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DQM-e2-M2z">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DQM-e2-M2z">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -75,7 +73,7 @@
                                                 <color key="onTintColor" red="0.30196078430000001" green="0.31764705879999999" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eDl-QH-9Ir">
-                                                <rect key="frame" x="16" y="459" width="382" height="251"/>
+                                                <rect key="frame" x="16" y="469" width="382" height="241"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -130,7 +128,7 @@
                                             <constraint firstItem="eDl-QH-9Ir" firstAttribute="centerX" secondItem="Qzt-k4-dQN" secondAttribute="centerX" id="QSI-l5-dZo"/>
                                             <constraint firstItem="dNi-7B-o9P" firstAttribute="width" secondItem="Qzt-k4-dQN" secondAttribute="width" multiplier="1:4" id="S2O-uP-wxM"/>
                                             <constraint firstItem="eDl-QH-9Ir" firstAttribute="leading" secondItem="Qzt-k4-dQN" secondAttribute="leading" constant="16" id="W4o-Sb-NNi"/>
-                                            <constraint firstItem="eDl-QH-9Ir" firstAttribute="top" secondItem="rfA-Vj-Znc" secondAttribute="bottom" constant="10" id="XOH-61-0J5"/>
+                                            <constraint firstItem="eDl-QH-9Ir" firstAttribute="top" secondItem="rfA-Vj-Znc" secondAttribute="bottom" constant="20" id="XOH-61-0J5"/>
                                             <constraint firstItem="rfA-Vj-Znc" firstAttribute="trailing" secondItem="Qzt-k4-dQN" secondAttribute="centerX" id="a9P-xY-aFz"/>
                                             <constraint firstItem="Gyh-FQ-fb9" firstAttribute="centerY" secondItem="rfA-Vj-Znc" secondAttribute="centerY" id="akT-fB-1f5"/>
                                             <constraint firstItem="IHm-xN-Bxq" firstAttribute="width" secondItem="Qzt-k4-dQN" secondAttribute="width" multiplier="1:8" id="bDu-UD-C6d"/>
@@ -358,14 +356,14 @@
             <objects>
                 <viewController storyboardIdentifier="UserInfoViewController" id="KXd-ym-MfT" customClass="UserInfoViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sPK-Ql-jVq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-vw-yyQ" customClass="UserUIView" customModule="RunRunTruck" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="803"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-7B-eyH">
-                                        <rect key="frame" x="183" y="745" width="48" height="48"/>
+                                        <rect key="frame" x="183" y="735" width="48" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="YVt-7B-eyH" secondAttribute="height" multiplier="1:1" id="NrP-u5-xsR"/>
@@ -388,7 +386,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2H7-sW-PDx">
-                                        <rect key="frame" x="20" y="219" width="374" height="506"/>
+                                        <rect key="frame" x="20" y="219" width="374" height="496"/>
                                         <color key="backgroundColor" red="0.79215686269999996" green="0.83529411760000005" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BTO-rp-sZ7">
                                             <size key="itemSize" width="50" height="50"/>

@@ -181,6 +181,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
+            chatCell.delegate = self
+            
             return chatCell
             
         } else {
@@ -192,13 +194,15 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
              chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: messageData.logoImage)
              chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
             
+            chatCell.delegate = self
+            
             return chatCell
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+//        return false
+//    }
     
     // 旋轉時不會跑版
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -212,6 +216,16 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         return true
     }
 }
+
+extension ChatroomViewController: ChatMessageCellDelegate {
+    
+    func passLongGesture() {
+        
+        print("\(self.messages[0].uid)")
+
+    }
+}
+
 extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,

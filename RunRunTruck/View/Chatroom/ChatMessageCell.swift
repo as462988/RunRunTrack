@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ChatMessageCellDelegate: AnyObject {
+    
+    func passLongGesture()
+}
+
 class ChatMessageCell: UICollectionViewCell {
     
     static let avatarImgWidth: CGFloat = 50
@@ -20,9 +25,9 @@ class ChatMessageCell: UICollectionViewCell {
     var profileBgImageView: UIImageView?
     var userImageView: UIImageView?
     var bubbleView: UIView!
-    
     var textViewHeightAnchor: NSLayoutConstraint?
-     var bubbleHeightAnchor: NSLayoutConstraint?
+    var bubbleHeightAnchor: NSLayoutConstraint?
+    weak var delegate: ChatMessageCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,7 +66,17 @@ class ChatMessageCell: UICollectionViewCell {
         
         if let profileImageView = self.userImageView {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
+//            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(configureGesture))
+            
+            profileImageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(configureGesture))
+            
+            profileImageView.addGestureRecognizer(tapGesture)
         }
+    }
+    
+    @objc func configureGesture() {
+        self.delegate?.passLongGesture()
     }
     
     func createNameLabel() -> UILabel? { return UILabel() }
@@ -154,9 +169,6 @@ class ChatMessageCell: UICollectionViewCell {
         
         userImageView.heightAnchor.constraint(equalTo: profileBgimageView.heightAnchor,
                                              multiplier: 2/3).isActive = true
-//        userImageView.widthAnchor.constraint(
-//            equalToConstant: ChatMessageCell.avatarImgWidth - 15).isActive = true
-//        userImageView.heightAnchor.constraint(equalToConstant: ChatMessageCell.avatarImgHeight - 15).isActive = true
         
         //名稱
         nameLabel.leadingAnchor.constraint(equalTo: profileBgimageView.trailingAnchor, constant: 4).isActive = true
