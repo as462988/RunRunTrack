@@ -219,10 +219,28 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
 
 extension ChatroomViewController: ChatMessageCellDelegate {
     
-    func passLongGesture() {
+    func passLongGesture(cell: UICollectionViewCell) {
         
-        print("\(self.messages[0].uid)")
-
+        let collectionView = self.chatRoomView.msgCollectionView
+        
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+        
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let text = "封鎖此用戶"
+        
+        let action = UIAlertAction(title: text, style: .default) { (action) in
+            print("block \(self.messages[indexPath.item].name)")
+        }
+        
+        controller.addAction(action)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+        
     }
 }
 

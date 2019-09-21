@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChatMessageCellDelegate: AnyObject {
     
-    func passLongGesture()
+    func passLongGesture(cell: UICollectionViewCell)
 }
 
 class ChatMessageCell: UICollectionViewCell {
@@ -76,7 +76,7 @@ class ChatMessageCell: UICollectionViewCell {
     }
     
     @objc func configureGesture() {
-        self.delegate?.passLongGesture()
+        self.delegate?.passLongGesture(cell: self)
     }
     
     func createNameLabel() -> UILabel? { return UILabel() }
