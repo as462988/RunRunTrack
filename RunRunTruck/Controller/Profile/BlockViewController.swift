@@ -15,6 +15,7 @@ class BlockViewController: UIViewController {
     @IBOutlet weak var blockTableiew: UITableView!
     
     var deleteId: String?
+    var nameArr: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class BlockViewController: UIViewController {
         bgView.layer.cornerRadius = 10
         bgView.clipsToBounds = true
         closeBtn.addTarget(self, action: #selector(clickCloseBtn), for: .touchUpInside)
-        
+        getBlockUserName()
     }
 
     @objc func clickCloseBtn() {
@@ -32,6 +33,23 @@ class BlockViewController: UIViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
+    func getBlockUserName() {
+        
+        if let block = FirebaseManager.shared.currentUser?.block {
+            for num in 0...block.count - 1 {
+                
+                FirebaseManager.shared.getBlockUserName(blockId: block[num]) { [weak self] (userName) in
+                    
+                    self?.nameArr.append(userName ?? "")
+                    DispatchQueue.main.async {
+                        self?.blockTableiew.reloadData()
+                    }
+                }
+            }
+
+        }
+
+    }
 }
 
 extension BlockViewController: UITableViewDelegate, UITableViewDataSource {
@@ -48,16 +66,14 @@ extension BlockViewController: UITableViewDelegate, UITableViewDataSource {
            guard  let blockCell = tableView.dequeueReusableCell(
                withIdentifier: "blockCell", for: indexPath) as? BlockTableViewCell else {  return UITableViewCell() }
         blockCell.cancelBlockBtn.addTarget(self, action: #selector(clickCancelBlockBtn), for: .touchUpInside)
-        blockCell.setValue(name: "name")
+        blockCell.setValue(name: nameArr.count != 0 ? nameArr[indexPath.item] : "")
         blockCell.setLayout()
         self.deleteId = FirebaseManager.shared.currentUser?.block[indexPath.item]
-        
            return blockCell
        }
     
     @objc func clickCancelBlockBtn() {
-        print("aaaa")
-        
+
         guard let deleteId = self.deleteId else {
             return
         }

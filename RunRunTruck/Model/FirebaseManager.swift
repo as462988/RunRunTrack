@@ -346,6 +346,22 @@ class FirebaseManager {
         }
     }
     
+    func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
+        
+        db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
+        
+            guard let data = snapshot?.data() else {
+                print("Document data was empty.")
+                completion(nil)
+                return
+            }
+            
+            guard let name = data[User.name.rawValue] as? String else {return}
+
+            completion(name)
+        }
+    }
+    
     // MARK: About Boss
     func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
