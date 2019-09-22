@@ -15,10 +15,8 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var showLocationTextView: UITextView!
     @IBOutlet weak var storyLabel: UILabel!
-    @IBOutlet weak var favoriteBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var backBtnBg: UIView!
-    @IBOutlet weak var upLoadDetailImage: UIButton!
     
     var detailInfo: TruckData?
     let dateManager = TransformTimeManager()

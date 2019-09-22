@@ -92,8 +92,8 @@ class FirebaseManager {
                         let open = data[Truck.open.rawValue] as? Bool,
                         let story = data[Truck.story.rawValue] as? String else {return}
                     
-                         openTimestamp = data[Truck.openTime.rawValue] as? Double
-                         location = data[Truck.location.rawValue] as? GeoPoint
+                        openTimestamp = data[Truck.openTime.rawValue] as? Double
+                        location = data[Truck.location.rawValue] as? GeoPoint
                         detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,

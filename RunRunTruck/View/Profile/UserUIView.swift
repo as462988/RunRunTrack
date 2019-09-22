@@ -42,6 +42,8 @@ class UserUIView: UIView {
         logoImage.layer.cornerRadius = logoImage.bounds.width / 2
         logoImage.contentMode = .scaleAspectFill
         logoImage.clipsToBounds = true
+        logoImage.layer.borderWidth = 2
+        logoImage.layer.borderColor = UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha: 0.5).cgColor
         animationView.layer.cornerRadius = animationView.bounds.width / 2
         logoOutBtn.clipsToBounds = true
         logoOutBtn.layer.cornerRadius = 10
