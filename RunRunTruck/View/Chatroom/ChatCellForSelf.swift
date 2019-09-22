@@ -12,7 +12,7 @@ class ChatCellForSelf: ChatMessageCell {
     
     override func createProfileBgImageView() -> UIImageView? { return nil }
     override func createNameLabel() -> UILabel? { return nil }
-    
+    override func createUserImageView() -> UIImageView? { return nil }
     override func configureTextView() {
         super.configureTextView()
         

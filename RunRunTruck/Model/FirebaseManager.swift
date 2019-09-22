@@ -110,7 +110,7 @@ class FirebaseManager {
         }
         
     }
-    
+
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
         let ref = db.collection(Truck.truck.rawValue).document()
@@ -212,11 +212,40 @@ class FirebaseManager {
     }
 
     // MARK: About User
+    ///開始監聽使用者資料變更
+    func listenUserData() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+            
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            
+            guard let name = data[User.name.rawValue] as? String,
+                let email = data[User.email.rawValue] as? String,
+                let badge = data[User.badge.rawValue] as? [String],
+                let block = data[User.block.rawValue] as? [String] else { return }
+            
+            if let image = data[User.logoImage.rawValue] as? String {
+
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block)
+            } else {
+                
+                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block)
+            }
+            print("Current data: \(data)")
+        }
+    }
     
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+        db.collection(User.user.rawValue).document(uid).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
                 print("Error fetching document: \(error!)")
@@ -230,14 +259,15 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String] else { return }
+                let badge = data[User.badge.rawValue] as? [String],
+                let block = data[User.block.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
 
-            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge)
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, badge: badge)
+                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block)
             }
 
             completion(self?.currentUser)
@@ -252,7 +282,8 @@ class FirebaseManager {
         db.collection(User.user.rawValue).document(uid).setData([
             User.name.rawValue: name,
             User.email.rawValue: email,
-            User.badge.rawValue: []
+            User.badge.rawValue: [],
+            User.block.rawValue: []
         ]) { error in
             
             if let error = error {
@@ -282,6 +313,52 @@ class FirebaseManager {
             if let error = error {
                 print("Error adding document: \(error)")
             }
+        }
+    }
+    
+    func addUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.block.rawValue: FieldValue.arrayUnion([blockId])
+            
+        ]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func deleteUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.block.rawValue: FieldValue.arrayRemove([blockId])
+            
+        ]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
+        
+        db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
+        
+            guard let data = snapshot?.data() else {
+                print("Document data was empty.")
+                completion(nil)
+                return
+            }
+            
+            guard let name = data[User.name.rawValue] as? String else {return}
+
+            completion(name)
         }
     }
     
@@ -342,7 +419,7 @@ class FirebaseManager {
         db.collection(Boss.boss.rawValue).document(uid).setData([
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
-            Truck.truckId.rawValue: nil]
+            Truck.truckId.rawValue: nil!]
         ) { [weak self] error in
             
             if let error = error {
@@ -417,7 +494,7 @@ class FirebaseManager {
     
     // MARK: About ChatRoom
     
-    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String, text: String) {
+    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String?, text: String) {
         db.collection(Truck.truck.rawValue).document(truckID).collection(
             
             Truck.chatRoom.rawValue).addDocument(data: [
@@ -488,14 +565,17 @@ class FirebaseManager {
             }
             var rtnMessage: [Message] = []
             
+            var image: String?
+            
             snapshot.documentChanges.forEach({ (documentChange) in
                 
                 let data = documentChange.document.data()
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
-                    let image = data[User.logoImage.rawValue] as? String,
                     let createTime = data[User.createTime.rawValue] as? Double else {return}
+                
+                image = data[User.logoImage.rawValue] as? String
                 
                 if documentChange.type == .added {
                     
@@ -508,3 +588,48 @@ class FirebaseManager {
         }
     }
 }
+
+//About Turck Info
+//extension FirebaseManager {
+//    func getTruckDetailImgChanges(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+//
+//        var openTimestamp: Double?
+//        var location: GeoPoint?
+//        var detailImage: String?
+//        db.collection(Truck.truck.rawValue).
+//        db.collection(Truck.truck.rawValue).whereField(
+//            Truck.detailImage.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
+//
+//                guard let snapshot = snapshot else {
+//                    print("Error fetching document: \(error!)")
+//                    return
+//                }
+//
+//                var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
+//                snapshot.documentChanges.forEach({ (documentChange) in
+//                    let data = documentChange.document.data()
+//
+//                    guard let name = data[Truck.name.rawValue] as? String,
+//                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+//                        let open = data[Truck.open.rawValue] as? Bool,
+//                        let story = data[Truck.story.rawValue] as? String else {return}
+//
+//                        openTimestamp = data[Truck.openTime.rawValue] as? Double
+//                        location = data[Truck.location.rawValue] as? GeoPoint
+//                        detailImage = data[Truck.detailImage.rawValue] as? String
+//
+//                    let truck = TruckData(documentChange.document.documentID,
+//                                          name, logoImage,
+//                                          detailImage,
+//                                          story,
+//                                          open,
+//                                          openTimestamp,
+//                                          location)
+//
+//                    rtnTruckDatas.append((truck, documentChange.type))
+//                })
+//                completion(rtnTruckDatas)
+//        }
+//
+//    }
+//}

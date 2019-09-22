@@ -72,11 +72,11 @@ struct Message {
     
     var uid: String
     var name: String
-    var logoImage: String
+    var logoImage: String?
     var text: String
     var createTime: Double
     
-    init(_ uid: String, _ name: String, _ logoImage: String, _ text: String, _ createTime: Double) {
+    init(_ uid: String, _ name: String, _ logoImage: String? = nil, _ text: String, _ createTime: Double) {
         self.uid = uid
         self.name = name
         self.logoImage = logoImage
@@ -102,6 +102,8 @@ enum User: String {
     case createTime
     
     case badge
+    
+    case block
 }
 
 struct UserData {
@@ -116,12 +118,16 @@ struct UserData {
     
     let truckId: String?
     
-    init(name: String, email: String, logoImage: String? = nil, badge: [String] = [], truckId: String? = nil) {
+    let block: [String]
+    
+    init(name: String, email: String, logoImage: String? = nil,
+         badge: [String] = [], truckId: String? = nil, block: [String] = [] ) {
         self.name = name
         self.email = email
         self.logoImage = logoImage
         self.badge = badge
         self.truckId = truckId
+        self.block = block
     }
 }
 

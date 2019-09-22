@@ -60,7 +60,7 @@ class BadgeViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
- 
+        self.navigationController?.tabBarController?.tabBar.isHidden = false
     }
         
     func getUserBadgeisAchieved() {
@@ -82,7 +82,7 @@ class BadgeViewController: UIViewController {
     
     @IBAction func animateButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-            
+
         LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
 
             return

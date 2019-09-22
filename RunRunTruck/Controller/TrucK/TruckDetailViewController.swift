@@ -37,8 +37,7 @@ class TruckDetailViewController: UIViewController {
         logoImageView.layer.masksToBounds = false
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
-        backBtnBg.clipsToBounds = true
-        
+        backBtnBg.clipsToBounds = true        
     }
     
     override func viewWillLayoutSubviews() {
@@ -51,7 +50,7 @@ class TruckDetailViewController: UIViewController {
         guard let detailInfo = detailInfo else { return }
         
         logoImageView.loadImage(detailInfo.logoImage, placeHolder: UIImage.asset(.Icon_logo))
-        infoImageView.loadImage(detailInfo.detailImage,placeHolder: UIImage.asset(.Icon_car))
+        infoImageView.loadImage(detailInfo.detailImage, placeHolder: UIImage.asset(.Icon_car))
         
         storyLabel.text = detailInfo.story
         

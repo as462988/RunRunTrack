@@ -49,14 +49,13 @@ class BossUIView: UIView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
-        @IBOutlet weak var loactionAnimationView: AnimationView!
+    @IBOutlet weak var loactionAnimationView: AnimationView!
 //    @IBOutlet weak var pinImage: UIImageView!
     
     weak var delegate: BossUIViewDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setLayout()
         setMapView()
         openView.isHidden = true
         
