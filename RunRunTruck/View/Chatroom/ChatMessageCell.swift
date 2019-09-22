@@ -66,11 +66,10 @@ class ChatMessageCell: UICollectionViewCell {
         
         if let profileImageView = self.userImageView {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
-//            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(configureGesture))
             
+            profileImageView.image = UIImage.asset(.Icon_profile)
             profileImageView.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(configureGesture))
-            
             profileImageView.addGestureRecognizer(tapGesture)
         }
     }

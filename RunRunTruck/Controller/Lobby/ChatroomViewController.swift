@@ -16,6 +16,8 @@ class ChatroomViewController: UIViewController {
     
     var cellForSelf: String = "cellForSelf"
     
+    var cellForBlock: String = "cellForBlock"
+    
     var truckData: TruckData?
     
     var messages: [Message] = []
@@ -44,18 +46,15 @@ class ChatroomViewController: UIViewController {
         
         chatRoomView.msgCollectionView.register(ChatCellForSelf.self, forCellWithReuseIdentifier: cellForSelf)
         
+        chatRoomView.msgCollectionView.register(BlockMessageCell.self, forCellWithReuseIdentifier: cellForBlock)
+        
         chatRoomView.sendBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         chatRoomView.sendTextBtn.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         
         observerChatRoom()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
- 
-    }
-    
+
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
             print("no turckID")
@@ -63,6 +62,7 @@ class ChatroomViewController: UIViewController {
         }
         
         FirebaseManager.shared.observeMessage(truckID: truckID) { [weak self] (messages) in
+            
             self?.messages.append(contentsOf: messages)
             
             if let weakSelf = self {
@@ -164,7 +164,7 @@ class ChatroomViewController: UIViewController {
             chatRoomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             chatRoomView.topAnchor.constraint(equalTo: self.view.topAnchor),
             chatRoomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            ])
+        ])
     }
 }
 
@@ -179,6 +179,8 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let messageData = messages[indexPath.item]
+        
+        
         
         if messageData.uid == FirebaseManager.shared.userID || messageData.uid == FirebaseManager.shared.bossID {
             
@@ -196,14 +198,25 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             
         } else {
             
-            guard let chatCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: cellForOther,
-                for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
+             guard let chatCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: cellForBlock,
+                for: indexPath) as? BlockMessageCell else { return UICollectionViewCell() }
             
-             chatCell.setupCellValue(text: messageData.text, name: messageData.name, image: messageData.logoImage)
-             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
+                 chatCell.setupCellValue(text: "你已封鎖此用戶訊息", name: nil, image: nil)
             
-            chatCell.delegate = self
+            chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
+//            guard let chatCell = collectionView.dequeueReusableCell(
+//                withReuseIdentifier: cellForOther,
+//                for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
+//
+//             chatCell.setupCellValue(
+//                text: messageData.text,
+//                name: messageData.name,
+//                image: messageData.name == truckData?.name ? truckData?.logoImage : messageData.logoImage )
+//
+//            chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
+//
+//            chatCell.delegate = self
             
             return chatCell
         }
@@ -226,34 +239,42 @@ extension ChatroomViewController: ChatMessageCellDelegate {
     
     func passLongGesture(cell: UICollectionViewCell) {
         
-        let currentUserId = FirebaseManager.shared.userID
+        let collectionView = self.chatRoomView.msgCollectionView
         
-        if currentUserId != nil {
-            
-            let collectionView = self.chatRoomView.msgCollectionView
-            
-            guard let indexPath = collectionView.indexPath(for: cell) else {
-                return
-            }
-            
-            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            
-            let text = "封鎖此用戶"
-            
-            let action = UIAlertAction(title: text, style: .default) { (action) in
-                print("block \(self.messages[indexPath.item].name)")
-                
-                FirebaseManager.shared.addUserBlock(
-                    uid: currentUserId!,
-                    blockId: self.messages[indexPath.item].uid)
-            }
-            
-            controller.addAction(action)
-            
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            controller.addAction(cancelAction)
-            present(controller, animated: true, completion: nil)
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
         }
+        
+        guard messages[indexPath.item].name != truckData?.name else {
+            //Todo
+            print("封鎖老闆就看不到餐廳最新消息囉！")
+            return
+        }
+
+        if FirebaseManager.shared.userID != nil {
+            
+            showBlockAlert(cell: cell, index: indexPath.item)
+        }
+    }
+    
+    func showBlockAlert(cell: UICollectionViewCell, index: Int) {
+        
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let text = "封鎖此用戶"
+        
+        let action = UIAlertAction(title: text, style: .default) { (action) in
+            
+            FirebaseManager.shared.addUserBlock(
+                uid: FirebaseManager.shared.userID!,
+                blockId: self.messages[index].uid)
+        }
+        
+        controller.addAction(action)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }
 
@@ -266,7 +287,7 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
         var height: CGFloat = 80
         
         let messageData = messages[indexPath.item]
-
+        
         if messageData.uid == FirebaseManager.shared.userID {
             
             height = estimateFrameForText(text: messageData.text).height + 20

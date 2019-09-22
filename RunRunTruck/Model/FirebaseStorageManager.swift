@@ -45,7 +45,7 @@ class FirebaseStorageManager {
 
     }
 
-    func deleteImageFile(type: String, imageName: String){
+    func deleteImageFile(type: String, imageName: String) {
         
         let desertRef = storageRef.child("\(type)/\(imageName).jpg")
         // Delete the file

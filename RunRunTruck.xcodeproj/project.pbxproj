@@ -54,6 +54,7 @@
 		095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */; };
 		095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238CA2330ABDF0015AEDA /* QRScannerController.swift */; };
 		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
+		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
 		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
 		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
@@ -119,6 +120,7 @@
 		095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCollectionViewCell.swift; sourceTree = "<group>"; };
 		095238CA2330ABDF0015AEDA /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
+		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
 		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
 		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				091508A5232240BF008EFCF5 /* TruckChatroomView.swift */,
 				093365F7231E49EB00F0D503 /* ChatMessageCell.swift */,
 				09F78E362324F39900FD6099 /* ChatCellForSelf.swift */,
+				09B2E4C923378F84007FF161 /* BlockMessageCell.swift */,
 			);
 			path = Chatroom;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */,
 				09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
+				09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
 				09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */,
 				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,

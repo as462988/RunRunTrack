@@ -357,7 +357,7 @@ class FirebaseManager {
         db.collection(Boss.boss.rawValue).document(uid).setData([
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
-            Truck.truckId.rawValue: nil]
+            Truck.truckId.rawValue: nil!]
         ) { [weak self] error in
             
             if let error = error {
