@@ -212,11 +212,40 @@ class FirebaseManager {
     }
 
     // MARK: About User
+    ///開始監聽使用者資料變更
+    func listenUserData() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+            
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            
+            guard let name = data[User.name.rawValue] as? String,
+                let email = data[User.email.rawValue] as? String,
+                let badge = data[User.badge.rawValue] as? [String],
+                let block = data[User.block.rawValue] as? [String] else { return }
+            
+            if let image = data[User.logoImage.rawValue] as? String {
+
+            self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block)
+            } else {
+                
+                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block)
+            }
+            print("Current data: \(data)")
+        }
+    }
     
     func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+        db.collection(User.user.rawValue).document(uid).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
                 print("Error fetching document: \(error!)")
@@ -287,7 +316,7 @@ class FirebaseManager {
         }
     }
     
-    func addUserBlock(uid: String, blockId: String) {
+    func addUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
         db.collection(User.user.rawValue).document(uid).updateData([
             
             User.block.rawValue: FieldValue.arrayUnion([blockId])
@@ -296,6 +325,8 @@ class FirebaseManager {
             
             if let error = error {
                 print("Error adding document: \(error)")
+            }else {
+                completion()
             }
         }
     }

@@ -100,7 +100,7 @@ class AuthViewController: UIViewController {
             
             switch uiStatus {
             case .userLogin:
-                
+                FirebaseManager.shared.listenUserData()
                 FirebaseManager.shared.getCurrentUserData(completion: {[weak self] (data) in
                     guard data != nil else {
                         print("老闆使用了吃貨登入")
@@ -124,6 +124,7 @@ class AuthViewController: UIViewController {
                        }
                 })
             case .bossLogin:
+                FirebaseManager.shared.listenUserData()
                 FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
                     guard bossData != nil else {
                         print("吃貨使用了老闆登入")

@@ -28,7 +28,6 @@ class ChatroomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.addSubview(chatRoomView)
         
         setContainView()
@@ -54,7 +53,21 @@ class ChatroomViewController: UIViewController {
         
         observerChatRoom()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let tabbarVc = self.navigationController?.tabBarController {
+            tabbarVc.tabBar.isHidden = true
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let tabbarVc = self.navigationController?.tabBarController {
+            tabbarVc.tabBar.isHidden = false
+        }
 
+    }
+    
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
             print("no turckID")
@@ -180,8 +193,6 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         
         let messageData = messages[indexPath.item]
         
-        
-        
         if messageData.uid == FirebaseManager.shared.userID || messageData.uid == FirebaseManager.shared.bossID {
             
             guard let chatCell = collectionView.dequeueReusableCell(
@@ -197,28 +208,32 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             return chatCell
             
         } else {
+            //別人: 封鎖與非封鎖
+            if let block = FirebaseManager.shared.currentUser?.block, block.contains(messageData.uid) {
+                guard let blockCell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: cellForBlock,
+                    for: indexPath) as? BlockMessageCell else { return UICollectionViewCell() }
+                
+                blockCell.setupCellValue(text: "你已封鎖此用戶訊息", name: nil, image: nil)
+                
+                blockCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
+                return blockCell
+            }
+            guard let chatCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: cellForOther,
+                for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
             
-             guard let chatCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: cellForBlock,
-                for: indexPath) as? BlockMessageCell else { return UICollectionViewCell() }
-            
-                 chatCell.setupCellValue(text: "你已封鎖此用戶訊息", name: nil, image: nil)
+            chatCell.setupCellValue(
+                text: messageData.text,
+                name: messageData.name,
+                image: messageData.name == truckData?.name ? truckData?.logoImage : messageData.logoImage )
             
             chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
-//            guard let chatCell = collectionView.dequeueReusableCell(
-//                withReuseIdentifier: cellForOther,
-//                for: indexPath) as? ChatMessageCell else { return UICollectionViewCell() }
-//
-//             chatCell.setupCellValue(
-//                text: messageData.text,
-//                name: messageData.name,
-//                image: messageData.name == truckData?.name ? truckData?.logoImage : messageData.logoImage )
-//
-//            chatCell.bubbleHeightAnchor?.constant = estimateFrameForText(text: messageData.text).height + 8
-//
-//            chatCell.delegate = self
+            
+            chatCell.delegate = self
             
             return chatCell
+            //            }
         }
     }
     
@@ -250,7 +265,7 @@ extension ChatroomViewController: ChatMessageCellDelegate {
             print("封鎖老闆就看不到餐廳最新消息囉！")
             return
         }
-
+        
         if FirebaseManager.shared.userID != nil {
             
             showBlockAlert(cell: cell, index: indexPath.item)
@@ -267,7 +282,9 @@ extension ChatroomViewController: ChatMessageCellDelegate {
             
             FirebaseManager.shared.addUserBlock(
                 uid: FirebaseManager.shared.userID!,
-                blockId: self.messages[index].uid)
+                blockId: self.messages[index].uid) { [weak self] in
+                    self?.chatRoomView.msgCollectionView.reloadData()
+            }
         }
         
         controller.addAction(action)

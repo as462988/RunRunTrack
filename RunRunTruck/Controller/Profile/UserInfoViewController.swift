@@ -28,20 +28,12 @@ class UserInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         handGester()
+        handGester()
         
-        FirebaseManager.shared.getCurrentUserData { (userData) in
-            
-            guard let data = userData else {return}
-            
-            if data.logoImage == nil {
-            
-            self.userView.setupValue(name: data.name)
-                
-            } else {
-                self.userView.setupValue(name: data.name, image: data.logoImage)
-            }
+        if let user = FirebaseManager.shared.currentUser {
+            self.userView.setupValue(name: user.name, image: user.logoImage ?? nil)
         }
+        
     }
     
     override func viewWillLayoutSubviews() {

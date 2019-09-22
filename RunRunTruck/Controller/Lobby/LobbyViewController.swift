@@ -247,7 +247,7 @@ extension LobbyViewController: TurckInfoCellDelegate {
         
         guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
 
-            self.hidesBottomBarWhenPushed = true
+//            self.hidesBottomBarWhenPushed = true
             
             let chatroomVC = ChatroomViewController()
             
@@ -257,7 +257,7 @@ extension LobbyViewController: TurckInfoCellDelegate {
             
             navigationController?.isNavigationBarHidden = false
             navigationController?.pushViewController(chatroomVC, animated: true)
-            self.hidesBottomBarWhenPushed = false
+//            self.hidesBottomBarWhenPushed = false
             return
         }
         
