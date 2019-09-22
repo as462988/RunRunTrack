@@ -29,6 +29,8 @@ class TruckViewController: UIViewController {
         super.viewDidLoad()
         handlerOpeningTruck()
         handlerDisOpeningTruck()
+        handlerTruckChangeDetailImg()
+        handlerTruckChangeStory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +138,14 @@ class TruckViewController: UIViewController {
                
            }
        }
+    }
+    
+    func handlerTruckChangeDetailImg() {
+        
+    }
+    
+    func handlerTruckChangeStory() {
+        
     }
     
     func handGester(view: AnimationView) {

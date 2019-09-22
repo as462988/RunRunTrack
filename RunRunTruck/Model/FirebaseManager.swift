@@ -110,7 +110,7 @@ class FirebaseManager {
         }
         
     }
-    
+
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
         let ref = db.collection(Truck.truck.rawValue).document()
@@ -325,7 +325,7 @@ class FirebaseManager {
             
             if let error = error {
                 print("Error adding document: \(error)")
-            }else {
+            } else {
                 completion()
             }
         }
@@ -557,3 +557,48 @@ class FirebaseManager {
         }
     }
 }
+
+//About Turck Info
+//extension FirebaseManager {
+//    func getTruckDetailImgChanges(completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
+//
+//        var openTimestamp: Double?
+//        var location: GeoPoint?
+//        var detailImage: String?
+//        db.collection(Truck.truck.rawValue).
+//        db.collection(Truck.truck.rawValue).whereField(
+//            Truck.detailImage.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
+//
+//                guard let snapshot = snapshot else {
+//                    print("Error fetching document: \(error!)")
+//                    return
+//                }
+//
+//                var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
+//                snapshot.documentChanges.forEach({ (documentChange) in
+//                    let data = documentChange.document.data()
+//
+//                    guard let name = data[Truck.name.rawValue] as? String,
+//                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+//                        let open = data[Truck.open.rawValue] as? Bool,
+//                        let story = data[Truck.story.rawValue] as? String else {return}
+//
+//                        openTimestamp = data[Truck.openTime.rawValue] as? Double
+//                        location = data[Truck.location.rawValue] as? GeoPoint
+//                        detailImage = data[Truck.detailImage.rawValue] as? String
+//
+//                    let truck = TruckData(documentChange.document.documentID,
+//                                          name, logoImage,
+//                                          detailImage,
+//                                          story,
+//                                          open,
+//                                          openTimestamp,
+//                                          location)
+//
+//                    rtnTruckDatas.append((truck, documentChange.type))
+//                })
+//                completion(rtnTruckDatas)
+//        }
+//
+//    }
+//}

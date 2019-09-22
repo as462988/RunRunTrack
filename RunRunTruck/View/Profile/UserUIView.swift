@@ -11,6 +11,7 @@ import Lottie
 
 protocol UserUIViewDelegate: AnyObject {
     func clickUpLoadBtn()
+    func clickBlockBtn()
 }
 
 class UserUIView: UIView {
@@ -19,13 +20,14 @@ class UserUIView: UIView {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var animationView: AnimationView!
+    @IBOutlet weak var showBlockBtn: UIButton!
     
     weak var delegate: UserUIViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
-        
+        showBlockBtn.addTarget(self, action: #selector(clickBlockBtn), for: .touchUpInside)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
         animationView.addGestureRecognizer(tapGesture)
         
@@ -65,5 +67,9 @@ class UserUIView: UIView {
     @objc func choseUpLoadImage() {
         
         self.delegate?.clickUpLoadBtn()
+    }
+    
+    @objc func clickBlockBtn() {
+        self.delegate?.clickBlockBtn()
     }
 }
