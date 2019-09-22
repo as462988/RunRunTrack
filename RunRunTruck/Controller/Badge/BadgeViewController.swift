@@ -82,9 +82,9 @@ class BadgeViewController: UIViewController {
     
     @IBAction func animateButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-        
-            print("請先登入會員")
-        
+            
+        LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
+
             return
         }
         

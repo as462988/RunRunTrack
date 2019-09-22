@@ -16,6 +16,7 @@ class TrcukCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var truckNameLabel: UILabel!
     
     @IBOutlet weak var addressLabel: UILabel!
+    
     @IBOutlet weak var animationView: AnimationView!
     
     func setValue(name: String, image: String) {
