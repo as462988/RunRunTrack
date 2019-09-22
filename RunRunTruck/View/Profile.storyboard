@@ -507,7 +507,7 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="blockCell" id="KIC-dD-4Bb">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="blockCell" id="KIC-dD-4Bb" customClass="BlockTableViewCell" customModule="RunRunTruck" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="99.5" width="272" height="34.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KIC-dD-4Bb" id="uGi-93-Bdu">
@@ -539,6 +539,10 @@
                                                         <constraint firstItem="QwE-F9-0uV" firstAttribute="top" secondItem="uGi-93-Bdu" secondAttribute="top" constant="2" id="t3G-VJ-oea"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="cancelBlockBtn" destination="QwE-F9-0uV" id="y1l-Bj-Van"/>
+                                                    <outlet property="nameLabel" destination="TZl-Rs-f6x" id="Op7-B8-MsO"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>

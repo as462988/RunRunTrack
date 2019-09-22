@@ -331,6 +331,21 @@ class FirebaseManager {
         }
     }
     
+    func deleteUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.block.rawValue: FieldValue.arrayRemove([blockId])
+            
+        ]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
     // MARK: About Boss
     func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }

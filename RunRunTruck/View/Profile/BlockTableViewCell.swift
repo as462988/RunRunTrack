@@ -16,5 +16,11 @@ class BlockTableViewCell: UITableViewCell {
     func setValue(name: String) {
         
         nameLabel.text = name
+
+    }
+    
+    func setLayout() {
+        cancelBlockBtn.layer.cornerRadius = 10
+        cancelBlockBtn.clipsToBounds = true
     }
 }
