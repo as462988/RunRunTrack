@@ -19,7 +19,6 @@ class CreatQrcodeViewController: UIViewController, QrcodeViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = true
         qrcodeView.layer.cornerRadius = 20

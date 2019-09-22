@@ -27,7 +27,17 @@ class TruckViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        handlerOpeningTruck()
+        handlerDisOpeningTruck()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    func handlerOpeningTruck() {
         FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
             if let truckDatas = truckDatas {
 
@@ -71,62 +81,61 @@ class TruckViewController: UIViewController {
 
             }
         }
-        
-        FirebaseManager.shared.getOpeningTruckData(isOpen: false) {[weak self] (truckDatas) in
-            if let truckDatas = truckDatas {
-                
-                for var truckData in truckDatas {
-                    
-                    switch truckData.1 {
-                    case .added:
-                        //新增
-                        if let location = truckData.0.location {
-                        self?.addressManager.getLocationAddress(
-                            lat: location.latitude,
-                            long: location.longitude,
-                            completion: {(location, error) in
-                                
-                                guard let location = location else {return}
-                                
-                                let address = location.subAdministrativeArea
-                                    + location.city + location.street
-                                
-                                truckData.0.address = address
-                                self?.disOpenTruckArr.append(truckData.0)
-                                
-                        })
+    }
+    
+    func handlerDisOpeningTruck() {
+       FirebaseManager.shared.getOpeningTruckData(isOpen: false) {[weak self] (truckDatas) in
+           if let truckDatas = truckDatas {
+               
+               for var truckData in truckDatas {
+                   
+                   switch truckData.1 {
+                   case .added:
+                       //新增
+                       if let location = truckData.0.location {
+                       self?.addressManager.getLocationAddress(
+                           lat: location.latitude,
+                           long: location.longitude,
+                           completion: {(location, error) in
+                               
+                               guard let location = location else {return}
+                               
+                               let address = location.subAdministrativeArea
+                                   + location.city + location.street
+                               
+                               truckData.0.address = address
+                               self?.disOpenTruckArr.append(truckData.0)
+                            
+                            DispatchQueue.main.async {
+                                self?.truckCollectionView.reloadData()
+                            }
+                       })
+                       
+                       } else {
+                        self?.disOpenTruckArr.append(truckData.0)
                         
-                        } else {
-                            self?.disOpenTruckArr.append(truckData.0)
-                        }
                         DispatchQueue.main.async {
                             self?.truckCollectionView.reloadData()
                         }
-              
-                    case .removed:
-                        //刪除
-                        
-                        if let index = self?.disOpenTruckArr.firstIndex(
-                            where: { (truckdata) -> Bool in
-                                return truckdata.id == truckData.0.id
-                        }) {
-                            self?.disOpenTruckArr.remove(at: index)
-                        }
-                    case .modified: break
-                    @unknown default:
-                        fatalError()
                     }
-                }
-                
-            }
-        }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        self.navigationController?.isNavigationBarHidden = false
+                    
+                   case .removed:
+                       //刪除
+                       
+                       if let index = self?.disOpenTruckArr.firstIndex(
+                           where: { (truckdata) -> Bool in
+                               return truckdata.id == truckData.0.id
+                       }) {
+                           self?.disOpenTruckArr.remove(at: index)
+                       }
+                   case .modified: break
+                   @unknown default:
+                       fatalError()
+                   }
+               }
+               
+           }
+       }
     }
     
     func handGester(view: AnimationView) {
@@ -135,7 +144,6 @@ class TruckViewController: UIViewController {
         view.loopMode = .loop
         view.play()
     }
-
 }
 
 extension TruckViewController:
@@ -164,12 +172,11 @@ UICollectionViewDataSource {
         if allTruckArr[indexPath.item].open {
             
             truckCell.animationView.isHidden = false
-//            truckCell.addressLabel.isHidden = false
-//            truckCell.addressLabel.text = allTruckArr[indexPath.item].address
+
             handGester(view: truckCell.animationView)
         } else {
             truckCell.animationView.isHidden = true
-//            truckCell.addressLabel.isHidden = true
+
         }
 
         return truckCell

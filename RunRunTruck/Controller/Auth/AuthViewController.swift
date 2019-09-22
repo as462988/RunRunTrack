@@ -96,6 +96,8 @@ class AuthViewController: UIViewController {
                 return
             }
             
+            LKProgressHUD.show()
+            
             switch uiStatus {
             case .userLogin:
                 
@@ -112,11 +114,14 @@ class AuthViewController: UIViewController {
                     }
                     //吃貨登入成功
                     FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                    
-                    guard let rootVC = AppDelegate.shared.window?.rootViewController
-                        as? TabBarViewController else { return }
-                    rootVC.tabBar.isHidden = false
+                    LKProgressHUD.showSuccess(text: "登入成功")
+                       
+                       DispatchQueue.main.async {
+                           self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                           guard let rootVC = AppDelegate.shared.window?.rootViewController
+                               as? TabBarViewController else { return }
+                           rootVC.tabBar.isHidden = false
+                       }
                 })
             case .bossLogin:
                 FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
@@ -132,10 +137,14 @@ class AuthViewController: UIViewController {
                     }
                     //老闆登入成功
                     FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                    guard let rootVC = AppDelegate.shared.window?.rootViewController
-                        as? TabBarViewController else { return }
-                    rootVC.tabBar.isHidden = false
+                    LKProgressHUD.showSuccess(text: "登入成功")
+                    
+                    DispatchQueue.main.async {
+                        self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                        guard let rootVC = AppDelegate.shared.window?.rootViewController
+                            as? TabBarViewController else { return }
+                        rootVC.tabBar.isHidden = false
+                    }
                 })
                 
             }

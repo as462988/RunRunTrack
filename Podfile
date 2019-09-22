@@ -15,4 +15,5 @@ target 'RunRunTruck' do
    pod 'GooglePlaces'
    pod 'IQKeyboardManager'
    pod 'lottie-ios'
+   pod 'JGProgressHUD'
 end
