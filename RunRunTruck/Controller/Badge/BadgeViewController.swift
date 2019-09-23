@@ -26,57 +26,40 @@ class BadgeViewController: UIViewController {
         return view
     }()
     
-    var badgeArr: [TruckShortInfo] = []
+    var allTrucks: [(TruckData, Bool)] = []
     
     var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FirebaseManager.shared.getAllTruckData { [weak self] (truckDatas) in
-            guard let truckDatas = truckDatas else { return }
-            
-            for truckData in truckDatas {
-                
-                self?.badgeArr.append(truckData)
-            }
-            
-            self?.getUserBadgeisAchieved()
-            
-            DispatchQueue.main.async {
-                self?.badgeCollectionView.reloadData()
-            }
-        }
-        
+        updateDataFromFirebaseManager()
+        observerAllTrucksUpdate()
+        observerUserUpdated()
         self.view.addSubview(getBadgeView)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        getUserBadgeisAchieved()
         print("viewWillAppear")
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.tabBarController?.tabBar.isHidden = false
     }
-        
-    func getUserBadgeisAchieved() {
-        
-        guard let user = FirebaseManager.shared.currentUser else {
-            return
-        }
-        
-        for (index, userData) in badgeArr.enumerated() {
-            
-            if user.badge.contains(userData.truckId) {
-                
-                badgeArr[index].isAchieved = true
-            }
-        }
-        
+    
+    func observerAllTrucksUpdate() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromFirebaseManager), name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
+    }
+    
+    func observerUserUpdated() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromFirebaseManager), name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
+    }
+    
+   @objc func updateDataFromFirebaseManager() {
+        let user = FirebaseManager.shared.currentUser
+        allTrucks = FirebaseManager.shared.allTruckData.map({ (truck) -> (TruckData, Bool) in
+            return (truck, user != nil ? user!.badge.contains(truck.id) : false)
+        })
         self.badgeCollectionView.reloadData()
     }
     
@@ -103,27 +86,21 @@ UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return badgeArr.count
+        return allTrucks.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let truckDataWithBadgeIsAchieved = allTrucks[indexPath.item]
         guard let badgeCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
             return UICollectionViewCell()
         }
         
-         badgeCell.setValue(logo: badgeArr[indexPath.item].logoImage, name: badgeArr[indexPath.item].name)
+        badgeCell.setValue(logo: truckDataWithBadgeIsAchieved.0.logoImage, name: truckDataWithBadgeIsAchieved.0.name)
         
-        if badgeArr[indexPath.item].isAchieved {
-            
-            badgeCell.changeLayout(alpha: 1)
-            
-        } else {
-            
-            badgeCell.changeLayout(alpha: 0.2)
-        }
-       
+        badgeCell.changeLayout(alpha: truckDataWithBadgeIsAchieved.1 ? 1 : 0.2)
+        
         return badgeCell
     }
     
@@ -157,10 +134,10 @@ extension BadgeViewController: QRScannerControllerDelegate {
         getBadgeView.isHidden = false
         getBadgeView.backgroundColor = .clear
 
-        if let index = self.badgeArr.firstIndex(where: { (data) -> Bool in
-            return data.truckId == truckId
+        if let index = self.allTrucks.firstIndex(where: { (data) -> Bool in
+            return data.0.id == truckId
         }) {
-            getBadgeView.setImage(imageUrl: badgeArr[index].logoImage)
+            getBadgeView.setImage(imageUrl: allTrucks[index].0.logoImage)
             getBadgeView.animateAppear()
         }
         

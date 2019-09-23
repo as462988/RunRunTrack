@@ -20,8 +20,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         fatalError("init(coder:) has not been implemented")
     }
     
-    var favoriteTrucks: [TruckShortInfo] = []
-    var exploreTrucks: [TruckShortInfo] = []
+    var favoriteTrucks: [TruckData] = []
+    var exploreTrucks: [TruckData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +35,38 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "favoriteCell")
         collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "exploreCell")
         collectionView.register(MoreSettingCollectionViewCell.self, forCellWithReuseIdentifier: "settingCell")
-        collectionView.reloadData()
+        updateDataFromFirebaseManager()
+        observerAllTruckData()
     }
+    
+    func updateDataFromFirebaseManager() {
+        //先跟FirebaseManager拿所有的TruckData
+        var copyAllTruckData = FirebaseManager.shared.allTruckData
+        if let user = FirebaseManager.shared.currentUser {
+            user.favorite.forEach { favoriteId in
+                if let index = copyAllTruckData.firstIndex(where: { (truck) -> Bool in
+                    truck.id == favoriteId
+                }) {
+                    favoriteTrucks.append(copyAllTruckData.remove(at: index))
+                }
+            }
+            exploreTrucks = copyAllTruckData
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func observerAllTruckData() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAllTruckDataUpdated), name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
+    }
+    
+    @objc func handleAllTruckDataUpdated() {
+        favoriteTrucks = []
+        exploreTrucks = []
+        updateDataFromFirebaseManager()
+    }
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //收藏餐車, 繼續探索, 更多設定

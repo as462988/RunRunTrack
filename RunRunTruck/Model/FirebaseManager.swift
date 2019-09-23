@@ -13,10 +13,13 @@ import FirebaseAuth
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class FirebaseManager {
-    
+    static let userNotificationName = "userInfoUpdatedNotificaton"
+    static let allTruckDataNotificationName = "allTruckDataUpdatedNotification"
     static let shared = FirebaseManager()
     
     var openIngTruckData = [TruckData]()
+    
+    var allTruckData = [TruckData]()
     
     var currentUser: UserData?
     
@@ -34,39 +37,46 @@ class FirebaseManager {
     
     // MARK: About Truck
     //getAllTruck
-    func getAllTruckData(completion: @escaping ([TruckShortInfo]?) -> Void) {
+    
+    func listenAllTruckData() {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
+            guard error == nil else {
+                print("Getting all truck datas failed!!")
+                return
+            }
+            var openTimestamp: Double?
+            var location: GeoPoint?
+            var detailImage: String?
             
-            var logoImageArr: [TruckShortInfo] = []
-            
-            if let err = error {
-                print("Error getting documents: \(err)")
-                completion(nil)
-            } else {
-                
-                snapshot?.documentChanges.forEach({ (documentChange) in
+            snapshot?.documentChanges.forEach({ (documentChange) in
+                if documentChange.type == .added {
                     let data = documentChange.document.data()
                     
-                    guard let truckId = data[Truck.truckId.rawValue] as? String,
-                        let name = data[Truck.name.rawValue] as? String,
-                        let logoImage = data[Truck.logoImage.rawValue] as? String else {
-                            
-                            return
-                    }
+                    guard let name = data[Truck.name.rawValue] as? String,
+                        let logoImage = data[Truck.logoImage.rawValue] as? String,
+                        let open = data[Truck.open.rawValue] as? Bool,
+                        let story = data[Truck.story.rawValue] as? String,
+                        let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
                     
-                    if documentChange.type == .added {
-                        
-                        logoImageArr.append(TruckShortInfo(truckId: truckId, name: name, logoImage: logoImage))
-                        
-                    } else if documentChange.type == .removed {
-                        print("remove")
-                    }
-                })
-                completion(logoImageArr)
-                
-            }
+                    openTimestamp = data[Truck.openTime.rawValue] as? Double
+                    location = data[Truck.location.rawValue] as? GeoPoint
+                    detailImage = data[Truck.detailImage.rawValue] as? String
+                    
+                    let truck = TruckData(documentChange.document.documentID,
+                                          name, logoImage,
+                                          detailImage,
+                                          story,
+                                          open,
+                                          openTimestamp,
+                                          location,
+                                          favorited)
+                    self.allTruckData.append(truck)
+                }
+            })
+            NotificationCenter.default.post(name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
         }
+        
     }
     
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
@@ -242,6 +252,7 @@ class FirebaseManager {
                 
                 self?.currentUser = UserData(name: name, email: email, badge: badge, block: block,  favorite: favorite)
             }
+            NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
             print("Current data: \(data)")
         }
     }
