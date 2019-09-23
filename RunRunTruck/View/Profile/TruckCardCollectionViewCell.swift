@@ -9,24 +9,23 @@
 import UIKit
 
 class TruckCardCollectionViewCell: UICollectionViewCell {
-    let topImageView: UIImageView = UIImageView()
+    let topImageView: UIImageView = {
+        let image = UIImageView()
+        image.layer.cornerRadius = 5
+        image.clipsToBounds = true
+        image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        return image
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        layer.cornerRadius = 5
-        clipsToBounds = true
-//        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 20).cgPath
-//        layer.shadowOffset = CGSize(width: 2, height: 2)
-//        layer.shadowRadius = 2
-//        layer.shadowOpacity = 0.7
-//        layer.shadowColor = UIColor.black.cgColor
-//        layer.masksToBounds = false
         addSubview(topImageView)
         addSubview(titleLabel)
         setupViews()
@@ -45,7 +44,9 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
     func setupViews() {
         topImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         topImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
-        titleLabel.anchor(top: topImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 4, left: 4, bottom: 0, right: 0))
+        titleLabel.anchor(top: topImageView.bottomAnchor,
+                          leading: leadingAnchor, bottom: nil, trailing: nil,
+                          padding: .init(top: 4, left: 4, bottom: 0, right: 0))
     }
     
     required init?(coder: NSCoder) {
@@ -57,5 +58,3 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
         titleLabel.text = truckInfo.name
     }
 }
-
-

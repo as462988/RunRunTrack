@@ -37,7 +37,9 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.item {
         //收藏餐車, 繼續探索欄高
         case 0, 1:
@@ -50,7 +52,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.item {
         case 0:
             //傳入探索的餐車

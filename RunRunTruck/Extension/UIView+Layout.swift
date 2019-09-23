@@ -52,7 +52,7 @@ extension UIView {
             anchoredConstraints.bottom,
             anchoredConstraints.trailing,
             anchoredConstraints.width,
-            anchoredConstraints.height].forEach{ $0?.isActive = true }
+            anchoredConstraints.height].forEach { $0?.isActive = true }
         
         return anchoredConstraints
     }

@@ -17,7 +17,12 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var backBtnBg: UIView!
-    @IBOutlet weak var favoriteBtn: UIButton!
+    @IBOutlet weak var favoriteBtn: UIButton! {
+        didSet{
+            favoriteBtn.isSelected = isFavorite
+        }
+    }
+    var touchHandler: (() -> Void)?
     
     var detailInfo: TruckData?
     let dateManager = TransformTimeManager()
@@ -41,14 +46,7 @@ class TruckDetailViewController: UIViewController {
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
         backBtnBg.clipsToBounds = true
-        
-        switch favoriteBtn.state {
-        case .normal:
-            isFavorite = false
-        case .selected:
-            isFavorite = true
-        default: isFavorite = false
-        }
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -82,10 +80,16 @@ class TruckDetailViewController: UIViewController {
         
     }
     
-    @objc func clickFavorite() {
+    @objc func clickFavorite(_ sender: UIButton) {
         
-        isFavorite = !isFavorite
+        sender.isSelected = !sender.isSelected
+        
+        self.isFavorite = !isFavorite
+        
+        print(isFavorite)
     }
+    
+    
     
     @objc func backToRoot() {
         

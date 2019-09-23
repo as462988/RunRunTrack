@@ -31,7 +31,7 @@ class UserInfoViewController: UIViewController {
         super.viewWillAppear(animated)
         
         handGester()
-        
+        navigationController?.isNavigationBarHidden = true
         if let user = FirebaseManager.shared.currentUser {
             self.userView.setupValue(name: user.name, image: user.logoImage ?? nil)
         }
@@ -52,6 +52,14 @@ class UserInfoViewController: UIViewController {
 }
 
 extension UserInfoViewController: UserUIViewDelegate {
+   
+    func clickSettingBtn() {
+       guard let settingVC =
+        UIStoryboard.profile.instantiateViewController(withIdentifier: "settingVC")as?
+        SettingViewController else { return }
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(settingVC, animated: true)
+    }
     
     func clickUpLoadBtn() {
         openChoseCameraManager.showImagePickerAlert(self)

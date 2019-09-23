@@ -33,7 +33,8 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
         return trucks.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let truckInfo = trucks[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cellId",
@@ -41,16 +42,21 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                 let newCell = TruckCardCollectionViewCell()
                 return newCell
         }
-        
+        cell.layer.cornerRadius = 5
+        cell.clipsToBounds = true
         cell.setupCellWithTruckInfo(truckInfo)
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: 100, height: view.frame.size.height - 16)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 8, bottom: 0, right: 8)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 5, left: 8, bottom: 0, right: 8)
     }
 }
