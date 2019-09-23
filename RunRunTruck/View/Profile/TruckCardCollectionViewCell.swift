@@ -20,6 +20,8 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         return label
     }()
     
@@ -46,7 +48,7 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
         topImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         topImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         titleLabel.anchor(top: topImageView.bottomAnchor,
-                          leading: leadingAnchor, bottom: nil, trailing: nil,
+                          leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,
                           padding: .init(top: 4, left: 4, bottom: 0, right: 0))
     }
     
