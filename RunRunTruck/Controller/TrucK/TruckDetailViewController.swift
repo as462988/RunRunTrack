@@ -17,15 +17,18 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var backBtnBg: UIView!
+    @IBOutlet weak var favoriteBtn: UIButton!
     
     var detailInfo: TruckData?
     let dateManager = TransformTimeManager()
+    var isFavorite: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setValue()
         backBtn.addTarget(self, action: #selector(backToRoot), for: .touchUpInside)
+        favoriteBtn.addTarget(self, action: #selector(clickFavorite), for: .touchUpInside)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -37,7 +40,15 @@ class TruckDetailViewController: UIViewController {
         logoImageView.layer.masksToBounds = false
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
-        backBtnBg.clipsToBounds = true        
+        backBtnBg.clipsToBounds = true
+        
+        switch favoriteBtn.state {
+        case .normal:
+            isFavorite = false
+        case .selected:
+            isFavorite = true
+        default: isFavorite = false
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -69,6 +80,11 @@ class TruckDetailViewController: UIViewController {
 
         }
         
+    }
+    
+    @objc func clickFavorite() {
+        
+        isFavorite = !isFavorite
     }
     
     @objc func backToRoot() {

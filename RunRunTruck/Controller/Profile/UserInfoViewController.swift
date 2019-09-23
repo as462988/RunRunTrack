@@ -10,19 +10,21 @@ import UIKit
 import Lottie
 
 class UserInfoViewController: UIViewController {
-
+    
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var userView: UserUIView!
     
     let openChoseCameraManager = OpenChoseCameraManager()
+    var contentCollectionView: ProfileContentCollectionViewController = ProfileContentCollectionViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         userView.delegate = self
         openChoseCameraManager.delegate = self
         
         self.navigationController?.isNavigationBarHidden = true
-        
+        contentView.addSubview(contentCollectionView.view)
+        contentCollectionView.view.fillSuperview()
     }
     
     override func viewWillAppear(_ animated: Bool) {

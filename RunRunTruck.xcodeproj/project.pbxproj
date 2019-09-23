@@ -57,6 +57,12 @@
 		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09B2E4CC2337AEEC007FF161 /* BlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4CB2337AEEC007FF161 /* BlockTableViewCell.swift */; };
 		09B2E4D02337D874007FF161 /* BlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4CF2337D874007FF161 /* BlockViewController.swift */; };
+		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
+		09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */; };
+		09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */; };
+		09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */; };
+		09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */; };
+		09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DB2338259F007FF161 /* UIView+Layout.swift */; };
 		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
 		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
 		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
@@ -125,6 +131,12 @@
 		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09B2E4CB2337AEEC007FF161 /* BlockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTableViewCell.swift; sourceTree = "<group>"; };
 		09B2E4CF2337D874007FF161 /* BlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewController.swift; sourceTree = "<group>"; };
+		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrucksCardGroupCell.swift; sourceTree = "<group>"; };
+		09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentCollectionViewController.swift; sourceTree = "<group>"; };
+		09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckGroupCollectionViewController.swift; sourceTree = "<group>"; };
+		09B2E4DB2338259F007FF161 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
 		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
 		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
@@ -202,9 +214,9 @@
 		091EEB7223156BE800BF066F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
 				09E6C4A823338D8C009EA849 /* Truck */,
 				095238C72330A9460015AEDA /* Badge */,
-				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
 				091EEB8B23166C9100BF066F /* Lobby */,
 				093365F4231E36F700F0D503 /* Chatroom */,
 				09F78E502327974200FD6099 /* Profile */,
@@ -250,6 +262,7 @@
 		091EEB7F23157E1400BF066F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				09B2E4DB2338259F007FF161 /* UIView+Layout.swift */,
 				091EEB8023157E3A00BF066F /* UIStoryboard+Extension.swift */,
 				091EEB8223157F4200BF066F /* UIImage+Extension.swift */,
 				09329DDC2317CAE4003C851A /* Bundle+Extension.swift */,
@@ -358,10 +371,13 @@
 		09F78E502327974200FD6099 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */,
 				09F78E512327976D00FD6099 /* BossUIView.swift */,
 				095238C1233093A90015AEDA /* QrcodeView.swift */,
 				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
 				09B2E4CB2337AEEC007FF161 /* BlockTableViewCell.swift */,
+				09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */,
+				09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -374,6 +390,8 @@
 				09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */,
 				095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */,
 				09B2E4CF2337D874007FF161 /* BlockViewController.swift */,
+				09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */,
+				09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -567,6 +585,7 @@
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
 				0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */,
 				09B2E4CC2337AEEC007FF161 /* BlockTableViewCell.swift in Sources */,
+				09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */,
 				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
 				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
@@ -583,10 +602,13 @@
 				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,
 				095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */,
 				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
+				09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */,
+				09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */,
 				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
 				0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */,
 				09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */,
+				09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
 				09B2E4D02337D874007FF161 /* BlockViewController.swift in Sources */,
 				09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */,
@@ -594,6 +616,7 @@
 				09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */,
 				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
+				09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
 				095238BC23307AB60015AEDA /* AddressManager.swift in Sources */,
 				095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */,
@@ -603,6 +626,7 @@
 				09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */,
 				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
 				09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */,
+				09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */,
 				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
 				09168BBD23328478002E1737 /* getBadgeView.swift in Sources */,
 				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
