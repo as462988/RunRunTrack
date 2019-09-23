@@ -20,8 +20,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         fatalError("init(coder:) has not been implemented")
     }
     
-    var favoriteTrucks: [TruckData] = []
-    var exploreTrucks: [TruckData] = []
+    var favoriteTrucks: [TruckShortInfo] = []
+    var exploreTrucks: [TruckShortInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

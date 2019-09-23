@@ -56,7 +56,7 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCellWithTruckInfo(_ truckInfo: TruckData) {
+    func setupCellWithTruckInfo(_ truckInfo: TruckShortInfo) {
         topImageView.loadImage(truckInfo.logoImage)
         titleLabel.text = truckInfo.name
     }

@@ -33,12 +33,12 @@ class FirebaseManager {
     var bossID: String?
     
     // MARK: About Truck
-        //getAllTruck
-    func getAllTruckDataForBadge(completion: @escaping ([TruckBadge]?) -> Void) {
+    //getAllTruck
+    func getAllTruckData(completion: @escaping ([TruckShortInfo]?) -> Void) {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
             
-            var logoImageArr: [TruckBadge] = []
+            var logoImageArr: [TruckShortInfo] = []
             
             if let err = error {
                 print("Error getting documents: \(err)")
@@ -57,7 +57,7 @@ class FirebaseManager {
                     
                     if documentChange.type == .added {
                         
-                        logoImageArr.append(TruckBadge(truckId: truckId, name: name, logoImage: logoImage))
+                        logoImageArr.append(TruckShortInfo(truckId: truckId, name: name, logoImage: logoImage))
                         
                     } else if documentChange.type == .removed {
                         print("remove")
@@ -68,7 +68,7 @@ class FirebaseManager {
             }
         }
     }
-
+    
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         var openTimestamp: Double?
@@ -90,11 +90,12 @@ class FirebaseManager {
                     guard let name = data[Truck.name.rawValue] as? String,
                         let logoImage = data[Truck.logoImage.rawValue] as? String,
                         let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String else {return}
+                        let story = data[Truck.story.rawValue] as? String,
+                        let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
                     
-                        openTimestamp = data[Truck.openTime.rawValue] as? Double
-                        location = data[Truck.location.rawValue] as? GeoPoint
-                        detailImage = data[Truck.detailImage.rawValue] as? String
+                    openTimestamp = data[Truck.openTime.rawValue] as? Double
+                    location = data[Truck.location.rawValue] as? GeoPoint
+                    detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,
                                           name, logoImage,
@@ -102,7 +103,8 @@ class FirebaseManager {
                                           story,
                                           open,
                                           openTimestamp,
-                                          location)
+                                          location,
+                                          favorited)
                     
                     rtnTruckDatas.append((truck, documentChange.type))
                 })
@@ -110,7 +112,7 @@ class FirebaseManager {
         }
         
     }
-
+    
     func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
         let ref = db.collection(Truck.truck.rawValue).document()
@@ -120,7 +122,8 @@ class FirebaseManager {
             Truck.name.rawValue: name,
             Truck.logoImage.rawValue: img,
             Truck.story.rawValue: story,
-            Truck.open.rawValue: false
+            Truck.open.rawValue: false,
+            Truck.favoritedBy.rawValue: []
         ]) { (error) in
             if let err = error {
                 print("Error adding document: \(err)")
@@ -210,7 +213,7 @@ class FirebaseManager {
         }
         
     }
-
+    
     // MARK: About User
     ///開始監聽使用者資料變更
     func listenUserData() {
@@ -233,7 +236,7 @@ class FirebaseManager {
                 let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
-
+                
                 self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block, favorite: favorite)
             } else {
                 
@@ -265,13 +268,13 @@ class FirebaseManager {
                 let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
-
+                
                 self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block, favorite: favorite)
-              } else {
-                  
+            } else {
+                
                 self?.currentUser = UserData(name: name, email: email, badge: badge, block: block,  favorite: favorite)
             }
-
+            
             completion(self?.currentUser)
             print("Current data: \(data)")
         }
@@ -303,7 +306,7 @@ class FirebaseManager {
         
         db.collection(User.user.rawValue).document(uid).updateData([
             User.logoImage.rawValue: image
-            ])
+        ])
     }
     
     func addUserBadge(uid: String, truckId: String) {
@@ -352,7 +355,7 @@ class FirebaseManager {
     func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
         
         db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
-        
+            
             guard let data = snapshot?.data() else {
                 print("Document data was empty.")
                 completion(nil)
@@ -360,69 +363,74 @@ class FirebaseManager {
             }
             
             guard let name = data[User.name.rawValue] as? String else {return}
-
+            
             completion(name)
         }
     }
-
-    func addUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-          db.collection(User.user.rawValue).document(uid).updateData([
-              
-              User.favorite.rawValue: FieldValue.arrayUnion([truckId])
-              
-          ]) { (error) in
-              
-              if let error = error {
-                  print("Error adding document: \(error)")
-              } else {
-                  completion()
-              }
-          }
-      }
-      
-      func deleteUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-          db.collection(User.user.rawValue).document(uid).updateData([
-              
-              User.favorite.rawValue: FieldValue.arrayRemove([truckId])
-              
-          ]) { (error) in
-              
-              if let error = error {
-                  print("Error adding document: \(error)")
-              } else {
-                  completion()
-              }
-          }
-      }
     
-    func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckData?) -> Void) {
-       
-        var openTimestamp: Double?
-               var location: GeoPoint?
-               var detailImage: String?
-               
+    func addUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.favorite.rawValue: FieldValue.arrayUnion([truckId])
+            
+        ]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func deleteUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
+        db.collection(User.user.rawValue).document(uid).updateData([
+            
+            User.favorite.rawValue: FieldValue.arrayRemove([truckId])
+            
+        ]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func addUserToTruckFavoritedBy(userId:String, truckId:String) {
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                }
+                
+        }
+    }
+    
+    func deleteUserFromTruckFavoritedBy(userId:String, truckId:String) {
+        db.collection(Truck.truck.rawValue).document(truckId).updateData([
+            Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                }
+                
+        }
+    }
+    
+    func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckShortInfo?) -> Void) {
+        
         db.collection(Truck.truck.rawValue).document(truckId).getDocument { (snapshot, error) in
             guard let data = snapshot?.data() else {
                 print("Document data was empty.")
                 completion(nil)
                 return
             }
-            guard let name = data[Truck.name.rawValue] as? String,
-                let logoImage = data[Truck.logoImage.rawValue] as? String,
-                let open = data[Truck.open.rawValue] as? Bool,
-                let story = data[Truck.story.rawValue] as? String else {return}
+            guard let truckId = data[Truck.truckId.rawValue] as? String,
+                let name = data[Truck.name.rawValue] as? String,
+                let logoImage = data[Truck.logoImage.rawValue] as? String else {return }
             
-            openTimestamp = data[Truck.openTime.rawValue] as? Double
-            location = data[Truck.location.rawValue] as? GeoPoint
-            detailImage = data[Truck.detailImage.rawValue] as? String
-            
-            let truck = TruckData(truckId,
-                                  name, logoImage,
-                                  detailImage,
-                                  story,
-                                  open,
-                                  openTimestamp,
-                                  location)
+            let truck = TruckShortInfo(truckId: truckId, name: name, logoImage: logoImage)
             completion(truck)
         }
     }
@@ -465,12 +473,13 @@ class FirebaseManager {
             guard let name = snapshot.data()?[Truck.name.rawValue] as? String,
                 let logoImage = snapshot.data()?[Truck.logoImage.rawValue] as? String,
                 let open = snapshot.data()?[Truck.open.rawValue] as? Bool,
-                let story = snapshot.data()?[Truck.story.rawValue] as? String
+                let story = snapshot.data()?[Truck.story.rawValue] as? String,
+                let favoritedBy = snapshot.data()?[Truck.favoritedBy.rawValue] as? [String]
                 else {return}
-        
+            
             detailImage = snapshot.data()?[Truck.detailImage.rawValue] as? String
             
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil)
+            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil, favoritedBy)
             
             completion(self.bossTruck)
         }
@@ -480,7 +489,7 @@ class FirebaseManager {
     func setBossData(name: String, email: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-
+        
         db.collection(Boss.boss.rawValue).document(uid).setData([
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
@@ -515,7 +524,7 @@ class FirebaseManager {
     func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-
+            
             guard error == nil else {
                 
                 guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
@@ -525,22 +534,22 @@ class FirebaseManager {
             completion(true, "Success")
         }
     }
-
+    
     func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
             
             guard error == nil else {
-
+                
                 guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
                 completion(false, errorCode.errorMessage)
                 return
             }
-
+            
             completion(true, "Success")
         }
     }
-
+    
     func signOut() {
         
         let firebaseAuth = Auth.auth()
@@ -597,9 +606,9 @@ class FirebaseManager {
     
     func deleteChatRoom(truckID: String) {
         
-       let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
+        let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
         
-       collection.getDocuments { (snapshot, error) in
+        collection.getDocuments { (snapshot, error) in
             
             guard let snapshot = snapshot else {return}
             
@@ -607,14 +616,14 @@ class FirebaseManager {
             
             for doc in docs {
                 
-               collection.document(doc.documentID).delete()
+                collection.document(doc.documentID).delete()
                 
             }
-        
+            
         }
         
     }
-
+    
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
         
         let docRef = db.collection(Truck.truck.rawValue).document(truckID)

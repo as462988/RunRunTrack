@@ -26,14 +26,14 @@ class BadgeViewController: UIViewController {
         return view
     }()
     
-    var badgeArr: [TruckBadge] = []
+    var badgeArr: [TruckShortInfo] = []
     
     var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.shared.getAllTruckDataForBadge { [weak self] (truckDatas) in
+        FirebaseManager.shared.getAllTruckData { [weak self] (truckDatas) in
             guard let truckDatas = truckDatas else { return }
             
             for truckData in truckDatas {

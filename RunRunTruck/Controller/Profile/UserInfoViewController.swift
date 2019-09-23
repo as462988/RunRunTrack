@@ -14,8 +14,8 @@ class UserInfoViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var userView: UserUIView!
    
-    var favoriteTrucks: [TruckData] = []
-    var exploreTrucks: [TruckData] = []
+    var favoriteTrucks: [TruckShortInfo] = []
+    var exploreTrucks: [TruckShortInfo] = []
     
     let openChoseCameraManager = OpenChoseCameraManager()
     var contentCollectionView: ProfileContentCollectionViewController = ProfileContentCollectionViewController()
@@ -39,6 +39,16 @@ class UserInfoViewController: UIViewController {
             self.userView.setupValue(name: user.name, image: user.logoImage ?? nil)
         }
         self.favoriteTrucks = []
+        
+        getExploreTruckTruck { (data) in
+            self.exploreTrucks.append(data!)
+            
+            DispatchQueue.main.async {
+                self.contentCollectionView.exploreTrucks = self.exploreTrucks
+                self.contentCollectionView.collectionView.reloadData()
+            }
+        }
+        
         getfavoriteTruck { (data) in
             self.favoriteTrucks.append(data!)
             
@@ -61,17 +71,32 @@ class UserInfoViewController: UIViewController {
         userView.animationView.play()
     }
     
-    func getfavoriteTruck(compltion: @escaping (TruckData?) -> Void) {
+    func getfavoriteTruck(compltion: @escaping (TruckShortInfo?) -> Void) {
         
         guard let favorite = FirebaseManager.shared.currentUser?.favorite else {
             compltion(nil)
             return
         }
-        for num in 0...favorite.count - 1 {
+        if favorite.count != 0 {
+            for num in 0...favorite.count - 1 {
+                
+                FirebaseManager.shared.getUserFavoriteTruck(
+                truckId: favorite[num]) { (truck) in
+                    compltion(truck)
+                }
+            }
+        }
+    }
+    
+    func getExploreTruckTruck(compltion: @escaping (TruckShortInfo?) -> Void) {
+        
+        FirebaseManager.shared.getAllTruckData { (truckDatas) in
             
-            FirebaseManager.shared.getUserFavoriteTruck(
-            truckId: favorite[num]) { (truck) in
-                compltion(truck)
+            guard let truckDatas = truckDatas else {return}
+            
+            for truckData in truckDatas {
+                
+                compltion (truckData)
             }
         }
     }

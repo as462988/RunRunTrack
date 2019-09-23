@@ -31,6 +31,8 @@ enum Truck: String {
     
     case chatRoom
     
+    case favoritedBy
+    
 }
 
 struct TruckData {
@@ -53,10 +55,12 @@ struct TruckData {
     
     var address: String = ""
     
+    var favoritedBy: Array<String> = []
+    
     init(_ id: String, _ name: String,
          _ logoImage: String, _ detailImage: String?,
          _ story: String, _ open: Bool,
-         _ openTime: Double?, _ location: GeoPoint?) {
+         _ openTime: Double?, _ location: GeoPoint?, _ favoritedBy: [String]) {
         self.id = id
         self.name = name
         self.logoImage = logoImage
@@ -65,6 +69,7 @@ struct TruckData {
         self.story = story
         self.openTime = openTime
         self.location = location
+        self.favoritedBy = favoritedBy
     }
 }
 
@@ -163,7 +168,7 @@ enum Boss: String {
     case email
 }
 
-struct TruckBadge {
+struct TruckShortInfo {
     
     let truckId: String
     

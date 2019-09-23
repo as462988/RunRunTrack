@@ -527,7 +527,7 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="blockCell" id="KIC-dD-4Bb" customClass="BlockTableViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="blockCell" id="KIC-dD-4Bb">
                                                 <rect key="frame" x="0.0" y="99.5" width="272" height="40.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KIC-dD-4Bb" id="uGi-93-Bdu">
@@ -618,9 +618,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KL4-cG-gjP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="KL4-cG-gjP">
                                 <rect key="frame" x="0.0" y="54" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Gdh-4S-ztc">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -640,13 +641,41 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingCell" id="0Yw-PP-CcE">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="settingCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingCell" id="0Yw-PP-CcE" customClass="BlockTableViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Yw-PP-CcE" id="1e1-5u-vtr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQX-2m-7BG">
+                                                    <rect key="frame" x="20" y="0.0" width="42" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpM-ZQ-GhF">
+                                                    <rect key="frame" x="353" y="5" width="51" height="34"/>
+                                                    <color key="backgroundColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="zpM-ZQ-GhF" secondAttribute="height" multiplier="3:2" id="4Cf-4e-oBz"/>
+                                                    </constraints>
+                                                    <state key="normal" title="解除"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="FQX-2m-7BG" secondAttribute="bottom" constant="0.5" id="1k3-oH-HFR"/>
+                                                <constraint firstAttribute="bottom" secondItem="zpM-ZQ-GhF" secondAttribute="bottom" constant="5" id="5LH-CP-W4A"/>
+                                                <constraint firstAttribute="trailing" secondItem="zpM-ZQ-GhF" secondAttribute="trailing" constant="10" id="Ia3-CR-jAC"/>
+                                                <constraint firstItem="zpM-ZQ-GhF" firstAttribute="top" secondItem="1e1-5u-vtr" secondAttribute="top" constant="5" id="WWL-4P-3QO"/>
+                                                <constraint firstItem="FQX-2m-7BG" firstAttribute="top" secondItem="1e1-5u-vtr" secondAttribute="top" id="hA3-AF-hJM"/>
+                                                <constraint firstItem="FQX-2m-7BG" firstAttribute="leading" secondItem="1e1-5u-vtr" secondAttribute="leading" constant="20" id="ocW-dW-ih2"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cancelBlockBtn" destination="zpM-ZQ-GhF" id="kZb-fU-IlD"/>
+                                            <outlet property="nameLabel" destination="FQX-2m-7BG" id="l7R-pt-cQv"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -660,6 +689,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FQA-6X-k5E"/>
                     </view>
+                    <connections>
+                        <outlet property="setingTableiew" destination="KL4-cG-gjP" id="AnV-cX-xCD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q03-fh-weM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

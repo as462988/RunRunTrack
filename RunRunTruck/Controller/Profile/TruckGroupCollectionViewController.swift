@@ -9,7 +9,7 @@
 import UIKit
 
 class TruckGroupCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    var trucks: [TruckData] = []
+    var trucks: [TruckShortInfo] = []
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
