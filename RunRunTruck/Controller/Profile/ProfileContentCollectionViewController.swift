@@ -11,6 +11,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ProfileContentCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -18,8 +19,13 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var favoriteTrucks: [TruckData] = []
+    var exploreTrucks: [TruckData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.backgroundColor = .white
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
@@ -57,7 +63,7 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         switch indexPath.item {
         case 0:
             //傳入探索的餐車
-            let exploreTrucks = FirebaseManager.shared.openIngTruckData
+//            let exploreTrucks = exploreTruck
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "exploreCell",
                 for: indexPath) as? TrucksCardGroupCell else {
@@ -70,7 +76,7 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
             return cell
         case 1:
             //傳入已收藏的餐車
-            let favoriteTrucks = FirebaseManager.shared.openIngTruckData
+//            let favoriteTrucks = favoriteTruck
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "favoriteCell",
                 for: indexPath) as? TrucksCardGroupCell else {

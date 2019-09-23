@@ -68,6 +68,21 @@ struct TruckData {
     }
 }
 
+struct UserFavoriteTruck {
+    
+    var id: String
+      
+    let name: String
+      
+    let logoImage: String
+
+    init(_ id: String, _ name: String, _ logoImage: String) {
+    self.id = id
+    self.name = name
+    self.logoImage = logoImage
+    }
+}
+
 struct Message {
     
     var uid: String
@@ -104,6 +119,8 @@ enum User: String {
     case badge
     
     case block
+    
+    case favorite
 }
 
 struct UserData {
@@ -120,14 +137,18 @@ struct UserData {
     
     let block: [String]
     
+    let favorite: [String]
+    
     init(name: String, email: String, logoImage: String? = nil,
-         badge: [String] = [], truckId: String? = nil, block: [String] = [] ) {
+         badge: [String] = [], truckId: String? = nil,
+         block: [String] = [], favorite: [String] = [] ) {
         self.name = name
         self.email = email
         self.logoImage = logoImage
         self.badge = badge
         self.truckId = truckId
         self.block = block
+        self.favorite = favorite
     }
 }
 

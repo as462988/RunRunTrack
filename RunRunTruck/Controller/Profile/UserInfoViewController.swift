@@ -13,6 +13,9 @@ class UserInfoViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var userView: UserUIView!
+   
+    var favoriteTrucks: [TruckData] = []
+    var exploreTrucks: [TruckData] = []
     
     let openChoseCameraManager = OpenChoseCameraManager()
     var contentCollectionView: ProfileContentCollectionViewController = ProfileContentCollectionViewController()
@@ -35,7 +38,15 @@ class UserInfoViewController: UIViewController {
         if let user = FirebaseManager.shared.currentUser {
             self.userView.setupValue(name: user.name, image: user.logoImage ?? nil)
         }
-        
+        self.favoriteTrucks = []
+        getfavoriteTruck { (data) in
+            self.favoriteTrucks.append(data!)
+            
+            DispatchQueue.main.async {
+                self.contentCollectionView.favoriteTrucks = self.favoriteTrucks
+                self.contentCollectionView.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -48,6 +59,21 @@ class UserInfoViewController: UIViewController {
         userView.animationView.animation = Animation.named(Lottie.camera.rawValue)
         userView.animationView.loopMode = .repeat(2)
         userView.animationView.play()
+    }
+    
+    func getfavoriteTruck(compltion: @escaping (TruckData?) -> Void) {
+        
+        guard let favorite = FirebaseManager.shared.currentUser?.favorite else {
+            compltion(nil)
+            return
+        }
+        for num in 0...favorite.count - 1 {
+            
+            FirebaseManager.shared.getUserFavoriteTruck(
+            truckId: favorite[num]) { (truck) in
+                compltion(truck)
+            }
+        }
     }
 }
 

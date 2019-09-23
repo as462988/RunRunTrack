@@ -26,6 +26,7 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+
         addSubview(topImageView)
         addSubview(titleLabel)
         setupViews()

@@ -82,14 +82,36 @@ class TruckDetailViewController: UIViewController {
     
     @objc func clickFavorite(_ sender: UIButton) {
         
+       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+
+          LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
+
+              return
+          }
+        
+        guard let detailInfo = detailInfo else { return }
+        
+        let uid = FirebaseManager.shared.bossID
+        let bossId = FirebaseManager.shared.userID
+        
         sender.isSelected = !sender.isSelected
         
         self.isFavorite = !isFavorite
         
-        print(isFavorite)
+        if isFavorite {
+            FirebaseManager.shared.addUserFavorite(
+                uid: (uid == nil ? bossId : uid) ?? "",
+            truckId: detailInfo.id) {
+                print("addSuccess")
+            }
+        } else {
+            FirebaseManager.shared.deleteUserFavorite(
+                uid: (uid == nil ? bossId : uid) ?? "",
+                truckId: detailInfo.id) {
+                    print("deleteSuccess")
+            }
+        }
     }
-    
-    
     
     @objc func backToRoot() {
         
