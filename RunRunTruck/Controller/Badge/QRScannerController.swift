@@ -84,12 +84,6 @@ class QRScannerController: UIViewController {
         
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-           super.viewDidDisappear(animated)
-           
-//           self.navigationController?.tabBarController?.tabBar.isHidden = false
-       }
 
     @objc func back() {
         navigationController?.popViewController(animated: true)

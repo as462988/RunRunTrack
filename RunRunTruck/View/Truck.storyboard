@@ -186,6 +186,16 @@
                                         <color key="textColor" red="0.2391854823" green="0.23923307660000001" blue="0.2391824722" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bkj-tc-Wqq">
+                                        <rect key="frame" x="348" y="293" width="46" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="Amt-T2-Nrz"/>
+                                            <constraint firstAttribute="width" secondItem="Bkj-tc-Wqq" secondAttribute="height" id="NqT-t3-40Z"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="Icon_disFavorite"/>
+                                        <state key="selected" image="Icon_Favorite"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -199,10 +209,12 @@
                                     <constraint firstAttribute="trailing" secondItem="ex1-Vm-7fp" secondAttribute="trailing" constant="20" id="VJi-9e-Khr"/>
                                     <constraint firstAttribute="trailing" secondItem="fMf-oR-T3t" secondAttribute="trailing" id="XVT-FI-wsa"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="height" secondItem="l8D-Wz-2f0" secondAttribute="height" multiplier="1:3" id="dG5-Os-j7L"/>
+                                    <constraint firstItem="Bkj-tc-Wqq" firstAttribute="trailing" secondItem="ex1-Vm-7fp" secondAttribute="trailing" id="gFd-gU-siJ"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="leading" secondItem="l8D-Wz-2f0" secondAttribute="leading" id="jeP-Em-8Ee"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3T7-vX-ET5" secondAttribute="bottom" constant="20" id="qqi-8N-WFp"/>
                                     <constraint firstItem="fMf-oR-T3t" firstAttribute="top" secondItem="l8D-Wz-2f0" secondAttribute="top" id="ucW-4T-8Wl"/>
                                     <constraint firstItem="3T7-vX-ET5" firstAttribute="top" secondItem="ex1-Vm-7fp" secondAttribute="bottom" constant="20" id="x0p-FY-bYL"/>
+                                    <constraint firstItem="Bkj-tc-Wqq" firstAttribute="bottom" secondItem="jc7-MW-9jE" secondAttribute="bottom" id="ynM-L7-pgF"/>
                                     <constraint firstItem="ex1-Vm-7fp" firstAttribute="leading" secondItem="l8D-Wz-2f0" secondAttribute="leading" constant="20" id="zeA-BI-JdF"/>
                                 </constraints>
                             </view>
@@ -241,6 +253,7 @@
                     <connections>
                         <outlet property="backBtn" destination="7OV-Y9-7UP" id="5oU-oL-8Hi"/>
                         <outlet property="backBtnBg" destination="HJB-6k-IIt" id="xKg-mp-nQu"/>
+                        <outlet property="favoriteBtn" destination="Bkj-tc-Wqq" id="guL-wx-5YE"/>
                         <outlet property="infoImageView" destination="fMf-oR-T3t" id="uO8-7e-7IN"/>
                         <outlet property="locationLabel" destination="DQc-qX-p2B" id="vY4-FO-90E"/>
                         <outlet property="logoImageView" destination="jc7-MW-9jE" id="GIe-Bb-rO1"/>
@@ -254,6 +267,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_Favorite" width="120" height="120"/>
+        <image name="Icon_disFavorite" width="120" height="120"/>
         <image name="Icon_whiteBack" width="40" height="40"/>
         <image name="Image_truckPic" width="640" height="425"/>
         <image name="map" width="184" height="184"/>

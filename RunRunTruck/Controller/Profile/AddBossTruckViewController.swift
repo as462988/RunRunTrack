@@ -46,6 +46,8 @@ class AddBossTruckViewController: UIViewController {
         
         animationView.layer.cornerRadius = animationView.frame.width / 2
         animationView.layer.masksToBounds = true
+        truckTextInput.layer.cornerRadius = 20
+        clickSendBtn.layer.masksToBounds = true
         
         showLogoImage.layer.cornerRadius = showLogoImage.frame.width / 2
         showLogoImage.layer.masksToBounds = true
