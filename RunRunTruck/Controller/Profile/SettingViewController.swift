@@ -29,7 +29,7 @@ class SettingViewController: UIViewController {
             associatedContentViewController: nil)
         return row
     }()
-    var feebackRow: SettingRow = {
+    var feedbackRow: SettingRow = {
         let row = SettingRow(
             title: "意見回饋",
             subTitle: nil,
@@ -129,23 +129,22 @@ extension SettingViewController {
         //Rows
         contentView.addSubview(blockRow)
         contentView.addSubview(privateCheckRow)
-        contentView.addSubview(feebackRow)
+        contentView.addSubview(feedbackRow)
         contentView.addSubview(versionRow)
         contentView.addSubview(logoutRow)
         blockRow.delegate = self
         privateCheckRow.delegate = self
-        feebackRow.delegate = self
-//        versionRow.delegate = self
+        feedbackRow.delegate = self
         logoutRow.delegate = self
         blockRow.setupViews()
         privateCheckRow.setupViews()
-        feebackRow.setupViews()
+        feedbackRow.setupViews()
         versionRow.setupViews()
         logoutRow.setupViews()
         blockRow.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
         privateCheckRow.topAnchor.constraint(equalTo: blockRow.bottomAnchor, constant: 0).isActive = true
-        feebackRow.topAnchor.constraint(equalTo: privateCheckRow.bottomAnchor, constant: 0).isActive = true
-        versionRow.topAnchor.constraint(equalTo: feebackRow.bottomAnchor, constant: 0).isActive = true
+        feedbackRow.topAnchor.constraint(equalTo: privateCheckRow.bottomAnchor, constant: 0).isActive = true
+        versionRow.topAnchor.constraint(equalTo: feedbackRow.bottomAnchor, constant: 0).isActive = true
         logoutRow.topAnchor.constraint(equalTo: versionRow.bottomAnchor, constant: 0).isActive = true
         logoutRow.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
     }
@@ -154,6 +153,7 @@ extension SettingViewController {
 extension SettingViewController: SettingRowDelegate {
     func settingRowDidTap(settingRow: SettingRow) {
         switch settingRow {
+            
         case blockRow:
             blockRow.toggleContent()
             UIView.animate(
@@ -163,25 +163,34 @@ extension SettingViewController: SettingRowDelegate {
                 initialSpringVelocity: 0,
                 options: [.curveEaseOut],
                 animations: {
-                self.view.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
             }, completion: nil)
             return
+            
         case privateCheckRow:
-           guard let privateVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "privateVC") as? PrivateViewController else {  return  }
-   
+            guard let privateVC = UIStoryboard.profile.instantiateViewController(
+                withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+            
             navigationController?.pushViewController(privateVC, animated: true)
-    
-        case feebackRow:
             return
+            
+        case feedbackRow:
+            guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
+                withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+            
+            navigationController?.pushViewController(feedbackVC, animated: true)
+            return
+            
         case logoutRow:
             FirebaseManager.shared.signOut()
-        
+            
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
+            
             let root = appDelegate?.window?.rootViewController as? TabBarViewController
-        
+            
             root?.selectedIndex = 0
+            return
+            
         default:
             return
         }

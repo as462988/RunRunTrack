@@ -20,9 +20,15 @@ class AddBossTruckViewController: UIViewController {
     
     let openChoseCameraManager = OpenChoseCameraManager()
     
+    var userCreatTruckFinished = false {
+           didSet {
+               updateSendBtnStatus()
+           }
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkBossAddTruck()
         openChoseCameraManager.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
         animationView.addGestureRecognizer(tapGesture)
@@ -68,15 +74,24 @@ class AddBossTruckViewController: UIViewController {
         animationView.loopMode = .loop
         animationView.play()
     }
-
+    
+    func updateSendBtnStatus() {
+        
+        setBtnStatus(userCreatTruckFinished ? .enable: .disable, btn: clickSendBtn)
+    }
+    
+    func checkBossAddTruck() {
+        
+        if !truckTextInput.text.isEmpty, logoImageUrl != nil {
+            userCreatTruckFinished = true
+        } else {
+            userCreatTruckFinished = false
+        }
+    }
+    
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
-        
-        guard inputText.isEmpty == false else {
-            print("請跟我們分享你的故事")
-            return
-        }
         
         let truckName = FirebaseManager.shared.currentUser?.name
         
@@ -120,6 +135,8 @@ extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
                         guard let imageUrl = url else {return}
                         
                         self?.logoImageUrl = imageUrl
+                        
+                        self?.checkBossAddTruck()
                 }
                 
                 self?.dismiss(animated: true, completion: nil)

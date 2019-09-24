@@ -31,12 +31,7 @@ class AuthRegisterViewController: UIViewController {
             updateRegisteBtnStatus()
         }
     }
-    
-    var isNameAvailable = false
-    var isEmailAvailable = false
-    var isPswAvailable = false
-    var isPswConfirmAvailable = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -168,20 +163,21 @@ extension AuthRegisterViewController: UITextFieldDelegate {
             let psw = pswTextField.text,
             let pswConfirm = pswConfirmTextField.text else { return }
         
-        if name.isEmpty, email.isEmpty, psw.isEmpty, pswConfirm.isEmpty {
-           
-            userRegisteIsFinished = false
-            errorResultLabel.text = "請輸入完整資料～"
-        } else {
+        if !name.isEmpty, !email.isEmpty, !psw.isEmpty, !pswConfirm.isEmpty {
             
             guard pswConfirm.elementsEqual(psw) else {
-               
-            userRegisteIsFinished = false
-            errorResultLabel.text = "兩次密碼輸入不一致喔！"
-                return
-            }
+                    errorResultLabel.isHidden = false
+                    errorResultLabel.text = "兩次密碼輸入不一致喔！"
+                    userRegisteIsFinished = false
+                        return
+                    }
             
             userRegisteIsFinished = true
+            
+        } else {
+            errorResultLabel.isHidden = false
+            errorResultLabel.text = "請輸入完整資料～"
+            userRegisteIsFinished = false
         }
     }
     

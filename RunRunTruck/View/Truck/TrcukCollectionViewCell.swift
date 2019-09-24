@@ -21,7 +21,7 @@ class TrcukCollectionViewCell: UICollectionViewCell {
     
     func setValue(name: String, image: String) {
         
-        truckImage.loadImage(image)
+        truckImage.loadImage(image, placeHolder: UIImage.asset(.Image_truckPic))
         
         truckNameLabel.text = name
     }

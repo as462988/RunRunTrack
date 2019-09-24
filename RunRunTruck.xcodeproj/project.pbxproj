@@ -56,6 +56,7 @@
 		098B2625233A363700E8010C /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2624233A363700E8010C /* BlockListViewController.swift */; };
 		098B2627233A367E00E8010C /* BlockRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2626233A367E00E8010C /* BlockRowCell.swift */; };
 		098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2628233A3C8000E8010C /* PrivateViewController.swift */; };
+		098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B262A233A622F00E8010C /* FeedbackViewController.swift */; };
 		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
 		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
@@ -134,6 +135,7 @@
 		098B2624233A363700E8010C /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
 		098B2626233A367E00E8010C /* BlockRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRowCell.swift; sourceTree = "<group>"; };
 		098B2628233A3C8000E8010C /* PrivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateViewController.swift; sourceTree = "<group>"; };
+		098B262A233A622F00E8010C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				09B2E4DD233825A0007FF161 /* SettingViewController.swift */,
 				098B2624233A363700E8010C /* BlockListViewController.swift */,
 				098B2628233A3C8000E8010C /* PrivateViewController.swift */,
+				098B262A233A622F00E8010C /* FeedbackViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
 				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
 				09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */,
+				098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */,
 				09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */,
 				091EEB7E23157AE700BF066F /* TabBarViewController.swift in Sources */,
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,

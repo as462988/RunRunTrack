@@ -80,7 +80,7 @@ class TruckDetailViewController: UIViewController {
         
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
-          LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
+          ProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
 
               return
           }

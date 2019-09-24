@@ -68,7 +68,7 @@ extension PrivateViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
          DispatchQueue.main.async {
-               self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorView.stopAnimating()
             self.activityIndicatorView.hidesWhenStopped = true
            }
     }
