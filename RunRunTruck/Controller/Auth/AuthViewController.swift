@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import Lottie
+import AuthenticationServices
 
 private enum LoginVcUIStatus {
     case userLogin, bossLogin
@@ -23,8 +24,8 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var errorResultLabel: UILabel!
-    
     @IBOutlet weak var animationView: AnimationView!
+    
     private var uiStatus: LoginVcUIStatus = .userLogin
     
     var userLoginIsFinished = false {
@@ -52,6 +53,7 @@ class AuthViewController: UIViewController {
         super.viewDidAppear(animated)
         errorResultLabel.isHidden = true
         playAnimation()
+        setupView()
     }
     
     func playAnimation() {
@@ -77,6 +79,43 @@ class AuthViewController: UIViewController {
         authVC.modalPresentationStyle = .overCurrentContext
         present(authVC, animated: false, completion: nil)
         emptyText()
+    }
+    func setupView() {
+        let appleButton = ASAuthorizationAppleIDButton()
+        appleButton.translatesAutoresizingMaskIntoConstraints = false
+        appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
+
+        view.addSubview(appleButton)
+        
+        appleButton.anchor(top: singInBtn.bottomAnchor,
+                           leading: view.leadingAnchor,
+                           bottom: view.bottomAnchor,
+                           trailing: view.trailingAnchor,
+                           padding: .init(top: 10, left: 20, bottom: 20, right: 20),
+                           size: CGSize(width: singInBtn.frame.width, height: singInBtn.frame.height))
+        
+//        NSLayoutConstraint.activate([
+//            appleButton.topAnchor.constraint(equalTo: singInBtn.bottomAnchor, constant: 20),
+//            appleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            appleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            appleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+//            appleButton.heightAnchor.constraint
+//            ])
+    }
+    
+    @objc func didTapAppleButton() {
+        
+        let provider = ASAuthorizationAppleIDProvider()
+            let request = provider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            
+            let controller = ASAuthorizationController(authorizationRequests: [request])
+            
+            controller.delegate = self
+            controller.presentationContextProvider = self
+            
+            controller.performRequests()
+        
     }
     
     @objc func handleLogin() {
@@ -126,7 +165,7 @@ class AuthViewController: UIViewController {
                             }
                             //吃貨登入成功
                             FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-        //                    LKProgressHUD.showSuccess(text: "登入成功")
+                            LKProgressHUD.showSuccess(text: "登入成功")
                                
                                DispatchQueue.main.async {
                                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -153,7 +192,7 @@ class AuthViewController: UIViewController {
                             }
                             //老闆登入成功
                             FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-        //                    LKProgressHUD.showSuccess(text: "登入成功")
+                            LKProgressHUD.showSuccess(text: "登入成功")
                             
                             DispatchQueue.main.async {
                                 self?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -216,4 +255,34 @@ extension AuthViewController: UITextFieldDelegate {
         
         checkUserInput()
     }
+}
+
+extension AuthViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        switch authorization.credential {
+            
+        case let credentials as ASAuthorizationAppleIDCredential:
+            let user = AppleUser(credentials: credentials)
+            performSegue(withIdentifier: "segue", sender: user)
+
+        default: break
+            
+        }
+
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("something bad happened", error)
+    }
+}
+
+extension AuthViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        
+        return view.window!
+
+    }
+    
+    
 }

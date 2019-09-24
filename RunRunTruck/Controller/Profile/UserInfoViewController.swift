@@ -54,9 +54,7 @@ class UserInfoViewController: UIViewController {
 extension UserInfoViewController: UserUIViewDelegate {
     
     func clickSettingBtn() {
-        guard let settingVC =
-            UIStoryboard.profile.instantiateViewController(withIdentifier: "settingVC")as?
-            SettingViewController else { return }
+        let settingVC = SettingViewController()
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(settingVC, animated: true)
     }
