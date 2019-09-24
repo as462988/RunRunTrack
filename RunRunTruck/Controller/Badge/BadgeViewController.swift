@@ -10,7 +10,7 @@ import UIKit
 
 class BadgeViewController: UIViewController {
     
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var scannerBtn: UIButton!
     @IBOutlet weak var badgeCollectionView: UICollectionView! {
         
         didSet {
@@ -35,6 +35,8 @@ class BadgeViewController: UIViewController {
         updateDataFromFirebaseManager()
         observerAllTrucksUpdate()
         observerUserUpdated()
+        setLayout()
+        scannerBtn.addTarget(self, action: #selector(enterScannerButton), for: .touchUpInside)
         self.view.addSubview(getBadgeView)
     }
     
@@ -61,6 +63,11 @@ class BadgeViewController: UIViewController {
                                                object: nil)
     }
     
+    func setLayout() {
+        scannerBtn.layer.cornerRadius = 10
+        scannerBtn.clipsToBounds = true
+    }
+    
    @objc func updateDataFromFirebaseManager() {
         let user = FirebaseManager.shared.currentUser
         allTrucks = FirebaseManager.shared.allTruckData.map({ (truck) -> (TruckData, Bool) in
@@ -69,7 +76,7 @@ class BadgeViewController: UIViewController {
         self.badgeCollectionView.reloadData()
     }
     
-    @IBAction func animateButton(sender: UIButton) {
+    @objc func enterScannerButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
         LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")

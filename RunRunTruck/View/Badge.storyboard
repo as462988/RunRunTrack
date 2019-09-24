@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4vf-XS-cly">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -85,9 +84,6 @@
                                     <constraint firstAttribute="width" secondItem="JCi-0v-DzP" secondAttribute="height" multiplier="1:1" id="baN-XD-AuI"/>
                                 </constraints>
                                 <state key="normal" image="Icon_qrcodeScanner"/>
-                                <connections>
-                                    <action selector="animateButtonWithSender:" destination="sGl-R5-t2o" eventType="touchUpInside" id="Ntj-qM-M9F"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,7 +100,7 @@
                     <navigationItem key="navigationItem" title="Brdge" id="AM1-aH-vp7"/>
                     <connections>
                         <outlet property="badgeCollectionView" destination="aLv-WY-JqT" id="eCe-ze-OIZ"/>
-                        <outlet property="button" destination="JCi-0v-DzP" id="YUa-6A-1vO"/>
+                        <outlet property="scannerBtn" destination="JCi-0v-DzP" id="Wom-q1-cYV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3x9-WQ-rC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
