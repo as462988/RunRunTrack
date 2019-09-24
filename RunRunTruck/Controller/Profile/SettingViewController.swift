@@ -66,6 +66,7 @@ extension SettingViewController {
 }
 
 // MARK: - 建置頁面
+    // swiftlint:disable function_body_length
 extension SettingViewController {
     func setupViews() {
         //配置ScrollView
@@ -120,9 +121,10 @@ extension SettingViewController {
         blockRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
         privateCheckRow.addTarget(self, action: #selector(showPrivatePolicy), for: .touchUpInside)
         feebackRow.addTarget(self, action: #selector(showFeeback), for: .touchUpInside)
-//        versionRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
         logoutRow.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
+    
+    // swiftlint:eable function_body_length
     
     @objc func toggleBlockList() {
         print(#function)
@@ -138,5 +140,12 @@ extension SettingViewController {
     
     @objc func logout() {
         print(#function)
+        FirebaseManager.shared.signOut()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let root = appDelegate?.window?.rootViewController as? TabBarViewController
+        
+        root?.selectedIndex = 0
     }
 }

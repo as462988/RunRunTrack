@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DQM-e2-M2z">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -424,50 +423,22 @@
                                         <rect key="frame" x="0.0" y="243.5" width="414" height="559.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-7B-eyH">
-                                        <rect key="frame" x="222" y="735" width="48" height="48"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="YVt-7B-eyH" secondAttribute="height" multiplier="1:1" id="NrP-u5-xsR"/>
-                                            <constraint firstAttribute="height" constant="48" id="n4W-5a-v5h"/>
-                                        </constraints>
-                                        <state key="normal" title="登出" image="Icon_logout">
-                                            <color key="titleColor" red="0.9410743117" green="0.94123536350000003" blue="0.94106405969999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6h-eC-Ktv">
-                                        <rect key="frame" x="154" y="735" width="48" height="48"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="jRq-QD-Xux"/>
-                                        </constraints>
-                                        <state key="normal" image="Icon_lock">
-                                            <color key="titleColor" red="0.9410743117" green="0.94123536350000003" blue="0.94106405969999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="t6h-eC-Ktv" secondAttribute="bottom" constant="20" id="4qf-Z5-jbb"/>
                                     <constraint firstItem="9dQ-pt-fXs" firstAttribute="top" secondItem="rQ6-k6-9h6" secondAttribute="bottom" id="7yp-n2-ziJ"/>
-                                    <constraint firstItem="YVt-7B-eyH" firstAttribute="bottom" secondItem="t6h-eC-Ktv" secondAttribute="bottom" id="AYS-nP-h0n"/>
                                     <constraint firstItem="rQ6-k6-9h6" firstAttribute="top" secondItem="E6C-vw-yyQ" secondAttribute="top" id="F3p-xw-fnk"/>
                                     <constraint firstAttribute="bottom" secondItem="9dQ-pt-fXs" secondAttribute="bottom" id="I0b-tH-ueb"/>
-                                    <constraint firstItem="t6h-eC-Ktv" firstAttribute="trailing" secondItem="E6C-vw-yyQ" secondAttribute="centerX" constant="-5" id="Pz6-HY-2f2"/>
                                     <constraint firstItem="9dQ-pt-fXs" firstAttribute="leading" secondItem="E6C-vw-yyQ" secondAttribute="leading" id="QbZ-ea-riH"/>
                                     <constraint firstItem="rQ6-k6-9h6" firstAttribute="width" secondItem="E6C-vw-yyQ" secondAttribute="width" id="QsF-Yj-C08"/>
-                                    <constraint firstItem="t6h-eC-Ktv" firstAttribute="width" secondItem="t6h-eC-Ktv" secondAttribute="height" multiplier="1:1" id="S96-PQ-GTw"/>
                                     <constraint firstItem="rQ6-k6-9h6" firstAttribute="centerX" secondItem="E6C-vw-yyQ" secondAttribute="centerX" id="Try-zj-7Qp"/>
                                     <constraint firstAttribute="trailing" secondItem="9dQ-pt-fXs" secondAttribute="trailing" id="X7b-pl-h6y"/>
-                                    <constraint firstItem="YVt-7B-eyH" firstAttribute="leading" secondItem="t6h-eC-Ktv" secondAttribute="trailing" constant="20" id="b0p-6t-xxs"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="animationView" destination="iS6-bG-IL5" id="SEM-et-YwF"/>
                                     <outlet property="logoImage" destination="gAP-it-6SX" id="2nm-Sb-WHP"/>
-                                    <outlet property="logoOutBtn" destination="YVt-7B-eyH" id="fc7-zk-NtL"/>
                                     <outlet property="nameLabel" destination="gzK-lH-xA3" id="SQb-RG-83U"/>
                                     <outlet property="settingBtn" destination="9tW-s3-oUI" id="trW-66-A5L"/>
-                                    <outlet property="showBlockBtn" destination="t6h-eC-Ktv" id="lcr-DT-c6r"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -636,7 +607,6 @@
         <image name="Icon_Setting" width="120" height="120"/>
         <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
         <image name="Icon_cancel" width="40" height="40"/>
-        <image name="Icon_lock" width="120" height="120"/>
         <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
         <image name="Icon_logout" width="120" height="120"/>
         <image name="Icon_qrcode" width="120" height="120"/>

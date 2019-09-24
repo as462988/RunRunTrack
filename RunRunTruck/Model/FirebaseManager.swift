@@ -575,6 +575,8 @@ class FirebaseManager {
             self.userID = nil
             self.bossID = nil
             
+            print("登出成功")
+            
         } catch let signOutError as NSError {
             
             print("Error signing out: %@", signOutError)

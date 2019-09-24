@@ -11,7 +11,6 @@ import Lottie
 
 protocol UserUIViewDelegate: AnyObject {
     func clickUpLoadBtn()
-    func clickBlockBtn()
     func clickSettingBtn()
 }
 
@@ -21,15 +20,12 @@ class UserUIView: UIView {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var animationView: AnimationView!
-    @IBOutlet weak var showBlockBtn: UIButton!
-    @IBOutlet weak var logoOutBtn: UIButton!
-    
+
     weak var delegate: UserUIViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
-        showBlockBtn.addTarget(self, action: #selector(clickBlockBtn), for: .touchUpInside)
+//        showBlockBtn.addTarget(self, action: #selector(clickBlockBtn), for: .touchUpInside)
         settingBtn.addTarget(self, action: #selector(clickSettingBtn), for: .touchUpInside)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
         animationView.addGestureRecognizer(tapGesture)
@@ -50,21 +46,7 @@ class UserUIView: UIView {
         logoImage.layer.borderWidth = 2
         logoImage.layer.borderColor = UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha: 0.5).cgColor
         animationView.layer.cornerRadius = animationView.bounds.width / 2
-        logoOutBtn.clipsToBounds = true
-        logoOutBtn.layer.cornerRadius = 10
-        logoOutBtn.clipsToBounds = true
         
-    }
-    
-    @objc func clickLogoutBtn() {
-        
-        FirebaseManager.shared.signOut()
-        
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        let root = appDelegate?.window?.rootViewController as? TabBarViewController
-        
-        root?.selectedIndex = 0
     }
     
     @objc func choseUpLoadImage() {
@@ -72,9 +54,6 @@ class UserUIView: UIView {
         self.delegate?.clickUpLoadBtn()
     }
     
-    @objc func clickBlockBtn() {
-        self.delegate?.clickBlockBtn()
-    }
     @objc func clickSettingBtn() {
            self.delegate?.clickSettingBtn()
        }
