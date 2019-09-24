@@ -93,14 +93,6 @@ class AuthViewController: UIViewController {
 //                           trailing: view.trailingAnchor,
 //                           padding: .init(top: 10, left: 20, bottom: 20, right: 20),
 //                           size: CGSize(width: singInBtn.frame.width, height: singInBtn.frame.height))
-        
-//        NSLayoutConstraint.activate([
-//            appleButton.topAnchor.constraint(equalTo: singInBtn.bottomAnchor, constant: 20),
-//            appleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            appleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            appleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-//            appleButton.heightAnchor.constraint
-//            ])
     }
     
     @objc func didTapAppleButton() {
@@ -108,12 +100,12 @@ class AuthViewController: UIViewController {
 //        let provider = ASAuthorizationAppleIDProvider()
 //            let request = provider.createRequest()
 //            request.requestedScopes = [.fullName, .email]
-//            
+//
 //            let controller = ASAuthorizationController(authorizationRequests: [request])
-//            
+//
 //            controller.delegate = self
 //            controller.presentationContextProvider = self
-//            
+//
 //            controller.performRequests()
         
     }

@@ -77,7 +77,7 @@
 		09F78E592328E96B00FD6099 /* BossInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E582328E96B00FD6099 /* BossInfoViewController.swift */; };
 		09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */; };
 		09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A1233927EE00DD5768 /* SettingRow.swift */; };
-		09FC78A42339BC4900DD5768 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* File.swift */; };
+		09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* AppleUser.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -154,7 +154,7 @@
 		09F78E582328E96B00FD6099 /* BossInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossInfoViewController.swift; sourceTree = "<group>"; };
 		09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		09FC78A1233927EE00DD5768 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
-		09FC78A32339BC4900DD5768 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		09FC78A32339BC4900DD5768 /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
 		09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunRunTruck.entitlements; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 				091EEB902316866700BF066F /* TruckData.swift */,
 				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
 				09168B9C2332458B002E1737 /* openChoseCameraManager.swift */,
-				09FC78A32339BC4900DD5768 /* File.swift */,
+				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -642,7 +642,7 @@
 				09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */,
 				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
 				09168BBD23328478002E1737 /* getBadgeView.swift in Sources */,
-				09FC78A42339BC4900DD5768 /* File.swift in Sources */,
+				09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */,
 				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,7 +794,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -815,7 +815,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

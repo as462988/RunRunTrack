@@ -577,7 +577,7 @@ class FirebaseManager {
             
         } catch let signOutError as NSError {
             
-            print ("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
     }
     
