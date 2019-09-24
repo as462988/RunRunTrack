@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class FeedbackViewController: UIViewController {
     
@@ -50,8 +51,41 @@ class FeedbackViewController: UIViewController {
     
     @objc func clickCheckBtn() {
         print(#function)
+        sendFeedbackMessage()
     }
-
+    
+    func sendFeedbackMessage() {
+        
+        if FirebaseManager.shared.userID != nil {
+        
+            FirebaseManager.shared.creatFeedback(user: User.user.rawValue,
+                                             uid: FirebaseManager.shared.userID!,
+                                             title: titleText.text!,
+                                             detailText: questionText.text!)
+            
+        } else if FirebaseManager.shared.bossID != nil {
+            
+            FirebaseManager.shared.creatFeedback(
+                user: Boss.boss.rawValue,
+                uid: FirebaseManager.shared.bossID!,
+                title: titleText.text!,
+                detailText: questionText.text!)
+            
+        }
+        showAlert()
+    }
+    
+    func showAlert() {
+        
+        let thankAlertVC = UIAlertController(title: "感謝你的意見", message: "我們將根據您的意見做改進！", preferredStyle: .alert)
+        present(thankAlertVC, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }
 
 extension FeedbackViewController: UITextFieldDelegate {
@@ -83,3 +117,4 @@ extension FeedbackViewController: UITextFieldDelegate {
         checkUserInput()
     }
 }
+

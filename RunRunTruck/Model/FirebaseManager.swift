@@ -245,18 +245,20 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String] else { return }
+                let favorite = data[User.favorite.rawValue] as? [String],
+            let feedback = data[User.feedback.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
                                              logoImage: image, badge: badge,
-                                             block: block, favorite: favorite)
+                                             block: block, favorite: favorite,
+                                             feedback: feedback)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
                                              badge: badge, block: block,
-                                             favorite: favorite)
+                                             favorite: favorite, feedback: feedback)
             }
             NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
             print("Current data: \(data)")
@@ -282,7 +284,7 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String] else { return }
+                let favorite = data[User.favorite.rawValue] as? [String]else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
@@ -292,7 +294,8 @@ class FirebaseManager {
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             badge: badge, block: block, favorite: favorite)
+                                             badge: badge, block: block,
+                                             favorite: favorite)
             }
             
             completion(self?.currentUser)
@@ -610,23 +613,23 @@ class FirebaseManager {
         }
     }
     
-    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
-        
-        db.collection(Truck.truck.rawValue).document(truckID).collection(
-            Truck.chatRoom.rawValue).addDocument(data: [
-                Truck.name.rawValue: name,
-                User.uid.rawValue: uid,
-                User.text.rawValue: text,
-                User.createTime.rawValue: Date().timeIntervalSince1970
-            ]) { (error) in
-                
-                if let err = error {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-        }
-    }
+//    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
+//
+//        db.collection(Truck.truck.rawValue).document(truckID).collection(
+//            Truck.chatRoom.rawValue).addDocument(data: [
+//                Truck.name.rawValue: name,
+//                User.uid.rawValue: uid,
+//                User.text.rawValue: text,
+//                User.createTime.rawValue: Date().timeIntervalSince1970
+//            ]) { (error) in
+//
+//                if let err = error {
+//                    print("Error writing document: \(err)")
+//                } else {
+//                    print("Document successfully written!")
+//                }
+//        }
+//    }
     
     func deleteChatRoom(truckID: String) {
         
@@ -685,4 +688,24 @@ class FirebaseManager {
             }
         }
     }
+    
+    func creatFeedback(user: String, uid: String, title: String, detailText: String) {
+        
+        db.collection(user).document(uid).collection(Feedback.feedback.rawValue).addDocument(data: [
+                Feedback.title.rawValue: title,
+                Feedback.detailText.rawValue: detailText,
+                User.createTime.rawValue: Date().timeIntervalSince1970
+            ]) { (error) in
+                if let err = error {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+        }
+    }
+    
+    
+    
+    
+    
 }

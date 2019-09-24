@@ -205,7 +205,7 @@ class AuthViewController: UIViewController {
         case .userLogin:
             singInBtn.setTitle("吃貨登入", for: .normal)
             emailTextField.text = "yueh@gmail.com"
-            pswTextField.text = "yuehyueh"
+            pswTextField.text = "yyyyyy"
         case .bossLogin:
             singInBtn.setTitle("老闆登入", for: .normal)
             emailTextField.text = "boss@gmail.com"
