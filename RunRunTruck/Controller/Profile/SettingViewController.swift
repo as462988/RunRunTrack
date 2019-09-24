@@ -14,28 +14,45 @@ class SettingViewController: UIViewController {
     
 //    var contentScrollerView: UIScrollView!
     var contentView: UIView!
-    
+//    var blockRow: SettingRow!
     var blockRow: SettingRow = {
-        let row = SettingRow(title: "封鎖名單", subTitle: nil, withRightArrow: true)
+        let row = SettingRow(
+            title: "封鎖名單",
+            subTitle: nil,
+            withRightArrow: true,
+            associatedContentViewController: BlockListViewController())
         return row
     }()
     var privateCheckRow: SettingRow = {
-        let row = SettingRow(title: "隱私權政策", subTitle: nil, withRightArrow: true)
+        let row = SettingRow(
+            title: "隱私權政策",
+            subTitle: nil,
+            withRightArrow: true,
+            associatedContentViewController: nil)
         return row
     }()
     var feebackRow: SettingRow = {
-        let row = SettingRow(title: "意見回饋", subTitle: nil, withRightArrow: true)
+        let row = SettingRow(
+            title: "意見回饋",
+            subTitle: nil,
+            withRightArrow: true,
+            associatedContentViewController: nil)
         return row
     }()
     var versionRow: SettingRow = {
         let row = SettingRow(
             title: "版本",
             subTitle: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            withRightArrow: false)
+            withRightArrow: false,
+            associatedContentViewController: nil)
         return row
     }()
     var logoutRow: SettingRow = {
-        let row = SettingRow(title: "登出", subTitle: nil, withRightArrow: true)
+        let row = SettingRow(
+            title: "登出",
+            subTitle: nil,
+            withRightArrow: true,
+            associatedContentViewController: nil)
         return row
     }()
     
@@ -66,7 +83,6 @@ extension SettingViewController {
 }
 
 // MARK: - 建置頁面
-    // swiftlint:disable function_body_length
 extension SettingViewController {
     func setupViews() {
         //配置ScrollView
@@ -107,6 +123,11 @@ extension SettingViewController {
         contentView.addSubview(feebackRow)
         contentView.addSubview(versionRow)
         contentView.addSubview(logoutRow)
+        blockRow.delegate = self
+        privateCheckRow.delegate = self
+        feebackRow.delegate = self
+//        versionRow.delegate = self
+        logoutRow.delegate = self
         blockRow.setupViews()
         privateCheckRow.setupViews()
         feebackRow.setupViews()
@@ -118,34 +139,38 @@ extension SettingViewController {
         versionRow.topAnchor.constraint(equalTo: feebackRow.bottomAnchor, constant: 0).isActive = true
         logoutRow.topAnchor.constraint(equalTo: versionRow.bottomAnchor, constant: 0).isActive = true
         logoutRow.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        blockRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
-        privateCheckRow.addTarget(self, action: #selector(showPrivatePolicy), for: .touchUpInside)
-        feebackRow.addTarget(self, action: #selector(showFeeback), for: .touchUpInside)
-        logoutRow.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
-    
-    // swiftlint:eable function_body_length
-    
-    @objc func toggleBlockList() {
-        print(#function)
-    }
-    
-    @objc func showPrivatePolicy() {
-        print(#function)
-    }
-    
-    @objc func showFeeback() {
-        print(#function)
-    }
-    
-    @objc func logout() {
-        print(#function)
-        FirebaseManager.shared.signOut()
+}
+
+extension SettingViewController: SettingRowDelegate {
+    func settingRowDidTap(settingRow: SettingRow) {
+        switch settingRow {
+        case blockRow:
+            blockRow.toggleContent()
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0,
+                usingSpringWithDamping: 0.7,
+                initialSpringVelocity: 0,
+                options: [.curveEaseOut],
+                animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            return
+        case privateCheckRow:
+            return
+        case feebackRow:
+            return
+        case logoutRow:
+            FirebaseManager.shared.signOut()
         
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
-        let root = appDelegate?.window?.rootViewController as? TabBarViewController
+            let root = appDelegate?.window?.rootViewController as? TabBarViewController
         
-        root?.selectedIndex = 0
+            root?.selectedIndex = 0
+        default:
+            return
+        }
     }
 }

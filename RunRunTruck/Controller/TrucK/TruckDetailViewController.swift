@@ -107,7 +107,9 @@ class TruckDetailViewController: UIViewController {
                 truckId: detailInfo.id) {
                     print("deleteSuccess")
                     //移除最愛成功，把使用者同步移除餐車的喜愛者
-                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(userId: (uid == nil ? bossId : uid) ?? "", truckId: detailInfo.id)
+                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
+                        userId: (uid == nil ? bossId : uid) ?? "",
+                        truckId: detailInfo.id)
             }
         }
         

@@ -74,7 +74,9 @@ class FirebaseManager {
                     self.allTruckData.append(truck)
                 }
             })
-            NotificationCenter.default.post(name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
+            NotificationCenter.default.post(
+                name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
+                object: nil)
         }
         
     }
@@ -284,10 +286,13 @@ class FirebaseManager {
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
-                self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block, favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             logoImage: image, badge: badge,
+                                             block: block, favorite: favorite)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block,  favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             badge: badge, block: block, favorite: favorite)
             }
             
             completion(self?.currentUser)
@@ -413,7 +418,7 @@ class FirebaseManager {
         }
     }
     
-    func addUserToTruckFavoritedBy(userId: String, truckId:String) {
+    func addUserToTruckFavoritedBy(userId: String, truckId: String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
                 if let error = error {
@@ -494,7 +499,9 @@ class FirebaseManager {
             
             detailImage = snapshot.data()?[Truck.detailImage.rawValue] as? String
             
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil, favoritedBy)
+            self.bossTruck = TruckData(snapshot.documentID,
+                                       name, logoImage, detailImage,
+                                       story, open, nil, nil, favoritedBy)
             
             completion(self.bossTruck)
         }

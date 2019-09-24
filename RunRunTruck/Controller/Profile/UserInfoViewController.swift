@@ -63,19 +63,19 @@ extension UserInfoViewController: UserUIViewDelegate {
         openChoseCameraManager.showImagePickerAlert(self)
     }
     
-    func clickBlockBtn() {
-        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+//    func clickBlockBtn() {
+//        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+//        
+//        if let blockVC = UIStoryboard.profile.instantiateViewController(
+//            withIdentifier: "blockVC") as? BlockViewController {
+//            
+//            blockVC.modalPresentationStyle = .overCurrentContext
+//            
+//            rootVC.present(blockVC, animated: false, completion: nil)
+//            
+//        }
         
-        if let blockVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "blockVC") as? BlockViewController {
-            
-            blockVC.modalPresentationStyle = .overCurrentContext
-            
-            rootVC.present(blockVC, animated: false, completion: nil)
-            
-        }
-        
-    }
+//    }
 }
 
 extension UserInfoViewController: OpenChoseCameraManagerDelegate {
