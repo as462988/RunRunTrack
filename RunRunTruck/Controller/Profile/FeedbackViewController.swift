@@ -29,6 +29,13 @@ class FeedbackViewController: UIViewController {
         emailText.delegate = self
         titleText.delegate = self
         questionText.delegate = self
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+             image: UIImage.asset(.Icon_back),
+             style: .plain,
+             target: self,
+             action: #selector(backToRoot))
+        
         setLayout()
         setValue()
         checkBtn.addTarget(self, action: #selector(clickCheckBtn), for: .touchUpInside)
@@ -47,6 +54,10 @@ class FeedbackViewController: UIViewController {
         nameText.text = user.name
         emailText.text = user.email
         
+    }
+    
+    @objc func backToRoot() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func clickCheckBtn() {

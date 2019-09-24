@@ -103,15 +103,29 @@ class AddBossTruckViewController: UIViewController {
                                             
                                             FirebaseManager.shared.addTurckIDInBoss(truckId: truckID)
                                             
-                                            DispatchQueue.main.async {
-                                                guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                                    as? TabBarViewController else { return }
-                                                rootVC.tabBar.isHidden = false
-                                                let vc = self?.presentingViewController
-                                                self?.dismiss(animated: false) {
-                                                    vc?.dismiss(animated: false, completion: nil)
-                                                }
-                                            }
+            DispatchQueue.main.async {
+                guard let rootVC = AppDelegate.shared.window?.rootViewController
+                    as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = false
+                
+                self?.showAlert()
+
+            }
+        }
+    }
+    
+    func showAlert() {
+        
+        let thankAlertVC = UIAlertController(title: "註冊成功！！！", message: "立即登入開始享受餐車旅程吧！", preferredStyle: .alert)
+        present(thankAlertVC, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            let vc = self.presentingViewController
+            self.dismiss(animated: true) {
+                    self.dismiss(animated: false) {
+                    vc?.dismiss(animated: false, completion: nil)
+                }
+            }
         }
     }
 }

@@ -245,20 +245,18 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String],
-            let feedback = data[User.feedback.rawValue] as? [String] else { return }
+                let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
                                              logoImage: image, badge: badge,
-                                             block: block, favorite: favorite,
-                                             feedback: feedback)
+                                             block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
                                              badge: badge, block: block,
-                                             favorite: favorite, feedback: feedback)
+                                             favorite: favorite)
             }
             NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
             print("Current data: \(data)")
@@ -703,9 +701,5 @@ class FirebaseManager {
                 }
         }
     }
-    
-    
-    
-    
-    
+
 }
