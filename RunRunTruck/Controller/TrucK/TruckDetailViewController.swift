@@ -42,7 +42,10 @@ class TruckDetailViewController: UIViewController {
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
         backBtnBg.clipsToBounds = true
-
+        
+        if FirebaseManager.shared.bossID != nil {
+            favoriteBtn.isHidden = true
+        }
     }
     
     override func viewWillLayoutSubviews() {
