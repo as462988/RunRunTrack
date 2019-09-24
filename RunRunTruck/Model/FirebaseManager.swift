@@ -247,10 +247,14 @@ class FirebaseManager {
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
-                self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block, favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             logoImage: image, badge: badge,
+                                             block: block, favorite: favorite)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block,  favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             badge: badge, block: block,
+                                             favorite: favorite)
             }
             NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
             print("Current data: \(data)")
@@ -409,7 +413,7 @@ class FirebaseManager {
         }
     }
     
-    func addUserToTruckFavoritedBy(userId:String, truckId:String) {
+    func addUserToTruckFavoritedBy(userId: String, truckId:String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
                 if let error = error {
@@ -419,7 +423,7 @@ class FirebaseManager {
         }
     }
     
-    func deleteUserFromTruckFavoritedBy(userId:String, truckId:String) {
+    func deleteUserFromTruckFavoritedBy(userId: String, truckId:String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
                 if let error = error {

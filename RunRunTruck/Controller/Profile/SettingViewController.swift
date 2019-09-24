@@ -9,45 +9,34 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-    var contentScrollerView: UIScrollView!
-    var contentView: UIView!
+    ///標題
     var titleLabel: UILabel!
     
+//    var contentScrollerView: UIScrollView!
+    var contentView: UIView!
+    
     var blockRow: SettingRow = {
-        let row = SettingRow(type: .system)
-        row.backgroundColor = .white
-        row.setupViews()
-        row.customTitleLabel.text = "封鎖名單"
+        let row = SettingRow(title: "封鎖名單", subTitle: nil, withRightArrow: true)
         return row
     }()
     var privateCheckRow: SettingRow = {
-        let row = SettingRow(type: .custom)
-        row.backgroundColor = .white
-        row.setupViews()
-        row.customTitleLabel.text = "隱私權政策"
+        let row = SettingRow(title: "隱私權政策", subTitle: nil, withRightArrow: true)
         return row
     }()
     var feebackRow: SettingRow = {
-        let row = SettingRow(type: .custom)
-        row.backgroundColor = .white
-        row.setupViews()
-        row.customTitleLabel.text = "意見回饋"
+        let row = SettingRow(title: "意見回饋", subTitle: nil, withRightArrow: true)
         return row
     }()
     var versionRow: SettingRow = {
-        let row = SettingRow(type: .custom)
-        row.backgroundColor = .white
-        row.setupViews()
-        row.customTitleLabel.text = "版本"
+        let row = SettingRow(
+            title: "版本",
+            subTitle: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            withRightArrow: false)
         return row
     }()
     var logoutRow: SettingRow = {
-        let row = SettingRow(type: .custom)
-        row.backgroundColor = .white
-        row.setupViews()
-        row.customTitleLabel.text = "登出"
+        let row = SettingRow(title: "登出", subTitle: nil, withRightArrow: true)
         return row
-
     }()
     
     override func viewDidLoad() {
@@ -56,11 +45,9 @@ class SettingViewController: UIViewController {
         setupNavBar()
         setupViews()
     }
-    
-    @objc func backToRoot() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+}
+// MARK: - 建置導航欄
+extension SettingViewController {
     func setupNavBar() {
         self.navigationController?.navigationBar.barTintColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -73,34 +60,35 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = image
     }
     
+    @objc func backToRoot() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - 建置頁面
+extension SettingViewController {
     func setupViews() {
-        
-        contentScrollerView = UIScrollView()
-        contentScrollerView.alwaysBounceVertical = true
-        
-        view.addSubview(contentScrollerView)
-        contentScrollerView.translatesAutoresizingMaskIntoConstraints = false
-        contentScrollerView.topAnchor.constraint(
+        //配置ScrollView
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        contentScrollerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        contentScrollerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        contentScrollerView.bottomAnchor.constraint(
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        contentScrollerView.backgroundColor = .white
-        
+        scrollView.backgroundColor = .white
+        //配置ScrollView的ContentView
         contentView = UIView()
-        contentScrollerView.addSubview(contentView)
-        contentView.frame = view.frame
-//        contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        contentView.leadingAnchor.constraint(equalTo: contentScrollerView.leadingAnchor).isActive = true
-//        contentView.bottomAnchor.constraint(equalTo: contentScrollerView.bottomAnchor).isActive = true
-//        contentView.trailingAnchor.constraint(equalTo: contentScrollerView.trailingAnchor).isActive = true
-//        contentScrollerView.contentSize = contentView.bounds.size
-        
-//        contentView.frame = contentScrollerView.frame
-        contentView.backgroundColor = .lightGray
-        contentScrollerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalToConstant: view.bounds.size.width).isActive = true
         
         titleLabel = UILabel()
         titleLabel.text = "設定"
@@ -114,45 +102,26 @@ class SettingViewController: UIViewController {
             padding: .init(top: 15, left: 20, bottom: 0, right: 0), size: .zero)
         //Rows
         contentView.addSubview(blockRow)
-        blockRow.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(privateCheckRow)
+        contentView.addSubview(feebackRow)
+        contentView.addSubview(versionRow)
+        contentView.addSubview(logoutRow)
+        blockRow.setupViews()
+        privateCheckRow.setupViews()
+        feebackRow.setupViews()
+        versionRow.setupViews()
+        logoutRow.setupViews()
         blockRow.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        blockRow.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        blockRow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        blockRow.heightAnchor.constraint(equalToConstant: 75).isActive = true
-//        blockRow.anchor(
-//            top: nil,
-//            leading: contentView.leadingAnchor,
-//            bottom: nil,
-//            trailing: contentView.trailingAnchor)
-//        contentView.addSubview(privateCheckRow)
-//        privateCheckRow.anchor(
-//            top: blockRow.bottomAnchor,
-//            leading: contentView.leadingAnchor,
-//            bottom: nil,
-//            trailing: contentView.trailingAnchor)
-//        contentView.addSubview(feebackRow)
-//        feebackRow.anchor(
-//            top: privateCheckRow.bottomAnchor,
-//            leading: contentView.leadingAnchor,
-//            bottom: nil,
-//            trailing: contentView.trailingAnchor)
-//        contentView.addSubview(versionRow)
-//        versionRow.anchor(
-//            top: feebackRow.bottomAnchor,
-//            leading: contentView.leadingAnchor,
-//            bottom: nil,
-//            trailing: contentView.trailingAnchor)
-//        contentView.addSubview(logoutRow)
-//        logoutRow.anchor(
-//            top: versionRow.bottomAnchor,
-//            leading: contentView.leadingAnchor,
-//            bottom: nil,
-//            trailing: contentView.trailingAnchor)
+        privateCheckRow.topAnchor.constraint(equalTo: blockRow.bottomAnchor, constant: 0).isActive = true
+        feebackRow.topAnchor.constraint(equalTo: privateCheckRow.bottomAnchor, constant: 0).isActive = true
+        versionRow.topAnchor.constraint(equalTo: feebackRow.bottomAnchor, constant: 0).isActive = true
+        logoutRow.topAnchor.constraint(equalTo: versionRow.bottomAnchor, constant: 0).isActive = true
+        logoutRow.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         blockRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
-//        privateCheckRow.addTarget(self, action: #selector(showPrivatePolicy), for: .touchUpInside)
-//        feebackRow.addTarget(self, action: #selector(showFeeback), for: .touchUpInside)
-////        versionRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
-//        logoutRow.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        privateCheckRow.addTarget(self, action: #selector(showPrivatePolicy), for: .touchUpInside)
+        feebackRow.addTarget(self, action: #selector(showFeeback), for: .touchUpInside)
+//        versionRow.addTarget(self, action: #selector(toggleBlockList), for: .touchUpInside)
+        logoutRow.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
     
     @objc func toggleBlockList() {

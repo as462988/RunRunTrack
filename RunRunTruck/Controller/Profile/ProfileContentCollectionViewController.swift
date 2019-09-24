@@ -67,7 +67,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         updateDataFromFirebaseManager()
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //收藏餐車, 繼續探索, 更多設定
         return 2

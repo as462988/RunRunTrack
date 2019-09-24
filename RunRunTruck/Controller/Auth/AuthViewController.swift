@@ -258,7 +258,8 @@ extension AuthViewController: UITextFieldDelegate {
 }
 
 extension AuthViewController: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
         
         switch authorization.credential {
             
@@ -283,6 +284,4 @@ extension AuthViewController: ASAuthorizationControllerPresentationContextProvid
         return view.window!
 
     }
-    
-    
 }

@@ -97,7 +97,9 @@ class TruckDetailViewController: UIViewController {
             truckId: detailInfo.id) {
                 print("addSuccess")
                 //新增最愛成功，把使用者同步到餐車的喜愛者
-                FirebaseManager.shared.addUserToTruckFavoritedBy(userId: (uid == nil ? bossId : uid) ?? "", truckId: detailInfo.id)
+                FirebaseManager.shared.addUserToTruckFavoritedBy(
+                    userId: (uid == nil ? bossId : uid) ?? "",
+                    truckId: detailInfo.id)
             }
         } else {
             FirebaseManager.shared.deleteUserFavorite(

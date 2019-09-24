@@ -48,11 +48,17 @@ class BadgeViewController: UIViewController {
     }
     
     func observerAllTrucksUpdate() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromFirebaseManager), name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDataFromFirebaseManager),
+                                               name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
+                                               object: nil)
     }
     
     func observerUserUpdated() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromFirebaseManager), name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDataFromFirebaseManager),
+                                               name: Notification.Name(FirebaseManager.userNotificationName),
+                                               object: nil)
     }
     
    @objc func updateDataFromFirebaseManager() {
