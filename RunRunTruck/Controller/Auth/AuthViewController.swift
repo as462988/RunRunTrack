@@ -81,18 +81,18 @@ class AuthViewController: UIViewController {
         emptyText()
     }
     func setupView() {
-        let appleButton = ASAuthorizationAppleIDButton()
-        appleButton.translatesAutoresizingMaskIntoConstraints = false
-        appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
-
-        view.addSubview(appleButton)
-        
-        appleButton.anchor(top: singInBtn.bottomAnchor,
-                           leading: view.leadingAnchor,
-                           bottom: view.bottomAnchor,
-                           trailing: view.trailingAnchor,
-                           padding: .init(top: 10, left: 20, bottom: 20, right: 20),
-                           size: CGSize(width: singInBtn.frame.width, height: singInBtn.frame.height))
+//        let appleButton = ASAuthorizationAppleIDButton()
+//        appleButton.translatesAutoresizingMaskIntoConstraints = false
+//        appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
+//
+//        view.addSubview(appleButton)
+//
+//        appleButton.anchor(top: singInBtn.bottomAnchor,
+//                           leading: view.leadingAnchor,
+//                           bottom: view.bottomAnchor,
+//                           trailing: view.trailingAnchor,
+//                           padding: .init(top: 10, left: 20, bottom: 20, right: 20),
+//                           size: CGSize(width: singInBtn.frame.width, height: singInBtn.frame.height))
         
 //        NSLayoutConstraint.activate([
 //            appleButton.topAnchor.constraint(equalTo: singInBtn.bottomAnchor, constant: 20),
@@ -105,16 +105,16 @@ class AuthViewController: UIViewController {
     
     @objc func didTapAppleButton() {
         
-        let provider = ASAuthorizationAppleIDProvider()
-            let request = provider.createRequest()
-            request.requestedScopes = [.fullName, .email]
-            
-            let controller = ASAuthorizationController(authorizationRequests: [request])
-            
-            controller.delegate = self
-            controller.presentationContextProvider = self
-            
-            controller.performRequests()
+//        let provider = ASAuthorizationAppleIDProvider()
+//            let request = provider.createRequest()
+//            request.requestedScopes = [.fullName, .email]
+//            
+//            let controller = ASAuthorizationController(authorizationRequests: [request])
+//            
+//            controller.delegate = self
+//            controller.presentationContextProvider = self
+//            
+//            controller.performRequests()
         
     }
     
@@ -257,31 +257,31 @@ extension AuthViewController: UITextFieldDelegate {
     }
 }
 
-extension AuthViewController: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-        
-        switch authorization.credential {
-            
-        case let credentials as ASAuthorizationAppleIDCredential:
-            let user = AppleUser(credentials: credentials)
-            performSegue(withIdentifier: "segue", sender: user)
-
-        default: break
-            
-        }
-
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("something bad happened", error)
-    }
-}
-
-extension AuthViewController: ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        
-        return view.window!
-
-    }
-}
+//extension AuthViewController: ASAuthorizationControllerDelegate {
+//    func authorizationController(controller: ASAuthorizationController,
+//                                 didCompleteWithAuthorization authorization: ASAuthorization) {
+//
+//        switch authorization.credential {
+//
+//        case let credentials as ASAuthorizationAppleIDCredential:
+//            let user = AppleUser(credentials: credentials)
+//            performSegue(withIdentifier: "segue", sender: user)
+//
+//        default: break
+//
+//        }
+//
+//    }
+//
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+//        print("something bad happened", error)
+//    }
+//}
+//
+//extension AuthViewController: ASAuthorizationControllerPresentationContextProviding {
+//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+//
+//        return view.window!
+//
+//    }
+//}
