@@ -12,9 +12,7 @@ class SettingViewController: UIViewController {
     ///標題
     var titleLabel: UILabel!
     
-//    var contentScrollerView: UIScrollView!
     var contentView: UIView!
-//    var blockRow: SettingRow!
     var blockRow: SettingRow = {
         let row = SettingRow(
             title: "封鎖名單",
@@ -62,6 +60,11 @@ class SettingViewController: UIViewController {
         setupNavBar()
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setTabBar()
+    }
 }
 // MARK: - 建置導航欄
 extension SettingViewController {
@@ -75,6 +78,12 @@ extension SettingViewController {
         let image = UIImage()
         self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
         self.navigationController?.navigationBar.shadowImage = image
+    }
+    
+    func setTabBar() {
+        if let tabbarVc = self.navigationController?.tabBarController {
+            tabbarVc.tabBar.isHidden = false
+        }
     }
     
     @objc func backToRoot() {
@@ -158,7 +167,11 @@ extension SettingViewController: SettingRowDelegate {
             }, completion: nil)
             return
         case privateCheckRow:
-            return
+           guard let privateVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+   
+            navigationController?.pushViewController(privateVC, animated: true)
+    
         case feebackRow:
             return
         case logoutRow:

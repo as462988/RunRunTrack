@@ -350,6 +350,72 @@
             </objects>
             <point key="canvasLocation" x="1230.4347826086957" y="243.75"/>
         </scene>
+        <!--Private View Controller-->
+        <scene sceneID="Ui3-e2-qSv">
+            <objects>
+                <viewController storyboardIdentifier="privateVC" id="tpJ-jv-2Yt" customClass="PrivateViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jNJ-w7-Dze">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgk-ar-TrW">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <color key="backgroundColor" red="0.031372549019607843" green="0.3529411764705882" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="22x-Br-G1x"/>
+                                </constraints>
+                            </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCn-o5-qiz">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rE9-5v-u9b">
+                                <rect key="frame" x="182" y="423" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="N0A-XP-KJ4"/>
+                                    <constraint firstAttribute="width" secondItem="rE9-5v-u9b" secondAttribute="height" multiplier="1:1" id="oYg-Xr-DjN"/>
+                                </constraints>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKK-Rj-p4u">
+                                <rect key="frame" x="20" y="44" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YKK-Rj-p4u" secondAttribute="height" multiplier="1:1" id="1Kb-dU-Pek"/>
+                                    <constraint firstAttribute="width" constant="30" id="2PB-qf-1O6"/>
+                                </constraints>
+                                <state key="normal" image="Icon_whiteBack"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rE9-5v-u9b" firstAttribute="centerX" secondItem="jNJ-w7-Dze" secondAttribute="centerX" id="4fY-eg-ucG"/>
+                            <constraint firstItem="lgk-ar-TrW" firstAttribute="top" secondItem="jNJ-w7-Dze" secondAttribute="top" id="5pj-p0-iC4"/>
+                            <constraint firstAttribute="bottom" secondItem="uCn-o5-qiz" secondAttribute="bottom" id="Dir-SQ-0Sb"/>
+                            <constraint firstItem="uCn-o5-qiz" firstAttribute="top" secondItem="jNJ-w7-Dze" secondAttribute="top" id="ObL-MY-Gku"/>
+                            <constraint firstItem="rE9-5v-u9b" firstAttribute="centerY" secondItem="jNJ-w7-Dze" secondAttribute="centerY" id="TX4-fy-dIU"/>
+                            <constraint firstItem="YKK-Rj-p4u" firstAttribute="top" secondItem="Roa-AM-n7L" secondAttribute="top" id="YTf-DH-AjH"/>
+                            <constraint firstItem="lgk-ar-TrW" firstAttribute="leading" secondItem="Roa-AM-n7L" secondAttribute="leading" id="gHx-fc-CJC"/>
+                            <constraint firstItem="Roa-AM-n7L" firstAttribute="trailing" secondItem="lgk-ar-TrW" secondAttribute="trailing" id="gNK-BZ-YqP"/>
+                            <constraint firstItem="Roa-AM-n7L" firstAttribute="trailing" secondItem="uCn-o5-qiz" secondAttribute="trailing" id="mQC-yh-b61"/>
+                            <constraint firstItem="uCn-o5-qiz" firstAttribute="leading" secondItem="Roa-AM-n7L" secondAttribute="leading" id="mdv-IW-54E"/>
+                            <constraint firstItem="YKK-Rj-p4u" firstAttribute="leading" secondItem="Roa-AM-n7L" secondAttribute="leading" constant="20" id="rEX-hg-t6u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Roa-AM-n7L"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="rE9-5v-u9b" id="TXV-39-k9Q"/>
+                        <outlet property="backBtn" destination="YKK-Rj-p4u" id="57p-NP-ACB"/>
+                        <outlet property="privateWebView" destination="uCn-o5-qiz" id="QyG-FM-E8N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LaM-Ve-1kU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2093" y="835"/>
+        </scene>
         <!--User Info View Controller-->
         <scene sceneID="HKS-26-yvh">
             <objects>
@@ -488,5 +554,6 @@
         <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
         <image name="Icon_logout" width="120" height="120"/>
         <image name="Icon_qrcode" width="120" height="120"/>
+        <image name="Icon_whiteBack" width="40" height="40"/>
     </resources>
 </document>

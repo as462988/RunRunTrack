@@ -428,7 +428,7 @@ class FirebaseManager {
         }
     }
     
-    func deleteUserFromTruckFavoritedBy(userId: String, truckId:String) {
+    func deleteUserFromTruckFavoritedBy(userId: String, truckId: String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
                 if let error = error {
