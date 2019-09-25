@@ -18,6 +18,8 @@ protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickLogoutBtn()
     func creatQrcode()
     func clickChangeImage()
+    func clickFeedbackBtn()
+    func clickPrivateBtn()
 }
 
 class BossUIView: UIView {
@@ -31,8 +33,13 @@ class BossUIView: UIView {
             storyTextView.delegate = self.delegate
         }
     }
+    
+    @IBOutlet weak var btnContainView: UIView!
     @IBOutlet weak var logoOutBtn: UIButton!
     @IBOutlet weak var creatQrcodeBtn: UIButton!
+    @IBOutlet weak var feedbackBtn: UIButton!
+    @IBOutlet weak var privateBtn: UIButton!
+    
     @IBOutlet weak var openSwitch: UISwitch!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var tapAnimationView: AnimationView!
@@ -50,8 +57,7 @@ class BossUIView: UIView {
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
     @IBOutlet weak var loactionAnimationView: AnimationView!
-//    @IBOutlet weak var pinImage: UIImageView!
-    
+
     weak var delegate: BossUIViewDelegate?
 
     override func awakeFromNib() {
@@ -60,6 +66,11 @@ class BossUIView: UIView {
         openView.isHidden = true
         
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
+        
+        feedbackBtn.addTarget(self, action: #selector(clickFeedbackBtn), for: .touchUpInside)
+        
+        privateBtn.addTarget(self, action: #selector(clickPrivateBtn), for: .touchUpInside)
+        
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickChangeImage))
         
@@ -93,6 +104,9 @@ class BossUIView: UIView {
         nameLabel.text = name
         storyTextView.text = story
         openSwitch.isOn = open
+        btnContainView.layer.borderWidth = 1
+        btnContainView.layer.borderColor = UIColor.lightGray.cgColor
+//        btnContainView.layer.borderColor = UIColor(r: 63, g: 58, b: 58).cgColor
     }
     
     func cleanValue() {
@@ -171,5 +185,15 @@ class BossUIView: UIView {
     @objc func clickChangeImage() {
         
         self.delegate?.clickChangeImage()
+    }
+    
+    @objc func clickFeedbackBtn() {
+        
+        self.delegate?.clickFeedbackBtn()
+        
+    }
+    @objc func clickPrivateBtn() {
+        
+        self.delegate?.clickPrivateBtn()
     }
 }

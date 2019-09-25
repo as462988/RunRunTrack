@@ -20,9 +20,15 @@ class AddBossTruckViewController: UIViewController {
     
     let openChoseCameraManager = OpenChoseCameraManager()
     
+    var userCreatTruckFinished = false {
+           didSet {
+               updateSendBtnStatus()
+           }
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkBossAddTruck()
         openChoseCameraManager.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
         animationView.addGestureRecognizer(tapGesture)
@@ -68,15 +74,24 @@ class AddBossTruckViewController: UIViewController {
         animationView.loopMode = .loop
         animationView.play()
     }
-
+    
+    func updateSendBtnStatus() {
+        
+        setBtnStatus(userCreatTruckFinished ? .enable: .disable, btn: clickSendBtn)
+    }
+    
+    func checkBossAddTruck() {
+        
+        if !truckTextInput.text.isEmpty, logoImageUrl != nil {
+            userCreatTruckFinished = true
+        } else {
+            userCreatTruckFinished = false
+        }
+    }
+    
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
-        
-        guard inputText.isEmpty == false else {
-            print("請跟我們分享你的故事")
-            return
-        }
         
         let truckName = FirebaseManager.shared.currentUser?.name
         
@@ -88,15 +103,29 @@ class AddBossTruckViewController: UIViewController {
                                             
                                             FirebaseManager.shared.addTurckIDInBoss(truckId: truckID)
                                             
-                                            DispatchQueue.main.async {
-                                                guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                                    as? TabBarViewController else { return }
-                                                rootVC.tabBar.isHidden = false
-                                                let vc = self?.presentingViewController
-                                                self?.dismiss(animated: false) {
-                                                    vc?.dismiss(animated: false, completion: nil)
-                                                }
-                                            }
+            DispatchQueue.main.async {
+                guard let rootVC = AppDelegate.shared.window?.rootViewController
+                    as? TabBarViewController else { return }
+                rootVC.tabBar.isHidden = false
+                
+                self?.showAlert()
+
+            }
+        }
+    }
+    
+    func showAlert() {
+        
+        let thankAlertVC = UIAlertController(title: "註冊成功！！！", message: "立即登入開始享受餐車旅程吧！", preferredStyle: .alert)
+        present(thankAlertVC, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            let vc = self.presentingViewController
+            self.dismiss(animated: true) {
+                    self.dismiss(animated: false) {
+                    vc?.dismiss(animated: false, completion: nil)
+                }
+            }
         }
     }
 }
@@ -120,6 +149,8 @@ extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
                         guard let imageUrl = url else {return}
                         
                         self?.logoImageUrl = imageUrl
+                        
+                        self?.checkBossAddTruck()
                 }
                 
                 self?.dismiss(animated: true, completion: nil)

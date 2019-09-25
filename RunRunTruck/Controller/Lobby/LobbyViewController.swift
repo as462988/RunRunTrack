@@ -197,7 +197,7 @@ extension LobbyViewController: LobbyViewDelegate {
         } else {
             print("User's location is unknown")
             
-            let alertController = UIAlertController (title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
             
             let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
                 

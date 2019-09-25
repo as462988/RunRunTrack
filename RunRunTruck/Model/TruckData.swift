@@ -55,7 +55,7 @@ struct TruckData {
     
     var address: String = ""
     
-    var favoritedBy: Array<String> = []
+    var favoritedBy: [String] = []
     
     init(_ id: String, _ name: String,
          _ logoImage: String, _ detailImage: String?,
@@ -126,6 +126,8 @@ enum User: String {
     case block
     
     case favorite
+    
+    case feedback
 }
 
 struct UserData {
@@ -144,9 +146,12 @@ struct UserData {
     
     let favorite: [String]
     
+    let feedback: [String]
+    
     init(name: String, email: String, logoImage: String? = nil,
          badge: [String] = [], truckId: String? = nil,
-         block: [String] = [], favorite: [String] = [] ) {
+         block: [String] = [], favorite: [String] = [],
+         feedback: [String] = []) {
         self.name = name
         self.email = email
         self.logoImage = logoImage
@@ -154,6 +159,7 @@ struct UserData {
         self.truckId = truckId
         self.block = block
         self.favorite = favorite
+        self.feedback = feedback
     }
 }
 
@@ -182,5 +188,31 @@ struct TruckShortInfo {
         self.truckId = truckId
         self.name = name
         self.logoImage = logoImage
+    }
+}
+
+enum Feedback: String {
+    
+    case feedback
+    
+    case title
+    
+    case detailText
+    
+    case creatTime
+
+}
+
+
+struct FeedbackMessage {
+
+    var title: String
+    var detailText: String
+    var createTime: Double
+    
+    init(title: String, detailText: String, creatTime: Double) {
+        self.title = title
+        self.detailText = detailText
+        self.createTime = creatTime
     }
 }

@@ -157,7 +157,7 @@ class AuthViewController: UIViewController {
                             }
                             //吃貨登入成功
                             FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-                            LKProgressHUD.showSuccess(text: "登入成功")
+                            ProgressHUD.showSuccess(text: "登入成功")
                                
                                DispatchQueue.main.async {
                                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -184,7 +184,7 @@ class AuthViewController: UIViewController {
                             }
                             //老闆登入成功
                             FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-                            LKProgressHUD.showSuccess(text: "登入成功")
+                            ProgressHUD.showSuccess(text: "登入成功")
                             
                             DispatchQueue.main.async {
                                 self?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -205,7 +205,7 @@ class AuthViewController: UIViewController {
         case .userLogin:
             singInBtn.setTitle("吃貨登入", for: .normal)
             emailTextField.text = "yueh@gmail.com"
-            pswTextField.text = "yuehyueh"
+            pswTextField.text = "yyyyyy"
         case .bossLogin:
             singInBtn.setTitle("老闆登入", for: .normal)
             emailTextField.text = "boss@gmail.com"
@@ -227,14 +227,14 @@ extension AuthViewController: UITextFieldDelegate {
         
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
-        
-        if email.isEmpty, psw.isEmpty {
+                
+        if !email.isEmpty, !psw.isEmpty {
             
-            userLoginIsFinished = false
+            userLoginIsFinished = true
             
         } else {
 
-            userLoginIsFinished = true
+            userLoginIsFinished = false
         }
     }
     

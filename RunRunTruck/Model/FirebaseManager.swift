@@ -74,7 +74,9 @@ class FirebaseManager {
                     self.allTruckData.append(truck)
                 }
             })
-            NotificationCenter.default.post(name: Notification.Name(FirebaseManager.allTruckDataNotificationName), object: nil)
+            NotificationCenter.default.post(
+                name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
+                object: nil)
         }
         
     }
@@ -280,14 +282,18 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String] else { return }
+                let favorite = data[User.favorite.rawValue] as? [String]else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
-                self?.currentUser = UserData(name: name, email: email, logoImage: image, badge: badge, block: block, favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             logoImage: image, badge: badge,
+                                             block: block, favorite: favorite)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, badge: badge, block: block,  favorite: favorite)
+                self?.currentUser = UserData(name: name, email: email,
+                                             badge: badge, block: block,
+                                             favorite: favorite)
             }
             
             completion(self?.currentUser)
@@ -413,7 +419,7 @@ class FirebaseManager {
         }
     }
     
-    func addUserToTruckFavoritedBy(userId: String, truckId:String) {
+    func addUserToTruckFavoritedBy(userId: String, truckId: String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
                 if let error = error {
@@ -423,7 +429,7 @@ class FirebaseManager {
         }
     }
     
-    func deleteUserFromTruckFavoritedBy(userId: String, truckId:String) {
+    func deleteUserFromTruckFavoritedBy(userId: String, truckId: String) {
         db.collection(Truck.truck.rawValue).document(truckId).updateData([
             Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
                 if let error = error {
@@ -494,7 +500,9 @@ class FirebaseManager {
             
             detailImage = snapshot.data()?[Truck.detailImage.rawValue] as? String
             
-            self.bossTruck = TruckData(snapshot.documentID, name, logoImage, detailImage, story, open, nil, nil, favoritedBy)
+            self.bossTruck = TruckData(snapshot.documentID,
+                                       name, logoImage, detailImage,
+                                       story, open, nil, nil, favoritedBy)
             
             completion(self.bossTruck)
         }
@@ -575,6 +583,8 @@ class FirebaseManager {
             self.userID = nil
             self.bossID = nil
             
+            print("登出成功")
+            
         } catch let signOutError as NSError {
             
             print("Error signing out: %@", signOutError)
@@ -601,23 +611,23 @@ class FirebaseManager {
         }
     }
     
-    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
-        
-        db.collection(Truck.truck.rawValue).document(truckID).collection(
-            Truck.chatRoom.rawValue).addDocument(data: [
-                Truck.name.rawValue: name,
-                User.uid.rawValue: uid,
-                User.text.rawValue: text,
-                User.createTime.rawValue: Date().timeIntervalSince1970
-            ]) { (error) in
-                
-                if let err = error {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-        }
-    }
+//    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
+//
+//        db.collection(Truck.truck.rawValue).document(truckID).collection(
+//            Truck.chatRoom.rawValue).addDocument(data: [
+//                Truck.name.rawValue: name,
+//                User.uid.rawValue: uid,
+//                User.text.rawValue: text,
+//                User.createTime.rawValue: Date().timeIntervalSince1970
+//            ]) { (error) in
+//
+//                if let err = error {
+//                    print("Error writing document: \(err)")
+//                } else {
+//                    print("Document successfully written!")
+//                }
+//        }
+//    }
     
     func deleteChatRoom(truckID: String) {
         
@@ -676,4 +686,20 @@ class FirebaseManager {
             }
         }
     }
+    
+    func creatFeedback(user: String, uid: String, title: String, detailText: String) {
+        
+        db.collection(user).document(uid).collection(Feedback.feedback.rawValue).addDocument(data: [
+                Feedback.title.rawValue: title,
+                Feedback.detailText.rawValue: detailText,
+                User.createTime.rawValue: Date().timeIntervalSince1970
+            ]) { (error) in
+                if let err = error {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+        }
+    }
+
 }

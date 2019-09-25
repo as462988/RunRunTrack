@@ -42,7 +42,10 @@ class TruckDetailViewController: UIViewController {
         logoImageView.clipsToBounds = true
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
         backBtnBg.clipsToBounds = true
-
+        
+        if FirebaseManager.shared.bossID != nil {
+            favoriteBtn.isHidden = true
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -80,7 +83,7 @@ class TruckDetailViewController: UIViewController {
         
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
-          LKProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
+          ProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
 
               return
           }
@@ -107,10 +110,11 @@ class TruckDetailViewController: UIViewController {
                 truckId: detailInfo.id) {
                     print("deleteSuccess")
                     //移除最愛成功，把使用者同步移除餐車的喜愛者
-                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(userId: (uid == nil ? bossId : uid) ?? "", truckId: detailInfo.id)
+                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
+                        userId: (uid == nil ? bossId : uid) ?? "",
+                        truckId: detailInfo.id)
             }
         }
-        
     }
     
     @objc func backToRoot() {
