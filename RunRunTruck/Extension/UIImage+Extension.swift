@@ -36,6 +36,9 @@ enum ImageAsset: String {
     case Icon_UserImage
     
     case Image_truckPic
+    
+    case Icon_myLogo
+    
     // swiftlint:enable identifier_name
 }
 

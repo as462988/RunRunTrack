@@ -25,8 +25,8 @@ class BossInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationController?.isNavigationBarHidden = true
+//        
+//        self.navigationController?.isNavigationBarHidden = true
         
         openChoseCamera.delegate = self
         
@@ -44,8 +44,12 @@ class BossInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.isNavigationBarHidden = true
         playTapAnimation()
+        
+        if let tabbarVc = self.navigationController?.tabBarController {
+                  tabbarVc.tabBar.isHidden = false
+              }
     }
     
     override func viewWillLayoutSubviews() {
@@ -95,6 +99,20 @@ class BossInfoViewController: UIViewController {
 
 extension BossInfoViewController: BossUIViewDelegate {
     
+    func clickFeedbackBtn() {
+        guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+        
+        navigationController?.pushViewController(feedbackVC, animated: true)
+    }
+    
+    func clickPrivateBtn() {
+         guard let privateVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+        
+        navigationController?.pushViewController(privateVC, animated: true)
+    }
+
     func clickChenckBtn() {
         
         guard let lat = self.latitude, let lon = self.longitude else {return}

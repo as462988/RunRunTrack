@@ -115,7 +115,6 @@ class TruckDetailViewController: UIViewController {
                         truckId: detailInfo.id)
             }
         }
-        
     }
     
     @objc func backToRoot() {

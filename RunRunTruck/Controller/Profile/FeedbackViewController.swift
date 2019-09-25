@@ -42,6 +42,12 @@ class FeedbackViewController: UIViewController {
         checkUserInput()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+        
+    }
+    
     func setLayout() {
      
         checkBtn.layer.cornerRadius = 10

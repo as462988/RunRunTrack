@@ -21,8 +21,7 @@ class UserInfoViewController: UIViewController {
         super.viewDidLoad()
         userView.delegate = self
         openChoseCameraManager.delegate = self
-        
-        self.navigationController?.isNavigationBarHidden = true
+
         contentView.addSubview(contentCollectionView.view)
         contentCollectionView.view.fillSuperview()
         
@@ -62,20 +61,6 @@ extension UserInfoViewController: UserUIViewDelegate {
     func clickUpLoadBtn() {
         openChoseCameraManager.showImagePickerAlert(self)
     }
-    
-//    func clickBlockBtn() {
-//        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
-//        
-//        if let blockVC = UIStoryboard.profile.instantiateViewController(
-//            withIdentifier: "blockVC") as? BlockViewController {
-//            
-//            blockVC.modalPresentationStyle = .overCurrentContext
-//            
-//            rootVC.present(blockVC, animated: false, completion: nil)
-//            
-//        }
-        
-//    }
 }
 
 extension UserInfoViewController: OpenChoseCameraManagerDelegate {
