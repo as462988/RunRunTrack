@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MSr-eX-sMf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +21,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-wJ-qqt">
-                                <rect key="frame" x="0.0" y="416" width="414" height="480"/>
+                                <rect key="frame" x="0.0" y="386" width="414" height="510"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KrT-yu-XKX">
                                         <rect key="frame" x="20" y="150" width="374" height="31"/>
@@ -115,7 +114,7 @@
                                     <constraint firstAttribute="trailing" secondItem="vn9-Qz-fsB" secondAttribute="trailing" constant="16" id="5M8-dd-NjQ"/>
                                     <constraint firstItem="ouc-32-T3r" firstAttribute="centerX" secondItem="QUF-wJ-qqt" secondAttribute="centerX" id="6qN-Ea-QDa"/>
                                     <constraint firstItem="yHJ-eN-b19" firstAttribute="top" secondItem="p1N-Sv-aa1" secondAttribute="bottom" constant="10" id="A3v-Mg-3x8"/>
-                                    <constraint firstAttribute="bottom" secondItem="X8Z-5i-fcS" secondAttribute="bottom" constant="70" id="Fu8-uT-lor"/>
+                                    <constraint firstAttribute="bottom" secondItem="X8Z-5i-fcS" secondAttribute="bottom" constant="100" id="Fu8-uT-lor"/>
                                     <constraint firstAttribute="trailing" secondItem="X8Z-5i-fcS" secondAttribute="trailing" constant="20" id="MOi-3d-Pdg"/>
                                     <constraint firstItem="cLo-lW-ktP" firstAttribute="centerX" secondItem="QUF-wJ-qqt" secondAttribute="centerX" id="S0E-cj-rQl"/>
                                     <constraint firstItem="KrT-yu-XKX" firstAttribute="leading" secondItem="QUF-wJ-qqt" secondAttribute="leading" constant="20" id="SgL-9T-Ai6"/>
@@ -169,7 +168,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvx-YN-g1d">
-                                <rect key="frame" x="0.0" y="416" width="414" height="480"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="552"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMV-fz-dTy">
                                         <rect key="frame" x="0.0" y="23" width="414" height="110"/>
@@ -292,10 +291,10 @@
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45F-uW-K6G">
-                                        <rect key="frame" x="20" y="412" width="374" height="48"/>
+                                        <rect key="frame" x="20" y="412" width="374" height="40"/>
                                         <color key="backgroundColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="Osl-1F-pUP"/>
+                                            <constraint firstAttribute="height" constant="40" id="Osl-1F-pUP"/>
                                         </constraints>
                                         <state key="normal" title="吃貨註冊">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -329,7 +328,7 @@
                                     <constraint firstAttribute="trailing" secondItem="BGh-WY-ve9" secondAttribute="trailing" constant="16" id="7kF-yA-E9J"/>
                                     <constraint firstItem="lwW-aY-KDG" firstAttribute="leading" secondItem="QjO-cs-nIp" secondAttribute="trailing" constant="17" id="Bph-zM-XTd"/>
                                     <constraint firstItem="QjO-cs-nIp" firstAttribute="leading" secondItem="6ND-oE-os3" secondAttribute="leading" id="C4F-ys-OM0"/>
-                                    <constraint firstAttribute="bottom" secondItem="45F-uW-K6G" secondAttribute="bottom" constant="20" id="DcJ-Qu-cJ6"/>
+                                    <constraint firstAttribute="bottom" secondItem="45F-uW-K6G" secondAttribute="bottom" constant="100" id="DcJ-Qu-cJ6"/>
                                     <constraint firstItem="Tz6-TY-9GO" firstAttribute="leading" secondItem="kvx-YN-g1d" secondAttribute="leading" constant="20" id="Fao-Gv-adP"/>
                                     <constraint firstItem="1Xk-D3-sZ4" firstAttribute="leading" secondItem="6ND-oE-os3" secondAttribute="trailing" constant="8" id="IJH-Hy-JW8"/>
                                     <constraint firstAttribute="trailing" secondItem="5T9-qd-U0s" secondAttribute="trailing" constant="20" id="Iay-qa-Tsf"/>
