@@ -13,6 +13,7 @@ typealias BlockUser = (userNmae: String, userId: String)
 
 class BlockListViewController: UIViewController {
     var tableView: UITableView!
+    var nonDataLabel: UILabel!
     var blockUsers: [BlockUser] = []
     
     override func viewDidLoad() {
@@ -20,10 +21,11 @@ class BlockListViewController: UIViewController {
         setupViews()
         tableView.register(BlockRowCell.self, forCellReuseIdentifier: cellId)
         reload()
-
+        observeCurrentUserUpdated()
     }
     
     @objc func reload() {
+        blockUsers.removeAll()
         let dispatchGroup = DispatchGroup()
         FirebaseManager.shared.currentUser?.block.forEach({ blockUserId in
             dispatchGroup.enter()
@@ -35,12 +37,18 @@ class BlockListViewController: UIViewController {
             })
         })
         dispatchGroup.notify(queue: .main) {
+            self.nonDataLabel.isHidden = self.blockUsers.count > 0
             self.tableView.reloadData()
         }
     }
     
+    func observeCurrentUserUpdated() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
+    }
+    
     func setupViews() {
         tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
@@ -49,6 +57,15 @@ class BlockListViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        nonDataLabel = UILabel()
+        nonDataLabel.text = "您目前沒有封鎖的名單。"
+        nonDataLabel.font = .systemFont(ofSize: 18)
+        nonDataLabel.textColor = .lightGray
+        view.addSubview(nonDataLabel)
+        nonDataLabel.translatesAutoresizingMaskIntoConstraints = false
+        nonDataLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        nonDataLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        nonDataLabel.isHidden = true
     }
     
 }
@@ -84,6 +101,7 @@ extension BlockListViewController: BlockRowCellDelegate {
             return blockUser.userId == lockRowCell.blockUser.userId
         }) {
             blockUsers.remove(at: index)
+            nonDataLabel.isHidden = self.blockUsers.count > 0
             tableView.reloadData()
         }
     }

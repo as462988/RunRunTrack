@@ -175,7 +175,6 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                 
                 FirebaseStorageManager.shared.upLoadUserLogo(
                     type: Truck.detailImage.rawValue,
-                    imageName: FirebaseManager.shared.currentUser!.name,
                     data: data, completion: { (url) in
                         
                         guard let imageUrl = url else {return}

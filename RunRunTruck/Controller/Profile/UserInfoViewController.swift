@@ -83,7 +83,6 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
                 
                 FirebaseStorageManager.shared.upLoadUserLogo(
                     type: User.logoImage.rawValue,
-                    imageName: FirebaseManager.shared.currentUser?.name ?? "",
                     data: data,
                     completion: { (url) in
                         

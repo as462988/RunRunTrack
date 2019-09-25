@@ -161,7 +161,7 @@ class ChatroomViewController: UIViewController {
         
         image = FirebaseManager.shared.currentUser?.logoImage
         
-        FirebaseManager.shared.creatChatRoomOne(
+        FirebaseManager.shared.creatChatRoom(
             truckID: truckID,
             uid: id,
             name: name,

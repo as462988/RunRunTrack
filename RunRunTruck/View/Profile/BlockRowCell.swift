@@ -15,7 +15,7 @@ protocol BlockRowCellDelegate: class {
 class BlockRowCell: UITableViewCell {
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 24)
+        label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ class BlockRowCell: UITableViewCell {
     
     func setupViews() {
         addSubview(nameLabel)
-        nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         addSubview(blockBtn)
         blockBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -52,6 +52,14 @@ class BlockRowCell: UITableViewCell {
         blockBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         blockBtn.layer.cornerRadius = 15
         blockBtn.clipsToBounds = true
+        let bottomLine = UIView()
+        addSubview(bottomLine)
+        bottomLine.backgroundColor = .lightGray
+        bottomLine.translatesAutoresizingMaskIntoConstraints = false
+        bottomLine.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
+        bottomLine.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        bottomLine.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        bottomLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
     }
     
     func updateViewsWithBlockUser(blockUser: BlockUser) {
