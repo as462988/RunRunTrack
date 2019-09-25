@@ -284,8 +284,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                     return
                 }
                 
-                FirebaseManager.shared.getCurrentUserData(
-                useAppleSingIn: true, userId: user.id) { [weak self](userData) in
+                FirebaseManager.shared.getCurrentBossData(
+                isAppleSingIn: true, userid: user.id) { [weak self](userData) in
                     guard userData != nil else { return }
                     
                     FirebaseManager.shared.bossID = user.id
