@@ -140,21 +140,11 @@ class AuthRegisterViewController: UIViewController {
                 registerBtn.setTitle("吃貨註冊", for: .normal)
             case .bossRegister:
                 registerBtn.setTitle("老闆註冊", for: .normal)
-                getText()
             }
-    //        emptyText()
+            emptyText()
         }
     
-    func getText() {
-        
-        var i = 4
-        nameTextField.text = "boss\(i)"
-        emailTextField.text = "boss\(i)@gmail.com"
-        pswTextField.text = "bossboss"
-        pswConfirmTextField.text = "bossboss"
-        
-        i += 1
-    }
+
     
     func emptyText() {
         nameTextField.text = ""

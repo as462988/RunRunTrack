@@ -199,14 +199,12 @@ class AuthViewController: UIViewController {
         switch uiStatus {
         case .userLogin:
             singInBtn.setTitle("吃貨登入", for: .normal)
-            emailTextField.text = "yueh@gmail.com"
-            pswTextField.text = "yyyyyy"
+
         case .bossLogin:
             singInBtn.setTitle("老闆登入", for: .normal)
-            emailTextField.text = "boss@gmail.com"
-            pswTextField.text = "bossboss"
+
         }
-//        emptyText()
+        emptyText()
     }
     
     func emptyText() {
