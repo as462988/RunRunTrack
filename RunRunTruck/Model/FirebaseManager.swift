@@ -301,18 +301,24 @@ class FirebaseManager {
         }
     }
     
-    func setUserData(name: String, email: String) {
+    func setUserData(name: String, email: String , isAppleSingIn: Bool, appleUID: String = "") {
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        var userid = ""
         
-        db.collection(User.user.rawValue).document(uid).setData([
+        if isAppleSingIn {
+            userid = appleUID
+        } else {
+            guard let authUid = Auth.auth().currentUser?.uid else { return }
+            userid = authUid
+        }
+        
+        db.collection(User.user.rawValue).document(userid).setData([
             User.name.rawValue: name,
             User.email.rawValue: email,
             User.badge.rawValue: [],
             User.block.rawValue: [],
             User.favorite.rawValue: []
         ]) { error in
-            
             if let error = error {
                 print("Error adding document: \(error)")
             }
@@ -509,11 +515,18 @@ class FirebaseManager {
         
     }
     
-    func setBossData(name: String, email: String) {
+    func setBossData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        var userid = ""
         
-        db.collection(Boss.boss.rawValue).document(uid).setData([
+        if isAppleSingIn {
+            userid = appleUID
+        } else {
+            guard let authUid = Auth.auth().currentUser?.uid else { return }
+            userid = authUid
+        }
+        
+        db.collection(Boss.boss.rawValue).document(userid).setData([
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
             Truck.truckId.rawValue: nil]
@@ -530,7 +543,12 @@ class FirebaseManager {
         }
         
     }
-    
+    func updataBossName(uid: String, name: String) {
+        db.collection(Boss.boss.rawValue).document(uid).updateData([
+            Boss.name.rawValue: name
+        ])
+    }
+        
     func addTurckIDInBoss(truckId: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -591,9 +609,22 @@ class FirebaseManager {
         }
     }
     
+    func checkExistUser(userType: String, uid: String, completion: @escaping (Bool) -> Void) {
+        
+        db.collection(userType).document(uid).getDocument { (snapshot, error) in
+            
+            guard snapshot?.data() != nil else {
+                
+                print("Document data was empty.")
+                completion(false)
+                return
+            }
+            completion(true)
+        }
+    }
     // MARK: About ChatRoom
     
-    func creatChatRoomOne(truckID: String, uid: String, name: String, image: String?, text: String) {
+    func creatChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {
         db.collection(Truck.truck.rawValue).document(truckID).collection(
             
             Truck.chatRoom.rawValue).addDocument(data: [
@@ -610,25 +641,7 @@ class FirebaseManager {
                 }
         }
     }
-    
-//    func creatChatRoom(truckID: String, truckName: String, uid: String, name: String, text: String) {
-//
-//        db.collection(Truck.truck.rawValue).document(truckID).collection(
-//            Truck.chatRoom.rawValue).addDocument(data: [
-//                Truck.name.rawValue: name,
-//                User.uid.rawValue: uid,
-//                User.text.rawValue: text,
-//                User.createTime.rawValue: Date().timeIntervalSince1970
-//            ]) { (error) in
-//
-//                if let err = error {
-//                    print("Error writing document: \(err)")
-//                } else {
-//                    print("Document successfully written!")
-//                }
-//        }
-//    }
-    
+
     func deleteChatRoom(truckID: String) {
         
         let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
