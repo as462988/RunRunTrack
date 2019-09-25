@@ -134,4 +134,3 @@ extension FeedbackViewController: UITextFieldDelegate {
         checkUserInput()
     }
 }
-
