@@ -501,7 +501,7 @@ class FirebaseManager {
                 let email = data[Boss.email.rawValue] as? String,
                 let truckId = data[Truck.truckId.rawValue] as? String  else { return }
             
-//            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
+            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
             
             completion(self?.currentUser)
         }
@@ -560,7 +560,7 @@ class FirebaseManager {
                 print("Error adding document: \(error)")
             } else {
                 
-//                self?.currentUser = UserData(name: name, email: email, truckId: nil)
+                self?.currentUser = UserData(name: name, email: email, truckId: nil)
                 
                 print("Document successfully written!")
             }
