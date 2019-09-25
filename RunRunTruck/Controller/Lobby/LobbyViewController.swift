@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
+import Crashlytics
 
 class LobbyViewController: UIViewController {
     
@@ -21,7 +22,7 @@ class LobbyViewController: UIViewController {
     }
     
     let addressManager = AddressManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

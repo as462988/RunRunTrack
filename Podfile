@@ -16,4 +16,6 @@ target 'RunRunTruck' do
    pod 'IQKeyboardManager'
    pod 'lottie-ios'
    pod 'JGProgressHUD'
+   pod 'Fabric'
+   pod 'Crashlytics'
 end
