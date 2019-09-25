@@ -138,8 +138,8 @@ class AuthViewController: UIViewController {
     
     func userLogin() {
         
-        FirebaseManager.shared.listenUserData()
-                        FirebaseManager.shared.getCurrentUserData(completion: {[weak self] (data) in
+        FirebaseManager.shared.listenUserData(isAppleSingIn: false)
+        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: false, completion: {[weak self] (data) in
                             guard data != nil else {
                                 print("老闆使用了吃貨登入")
                                 //老闆使用了吃貨登入, 提示請使用者使用老闆登入
@@ -165,8 +165,8 @@ class AuthViewController: UIViewController {
     
     func bossLogin() {
         
-              FirebaseManager.shared.listenUserData()
-                        FirebaseManager.shared.getCurrentBossData(completion: { [weak self] (bossData) in
+//              FirebaseManager.shared.listenUserData(isAppleSingIn: false)
+        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: false, completion: { [weak self] (bossData) in
                             guard bossData != nil else {
                                 print("吃貨使用了老闆登入")
                                 //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
@@ -245,6 +245,64 @@ extension AuthViewController: UITextFieldDelegate {
 }
 
 extension AuthViewController: ASAuthorizationControllerDelegate {
+    
+    func checkUserLogoinWithApple(user: AppleUser) {
+        
+        FirebaseManager.shared.listenUserData(isAppleSingIn: true, userid: user.id)
+        FirebaseManager.shared.checkExistUser(
+            userType: User.user.rawValue,
+            uid: user.id) { (isExist) in
+                
+                if isExist == false {
+                    self.errorResultLabel.isHidden = false
+                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
+                    return
+                }
+                FirebaseManager.shared.getCurrentUserData(
+                useAppleSingIn: true, userId: user.id) { [weak self](userData) in
+                    guard userData != nil else { return }
+                    
+                    FirebaseManager.shared.userID = user.id
+                    ProgressHUD.showSuccess(text: "登入成功")
+                    
+                    DispatchQueue.main.async {
+                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                        guard let rootVC = AppDelegate.shared.window?.rootViewController
+                            as? TabBarViewController else { return }
+                        rootVC.tabBar.isHidden = false
+                    }
+                }
+        }
+    }
+    func checkBossLogoinWithApple(user: AppleUser) {
+
+        FirebaseManager.shared.checkExistUser(
+            userType: Boss.boss.rawValue,
+            uid: user.id) { (isExist) in
+                
+                if isExist == false {
+                    self.errorResultLabel.isHidden = false
+                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
+                    return
+                }
+                
+                FirebaseManager.shared.getCurrentUserData(
+                useAppleSingIn: true, userId: user.id) { [weak self](userData) in
+                    guard userData != nil else { return }
+                    
+                    FirebaseManager.shared.bossID = user.id
+                    ProgressHUD.showSuccess(text: "登入成功")
+                    
+                    DispatchQueue.main.async {
+                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                        guard let rootVC = AppDelegate.shared.window?.rootViewController
+                            as? TabBarViewController else { return }
+                        rootVC.tabBar.isHidden = false
+                    }
+                }
+        }
+    }
+    
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
 
@@ -253,12 +311,13 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         case let credentials as ASAuthorizationAppleIDCredential:
             let user = AppleUser(credentials: credentials)
             
-            print(user)
-            
-//            FirebaseManager.shared.setUserData(
-//                name: user.lastName + ", " + user.firstName,
-//                email: user.email)
-            
+            switch uiStatus {
+            case .userLogin:
+                checkUserLogoinWithApple(user: user)
+            case .bossLogin:
+                checkBossLogoinWithApple(user: user)
+            }
+    
         default: break
 
         }

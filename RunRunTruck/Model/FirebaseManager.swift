@@ -228,9 +228,18 @@ class FirebaseManager {
     
     // MARK: About User
     ///開始監聽使用者資料變更
-    func listenUserData() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        db.collection(User.user.rawValue).document(uid).addSnapshotListener { [weak self ] (snapshot, error) in
+    func listenUserData(isAppleSingIn: Bool, userid: String? = nil) {
+        
+        var currentUser: String = ""
+        
+        if isAppleSingIn {
+            currentUser = userid!
+        } else {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            currentUser = uid
+        }
+
+        db.collection(User.user.rawValue).document(currentUser).addSnapshotListener { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
                 print("Error fetching document: \(error!)")
@@ -263,10 +272,17 @@ class FirebaseManager {
         }
     }
     
-    func getCurrentUserData(completion: @escaping (UserData?) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func getCurrentUserData(useAppleSingIn: Bool, userId: String? = nil, completion: @escaping (UserData?) -> Void) {
+       
+        var currentUser: String = ""
         
-        db.collection(User.user.rawValue).document(uid).getDocument { [weak self ] (snapshot, error) in
+        if useAppleSingIn {
+            currentUser = userId!
+        } else {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        currentUser = uid
+        }
+        db.collection(User.user.rawValue).document(currentUser).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
                 print("Error fetching document: \(error!)")
@@ -463,10 +479,18 @@ class FirebaseManager {
     }
     
     // MARK: About Boss
-    func getCurrentBossData(completion: @escaping (UserData?) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func getCurrentBossData(isAppleSingIn: Bool, userid: String? = nil, completion: @escaping (UserData?) -> Void) {
         
-        db.collection(Boss.boss.rawValue).document(uid).getDocument { [weak self](snapshot, error) in
+        var currentBoss: String = ""
+        
+        if isAppleSingIn {
+            currentBoss = userid!
+        } else {
+             guard let uid = Auth.auth().currentUser?.uid else { return }
+            currentBoss = uid
+        }
+        
+        db.collection(Boss.boss.rawValue).document(currentBoss).getDocument { [weak self](snapshot, error) in
             
             guard let data = snapshot?.data() else {
                 completion(nil)
@@ -477,7 +501,7 @@ class FirebaseManager {
                 let email = data[Boss.email.rawValue] as? String,
                 let truckId = data[Truck.truckId.rawValue] as? String  else { return }
             
-            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
+//            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
             
             completion(self?.currentUser)
         }
@@ -536,7 +560,7 @@ class FirebaseManager {
                 print("Error adding document: \(error)")
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email, truckId: nil)
+//                self?.currentUser = UserData(name: name, email: email, truckId: nil)
                 
                 print("Document successfully written!")
             }
@@ -549,16 +573,30 @@ class FirebaseManager {
         ])
     }
         
-    func addTurckIDInBoss(truckId: String) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func addTurckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
         
-        db.collection(Boss.boss.rawValue).document(uid).updateData([
-            Truck.truckId.rawValue: truckId
-        ]) { (error) in
-            if let err = error {
-                print("Error adding document: \(err)")
+        guard isAppleSingIn  else {
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            db.collection(Boss.boss.rawValue).document(uid).updateData([
+                Truck.truckId.rawValue: truckId
+            ]) { (error) in
+                if let err = error {
+                    print("Error adding document: \(err)")
+                }
             }
+            return
         }
+        
+        db.collection(Boss.boss.rawValue).document(appleID!).updateData([
+                Truck.truckId.rawValue: truckId
+            ]) { (error) in
+                if let err = error {
+                    print("Error adding document: \(err)")
+                }
+            }
+        
     }
     
     // MARK: About Register/SingIn
@@ -600,7 +638,7 @@ class FirebaseManager {
             
             self.userID = nil
             self.bossID = nil
-            
+
             print("登出成功")
             
         } catch let signOutError as NSError {
@@ -614,7 +652,6 @@ class FirebaseManager {
         db.collection(userType).document(uid).getDocument { (snapshot, error) in
             
             guard snapshot?.data() != nil else {
-                
                 print("Document data was empty.")
                 completion(false)
                 return

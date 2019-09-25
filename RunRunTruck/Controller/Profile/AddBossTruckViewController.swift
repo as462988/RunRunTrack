@@ -128,7 +128,7 @@ class AddBossTruckViewController: UIViewController {
                 name: name,
                 img: url,
                 story: inputText) { [weak self] (truckID) in
-                    FirebaseManager.shared.addTurckIDInBoss(truckId: truckID)
+                    FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: false, truckId: truckID)
                     
                     DispatchQueue.main.async {
                         guard let rootVC = AppDelegate.shared.window?.rootViewController
@@ -149,7 +149,8 @@ class AddBossTruckViewController: UIViewController {
             img: url,
             story: inputText) { [weak self] (truckId) in
                                             
-                FirebaseManager.shared.addTurckIDInBoss(truckId: truckId)
+                FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: true,
+                                                        appleID: self?.appleSinginBossID, truckId: truckId)
                 FirebaseManager.shared.updataBossName(
                     uid: self?.appleSinginBossID ?? "",
                     name: self?.truckNameInput.text ?? "")

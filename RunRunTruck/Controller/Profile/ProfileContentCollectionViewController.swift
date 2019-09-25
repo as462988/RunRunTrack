@@ -34,7 +34,7 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         }
         collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "favoriteCell")
         collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "exploreCell")
-//        collectionView.register(MoreSettingCollectionViewCell.self, forCellWithReuseIdentifier: "settingCell")
+
         updateDataFromFirebaseManager()
         observerAllTruckData()
     }
@@ -119,14 +119,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
             cell.truckGroupCollectionViewController.trucks = favoriteTrucks
             cell.truckGroupCollectionViewController.collectionView.reloadData()
             return cell
-//        case 2:
-//            guard let cell = collectionView.dequeueReusableCell(
-//                withReuseIdentifier: "settingCell",
-//                for: indexPath) as? MoreSettingCollectionViewCell else {
-//                let newCell = MoreSettingCollectionViewCell()
-//                return newCell
-//            }
-//            return cell
         default:
             return UICollectionViewCell()
         }
