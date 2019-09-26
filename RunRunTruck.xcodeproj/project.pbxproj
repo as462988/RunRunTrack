@@ -66,6 +66,7 @@
 		09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */; };
 		09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DB2338259F007FF161 /* UIView+Layout.swift */; };
 		09B2E4DE233825A0007FF161 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DD233825A0007FF161 /* SettingViewController.swift */; };
+		09D4B383233C586E001F444C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D4B382233C586E001F444C /* MapKit.framework */; };
 		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
 		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
 		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
@@ -145,6 +146,7 @@
 		09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		09B2E4DB2338259F007FF161 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		09B2E4DD233825A0007FF161 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		09D4B382233C586E001F444C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
 		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
 		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D4B383233C586E001F444C /* MapKit.framework in Frameworks */,
 				C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +419,7 @@
 		1FDFD08E43D4FDF3BC9768C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09D4B382233C586E001F444C /* MapKit.framework */,
 				E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */,
 			);
 			name = Frameworks;
@@ -800,6 +804,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
@@ -822,6 +827,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

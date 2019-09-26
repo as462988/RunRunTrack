@@ -143,8 +143,8 @@ class LobbyView: UIView, UICollectionViewDelegate {
         imgView.contentMode = .scaleAspectFill
         imgView.layer.cornerRadius = 25
         imgView.clipsToBounds = true
-        imgView.layer.borderWidth = 3
-        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
+//        imgView.layer.borderWidth = 3
+//        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
         
         marker.iconView = imgView
         marker.tracksViewChanges = true
