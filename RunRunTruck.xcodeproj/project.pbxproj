@@ -13,6 +13,8 @@
 		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
 		091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A323224074008EFCF5 /* ChatroomViewController.swift */; };
 		091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A5232240BF008EFCF5 /* TruckChatroomView.swift */; };
+		09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* openChoseCameraManager.swift */; };
+		09168BBD23328478002E1737 /* getBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168BBC23328478002E1737 /* getBadgeView.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
 		091EEB6323153B0200BF066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6123153B0200BF066F /* Main.storyboard */; };
@@ -30,6 +32,13 @@
 		091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8C23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift */; };
 		091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB8E23167CDA00BF066F /* FirebaseManager.swift */; };
 		091EEB912316866700BF066F /* TruckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB902316866700BF066F /* TruckData.swift */; };
+		0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBE82334DD2F00774759 /* TruckNavigationController.swift */; };
+		0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBEA233503C300774759 /* Lottie+Handler.swift */; };
+		0928BC092335565400774759 /* onboardingCar.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC042335565300774759 /* onboardingCar.json */; };
+		0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC052335565300774759 /* hand-click-gesture.json */; };
+		0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC062335565300774759 /* lf30_editor_envOAW.json */; };
+		0928BC0C2335565400774759 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC072335565300774759 /* camera.json */; };
+		0928BC0E2335567E00774759 /* geolocation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC0D2335567E00774759 /* geolocation.json */; };
 		09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DD523175CD5003C851A /* KingFisherWrapper.swift */; };
 		09329DD8231779AE003C851A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09329DD7231779AE003C851A /* Assets.xcassets */; };
 		09329DDB2317C33F003C851A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDA2317C33F003C851A /* Constant.swift */; };
@@ -37,8 +46,41 @@
 		09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DDE2318F81B003C851A /* ProfileViewController.swift */; };
 		09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09329DE0231BBBB2003C851A /* UIColor+Extension.swift */; };
 		093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093365F7231E49EB00F0D503 /* ChatMessageCell.swift */; };
-		0933664F231F97F400F0D503 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933664E231F97F400F0D503 /* Message.swift */; };
+		095238BC23307AB60015AEDA /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BB23307AB50015AEDA /* AddressManager.swift */; };
+		095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BD233086880015AEDA /* PushNoAnimationSegue.swift */; };
+		095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */; };
+		095238C2233093A90015AEDA /* QrcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C1233093A90015AEDA /* QrcodeView.swift */; };
+		095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C52330A8D40015AEDA /* BadgeViewController.swift */; };
+		095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */; };
+		095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095238CA2330ABDF0015AEDA /* QRScannerController.swift */; };
+		098B2625233A363700E8010C /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2624233A363700E8010C /* BlockListViewController.swift */; };
+		098B2627233A367E00E8010C /* BlockRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2626233A367E00E8010C /* BlockRowCell.swift */; };
+		098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2628233A3C8000E8010C /* PrivateViewController.swift */; };
+		098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B262A233A622F00E8010C /* FeedbackViewController.swift */; };
+		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
+		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
+		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
+		09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */; };
+		09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */; };
+		09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */; };
+		09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */; };
+		09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DB2338259F007FF161 /* UIView+Layout.swift */; };
+		09B2E4DE233825A0007FF161 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DD233825A0007FF161 /* SettingViewController.swift */; };
+		09D4B383233C586E001F444C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D4B382233C586E001F444C /* MapKit.framework */; };
+		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
+		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
+		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
+		09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */; };
+		09EA2BE22332172B00FC8347 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */; };
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
+		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
+		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
+		09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E532327A4CA00FD6099 /* UserUIView.swift */; };
+		09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */; };
+		09F78E592328E96B00FD6099 /* BossInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E582328E96B00FD6099 /* BossInfoViewController.swift */; };
+		09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */; };
+		09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A1233927EE00DD5768 /* SettingRow.swift */; };
+		09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* AppleUser.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +91,8 @@
 		090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		091508A323224074008EFCF5 /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
+		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
+		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +112,13 @@
 		091EEB8C23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckInfoCollectionViewLayout.swift; sourceTree = "<group>"; };
 		091EEB8E23167CDA00BF066F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		091EEB902316866700BF066F /* TruckData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckData.swift; sourceTree = "<group>"; };
+		0928BBE82334DD2F00774759 /* TruckNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNavigationController.swift; sourceTree = "<group>"; };
+		0928BBEA233503C300774759 /* Lottie+Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lottie+Handler.swift"; sourceTree = "<group>"; };
+		0928BC042335565300774759 /* onboardingCar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboardingCar.json; sourceTree = "<group>"; };
+		0928BC052335565300774759 /* hand-click-gesture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hand-click-gesture.json"; sourceTree = "<group>"; };
+		0928BC062335565300774759 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
+		0928BC072335565300774759 /* camera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
+		0928BC0D2335567E00774759 /* geolocation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = geolocation.json; sourceTree = "<group>"; };
 		09329DD523175CD5003C851A /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		09329DD7231779AE003C851A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09329DDA2317C33F003C851A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -75,8 +126,42 @@
 		09329DDE2318F81B003C851A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09329DE0231BBBB2003C851A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		093365F7231E49EB00F0D503 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
-		0933664E231F97F400F0D503 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		095238BB23307AB50015AEDA /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
+		095238BD233086880015AEDA /* PushNoAnimationSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNoAnimationSegue.swift; sourceTree = "<group>"; };
+		095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatQrcodeViewController.swift; sourceTree = "<group>"; };
+		095238C1233093A90015AEDA /* QrcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrcodeView.swift; sourceTree = "<group>"; };
+		095238C52330A8D40015AEDA /* BadgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewController.swift; sourceTree = "<group>"; };
+		095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCollectionViewCell.swift; sourceTree = "<group>"; };
+		095238CA2330ABDF0015AEDA /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
+		098B2624233A363700E8010C /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
+		098B2626233A367E00E8010C /* BlockRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRowCell.swift; sourceTree = "<group>"; };
+		098B2628233A3C8000E8010C /* PrivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateViewController.swift; sourceTree = "<group>"; };
+		098B262A233A622F00E8010C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
+		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
+		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrucksCardGroupCell.swift; sourceTree = "<group>"; };
+		09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentCollectionViewController.swift; sourceTree = "<group>"; };
+		09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingCollectionViewCell.swift; sourceTree = "<group>"; };
+		09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckGroupCollectionViewController.swift; sourceTree = "<group>"; };
+		09B2E4DB2338259F007FF161 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		09B2E4DD233825A0007FF161 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		09D4B382233C586E001F444C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
+		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
+		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
+		09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrcukCollectionViewCell.swift; sourceTree = "<group>"; };
+		09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
+		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
+		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
+		09F78E532327A4CA00FD6099 /* UserUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUIView.swift; sourceTree = "<group>"; };
+		09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBossTruckViewController.swift; path = ../Profile/AddBossTruckViewController.swift; sourceTree = "<group>"; };
+		09F78E582328E96B00FD6099 /* BossInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossInfoViewController.swift; sourceTree = "<group>"; };
+		09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		09FC78A1233927EE00DD5768 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
+		09FC78A32339BC4900DD5768 /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
+		09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunRunTruck.entitlements; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D4B383233C586E001F444C /* MapKit.framework in Frameworks */,
 				C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +185,7 @@
 			children = (
 				090AFB60231CD51A0072E646 /* AuthViewController.swift */,
 				090AFB62231CD5420072E646 /* AuthSignUpViewController.swift */,
+				09F78E562327A9A000FD6099 /* AddBossTruckViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -124,6 +211,7 @@
 		091EEB5C23153B0200BF066F /* RunRunTruck */ = {
 			isa = PBXGroup;
 			children = (
+				09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */,
 				09329DD92317C329003C851A /* Constant */,
 				091EEB922317586900BF066F /* Third Party Wrapper */,
 				091EEB7F23157E1400BF066F /* Extension */,
@@ -141,8 +229,12 @@
 		091EEB7223156BE800BF066F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				093365F4231E36F700F0D503 /* Chatroom */,
+				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
+				09E6C4A823338D8C009EA849 /* Truck */,
+				095238C72330A9460015AEDA /* Badge */,
 				091EEB8B23166C9100BF066F /* Lobby */,
+				093365F4231E36F700F0D503 /* Chatroom */,
+				09F78E502327974200FD6099 /* Profile */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
 				091EEB6623153B0300BF066F /* LaunchScreen.storyboard */,
 				091EEB752315790E00BF066F /* Lobby.storyboard */,
@@ -157,11 +249,13 @@
 		091EEB7323156BEE00BF066F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				09336624231ECAB400F0D503 /* Lobby */,
-				090AFB5F231CD4FF0072E646 /* Auth */,
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
-				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
-				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
+				0928BBE82334DD2F00774759 /* TruckNavigationController.swift */,
+				09336624231ECAB400F0D503 /* Lobby */,
+				09E6C4A1233367F2009EA849 /* TrucK */,
+				095238C42330A8B10015AEDA /* Badge */,
+				090AFB5F231CD4FF0072E646 /* Auth */,
+				09F78E552327A95500FD6099 /* Profile */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,8 +264,13 @@
 			isa = PBXGroup;
 			children = (
 				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
+				09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */,
+				095238BB23307AB50015AEDA /* AddressManager.swift */,
+				09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
-				0933664E231F97F400F0D503 /* Message.swift */,
+				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
+				09168B9C2332458B002E1737 /* openChoseCameraManager.swift */,
+				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +278,7 @@
 		091EEB7F23157E1400BF066F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				09B2E4DB2338259F007FF161 /* UIView+Layout.swift */,
 				091EEB8023157E3A00BF066F /* UIStoryboard+Extension.swift */,
 				091EEB8223157F4200BF066F /* UIImage+Extension.swift */,
 				09329DDC2317CAE4003C851A /* Bundle+Extension.swift */,
@@ -201,9 +301,24 @@
 		091EEB922317586900BF066F /* Third Party Wrapper */ = {
 			isa = PBXGroup;
 			children = (
+				0928BC022335563C00774759 /* Lottie */,
 				09329DD523175CD5003C851A /* KingFisherWrapper.swift */,
+				0928BBEA233503C300774759 /* Lottie+Handler.swift */,
+				09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
+		0928BC022335563C00774759 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				0928BC072335565300774759 /* camera.json */,
+				0928BC0D2335567E00774759 /* geolocation.json */,
+				0928BC052335565300774759 /* hand-click-gesture.json */,
+				0928BC062335565300774759 /* lf30_editor_envOAW.json */,
+				0928BC042335565300774759 /* onboardingCar.json */,
+			);
+			name = Lottie;
 			sourceTree = "<group>";
 		};
 		09329DD92317C329003C851A /* Constant */ = {
@@ -220,6 +335,7 @@
 				091508A5232240BF008EFCF5 /* TruckChatroomView.swift */,
 				093365F7231E49EB00F0D503 /* ChatMessageCell.swift */,
 				09F78E362324F39900FD6099 /* ChatCellForSelf.swift */,
+				09B2E4C923378F84007FF161 /* BlockMessageCell.swift */,
 			);
 			path = Chatroom;
 			sourceTree = "<group>";
@@ -228,13 +344,82 @@
 			isa = PBXGroup;
 			children = (
 				091EEB5F23153B0200BF066F /* LobbyViewController.swift */,
+				091508A323224074008EFCF5 /* ChatroomViewController.swift */,
 			);
 			path = Lobby;
+			sourceTree = "<group>";
+		};
+		095238C42330A8B10015AEDA /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				095238C52330A8D40015AEDA /* BadgeViewController.swift */,
+				095238CA2330ABDF0015AEDA /* QRScannerController.swift */,
+			);
+			path = Badge;
+			sourceTree = "<group>";
+		};
+		095238C72330A9460015AEDA /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				095238C82330A9620015AEDA /* BadgeCollectionViewCell.swift */,
+				09168BBC23328478002E1737 /* getBadgeView.swift */,
+			);
+			path = Badge;
+			sourceTree = "<group>";
+		};
+		09E6C4A1233367F2009EA849 /* TrucK */ = {
+			isa = PBXGroup;
+			children = (
+				09E6C4A623338C9B009EA849 /* TruckViewController.swift */,
+				09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */,
+			);
+			path = TrucK;
+			sourceTree = "<group>";
+		};
+		09E6C4A823338D8C009EA849 /* Truck */ = {
+			isa = PBXGroup;
+			children = (
+				09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */,
+			);
+			path = Truck;
+			sourceTree = "<group>";
+		};
+		09F78E502327974200FD6099 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */,
+				09F78E512327976D00FD6099 /* BossUIView.swift */,
+				095238C1233093A90015AEDA /* QrcodeView.swift */,
+				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+				09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */,
+				09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */,
+				09FC78A1233927EE00DD5768 /* SettingRow.swift */,
+				098B2626233A367E00E8010C /* BlockRowCell.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		09F78E552327A95500FD6099 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09329DDE2318F81B003C851A /* ProfileViewController.swift */,
+				09F78E582328E96B00FD6099 /* BossInfoViewController.swift */,
+				09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */,
+				095238BF23308F250015AEDA /* CreatQrcodeViewController.swift */,
+				09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */,
+				09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */,
+				09B2E4DD233825A0007FF161 /* SettingViewController.swift */,
+				098B2624233A363700E8010C /* BlockListViewController.swift */,
+				098B2628233A3C8000E8010C /* PrivateViewController.swift */,
+				098B262A233A622F00E8010C /* FeedbackViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		1FDFD08E43D4FDF3BC9768C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09D4B382233C586E001F444C /* MapKit.framework */,
 				E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */,
 			);
 			name = Frameworks;
@@ -311,13 +496,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0928BC0E2335567E00774759 /* geolocation.json in Resources */,
 				090AFB5E231CC8660072E646 /* Auth.storyboard in Resources */,
 				091EEB78231579D400BF066F /* Profile.storyboard in Resources */,
 				091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */,
 				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
+				0928BC092335565400774759 /* onboardingCar.json in Resources */,
 				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
+				0928BC0C2335565400774759 /* camera.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
+				0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */,
 				091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */,
+				0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
 			);
@@ -346,7 +536,7 @@
 		};
 		37A3CF0C31C383C9191A652B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -363,7 +553,7 @@
 		};
 		681228957D5F24BB1D4689EF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -411,25 +601,61 @@
 				091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */,
 				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
 				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
+				09EA2BE22332172B00FC8347 /* FirebaseStorageManager.swift in Sources */,
+				095238C2233093A90015AEDA /* QrcodeView.swift in Sources */,
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
+				0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */,
+				09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */,
+				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
 				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
 				09329DDD2317CAE4003C851A /* Bundle+Extension.swift in Sources */,
+				098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */,
+				09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */,
 				091EEB7E23157AE700BF066F /* TabBarViewController.swift in Sources */,
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
+				09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */,
+				09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */,
+				095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */,
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
+				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,
+				095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */,
+				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
+				09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */,
+				09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */,
+				098B2625233A363700E8010C /* BlockListViewController.swift in Sources */,
+				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
+				0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */,
+				09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */,
+				09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */,
 				090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */,
+				09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */,
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
+				09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */,
 				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
+				09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */,
+				09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */,
+				098B2627233A367E00E8010C /* BlockRowCell.swift in Sources */,
 				091EEB8123157E3A00BF066F /* UIStoryboard+Extension.swift in Sources */,
-				0933664F231F97F400F0D503 /* Message.swift in Sources */,
+				095238BC23307AB60015AEDA /* AddressManager.swift in Sources */,
+				095238C92330A9620015AEDA /* BadgeCollectionViewCell.swift in Sources */,
+				09F78E592328E96B00FD6099 /* BossInfoViewController.swift in Sources */,
+				09B2E4DE233825A0007FF161 /* SettingViewController.swift in Sources */,
 				091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */,
 				091EEB882316587800BF066F /* LobbyView.swift in Sources */,
+				09F78E572327A9A000FD6099 /* AddBossTruckViewController.swift in Sources */,
 				093365F8231E49EB00F0D503 /* ChatMessageCell.swift in Sources */,
+				09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */,
+				09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */,
 				09329DDB2317C33F003C851A /* Constant.swift in Sources */,
+				098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */,
+				09168BBD23328478002E1737 /* getBadgeView.swift in Sources */,
+				09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */,
+				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -561,7 +787,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -576,9 +802,13 @@
 			baseConfigurationReference = A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -586,7 +816,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -595,9 +825,12 @@
 			baseConfigurationReference = 2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -605,7 +838,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

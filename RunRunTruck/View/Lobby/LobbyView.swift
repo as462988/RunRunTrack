@@ -20,7 +20,7 @@ CLLocationManagerDelegate, AnyObject {
 class LobbyView: UIView, UICollectionViewDelegate {
     
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
-    
+    var markers: [GMSMarker] = []
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {
@@ -85,9 +85,31 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
     }
     
+    func addMarker(lat: Double, long: Double, imageUrl: String) {
+        let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+        markers.append(marker)
+        if let url = URL(string: imageUrl) {
+            
+            URLSession.shared.dataTask(with: url) { [weak self] (data, rsp, err) in
+                
+                guard let data = data else { return }
+                
+                DispatchQueue.main.async {
+                    
+                    guard let img = UIImage(data: data) else {return}
+                    
+                    self?.setIconImage(marker: marker, img: img)
+                }
+                }.resume()
+        } else {
+            guard let img = UIImage.asset(.Icon_logo) else {return}
+            self.setIconImage(marker: marker, img: img)
+        }
+    }
+    
     func marker(lat: Double, long: Double, index: Int) {
         
-        let iconImage = FirebaseManager.shared.truckData[index].logoImage
+        let iconImage = FirebaseManager.shared.openIngTruckData[index].logoImage
         
         let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
         
@@ -121,8 +143,8 @@ class LobbyView: UIView, UICollectionViewDelegate {
         imgView.contentMode = .scaleAspectFill
         imgView.layer.cornerRadius = 25
         imgView.clipsToBounds = true
-        imgView.layer.borderWidth = 3
-        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
+//        imgView.layer.borderWidth = 3
+//        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
         
         marker.iconView = imgView
         marker.tracksViewChanges = true
@@ -151,24 +173,25 @@ class LobbyView: UIView, UICollectionViewDelegate {
         }
     }
     
-    func getLocation(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
-        let locale = Locale(identifier: "zh_TW")
-        
-        let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
-        
-        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
-            
-            guard let placemark = placemarks?.first, error == nil else {
-                
-                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-                
-                completion(nil, error)
-                
-                return
-            }
-            completion(placemark.postalAddress, nil)
-        }
-    }
+//    func getLocationAddress(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
+//        let locale = Locale(identifier: "zh_TW")
+//        
+//        let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
+//        
+//        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
+//            
+//            guard let placemark = placemarks?.first, error == nil else {
+//                
+//                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+//                
+//                completion(nil, error)
+//                
+//                return
+//            }
+//            
+//            completion(placemark.postalAddress, nil)
+//        }
+//    }
     
     func reloadData() {
         

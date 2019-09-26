@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
+import Crashlytics
 
 class LobbyViewController: UIViewController {
     
@@ -20,30 +21,65 @@ class LobbyViewController: UIViewController {
         }
     }
     
+    let addressManager = AddressManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        FirebaseManager.shared.getTruckData { (data) in
-            for (index, dataInfo) in FirebaseManager.shared.truckData.enumerated() {
-                
-                self.lobbyView.marker(lat: dataInfo.location.latitude,
-                                      long: dataInfo.location.longitude,
-                                      index: index)
-                
-                self.lobbyView.getLocation(lat: dataInfo.location.latitude,
-                                           long: dataInfo.location.longitude,
-                                           completion: { [weak self](location, error) in
-                                            
-                                            guard let location = location else {return}
-                                            
-                                            let address = location.subAdministrativeArea
-                                                + location.city + location.street
-                                            
-                                            FirebaseManager.shared.truckData[index].address = address
-                                            
-                                            DispatchQueue.main.async {
-                                                self?.lobbyView.reloadData()
-                                            }
+
+        //拿取所有營業中的餐車顯示在地圖
+        FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
+            if let truckDatas = truckDatas {
+                let dispatchGroup = DispatchGroup()
+                for var truckData in truckDatas {
+                    
+                    switch truckData.1 {
+                    case .added:
+                        //新增
+                        dispatchGroup.enter()
+                        self?.lobbyView.addMarker(lat: truckData.0.location!.latitude,
+                                                  long: truckData.0.location!.longitude,
+                                                  imageUrl: truckData.0.logoImage)
+                        
+                        self?.addressManager.getLocationAddress(lat: truckData.0.location!.latitude,
+                                                           long: truckData.0.location!.longitude,
+                                                           completion: {(location, error) in
+
+                                                            guard let location = location else {return}
+
+                                                            let address = location.subAdministrativeArea
+                                                                + location.city + location.street
+
+                                                             truckData.0.address = address
+                                                            FirebaseManager.shared.openIngTruckData.append(truckData.0)
+                                                            dispatchGroup.leave()
+                                                            
+                        })
+                        
+                    case .removed:
+                        //刪除
+                        dispatchGroup.enter()
+                        if let markerIndex = self?.lobbyView.markers.firstIndex(where: { (marker) -> Bool in
+                            return marker.position.longitude == truckData.0.location?.longitude
+                        }) {
+                            self?.lobbyView.markers[markerIndex].map = nil
+                            self?.lobbyView.markers.remove(at: markerIndex)
+                        }
+                        
+                        if let index = FirebaseManager.shared.openIngTruckData.firstIndex(
+                            where: { (truckdata) -> Bool in
+                                return truckdata.id == truckData.0.id
+                        }) {
+                            FirebaseManager.shared.openIngTruckData.remove(at: index)
+                            dispatchGroup.leave()
+                        }
+                    case .modified: break
+                    @unknown default:
+                            fatalError()
+                    }
+
+                }
+                dispatchGroup.notify(queue: .main, execute: {
+                    self?.lobbyView.reloadData()
                 })
             }
         }
@@ -52,15 +88,15 @@ class LobbyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         navigationController?.isNavigationBarHidden = true
-
+        navigationController?.isNavigationBarHidden = true
+        
     }
 }
 
 extension LobbyViewController: LobbyViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return FirebaseManager.shared.truckData.count
+        return FirebaseManager.shared.openIngTruckData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -70,29 +106,25 @@ extension LobbyViewController: LobbyViewDelegate {
                 return UICollectionViewCell()
         }
         
-        let data = FirebaseManager.shared.truckData[indexPath.row]
-        
-        let openTime = FirebaseManager.dateConvertString(
-            date: data.openTime.dateValue())
-        
-        let colseTime = FirebaseManager.dateConvertString(
-            date: data.closeTime.dateValue())
+        let data = FirebaseManager.shared.openIngTruckData[indexPath.row]
         
         cell.delegate = self
         cell.configureWithTruckData(truckData: data)
         cell.setValue(name: data.name,
-                      openTime: openTime,
-                      closeTime: colseTime,
+                      openTime: data.openTime!,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
- 
-        cell.latitude = data.location.latitude
-        cell.longitude = data.location.longitude
+        
+        cell.latitude = data.location!.latitude
+        cell.longitude = data.location!.longitude
         
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
-        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     // MARK: - 滑動 collectionView (paging)
@@ -126,9 +158,9 @@ extension LobbyViewController: LobbyViewDelegate {
                                                    at: .centeredHorizontally,
                                                    animated: true)
         
-        let location = FirebaseManager.shared.truckData[targetIndex].location
+        let location = FirebaseManager.shared.openIngTruckData[targetIndex].location
         
-        lobbyView.updataMapView(lat: location.latitude, long: location.longitude)
+        lobbyView.updataMapView(lat: location!.latitude, long: location!.longitude)
     }
     
     // MARK: - GoogleMap
@@ -137,13 +169,13 @@ extension LobbyViewController: LobbyViewDelegate {
         
         var indexNum = Int()
         
-        for (index, data) in FirebaseManager.shared.truckData.enumerated() where
-
-            marker.position.latitude == data.location.latitude {
-
+        for (index, data) in FirebaseManager.shared.openIngTruckData.enumerated() where
+            
+            marker.position.latitude == data.location!.latitude {
+                
                 indexNum = index
         }
-
+        
         self.lobbyView.truckCollectionView.scrollToItem(
             at: IndexPath(row: indexNum, section: 0),
             at: .centeredHorizontally,
@@ -151,7 +183,7 @@ extension LobbyViewController: LobbyViewDelegate {
         )
         
         self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
-
+        
         return true
     }
     
@@ -166,7 +198,7 @@ extension LobbyViewController: LobbyViewDelegate {
         } else {
             print("User's location is unknown")
             
-            let alertController = UIAlertController (title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
             
             let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
                 
@@ -188,43 +220,69 @@ extension LobbyViewController: LobbyViewDelegate {
         }
         return true
     }
-
+    
 }
 
 extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(location.lat),\(location.lon)&center=\(location.lat),\(location.lon)&directionsmode=driving&zoom=17")!)
+        let location = "\(location.lat),\(location.lon)"
+        
+        guard let openUrl = URL(string: "comgooglemaps://") else {return}
+        
+        if UIApplication.shared.canOpenURL(openUrl) {
+            
+            guard let url = URL(
+                string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
+                else {
+                    return
+            }
+            
+            UIApplication.shared.open(url)
         } else {
             print("Can't use comgooglemaps://")
         }
+    }
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
+                       didEnterTruckChatRoom truckData: TruckData) {
+        
+        guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
+
+//            self.hidesBottomBarWhenPushed = true
+            
+            let chatroomVC = ChatroomViewController()
+            
+            chatroomVC.truckData = truckData
+            
+            FirebaseManager.shared.getTruckId(truckName: truckData.name)
+            
+            navigationController?.isNavigationBarHidden = false
+            navigationController?.pushViewController(chatroomVC, animated: true)
+//            self.hidesBottomBarWhenPushed = false
+            return
+        }
+        
+        let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+
+        guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+        rootVC.tabBar.isHidden = true
+        auth.modalPresentationStyle = .overCurrentContext
+        present(auth, animated: false, completion: nil)
         
     }
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData) {
-        
-        //        guard FirebaseManager.shared.userID != nil else {
-        //
-        //            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-        //
-        //                authVC.modalPresentationStyle = .overCurrentContext
-        //
-        //                present(authVC, animated: false, completion: nil)
-        //            }
-        //
-        //            return
-        //        }
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData) {
         
         self.hidesBottomBarWhenPushed = true
         
-        let chatroomVC = ChatroomViewController()
+        guard let truckVC = UIStoryboard.truck.instantiateViewController(
+            withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
         
-        chatroomVC.truckData = truckData
-//
-        FirebaseManager.shared.getTruckId(truckName: truckData.name)
-
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.pushViewController(chatroomVC, animated: true)
+        truckVC.detailInfo = truckData
+        
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.pushViewController(truckVC, animated: true)
         self.hidesBottomBarWhenPushed = false
+
     }
+    
 }

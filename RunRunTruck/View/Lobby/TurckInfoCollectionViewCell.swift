@@ -9,13 +9,13 @@
 import UIKit
 
 struct GeoLocation {
-    let lon: Double
     let lat: Double
+    let lon: Double
 }
 
 protocol TurckInfoCellDelegate: AnyObject {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation )
-    //TODO: 前往資訊
+    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData)
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
 }
 class TurckInfoCollectionViewCell: UICollectionViewCell {
@@ -24,9 +24,11 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var truckName: UILabel!
     @IBOutlet weak var truckLocation: UILabel!
     @IBOutlet weak var openTime: UILabel!
-    @IBOutlet weak var closeTime: UILabel!
     @IBOutlet weak var clickChatRoomBtn: UIButton!
     @IBOutlet weak var clickNavigateBtn: UIButton!
+    @IBOutlet weak var clickTruckInfoBtn: UIButton!
+    
+    let dateManager = TransformTimeManager()
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
@@ -36,13 +38,13 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     func configureWithTruckData(truckData: TruckData) {
         self.truckData = truckData
         clickChatRoomBtn.addTarget(self, action: #selector(onGotoChatRoom), for: .touchUpInside)
+        clickTruckInfoBtn.addTarget(self, action: #selector(enterTruckInfo), for: .touchUpInside)
     }
     
-    func setValue(name: String, openTime: String, closeTime: String, logoImage: String, truckLocationText: String) {
+    func setValue(name: String, openTime: Double, logoImage: String, truckLocationText: String) {
         
         self.truckName.text = name
-        self.openTime.text = openTime
-        self.closeTime.text = closeTime
+        self.openTime.text = dateManager.dateToString(time: openTime)
         self.truckLocation.text = truckLocationText
         
         if logoImage != "" {
@@ -54,8 +56,20 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         setImage()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 20).cgPath
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 0.7
+        layer.shadowColor = UIColor.black.cgColor
+        layer.masksToBounds = false
+        
+    }
+    
     @IBAction func clickGoogleMapBtn() {
-      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lon: latitude, lat: longitude))
+      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lat: latitude, lon: longitude))
     }
     
     private func setImage() {
@@ -69,5 +83,11 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
              self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckChatRoom: truckData)
         }
     }
-
+    
+    @objc private func enterTruckInfo() {
+        
+        if let truckData = truckData {
+            self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckInfo: truckData)
+        }
+    }
 }

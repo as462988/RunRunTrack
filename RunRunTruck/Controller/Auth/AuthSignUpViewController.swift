@@ -9,26 +9,40 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Lottie
+import AuthenticationServices
 
-class AuthSignUpViewController: UIViewController {
+private enum RegisterVcUIStatus {
+    case userRegister, bossRegister
+}
+
+class AuthRegisterViewController: UIViewController {
     
-     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var segmentRegister: UISegmentedControl!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pswTextField: UITextField!
     @IBOutlet weak var pswConfirmTextField: UITextField!
+    @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var animationOne: AnimationView!
+    @IBOutlet weak var animationTwo: AnimationView!
+    @IBOutlet weak var animationThird: AnimationView!
+    @IBOutlet weak var errorResultLabel: UILabel!
     
-    var isNameAvailable = false
-    var isEmailAvailable = false
-    var isPswAvailable = false
-    var isPswConfirmAvailable = false
+     private var uiStatus: RegisterVcUIStatus = .userRegister
     
-    @IBOutlet weak var signUpBTN: UIButton!
-    
+    var userRegisteIsFinished = false {
+        didSet {
+            updateRegisteBtnStatus()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nameTextField.delegate = self
         emailTextField.delegate = self
         pswTextField.delegate = self
         pswConfirmTextField.delegate = self
@@ -36,7 +50,22 @@ class AuthSignUpViewController: UIViewController {
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
         
-        setBtnStatus()
+        registerBtn.layer.cornerRadius = 10
+        registerBtn.clipsToBounds = true
+        
+        registerBtn.addTarget(self, action: #selector(handleRegisterBtn), for: .touchUpInside)
+        
+        segmentRegister.addTarget(self, action: #selector(handleRegisterChange), for: .valueChanged)
+        
+        checkUserInput()
+        
+        setupView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        errorResultLabel.isHidden = true
+        playAnimation()
     }
     
     @IBAction func dismissView(_ sender: Any) {
@@ -44,77 +73,259 @@ class AuthSignUpViewController: UIViewController {
         presentingViewController?.dismiss(animated: false, completion: nil)
     }
     
-    @IBAction func signUpBTN(_ sender: Any) {
+    @objc func handleRegisterBtn() {
         
         guard let name = nameTextField.text,
             let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
-        FirebaseManager.shared.singUpWithEmail(email: email, psw: psw) {
+        FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] (isSuccess, result) in
             
-                self.presentingViewController?.dismiss(animated: false, completion: nil)
-            FirebaseManager.shared.setUserData(name: name, email: email)
+            guard isSuccess else {
+                self?.errorResultLabel.isHidden = false
+                self?.errorResultLabel.text = result
+                return
+            }
             
+            guard let uiStatus = self?.uiStatus else {return}
+            
+            switch uiStatus {
+            case .userRegister:
+                
+                self?.userRegister(name: name, email: email)
+                
+            case .bossRegister:
+                
+                self?.bossRegister(name: name, email: email)
+                
+            }
         }
+    }
+    
+    func userRegister(name: String, email: String) {
+
+        self.presentingViewController?.dismiss(animated: false, completion: nil)
+        FirebaseManager.shared.setUserData(name: name, email: email, isAppleSingIn: false)
+        
+    }
+    
+    func bossRegister(name: String, email: String) {
+        
+        addTruckInBoss(needEnterName: false)
+        FirebaseManager.shared.setBossData(name: name, email: email, isAppleSingIn: false)
+        
+    }
+    
+    func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
+        
+        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+            as? AddBossTruckViewController else { return }
+        
+        addTruckVC.modalPresentationStyle = .overCurrentContext
+        addTruckVC.needEnterName = needEnterName
+        addTruckVC.appleSinginBossID = bossId
+        self.present(addTruckVC, animated: false, completion: nil)
+    }
+
+    @objc func handleRegisterChange() {
+        
+        uiStatus = segmentRegister.selectedSegmentIndex == 0 ? .userRegister : .bossRegister
+          updateUIWithStatus()
+
+    }
+    
+        func updateUIWithStatus() {
+            switch uiStatus {
+            case .userRegister:
+                registerBtn.setTitle("吃貨註冊", for: .normal)
+            case .bossRegister:
+                registerBtn.setTitle("老闆註冊", for: .normal)
+            }
+            emptyText()
+        }
+    
+
+    
+    func emptyText() {
+        nameTextField.text = ""
+        emailTextField.text = ""
+        pswTextField.text = ""
+        pswConfirmTextField.text = ""
+        errorResultLabel.text = ""
+    }
+    
+    func playAnimation() {
+        
+        let urlFirst = URL(string: "https://assets7.lottiefiles.com/temporary_files/2EMn10.json")
+        let urlSecond = URL(string: "https://assets7.lottiefiles.com/temporary_files/vGyy7K.json")
+        let urlThird = URL(string: "https://assets7.lottiefiles.com/temporary_files/Fpip5r.json")
+        
+        Animation.loadedFrom(url: urlFirst!,
+                             closure: { [weak self](animation) in
+                                self?.animationOne.animation = animation
+                                self?.animationOne.loopMode = .loop
+                                self?.animationOne.play()
+            }, animationCache: nil)
+        
+        Animation.loadedFrom(url: urlSecond!,
+                             closure: { [weak self](animation) in
+                                self?.animationTwo.animation = animation
+                                self?.animationTwo.loopMode = .loop
+                                self?.animationTwo.play()
+            }, animationCache: nil)
+        
+        Animation.loadedFrom(url: urlThird!,
+                             closure: { [weak self](animation) in
+                                self?.animationThird.animation = animation
+                                self?.animationThird.loopMode = .loop
+                                self?.animationThird.play()
+            }, animationCache: nil)
+
+    }
+     func setupView() {
+           let appleButton = ASAuthorizationAppleIDButton()
+           appleButton.translatesAutoresizingMaskIntoConstraints = false
+           appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
+
+           view.addSubview(appleButton)
+
+           appleButton.anchor(top: registerBtn.bottomAnchor,
+                              leading: view.leadingAnchor,
+                              bottom: view.bottomAnchor,
+                              trailing: view.trailingAnchor,
+                              padding: .init(top: 10, left: 20, bottom: 30, right: 20),
+                              size: CGSize(width: registerBtn.frame.width, height: registerBtn.frame.height))
+       }
+       
+       @objc func didTapAppleButton() {
+           
+           let provider = ASAuthorizationAppleIDProvider()
+               let request = provider.createRequest()
+               request.requestedScopes = [.fullName, .email]
+
+               let controller = ASAuthorizationController(authorizationRequests: [request])
+
+               controller.delegate = self
+               controller.presentationContextProvider = self
+
+               controller.performRequests()
+           
+       }
+
+}
+
+extension AuthRegisterViewController: UITextFieldDelegate {
+
+    func checkUserInput() {
+        
+        guard let name = nameTextField.text,
+            let email = emailTextField.text,
+            let psw = pswTextField.text,
+            let pswConfirm = pswConfirmTextField.text else { return }
+        
+        if !name.isEmpty, !email.isEmpty, !psw.isEmpty, !pswConfirm.isEmpty {
+            
+            guard pswConfirm.elementsEqual(psw) else {
+                    errorResultLabel.isHidden = false
+                    errorResultLabel.text = "兩次密碼輸入不一致喔！"
+                    userRegisteIsFinished = false
+                        return
+                    }
+            
+            userRegisteIsFinished = true
+            
+        } else {
+            errorResultLabel.isHidden = false
+            errorResultLabel.text = "請輸入完整資料～"
+            userRegisteIsFinished = false
+        }
+    }
+    
+    func updateRegisteBtnStatus() {
+        
+        setBtnStatus(userRegisteIsFinished ? .enable: .disable, btn: registerBtn)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        checkUserInput()
     }
 }
 
-extension AuthSignUpViewController: UITextFieldDelegate {
+extension AuthRegisterViewController: ASAuthorizationControllerDelegate {
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func userAppleRegister(userType: String, user: AppleUser) {
         
-        switch  textField {
+        FirebaseManager.shared.checkExistUser(
+                userType: User.user.rawValue,
+                uid: user.id) { [weak self] (isExist) in
             
-        case nameTextField:
-            guard let name = nameTextField.text else { return }
-            
-            if name.isEmpty {
-                isNameAvailable = false
-            } else {
-                isNameAvailable = true
+                    if isExist {
+                        self?.errorResultLabel.isHidden = false
+                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
+                    } else {
+                        
+                        FirebaseManager.shared.setUserData(
+                            name: user.lastName + ", " + user.firstName,
+                            email: user.email,
+                            isAppleSingIn: true,
+                            appleUID: user.id)
+                
+                    }
             }
-            
-        case emailTextField:
-            guard let email = emailTextField.text else { return }
-            
-            if email.isEmpty {
-                isEmailAvailable = false
-            } else {
-                isEmailAvailable = true
-            }
-            
-        case pswTextField:
-            guard let psw = pswTextField.text else { return }
-            
-            if psw.isEmpty {
-                isPswAvailable = false
-            } else {
-                isPswAvailable = true
-            }
-            
-        case pswConfirmTextField:
-            guard let psw = pswTextField.text, let pswConfirm = pswConfirmTextField.text  else { return }
-            
-            if psw.elementsEqual(pswConfirm) {
-                isPswConfirmAvailable = true
-            } else {
-                isPswConfirmAvailable = false
-            }
-            
-        default: break
-        }
+    }
+    func bossAppleRegister(userType: String, user: AppleUser) {
         
-        setBtnStatus()
+        FirebaseManager.shared.checkExistUser(
+                userType: Boss.boss.rawValue,
+                uid: user.id) { [weak self] (isExist) in
+            
+                    if isExist {
+                        self?.errorResultLabel.isHidden = false
+                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
+                    } else {
+                        
+                        FirebaseManager.shared.setBossData(
+                            name: user.lastName + ", " + user.firstName,
+                            email: user.email,
+                            isAppleSingIn: true,
+                            appleUID: user.id)
+                    }
+            }
     }
     
-    func setBtnStatus() {
-        
-        if isNameAvailable && isEmailAvailable && isPswAvailable && isPswConfirmAvailable {
-            signUpBTN.isEnabled = true
-            signUpBTN.alpha = 1
-        } else {
-            signUpBTN.isEnabled = false
-            signUpBTN.alpha = 0.5
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
+
+        switch authorization.credential {
+
+        case let credentials as ASAuthorizationAppleIDCredential:
+            let user = AppleUser(credentials: credentials)
+            
+            print(user)
+            
+            switch uiStatus {
+            case .userRegister:
+                userAppleRegister(userType: User.user.rawValue, user: user)
+            case .bossRegister:
+                bossAppleRegister(userType: Boss.boss.rawValue, user: user)
+                addTruckInBoss(needEnterName: true, bossId: user.id)
+                
+            }
+        default: break
+
         }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("something bad happened", error)
+    }
+}
+
+extension AuthRegisterViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+
+        return view.window!
+
     }
 }
