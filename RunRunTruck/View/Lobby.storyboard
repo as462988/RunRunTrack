@@ -98,7 +98,7 @@
                                                                 <constraint firstAttribute="width" constant="35" id="do1-zl-kcC"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                            <state key="normal" title="資訊" image="Icon_info">
+                                                            <state key="normal" title="資訊" image="Icon_Info">
                                                                 <color key="titleColor" red="0.22745098039215686" green="0.19607843137254902" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                         </button>
@@ -254,9 +254,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon_Info" width="120" height="120"/>
         <image name="Icon_car" width="40" height="40"/>
         <image name="Icon_default" width="66.666664123535156" height="66.666664123535156"/>
-        <image name="Icon_info" width="40" height="40"/>
         <image name="Icon_logo" width="85.666664123535156" height="65.333335876464844"/>
         <image name="Icon_message" width="40" height="40"/>
     </resources>
