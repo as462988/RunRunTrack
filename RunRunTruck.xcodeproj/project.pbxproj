@@ -93,7 +93,7 @@
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
 		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
 		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
-		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		091EEB5A23153B0200BF066F /* 餐車去哪兒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "餐車去哪兒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		091EEB6223153B0200BF066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 		091EEB5B23153B0200BF066F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				091EEB5A23153B0200BF066F /* RunRunTruck.app */,
+				091EEB5A23153B0200BF066F /* 餐車去哪兒.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 			);
 			name = RunRunTruck;
 			productName = RunRunTruck;
-			productReference = 091EEB5A23153B0200BF066F /* RunRunTruck.app */;
+			productReference = 091EEB5A23153B0200BF066F /* 餐車去哪兒.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -814,7 +814,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "餐車去哪兒";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -836,7 +836,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "餐車去哪兒";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
