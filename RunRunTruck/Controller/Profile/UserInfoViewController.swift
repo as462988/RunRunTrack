@@ -21,7 +21,12 @@ class UserInfoViewController: UIViewController {
         super.viewDidLoad()
         userView.delegate = self
         openChoseCameraManager.delegate = self
-
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+        image: UIImage.asset(.Icon_back),
+        style: .plain,
+        target: self,
+        action: nil)
         contentView.addSubview(contentCollectionView.view)
         contentCollectionView.view.fillSuperview()
         
