@@ -63,7 +63,9 @@ extension UserInfoViewController: UserUIViewDelegate {
     }
     
     func clickEditNameBtn() {
-        print(#function)
+        guard let editNameVc = UIStoryboard.profile.instantiateViewController(identifier: "editVC") as? EditNameViewController else {return}
+        
+        show(editNameVc, sender: nil)
     }
 }
 
