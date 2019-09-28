@@ -61,6 +61,10 @@ extension UserInfoViewController: UserUIViewDelegate {
     func clickUpLoadBtn() {
         openChoseCameraManager.showImagePickerAlert(self)
     }
+    
+    func clickEditNameBtn() {
+        print(#function)
+    }
 }
 
 extension UserInfoViewController: OpenChoseCameraManagerDelegate {
