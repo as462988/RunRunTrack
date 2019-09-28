@@ -86,7 +86,6 @@ class SettingRow: UIView {
         
         if withRightArrow {
             //這裡可以改為圖片比較漂亮
-
             let rightArrow = UILabel()
             rightArrow.font = .boldSystemFont(ofSize: 24)
             rightArrow.text = "〉"

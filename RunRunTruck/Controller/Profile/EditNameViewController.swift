@@ -18,6 +18,7 @@ class EditNameViewController: UIViewController {
         super.viewDidLoad()
         editNameText.placeholder = self.name
         saveEditBtn.addTarget(self, action: #selector(saveEdit), for: .touchUpInside)
+        setupNavBar()
     }
 
     @objc func saveEdit() {
@@ -31,5 +32,24 @@ class EditNameViewController: UIViewController {
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: true)
         }
+    }
+}
+
+extension EditNameViewController {
+    
+    func setupNavBar() {
+        self.navigationController?.navigationBar.barTintColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage.asset(.Icon_back),
+            style: .plain,
+            target: self,
+            action: #selector(backToRoot))
+        let image = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        self.navigationController?.navigationBar.shadowImage = image
+    }
+        
+    @objc func backToRoot() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
