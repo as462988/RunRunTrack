@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1030"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "091EEB5923153B0200BF066F"
-               BuildableName = "&#x9910;&#x8eca;&#x53bb;&#x54ea;&#x5152;.app"
-               BlueprintName = "RunRunTruck"
-               ReferencedContainer = "container:RunRunTruck.xcodeproj">
+               BlueprintIdentifier = "50F380A87A4FC4EC7EE3AC9BDADB6D2D"
+               BuildableName = "grpc.framework"
+               BlueprintName = "gRPC-Core"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,15 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "091EEB5923153B0200BF066F"
-            BuildableName = "&#x9910;&#x8eca;&#x53bb;&#x54ea;&#x5152;.app"
-            BlueprintName = "RunRunTruck"
-            ReferencedContainer = "container:RunRunTruck.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -49,16 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "091EEB5923153B0200BF066F"
-            BuildableName = "&#x9910;&#x8eca;&#x53bb;&#x54ea;&#x5152;.app"
-            BlueprintName = "RunRunTruck"
-            ReferencedContainer = "container:RunRunTruck.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -66,16 +47,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "091EEB5923153B0200BF066F"
-            BuildableName = "&#x9910;&#x8eca;&#x53bb;&#x54ea;&#x5152;.app"
-            BlueprintName = "RunRunTruck"
-            ReferencedContainer = "container:RunRunTruck.xcodeproj">
+            BlueprintIdentifier = "50F380A87A4FC4EC7EE3AC9BDADB6D2D"
+            BuildableName = "grpc.framework"
+            BlueprintName = "gRPC-Core"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

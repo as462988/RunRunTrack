@@ -664,9 +664,18 @@
                                                 </constraints>
                                                 <state key="normal" image="Icon_Setting"/>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvz-jF-lNB">
+                                                <rect key="frame" x="249" y="193.5" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Axk-NX-NMp"/>
+                                                    <constraint firstAttribute="width" secondItem="Gvz-jF-lNB" secondAttribute="height" multiplier="1:1" id="d1h-kr-4Ba"/>
+                                                </constraints>
+                                                <state key="normal" image="Icon_editProfile"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="Gvz-jF-lNB" firstAttribute="centerX" secondItem="gAP-it-6SX" secondAttribute="trailing" id="0zL-f6-4eJ"/>
                                             <constraint firstItem="gzK-lH-xA3" firstAttribute="leading" secondItem="rQ6-k6-9h6" secondAttribute="leading" id="DE0-7c-jX5"/>
                                             <constraint firstItem="4zD-Eg-LPj" firstAttribute="top" secondItem="rQ6-k6-9h6" secondAttribute="top" id="Dpk-EJ-FlQ"/>
                                             <constraint firstAttribute="trailing" secondItem="4zD-Eg-LPj" secondAttribute="trailing" id="Gjb-p8-HUp"/>
@@ -682,6 +691,7 @@
                                             <constraint firstAttribute="trailing" secondItem="9tW-s3-oUI" secondAttribute="trailing" constant="20" id="hK1-4s-m3m"/>
                                             <constraint firstItem="gAP-it-6SX" firstAttribute="width" secondItem="rQ6-k6-9h6" secondAttribute="width" multiplier="1:4" id="hb7-FS-nl3"/>
                                             <constraint firstItem="gAP-it-6SX" firstAttribute="top" secondItem="rQ6-k6-9h6" secondAttribute="top" constant="50" id="q32-Bo-c0L"/>
+                                            <constraint firstItem="Gvz-jF-lNB" firstAttribute="centerY" secondItem="gzK-lH-xA3" secondAttribute="centerY" id="rMF-7d-wXr"/>
                                             <constraint firstItem="iS6-bG-IL5" firstAttribute="bottom" secondItem="gAP-it-6SX" secondAttribute="bottom" id="yWQ-V7-qfm"/>
                                             <constraint firstAttribute="bottom" secondItem="gzK-lH-xA3" secondAttribute="bottom" constant="20" id="yXu-O9-xZw"/>
                                         </constraints>
@@ -703,6 +713,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="animationView" destination="iS6-bG-IL5" id="SEM-et-YwF"/>
+                                    <outlet property="editNameBtn" destination="Gvz-jF-lNB" id="bFk-cM-Lig"/>
                                     <outlet property="logoImage" destination="gAP-it-6SX" id="2nm-Sb-WHP"/>
                                     <outlet property="nameLabel" destination="gzK-lH-xA3" id="SQb-RG-83U"/>
                                     <outlet property="settingBtn" destination="9tW-s3-oUI" id="trW-66-A5L"/>
@@ -726,6 +737,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fax-Dc-T3n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="440.57971014492756" y="916.74107142857133"/>
+        </scene>
+        <!--Edit Name View Controller-->
+        <scene sceneID="bop-yv-8zo">
+            <objects>
+                <viewController storyboardIdentifier="editVC" id="9aa-UT-GvF" customClass="EditNameViewController" customModule="餐車去哪兒" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3bV-Gi-W6t">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="16pic_1334363_b" translatesAutoresizingMaskIntoConstraints="NO" id="f3v-xz-PiS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="204.5"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1im-gV-uLi">
+                                <rect key="frame" x="20" y="164.5" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLk-yj-GQc">
+                                <rect key="frame" x="138" y="238.5" width="138" height="34"/>
+                                <color key="backgroundColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="儲存"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="f3v-xz-PiS" firstAttribute="top" secondItem="yv7-ny-COr" secondAttribute="top" id="63z-qi-box"/>
+                            <constraint firstItem="f3v-xz-PiS" firstAttribute="leading" secondItem="yv7-ny-COr" secondAttribute="leading" id="66E-hP-v6W"/>
+                            <constraint firstItem="yv7-ny-COr" firstAttribute="trailing" secondItem="1im-gV-uLi" secondAttribute="trailing" constant="20" id="6XE-b2-f2r"/>
+                            <constraint firstItem="pLk-yj-GQc" firstAttribute="width" secondItem="yv7-ny-COr" secondAttribute="width" multiplier="1:3" id="6dD-S3-TYo"/>
+                            <constraint firstItem="yv7-ny-COr" firstAttribute="trailing" secondItem="f3v-xz-PiS" secondAttribute="trailing" id="6e5-Zt-XES"/>
+                            <constraint firstItem="1im-gV-uLi" firstAttribute="centerX" secondItem="3bV-Gi-W6t" secondAttribute="centerX" id="C7u-Zr-14w"/>
+                            <constraint firstItem="f3v-xz-PiS" firstAttribute="height" secondItem="yv7-ny-COr" secondAttribute="height" multiplier="1:4" id="MpL-J9-9AP"/>
+                            <constraint firstItem="1im-gV-uLi" firstAttribute="bottom" secondItem="f3v-xz-PiS" secondAttribute="bottom" constant="-50" id="iZJ-uB-h06"/>
+                            <constraint firstItem="1im-gV-uLi" firstAttribute="leading" secondItem="yv7-ny-COr" secondAttribute="leading" constant="20" id="mvl-zc-Xbf"/>
+                            <constraint firstItem="pLk-yj-GQc" firstAttribute="top" secondItem="1im-gV-uLi" secondAttribute="bottom" constant="40" id="nKV-Vx-IWO"/>
+                            <constraint firstItem="pLk-yj-GQc" firstAttribute="centerX" secondItem="3bV-Gi-W6t" secondAttribute="centerX" id="xh9-lu-9HS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yv7-ny-COr"/>
+                    </view>
+                    <connections>
+                        <outlet property="editNameText" destination="1im-gV-uLi" id="qp0-Sy-lSl"/>
+                        <outlet property="saveEditBtn" destination="pLk-yj-GQc" id="l6O-N0-v1o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G1l-hg-cby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1201" y="917"/>
         </scene>
         <!--profile-->
         <scene sceneID="Db7-h8-dEr">
@@ -883,6 +941,7 @@
         <image name="Icon_Setting" width="120" height="120"/>
         <image name="Icon_button" width="49.666667938232422" height="49.333332061767578"/>
         <image name="Icon_edit" width="120" height="120"/>
+        <image name="Icon_editProfile" width="120" height="120"/>
         <image name="Icon_logoout" width="120" height="120"/>
         <image name="Icon_myLogo" width="1024" height="1024"/>
         <image name="Icon_private" width="120" height="120"/>

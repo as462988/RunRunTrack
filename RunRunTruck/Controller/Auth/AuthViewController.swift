@@ -46,6 +46,9 @@ class AuthViewController: UIViewController {
         loginSegment.addTarget(self, action: #selector(handleUIStatusChange), for: .valueChanged)
         singInBtn.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         checkUserInput()
+        
+        emailTextField.text = "yueh@gmail.com"
+        pswTextField.text = "yyyyyy"
 
     }
     

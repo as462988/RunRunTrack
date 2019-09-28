@@ -21,7 +21,6 @@ class UserInfoViewController: UIViewController {
         super.viewDidLoad()
         userView.delegate = self
         openChoseCameraManager.delegate = self
-
         contentView.addSubview(contentCollectionView.view)
         contentCollectionView.view.fillSuperview()
         
@@ -54,12 +53,30 @@ extension UserInfoViewController: UserUIViewDelegate {
     
     func clickSettingBtn() {
         let settingVC = SettingViewController()
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.pushViewController(settingVC, animated: true)
+        setNarBackBtn(vc: settingVC)
     }
     
     func clickUpLoadBtn() {
         openChoseCameraManager.showImagePickerAlert(self)
+    }
+    
+    func clickEditNameBtn() {
+        guard let editNameVc = UIStoryboard.profile.instantiateViewController(
+            identifier: "editVC") as? EditNameViewController else {return}
+        setNarBackBtn(vc: editNameVc)
+        if let user = FirebaseManager.shared.currentUser {
+            editNameVc.name = user.name
+        }
+    }
+    
+    func setNarBackBtn(vc: UIViewController) {
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+               image: UIImage.asset(.Icon_back),
+               style: .plain,
+               target: self,
+               action: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

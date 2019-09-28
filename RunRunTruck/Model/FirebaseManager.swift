@@ -341,6 +341,17 @@ class FirebaseManager {
         }
     }
     
+    func updataUserName(name: String) {
+        
+        guard let uid = self.userID else {
+                 return
+             }
+        db.collection(User.user.rawValue).document(uid).updateData([
+            User.name.rawValue: name
+        ])
+        
+    }
+    
     func updataUserImage(image: String) {
         
         guard let uid = self.userID else {

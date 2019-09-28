@@ -19,7 +19,6 @@
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
 		091EEB6323153B0200BF066F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6123153B0200BF066F /* Main.storyboard */; };
 		091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6623153B0300BF066F /* LaunchScreen.storyboard */; };
-		091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB6F2315415C00BF066F /* GoogleService-Info.plist */; };
 		091EEB762315790E00BF066F /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB752315790E00BF066F /* Lobby.storyboard */; };
 		091EEB78231579D400BF066F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB77231579D400BF066F /* Profile.storyboard */; };
 		091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091EEB7923157A7A00BF066F /* Truck.storyboard */; };
@@ -72,6 +71,8 @@
 		09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A623338C9B009EA849 /* TruckViewController.swift */; };
 		09E6C4AA23338DAC009EA849 /* TrcukCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */; };
 		09EA2BE22332172B00FC8347 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */; };
+		09EA2D49233F6FA5005456CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09EA2D48233F6FA5005456CD /* GoogleService-Info.plist */; };
+		09EA2D50233F817D005456CD /* EditNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA2D4F233F817D005456CD /* EditNameViewController.swift */; };
 		09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E362324F39900FD6099 /* ChatCellForSelf.swift */; };
 		09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E3A23263F0800FD6099 /* BtnStatus.swift */; };
 		09F78E522327976D00FD6099 /* BossUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E512327976D00FD6099 /* BossUIView.swift */; };
@@ -93,13 +94,12 @@
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
 		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
 		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
-		091EEB5A23153B0200BF066F /* RunRunTruck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRunTruck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		091EEB5A23153B0200BF066F /* 餐車去哪兒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "餐車去哪兒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		091EEB5F23153B0200BF066F /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		091EEB6223153B0200BF066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		091EEB6723153B0300BF066F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		091EEB6923153B0300BF066F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		091EEB6F2315415C00BF066F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		091EEB752315790E00BF066F /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
 		091EEB77231579D400BF066F /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		091EEB7923157A7A00BF066F /* Truck.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Truck.storyboard; sourceTree = "<group>"; };
@@ -152,6 +152,8 @@
 		09E6C4A623338C9B009EA849 /* TruckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckViewController.swift; sourceTree = "<group>"; };
 		09E6C4A923338DAC009EA849 /* TrcukCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrcukCollectionViewCell.swift; sourceTree = "<group>"; };
 		09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
+		09EA2D48233F6FA5005456CD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09EA2D4F233F817D005456CD /* EditNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewController.swift; sourceTree = "<group>"; };
 		09F78E362324F39900FD6099 /* ChatCellForSelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellForSelf.swift; sourceTree = "<group>"; };
 		09F78E3A23263F0800FD6099 /* BtnStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnStatus.swift; sourceTree = "<group>"; };
 		09F78E512327976D00FD6099 /* BossUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossUIView.swift; sourceTree = "<group>"; };
@@ -203,7 +205,7 @@
 		091EEB5B23153B0200BF066F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				091EEB5A23153B0200BF066F /* RunRunTruck.app */,
+				091EEB5A23153B0200BF066F /* 餐車去哪兒.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,7 +223,7 @@
 				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
 				09329DD7231779AE003C851A /* Assets.xcassets */,
 				091EEB6923153B0300BF066F /* Info.plist */,
-				091EEB6F2315415C00BF066F /* GoogleService-Info.plist */,
+				09EA2D48233F6FA5005456CD /* GoogleService-Info.plist */,
 			);
 			path = RunRunTruck;
 			sourceTree = "<group>";
@@ -412,6 +414,7 @@
 				098B2624233A363700E8010C /* BlockListViewController.swift */,
 				098B2628233A3C8000E8010C /* PrivateViewController.swift */,
 				098B262A233A622F00E8010C /* FeedbackViewController.swift */,
+				09EA2D4F233F817D005456CD /* EditNameViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -455,7 +458,7 @@
 			);
 			name = RunRunTruck;
 			productName = RunRunTruck;
-			productReference = 091EEB5A23153B0200BF066F /* RunRunTruck.app */;
+			productReference = 091EEB5A23153B0200BF066F /* 餐車去哪兒.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -470,6 +473,7 @@
 				TargetAttributes = {
 					091EEB5923153B0200BF066F = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -506,10 +510,10 @@
 				0928BC0C2335565400774759 /* camera.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */,
-				091EEB702315415C00BF066F /* GoogleService-Info.plist in Resources */,
 				0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
+				09EA2D49233F6FA5005456CD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +610,7 @@
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
 				0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */,
 				09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */,
+				09EA2D50233F817D005456CD /* EditNameViewController.swift in Sources */,
 				09F78E522327976D00FD6099 /* BossUIView.swift in Sources */,
 				091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */,
 				090AFB61231CD51A0072E646 /* AuthViewController.swift in Sources */,
@@ -802,6 +807,7 @@
 			baseConfigurationReference = A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -814,7 +820,8 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "餐車去哪兒";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -825,6 +832,7 @@
 			baseConfigurationReference = 2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -836,7 +844,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "餐車去哪兒";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
