@@ -17,26 +17,44 @@ class ProfileViewController: UIViewController {
         print("我出現了")
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
-
+            
             if user == nil {
                 
                 self.navigationController?.popToRootViewController(animated: false)
             }
         }
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //        if FirebaseManager.shared.bossID != nil {
+        //
+        //            performSegue(withIdentifier: "bossInfo", sender: nil)
+        //
+        //        } else if FirebaseManager.shared.userID != nil {
+        //            guard let userVc = UIStoryboard.profile.instantiateViewController(
+        //                withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+        //
+        //            show(userVc, sender: nil)
+        //        }
+        
+        //new add
         if FirebaseManager.shared.bossID != nil {
-
-            performSegue(withIdentifier: "bossInfo", sender: nil)
-
+            //老闆
+            if let bossVC =
+                UIStoryboard.profile.instantiateViewController(
+                    withIdentifier: "BossInfoViewController") as? BossInfoViewController {
+                self.navigationController?.pushViewController(bossVC, animated: false)
+            }
         } else if FirebaseManager.shared.userID != nil {
-            guard let userVc = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
-            
-            show(userVc, sender: nil)
+            //使用者
+            if let userVc =
+                UIStoryboard.profile.instantiateViewController(
+                    withIdentifier: "UserInfoViewController") as? UserInfoViewController {
+                self.navigationController?.pushViewController(userVc, animated: false)
+            }
         }
+        //end
     }
-    
 }

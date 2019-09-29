@@ -132,17 +132,17 @@ class AuthViewController: UIViewController {
             
             switch uiStatus {
             case .userLogin:
-                self?.userLogin()
+                self?.userLogin(useAppleSingIn: false)
             case .bossLogin:
-                self?.bossLogin()
+                self?.bossLogin(useAppleSingIn: false)
             }
         }
     }
     
-    func userLogin() {
+    func userLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
-        FirebaseManager.shared.listenUserData(isAppleSingIn: false)
-        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: false, completion: {[weak self] (data) in
+        FirebaseManager.shared.listenUserData(isAppleSingIn: useAppleSingIn, userid: user?.id)
+        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: useAppleSingIn, userId: user?.id) {[weak self] (data) in
                             guard data != nil else {
                                 print("老闆使用了吃貨登入")
                                 //老闆使用了吃貨登入, 提示請使用者使用老闆登入
@@ -163,13 +163,12 @@ class AuthViewController: UIViewController {
                                        as? TabBarViewController else { return }
                                    rootVC.tabBar.isHidden = false
                                }
-                        })
+                        }
     }
     
-    func bossLogin() {
+    func bossLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
-//              FirebaseManager.shared.listenUserData(isAppleSingIn: false)
-        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: false, completion: { [weak self] (bossData) in
+        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: useAppleSingIn, userid: user?.id) { [weak self] (bossData) in
                             guard bossData != nil else {
                                 print("吃貨使用了老闆登入")
                                 //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
@@ -190,7 +189,7 @@ class AuthViewController: UIViewController {
                                     as? TabBarViewController else { return }
                                 rootVC.tabBar.isHidden = false
                             }
-                        })
+                        }
     }
     
     @objc func handleUIStatusChange() {
@@ -314,8 +313,33 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             
             switch uiStatus {
             case .userLogin:
+//                FirebaseManager.shared.checkExistUser(
+//                    userType: User.user.rawValue,
+//                    uid: user.id) { (isExist) in
+//
+//                        if isExist == false {
+//                            self.errorResultLabel.isHidden = false
+//                            self.errorResultLabel.text = "此帳號尚未註冊喔！"
+//                            return
+//                        }
+//                        self.userLogin(useAppleSingIn: true, user: user)
+//                }
                 checkUserLogoinWithApple(user: user)
             case .bossLogin:
+                
+//                FirebaseManager.shared.checkExistUser(
+//                    userType: Boss.boss.rawValue,
+//                    uid: user.id) { (isExist) in
+//
+//                        if isExist == false {
+//                            self.errorResultLabel.isHidden = false
+//                            self.errorResultLabel.text = "此帳號尚未註冊喔！"
+//                            return
+//                        }
+//
+//                        self.bossLogin(useAppleSingIn: true, user: user)
+//                }
+                
                 checkBossLogoinWithApple(user: user)
             }
     

@@ -65,8 +65,9 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
          guard let truckVC = UIStoryboard.truck.instantiateViewController(
                     withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
         truckVC.detailInfo = trucks[indexPath.item]
-        
-        navigationController?.pushViewController(truckVC, animated: true)
-//        show(truckVC, sender: nil)
+        //tricky way
+        guard let rootVC = AppDelegate.shared.window?.rootViewController
+            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
+        nc.pushViewController(truckVC, animated: true)
     }
 }

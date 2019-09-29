@@ -79,7 +79,7 @@ class BadgeViewController: UIViewController {
     @objc func enterScannerButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
-        ProgressHUD.showFailure(text: "登入會員就可以蒐藏喜愛清單囉！")
+        ProgressHUD.showFailure(text: "登入會員就可以蒐藏徽章囉！")
 
             return
         }
