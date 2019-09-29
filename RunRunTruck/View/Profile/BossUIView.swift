@@ -71,7 +71,6 @@ class BossUIView: UIView {
         
         privateBtn.addTarget(self, action: #selector(clickPrivateBtn), for: .touchUpInside)
         
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickChangeImage))
         
         detailImage.addGestureRecognizer(tapGestureRecognizer)

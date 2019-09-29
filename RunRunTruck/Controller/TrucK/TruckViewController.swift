@@ -150,8 +150,6 @@ UICollectionViewDelegate,
 UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(openTruckArr.count)
-        print("\(openTruckArr.count) + \(disOpenTruckArr.count)")
         return openTruckArr.count + disOpenTruckArr.count
     }
     

@@ -317,7 +317,7 @@ class FirebaseManager {
         }
     }
     
-    func setUserData(name: String, email: String , isAppleSingIn: Bool, appleUID: String = "") {
+    func setUserData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
         
         var userid = ""
         

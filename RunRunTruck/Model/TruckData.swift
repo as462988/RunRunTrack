@@ -203,7 +203,6 @@ enum Feedback: String {
 
 }
 
-
 struct FeedbackMessage {
 
     var title: String

@@ -143,9 +143,7 @@ class AuthRegisterViewController: UIViewController {
             }
             emptyText()
         }
-    
 
-    
     func emptyText() {
         nameTextField.text = ""
         emailTextField.text = ""

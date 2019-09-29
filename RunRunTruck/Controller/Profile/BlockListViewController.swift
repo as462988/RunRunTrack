@@ -43,7 +43,8 @@ class BlockListViewController: UIViewController {
     }
     
     func observeCurrentUserUpdated() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                               name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
     }
     
     func setupViews() {

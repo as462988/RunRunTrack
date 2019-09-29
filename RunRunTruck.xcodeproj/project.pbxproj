@@ -61,7 +61,6 @@
 		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
 		09B2E4D423381AF3007FF161 /* TrucksCardGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */; };
 		09B2E4D623381B6D007FF161 /* ProfileContentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */; };
-		09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */; };
 		09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */; };
 		09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DB2338259F007FF161 /* UIView+Layout.swift */; };
 		09B2E4DE233825A0007FF161 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DD233825A0007FF161 /* SettingViewController.swift */; };
@@ -142,7 +141,6 @@
 		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrucksCardGroupCell.swift; sourceTree = "<group>"; };
 		09B2E4D523381B6D007FF161 /* ProfileContentCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentCollectionViewController.swift; sourceTree = "<group>"; };
-		09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		09B2E4DB2338259F007FF161 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		09B2E4DD233825A0007FF161 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -394,7 +392,6 @@
 				095238C1233093A90015AEDA /* QrcodeView.swift */,
 				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
 				09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */,
-				09B2E4D723381FCE007FF161 /* MoreSettingCollectionViewCell.swift */,
 				09FC78A1233927EE00DD5768 /* SettingRow.swift */,
 				098B2626233A367E00E8010C /* BlockRowCell.swift */,
 			);
@@ -629,7 +626,6 @@
 				095238CB2330ABDF0015AEDA /* QRScannerController.swift in Sources */,
 				095238BE233086880015AEDA /* PushNoAnimationSegue.swift in Sources */,
 				09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */,
-				09B2E4D823381FCE007FF161 /* MoreSettingCollectionViewCell.swift in Sources */,
 				098B2625233A363700E8010C /* BlockListViewController.swift in Sources */,
 				095238C023308F250015AEDA /* CreatQrcodeViewController.swift in Sources */,
 				091EEB8323157F4200BF066F /* UIImage+Extension.swift in Sources */,
