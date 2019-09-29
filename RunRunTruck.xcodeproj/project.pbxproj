@@ -81,6 +81,7 @@
 		09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */; };
 		09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A1233927EE00DD5768 /* SettingRow.swift */; };
 		09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* AppleUser.swift */; };
+		09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */ = {isa = PBXBuildFile; fileRef = 09FE3EDE23406C8400C9CC7B /* isOpen.json */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 		09FC78A1233927EE00DD5768 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		09FC78A32339BC4900DD5768 /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
 		09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunRunTruck.entitlements; sourceTree = "<group>"; };
+		09FE3EDE23406C8400C9CC7B /* isOpen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isOpen.json; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +319,7 @@
 				0928BC052335565300774759 /* hand-click-gesture.json */,
 				0928BC062335565300774759 /* lf30_editor_envOAW.json */,
 				0928BC042335565300774759 /* onboardingCar.json */,
+				09FE3EDE23406C8400C9CC7B /* isOpen.json */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */,
 				0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */,
+				09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
 				09EA2D49233F6FA5005456CD /* GoogleService-Info.plist in Resources */,
@@ -806,7 +810,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
@@ -815,6 +819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
 				PRODUCT_NAME = "餐車去哪兒";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -831,7 +836,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -839,6 +844,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yueh.RunRunTruck;
 				PRODUCT_NAME = "餐車去哪兒";
 				SWIFT_VERSION = 5.0;

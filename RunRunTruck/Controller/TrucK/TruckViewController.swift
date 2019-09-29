@@ -29,6 +29,7 @@ class TruckViewController: UIViewController {
         super.viewDidLoad()
         handlerOpeningTruck()
         handlerDisOpeningTruck()
+        truckCollectionView.showsVerticalScrollIndicator = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
