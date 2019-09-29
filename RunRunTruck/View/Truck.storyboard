@@ -79,7 +79,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_truckPic" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
-                                                    <rect key="frame" x="8" y="71" width="374" height="162.00000000000011"/>
+                                                    <rect key="frame" x="8" y="71" width="374" height="162"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJ0-fp-Hfm">
                                                     <rect key="frame" x="79" y="25.5" width="255.5" height="20.5"/>
@@ -145,7 +145,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_truckPic" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-oR-T3t">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="287.50000000000011"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="287.5"/>
                                         <color key="backgroundColor" red="0.1759090297" green="0.57496153999999999" blue="0.78508428100000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jc7-MW-9jE">
@@ -211,7 +211,7 @@
                                         <state key="selected" image="Icon_Favorite"/>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oad1e606bdc3307e7064b6349b5c55aa4_4620693218551263458_190925_0001" translatesAutoresizingMaskIntoConstraints="NO" id="80J-mS-8Rj">
-                                        <rect key="frame" x="20" y="762" width="374.00000000000045" height="100"/>
+                                        <rect key="frame" x="20" y="762" width="374" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="3Ly-BU-Hjs"/>
                                         </constraints>

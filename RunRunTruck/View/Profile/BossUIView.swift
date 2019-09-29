@@ -75,6 +75,8 @@ class BossUIView: UIView {
         
         detailImage.addGestureRecognizer(tapGestureRecognizer)
         
+        tapAnimationView.addGestureRecognizer(tapGestureRecognizer)
+        
         openSwitch.addTarget(self, action: #selector(onChange), for: .valueChanged)
         
         cancelBtn.addTarget(self, action: #selector(clickCancelBtn), for: .touchUpInside)
@@ -105,7 +107,6 @@ class BossUIView: UIView {
         openSwitch.isOn = open
         btnContainView.layer.borderWidth = 1
         btnContainView.layer.borderColor = UIColor.lightGray.cgColor
-//        btnContainView.layer.borderColor = UIColor(r: 63, g: 58, b: 58).cgColor
     }
     
     func cleanValue() {

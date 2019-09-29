@@ -101,6 +101,7 @@ extension LobbyViewController: LobbyViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        collectionView.deselectItem(at: indexPath, animated: false)
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
                 return UICollectionViewCell()
@@ -117,7 +118,6 @@ extension LobbyViewController: LobbyViewDelegate {
         
         cell.latitude = data.location!.latitude
         cell.longitude = data.location!.longitude
-        
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         return cell
@@ -126,7 +126,7 @@ extension LobbyViewController: LobbyViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
     }
-    
+
     // MARK: - 滑動 collectionView (paging)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkPage()
