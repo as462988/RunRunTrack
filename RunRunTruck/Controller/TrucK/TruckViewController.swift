@@ -165,7 +165,11 @@ UICollectionViewDataSource {
         allTruckArr = openTruckArr + disOpenTruckArr
         
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
+                           logoImage: allTruckArr[indexPath.item].logoImage,
                            image: allTruckArr[indexPath.item].detailImage ?? "")
+        
+//        truckCell.setValue(name: allTruckArr[indexPath.item].name,
+//                           image: allTruckArr[indexPath.item].detailImage ?? "")
         
         if allTruckArr[indexPath.item].open {
             
