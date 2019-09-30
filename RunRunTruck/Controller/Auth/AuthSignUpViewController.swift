@@ -209,7 +209,6 @@ class AuthRegisterViewController: UIViewController {
                controller.performRequests()
            
        }
-
 }
 
 extension AuthRegisterViewController: UITextFieldDelegate {
@@ -300,8 +299,6 @@ extension AuthRegisterViewController: ASAuthorizationControllerDelegate {
         case let credentials as ASAuthorizationAppleIDCredential:
             let user = AppleUser(credentials: credentials)
             
-            print(user)
-            
             switch uiStatus {
             case .userRegister:
                 userAppleRegister(userType: User.user.rawValue, user: user)
@@ -316,7 +313,6 @@ extension AuthRegisterViewController: ASAuthorizationControllerDelegate {
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("something bad happened", error)
     }
 }
 

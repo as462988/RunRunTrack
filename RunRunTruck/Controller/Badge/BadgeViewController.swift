@@ -42,8 +42,7 @@ class BadgeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
-        
+
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.tabBarController?.tabBar.isHidden = false

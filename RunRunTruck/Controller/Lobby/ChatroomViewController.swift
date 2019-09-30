@@ -70,7 +70,6 @@ class ChatroomViewController: UIViewController {
     
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
-            print("no turckID")
             return
         }
         
@@ -154,10 +153,7 @@ class ChatroomViewController: UIViewController {
         
         guard let truckID = truckData?.id,
             let name = FirebaseManager.shared.currentUser?.name
-            else {
-                print("uid nil")
-                return
-        }
+            else {return}
         
         image = FirebaseManager.shared.currentUser?.logoImage
         

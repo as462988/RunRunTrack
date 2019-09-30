@@ -37,10 +37,7 @@ class QRScannerController: UIViewController {
             deviceTypes: [.builtInDualCamera],
             mediaType: AVMediaType.video, position: .back)
         
-        guard let captureDevice = deviceDiscoverySession.devices.first else {
-            print("Failed to get the camera device")
-            return
-        }
+        guard let captureDevice = deviceDiscoverySession.devices.first else {return }
         
         do {
             // 使用前一個裝置物件來取得 AVCaptureDeviceInput 類別的實例
@@ -72,11 +69,7 @@ class QRScannerController: UIViewController {
                 view.bringSubviewToFront(qrCodeFrameView)
             }
             
-        } catch {
-            // 假如有錯誤產生、單純輸出其狀況不再繼續執行
-            print(error)
-            return
-        }
+        } catch {return }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,8 +96,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
         
         if metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
-            print( "No QR code is detected")
-            return
+           return
         }
         
         // 取得元資料（metadata）物件
@@ -120,8 +112,6 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
                 FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
-                print(truckId)
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     
                     self?.navigationController?.popViewController(animated: true)

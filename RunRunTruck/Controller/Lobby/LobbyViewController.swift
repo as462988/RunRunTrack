@@ -196,8 +196,7 @@ extension LobbyViewController: LobbyViewDelegate {
                                          long: myLocation.coordinate.longitude)
             
         } else {
-            print("User's location is unknown")
-            
+
             let alertController = UIAlertController(title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
             
             let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
@@ -208,7 +207,6 @@ extension LobbyViewController: LobbyViewDelegate {
                 
                 if UIApplication.shared.canOpenURL(settingsUrl) {
                     UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)") // Prints true
                     })
                 }
             }
@@ -239,8 +237,6 @@ extension LobbyViewController: TurckInfoCellDelegate {
             }
             
             UIApplication.shared.open(url)
-        } else {
-            print("Can't use comgooglemaps://")
         }
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,

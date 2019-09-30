@@ -67,7 +67,6 @@ class FeedbackViewController: UIViewController {
     }
     
     @objc func clickCheckBtn() {
-        print(#function)
         sendFeedbackMessage()
     }
     

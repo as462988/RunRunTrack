@@ -252,12 +252,16 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         FirebaseManager.shared.checkExistUser(
             userType: User.user.rawValue,
             uid: user.id) { (isExist) in
-                
+                //如果不存在就先註冊
                 if isExist == false {
-                    self.errorResultLabel.isHidden = false
-                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
-                    return
+                    FirebaseManager.shared.setUserData(
+                        name: user.lastName + ", " + user.firstName,
+                        email: user.email,
+                        isAppleSingIn: true,
+                        appleUID: user.id)
+
                 }
+                //註冊完直接登入
                 FirebaseManager.shared.getCurrentUserData(
                 useAppleSingIn: true, userId: user.id) { [weak self](userData) in
                     guard userData != nil else { return }
@@ -278,11 +282,16 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
 
         FirebaseManager.shared.checkExistUser(
             userType: Boss.boss.rawValue,
-            uid: user.id) { (isExist) in
+            uid: user.id) { [weak self](isExist) in
                 
                 if isExist == false {
-                    self.errorResultLabel.isHidden = false
-                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
+                    FirebaseManager.shared.setBossData(
+                        name: user.lastName + ", " + user.firstName,
+                        email: user.email,
+                        isAppleSingIn: true,
+                        appleUID: user.id)
+                        
+                    self?.addTruckInBoss(needEnterName: true, bossId: user.id)
                     return
                 }
                 
@@ -303,6 +312,17 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         }
     }
     
+    func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
+         
+         guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+             as? AddBossTruckViewController else { return }
+         
+         addTruckVC.modalPresentationStyle = .overCurrentContext
+         addTruckVC.needEnterName = needEnterName
+         addTruckVC.appleSinginBossID = bossId
+         self.present(addTruckVC, animated: false, completion: nil)
+     }
+
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
 
@@ -313,33 +333,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             
             switch uiStatus {
             case .userLogin:
-//                FirebaseManager.shared.checkExistUser(
-//                    userType: User.user.rawValue,
-//                    uid: user.id) { (isExist) in
-//
-//                        if isExist == false {
-//                            self.errorResultLabel.isHidden = false
-//                            self.errorResultLabel.text = "此帳號尚未註冊喔！"
-//                            return
-//                        }
-//                        self.userLogin(useAppleSingIn: true, user: user)
-//                }
                 checkUserLogoinWithApple(user: user)
             case .bossLogin:
-                
-//                FirebaseManager.shared.checkExistUser(
-//                    userType: Boss.boss.rawValue,
-//                    uid: user.id) { (isExist) in
-//
-//                        if isExist == false {
-//                            self.errorResultLabel.isHidden = false
-//                            self.errorResultLabel.text = "此帳號尚未註冊喔！"
-//                            return
-//                        }
-//
-//                        self.bossLogin(useAppleSingIn: true, user: user)
-//                }
-                
                 checkBossLogoinWithApple(user: user)
             }
     
