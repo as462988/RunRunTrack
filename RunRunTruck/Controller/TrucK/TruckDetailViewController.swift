@@ -83,7 +83,7 @@ class TruckDetailViewController: UIViewController {
         
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
-          ProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
+          ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
 
               return
           }
@@ -98,7 +98,6 @@ class TruckDetailViewController: UIViewController {
             FirebaseManager.shared.addUserFavorite(
                 uid: (uid == nil ? bossId : uid) ?? "",
             truckId: detailInfo.id) {
-                print("addSuccess")
                 //新增最愛成功，把使用者同步到餐車的喜愛者
                 FirebaseManager.shared.addUserToTruckFavoritedBy(
                     userId: (uid == nil ? bossId : uid) ?? "",
@@ -108,7 +107,6 @@ class TruckDetailViewController: UIViewController {
             FirebaseManager.shared.deleteUserFavorite(
                 uid: (uid == nil ? bossId : uid) ?? "",
                 truckId: detailInfo.id) {
-                    print("deleteSuccess")
                     //移除最愛成功，把使用者同步移除餐車的喜愛者
                     FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
                         userId: (uid == nil ? bossId : uid) ?? "",

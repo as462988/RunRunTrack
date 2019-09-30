@@ -22,7 +22,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(TruckCardCollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
-        
+        collectionView.showsHorizontalScrollIndicator = false
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
             layout.minimumInteritemSpacing = 8
@@ -58,5 +58,16 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 5, left: 8, bottom: 0, right: 8)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView,
+                                 didSelectItemAt indexPath: IndexPath) {
+         guard let truckVC = UIStoryboard.truck.instantiateViewController(
+                    withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+        truckVC.detailInfo = trucks[indexPath.item]
+        //tricky way
+        guard let rootVC = AppDelegate.shared.window?.rootViewController
+            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
+        nc.pushViewController(truckVC, animated: true)
     }
 }

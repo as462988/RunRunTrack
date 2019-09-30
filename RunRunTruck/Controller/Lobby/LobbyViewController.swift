@@ -101,6 +101,7 @@ extension LobbyViewController: LobbyViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        collectionView.deselectItem(at: indexPath, animated: false)
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
                 return UICollectionViewCell()
@@ -117,7 +118,6 @@ extension LobbyViewController: LobbyViewDelegate {
         
         cell.latitude = data.location!.latitude
         cell.longitude = data.location!.longitude
-        
         cell.layer.cornerRadius = 20
         cell.clipsToBounds = true
         return cell
@@ -126,7 +126,7 @@ extension LobbyViewController: LobbyViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
     }
-    
+
     // MARK: - 滑動 collectionView (paging)
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.checkPage()
@@ -196,8 +196,7 @@ extension LobbyViewController: LobbyViewDelegate {
                                          long: myLocation.coordinate.longitude)
             
         } else {
-            print("User's location is unknown")
-            
+
             let alertController = UIAlertController(title: "無法定位", message: "沒有開啟定位系統無法訂位喔！", preferredStyle: .alert)
             
             let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
@@ -208,7 +207,6 @@ extension LobbyViewController: LobbyViewDelegate {
                 
                 if UIApplication.shared.canOpenURL(settingsUrl) {
                     UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)") // Prints true
                     })
                 }
             }
@@ -239,8 +237,6 @@ extension LobbyViewController: TurckInfoCellDelegate {
             }
             
             UIApplication.shared.open(url)
-        } else {
-            print("Can't use comgooglemaps://")
         }
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,

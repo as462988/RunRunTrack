@@ -29,6 +29,7 @@ class TruckViewController: UIViewController {
         super.viewDidLoad()
         handlerOpeningTruck()
         handlerDisOpeningTruck()
+        truckCollectionView.showsVerticalScrollIndicator = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,8 +151,6 @@ UICollectionViewDelegate,
 UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(openTruckArr.count)
-        print("\(openTruckArr.count) + \(disOpenTruckArr.count)")
         return openTruckArr.count + disOpenTruckArr.count
     }
     
@@ -166,7 +165,11 @@ UICollectionViewDataSource {
         allTruckArr = openTruckArr + disOpenTruckArr
         
         truckCell.setValue(name: allTruckArr[indexPath.item].name,
+                           logoImage: allTruckArr[indexPath.item].logoImage,
                            image: allTruckArr[indexPath.item].detailImage ?? "")
+        
+//        truckCell.setValue(name: allTruckArr[indexPath.item].name,
+//                           image: allTruckArr[indexPath.item].detailImage ?? "")
         
         if allTruckArr[indexPath.item].open {
             

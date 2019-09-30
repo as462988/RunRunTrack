@@ -33,6 +33,8 @@ class BlockListViewController: UIViewController {
                 if let name = name {
                     self.blockUsers.append((name, blockUserId))
                     dispatchGroup.leave()
+                }else {
+                    dispatchGroup.leave()
                 }
             })
         })
@@ -43,7 +45,9 @@ class BlockListViewController: UIViewController {
     }
     
     func observeCurrentUserUpdated() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload),
+                                               name: Notification.Name(FirebaseManager.userNotificationName),
+                                               object: nil)
     }
     
     func setupViews() {

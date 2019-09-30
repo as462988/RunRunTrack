@@ -23,7 +23,6 @@ class UserInfoViewController: UIViewController {
         openChoseCameraManager.delegate = self
         contentView.addSubview(contentCollectionView.view)
         contentCollectionView.view.fillSuperview()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

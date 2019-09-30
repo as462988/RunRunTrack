@@ -95,7 +95,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         switch indexPath.item {
         case 0:
             //傳入探索的餐車
-//            let exploreTrucks = exploreTruck
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "exploreCell",
                 for: indexPath) as? TrucksCardGroupCell else {
@@ -108,7 +107,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
             return cell
         case 1:
             //傳入已收藏的餐車
-//            let favoriteTrucks = favoriteTruck
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "favoriteCell",
                 for: indexPath) as? TrucksCardGroupCell else {
@@ -122,6 +120,5 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         default:
             return UICollectionViewCell()
         }
-
     }
 }

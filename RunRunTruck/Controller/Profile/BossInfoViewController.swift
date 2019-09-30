@@ -25,9 +25,7 @@ class BossInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        self.navigationController?.isNavigationBarHidden = true
-        
+
         openChoseCamera.delegate = self
         
         FirebaseManager.shared.getBossTruck { [weak self](data) in
@@ -62,7 +60,6 @@ class BossInfoViewController: UIViewController {
     }
     
     func playTapAnimation() {
-
         bossView.tapAnimationView.animation = Animation.named(Lottie.handGesture.rawValue)
         bossView.tapAnimationView.loopMode = .repeat(2)
         bossView.tapAnimationView.play()

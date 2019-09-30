@@ -32,4 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseManager.shared.listenAllTruckData()
         return true
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        //拿回user
+    }
 }

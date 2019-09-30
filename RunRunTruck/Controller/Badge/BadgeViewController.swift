@@ -42,8 +42,7 @@ class BadgeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
-        
+
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.tabBarController?.tabBar.isHidden = false
@@ -79,7 +78,7 @@ class BadgeViewController: UIViewController {
     @objc func enterScannerButton(sender: UIButton) {
        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
 
-        ProgressHUD.showFailure(text: "登入會員就可以蒐藏喜愛清單囉！")
+        ProgressHUD.showFailure(text: "登入會員就可以蒐藏徽章囉！")
 
             return
         }
