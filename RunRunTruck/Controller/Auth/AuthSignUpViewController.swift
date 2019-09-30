@@ -58,8 +58,7 @@ class AuthRegisterViewController: UIViewController {
         segmentRegister.addTarget(self, action: #selector(handleRegisterChange), for: .valueChanged)
         
         checkUserInput()
-        
-        setupView()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -180,35 +179,6 @@ class AuthRegisterViewController: UIViewController {
             }, animationCache: nil)
 
     }
-     func setupView() {
-           let appleButton = ASAuthorizationAppleIDButton()
-           appleButton.translatesAutoresizingMaskIntoConstraints = false
-           appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
-
-           view.addSubview(appleButton)
-
-           appleButton.anchor(top: registerBtn.bottomAnchor,
-                              leading: view.leadingAnchor,
-                              bottom: view.bottomAnchor,
-                              trailing: view.trailingAnchor,
-                              padding: .init(top: 10, left: 20, bottom: 30, right: 20),
-                              size: CGSize(width: registerBtn.frame.width, height: registerBtn.frame.height))
-       }
-       
-       @objc func didTapAppleButton() {
-           
-           let provider = ASAuthorizationAppleIDProvider()
-               let request = provider.createRequest()
-               request.requestedScopes = [.fullName, .email]
-
-               let controller = ASAuthorizationController(authorizationRequests: [request])
-
-               controller.delegate = self
-               controller.presentationContextProvider = self
-
-               controller.performRequests()
-           
-       }
 }
 
 extension AuthRegisterViewController: UITextFieldDelegate {
@@ -246,80 +216,5 @@ extension AuthRegisterViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         checkUserInput()
-    }
-}
-
-extension AuthRegisterViewController: ASAuthorizationControllerDelegate {
-    
-    func userAppleRegister(userType: String, user: AppleUser) {
-        
-        FirebaseManager.shared.checkExistUser(
-                userType: User.user.rawValue,
-                uid: user.id) { [weak self] (isExist) in
-            
-                    if isExist {
-                        self?.errorResultLabel.isHidden = false
-                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
-                    } else {
-                        
-                        FirebaseManager.shared.setUserData(
-                            name: user.lastName + ", " + user.firstName,
-                            email: user.email,
-                            isAppleSingIn: true,
-                            appleUID: user.id)
-                
-                    }
-            }
-    }
-    func bossAppleRegister(userType: String, user: AppleUser) {
-        
-        FirebaseManager.shared.checkExistUser(
-                userType: Boss.boss.rawValue,
-                uid: user.id) { [weak self] (isExist) in
-            
-                    if isExist {
-                        self?.errorResultLabel.isHidden = false
-                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
-                    } else {
-                        
-                        FirebaseManager.shared.setBossData(
-                            name: user.lastName + ", " + user.firstName,
-                            email: user.email,
-                            isAppleSingIn: true,
-                            appleUID: user.id)
-                    }
-            }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-
-        switch authorization.credential {
-
-        case let credentials as ASAuthorizationAppleIDCredential:
-            let user = AppleUser(credentials: credentials)
-            
-            switch uiStatus {
-            case .userRegister:
-                userAppleRegister(userType: User.user.rawValue, user: user)
-            case .bossRegister:
-                bossAppleRegister(userType: Boss.boss.rawValue, user: user)
-                addTruckInBoss(needEnterName: true, bossId: user.id)
-                
-            }
-        default: break
-
-        }
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    }
-}
-
-extension AuthRegisterViewController: ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-
-        return view.window!
-
     }
 }
