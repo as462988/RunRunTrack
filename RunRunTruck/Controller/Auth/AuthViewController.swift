@@ -142,7 +142,8 @@ class AuthViewController: UIViewController {
     func userLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
         FirebaseManager.shared.listenUserData(isAppleSingIn: useAppleSingIn, userid: user?.id)
-        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: useAppleSingIn, userId: user?.id) {[weak self] (data) in
+        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: useAppleSingIn,
+                                                  userId: user?.id) {[weak self] (data) in
                             guard data != nil else {
                                 print("老闆使用了吃貨登入")
                                 //老闆使用了吃貨登入, 提示請使用者使用老闆登入
@@ -168,7 +169,8 @@ class AuthViewController: UIViewController {
     
     func bossLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
-        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: useAppleSingIn, userid: user?.id) { [weak self] (bossData) in
+        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: useAppleSingIn,
+                                                  userid: user?.id) { [weak self] (bossData) in
                             guard bossData != nil else {
                                 print("吃貨使用了老闆登入")
                                 //吃貨使用了老闆登入, 提示請使用者使用吃貨登入

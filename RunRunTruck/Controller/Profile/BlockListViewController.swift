@@ -33,7 +33,7 @@ class BlockListViewController: UIViewController {
                 if let name = name {
                     self.blockUsers.append((name, blockUserId))
                     dispatchGroup.leave()
-                }else {
+                } else {
                     dispatchGroup.leave()
                 }
             })
