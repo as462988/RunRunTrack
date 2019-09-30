@@ -740,7 +740,7 @@
         <!--Edit Name View Controller-->
         <scene sceneID="bop-yv-8zo">
             <objects>
-                <viewController storyboardIdentifier="editVC" id="9aa-UT-GvF" customClass="EditNameViewController" customModule="餐車去哪兒" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editVC" id="9aa-UT-GvF" customClass="EditNameViewController" customModule="餐車在哪兒" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3bV-Gi-W6t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
