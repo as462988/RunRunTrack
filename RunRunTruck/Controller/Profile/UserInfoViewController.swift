@@ -71,10 +71,10 @@ extension UserInfoViewController: UserUIViewDelegate {
     func setNarBackBtn(vc: UIViewController) {
         navigationController?.isNavigationBarHidden = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-               image: UIImage.asset(.Icon_back),
-               style: .plain,
-               target: self,
-               action: nil)
+            image: UIImage.asset(.Icon_back),
+            style: .plain,
+            target: self,
+            action: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -86,29 +86,24 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
         
         if let image = FirebaseManager.shared.currentUser?.logoImage {
             
-            FirebaseStorageManager.shared.deleteImageFile(
-                type: User.logoImage.rawValue,
-                imageName: image)
+            openChoseCameraManager.upLoadImage(
+                image: userView.logoImage,
+                info: info) { (data) in
+                    
+                    guard let data = data else {return}
+                    
+                    FirebaseStorageManager.shared.upLoadUserLogo(
+                        type: User.logoImage.rawValue,
+                        data: data,
+                        completion: { (url) in
+                            
+                            guard let imageUrl = url else {return}
+                            
+                            FirebaseManager.shared.updataUserImage(image: imageUrl)
+                    })
+                    
+            }
+            dismiss(animated: true, completion: nil)
         }
-        
-        openChoseCameraManager.upLoadImage(
-            image: userView.logoImage,
-            info: info) { (data) in
-                
-                guard let data = data else {return}
-                
-                FirebaseStorageManager.shared.upLoadUserLogo(
-                    type: User.logoImage.rawValue,
-                    data: data,
-                    completion: { (url) in
-                        
-                        guard let imageUrl = url else {return}
-                        
-                        FirebaseManager.shared.updataUserImage(image: imageUrl)
-                })
-                
-        }
-        dismiss(animated: true, completion: nil)
     }
-    
 }

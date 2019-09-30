@@ -20,7 +20,6 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var favoriteBtn: UIButton!
  
     var detailInfo: TruckData?
-    let dateManager = TransformTimeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +75,6 @@ class TruckDetailViewController: UIViewController {
             showLocationTextView.text = detailInfo.address
 
         }
-        
     }
     
     @objc func clickFavorite(_ sender: UIButton) {

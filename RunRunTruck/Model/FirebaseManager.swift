@@ -41,10 +41,7 @@ class FirebaseManager {
     func listenAllTruckData() {
         
         db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
-            guard error == nil else {
-                print("Getting all truck datas failed!!")
-                return
-            }
+            guard error == nil else { return }
             var openTimestamp: Double?
             var location: GeoPoint?
             var detailImage: String?
@@ -90,10 +87,7 @@ class FirebaseManager {
         db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
-                guard let snapshot = snapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
+                guard let snapshot = snapshot else { return }
                 
                 var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
                 snapshot.documentChanges.forEach({ (documentChange) in
@@ -150,60 +144,35 @@ class FirebaseManager {
         guard let truckId = bossTruck?.id else { return }
         
         if status {
-            let location = GeoPoint(latitude: lat!, longitude: lon!)
+            
+            guard let lat = lat, let lon = lon else { return }
+            
+            let location = GeoPoint(latitude: lat, longitude: lon)
             
             db.collection(Truck.truck.rawValue).document(truckId).updateData([
                 Truck.open.rawValue: status,
                 Truck.openTime.rawValue: Date().timeIntervalSince1970,
                 Truck.location.rawValue: location
-            ]) { (error) in
-                if let err = error {
-                    print("Error modify: \(err)")
-                } else {
-                    print("Status modify Success")
-                }
-            }
+            ])
         } else {
             
             db.collection(Truck.truck.rawValue).document(truckId).updateData([
                 Truck.open.rawValue: status
-            ]) { (error) in
-                if let err = error {
-                    print("Error modify: \(err)")
-                } else {
-                    print("Status modify Success")
-                }
-            }
+            ])
         }
     }
     
-    func updataStoryText(text: String) {
-        
+    func updataTruckData(forStory story: String? = nil, forImage detailImage: String? = nil) {
         guard let truckId = bossTruck?.id else { return }
         
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.story.rawValue: text
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
-            }
-        }
-    }
-    
-    func updataDetailImageText(image: String) {
-        
-        guard let truckId = bossTruck?.id else { return }
-        
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.detailImage.rawValue: image
-        ]) { (error) in
-            if let err = error {
-                print("Error modify: \(err)")
-            } else {
-                print("Status modify Success")
-            }
+        if let story = story {
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.story.rawValue: story
+            ])
+        } else if let image = detailImage {
+            db.collection(Truck.truck.rawValue).document(truckId).updateData([
+                Truck.detailImage.rawValue: image
+            ])
         }
     }
     
@@ -213,17 +182,13 @@ class FirebaseManager {
             Truck.name.rawValue,
             isEqualTo: truckName).getDocuments {[weak self] (snapshot, error) in
                 
-                guard error == nil else {
-                    print("Error getting documents")
-                    return
-                }
+                guard let snapshot = snapshot else { return }
                 
-                for document in snapshot!.documents {
+                for document in snapshot.documents {
                     self?.truckID = document.documentID
                     
                 }
         }
-        
     }
     
     // MARK: About User
@@ -233,23 +198,22 @@ class FirebaseManager {
         var currentUser: String = ""
         
         if isAppleSingIn {
-            currentUser = userid!
+            guard let userId = userid else {return}
+            currentUser = userId
         } else {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             currentUser = uid
         }
 
         db.collection(User.user.rawValue).document(currentUser).addSnapshotListener { [weak self ] (snapshot, error) in
+
+            guard let snapshot = snapshot else { return }
             
-            guard let document = snapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
+            guard let data = snapshot.data() else {
                 print("Document data was empty.")
                 return
             }
-            
+
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
@@ -268,7 +232,6 @@ class FirebaseManager {
                                              favorite: favorite)
             }
             NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
-            print("Current data: \(data)")
         }
     }
     
@@ -277,7 +240,9 @@ class FirebaseManager {
         var currentUser: String = ""
         
         if useAppleSingIn {
-            currentUser = userId!
+            if let userId = userId {
+                currentUser = userId
+            }
         } else {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         currentUser = uid
@@ -285,14 +250,10 @@ class FirebaseManager {
         db.collection(User.user.rawValue).document(currentUser).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
-                print("Error fetching document: \(error!)")
                 completion(nil)
                 return
             }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
+            guard let data = document.data() else { return }
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
@@ -313,7 +274,6 @@ class FirebaseManager {
             }
             
             completion(self?.currentUser)
-            print("Current data: \(data)")
         }
     }
     
@@ -495,7 +455,10 @@ class FirebaseManager {
         var currentBoss: String = ""
         
         if isAppleSingIn {
-            currentBoss = userid!
+            
+            guard let userId = userid else { return }
+            currentBoss = userId
+            
         } else {
              guard let uid = Auth.auth().currentUser?.uid else { return }
             currentBoss = uid
@@ -592,22 +555,13 @@ class FirebaseManager {
             
             db.collection(Boss.boss.rawValue).document(uid).updateData([
                 Truck.truckId.rawValue: truckId
-            ]) { (error) in
-                if let err = error {
-                    print("Error adding document: \(err)")
-                }
-            }
+            ])
             return
         }
         
         db.collection(Boss.boss.rawValue).document(appleID!).updateData([
                 Truck.truckId.rawValue: truckId
-            ]) { (error) in
-                if let err = error {
-                    print("Error adding document: \(err)")
-                }
-            }
-        
+            ])
     }
     
     // MARK: About Register/SingIn
@@ -649,12 +603,8 @@ class FirebaseManager {
             
             self.userID = nil
             self.bossID = nil
-
-            print("登出成功")
             
-        } catch let signOutError as NSError {
-            
-            print("Error signing out: %@", signOutError)
+        } catch _ as NSError {
         }
     }
     
@@ -663,7 +613,6 @@ class FirebaseManager {
         db.collection(userType).document(uid).getDocument { (snapshot, error) in
             
             guard snapshot?.data() != nil else {
-                print("Document data was empty.")
                 completion(false)
                 return
             }
@@ -673,21 +622,15 @@ class FirebaseManager {
     // MARK: About ChatRoom
     
     func creatChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {
+        
         db.collection(Truck.truck.rawValue).document(truckID).collection(
-            
             Truck.chatRoom.rawValue).addDocument(data: [
                 Truck.name.rawValue: name,
                 User.uid.rawValue: uid,
                 User.logoImage.rawValue: image,
                 User.text.rawValue: text,
                 User.createTime.rawValue: Date().timeIntervalSince1970
-            ]) { (error) in
-                if let err = error {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-        }
+            ])
     }
 
     func deleteChatRoom(truckID: String) {
@@ -705,9 +648,7 @@ class FirebaseManager {
                 collection.document(doc.documentID).delete()
                 
             }
-            
         }
-        
     }
     
     func observeMessage(truckID: String, completion: @escaping ([Message]) -> Void) {
@@ -719,10 +660,7 @@ class FirebaseManager {
             descending: false)
         
         order.addSnapshotListener { (snapshot, error) in
-            guard let snapshot = snapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
+            guard let snapshot = snapshot else { return }
             var rtnMessage: [Message] = []
             
             var image: String?

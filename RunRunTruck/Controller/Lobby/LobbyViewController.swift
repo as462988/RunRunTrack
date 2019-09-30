@@ -244,8 +244,6 @@ extension LobbyViewController: TurckInfoCellDelegate {
         
         guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
 
-//            self.hidesBottomBarWhenPushed = true
-            
             let chatroomVC = ChatroomViewController()
             
             chatroomVC.truckData = truckData
@@ -254,7 +252,6 @@ extension LobbyViewController: TurckInfoCellDelegate {
             
             navigationController?.isNavigationBarHidden = false
             navigationController?.pushViewController(chatroomVC, animated: true)
-//            self.hidesBottomBarWhenPushed = false
             return
         }
         

@@ -52,7 +52,6 @@ class UserUIView: UIView {
     }
     
     @objc func choseUpLoadImage() {
-        
         self.delegate?.clickUpLoadBtn()
     }
     

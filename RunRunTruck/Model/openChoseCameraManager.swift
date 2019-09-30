@@ -103,6 +103,5 @@ class OpenChoseCameraManager {
             completion((uploadData))
             
         }
-        
     }
 }

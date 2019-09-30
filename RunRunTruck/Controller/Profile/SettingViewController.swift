@@ -106,6 +106,13 @@ extension SettingViewController {
         scrollView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         scrollView.backgroundColor = .white
+        
+        setupContentView(scrollView: scrollView)
+        setupText()
+        setupRows()
+    }
+    
+    func setupContentView(scrollView: UIScrollView) {
         //配置ScrollView的ContentView
         contentView = UIView()
         scrollView.addSubview(contentView)
@@ -115,6 +122,9 @@ extension SettingViewController {
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         contentView.widthAnchor.constraint(equalToConstant: view.bounds.size.width).isActive = true
+    }
+    
+    func setupText() {
         
         titleLabel = UILabel()
         titleLabel.text = "設定"
@@ -126,6 +136,9 @@ extension SettingViewController {
             bottom: nil,
             trailing: nil,
             padding: .init(top: 15, left: 20, bottom: 0, right: 0), size: .zero)
+    }
+    
+    func setupRows() {
         //Rows
         contentView.addSubview(blockRow)
         contentView.addSubview(privateCheckRow)
