@@ -11,6 +11,8 @@ target 'RunRunTruck' do
    pod 'Firebase/Auth'
    pod 'Firebase/Firestore'
    pod 'Firebase/Storage'
+   pod 'Firebase/Core'
+   pod 'Firebase/Messaging'
    pod 'GoogleMaps'
    pod 'GooglePlaces'
    pod 'IQKeyboardManager'

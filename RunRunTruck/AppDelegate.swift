@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import GoogleMaps
 import IQKeyboardManager
+import UserNotifications
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,10 +32,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         FirebaseManager.shared.listenAllTruckData()
+        
+        self.handlerNotfication(application: application)
+        
         return true
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        //拿回user
+    func handlerNotfication(application: UIApplication) {
+        UNUserNotificationCenter.current().delegate = self
+        
+        let authOption: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+        options: authOption) { (_, _) in
+        }
+        application.registerForRemoteNotifications()
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print(remoteMessage.appData)
     }
 }
