@@ -138,12 +138,12 @@ class TruckViewController: UIViewController {
            }
        }
     }
-    func handGester(view: AnimationView) {
-        
-        view.animation = Animation.named(Lottie.welcome.rawValue)
-        view.loopMode = .autoReverse
-        view.play()
-    }
+//    func handGester(view: AnimationView) {
+//
+//        view.animation = Animation.named(Lottie.welcome.rawValue)
+//        view.loopMode = .autoReverse
+//        view.play()
+//    }
 }
 
 extension TruckViewController:
@@ -164,19 +164,22 @@ UICollectionViewDataSource {
         
         allTruckArr = openTruckArr + disOpenTruckArr
         
-        truckCell.setValue(name: allTruckArr[indexPath.item].name,
-                           logoImage: allTruckArr[indexPath.item].logoImage,
-                           image: allTruckArr[indexPath.item].detailImage ?? "")
+        let data = allTruckArr[indexPath.item]
         
-        if allTruckArr[indexPath.item].open {
-            
-            truckCell.animationView.isHidden = false
-
-            handGester(view: truckCell.animationView)
-        } else {
-            truckCell.animationView.isHidden = true
-
-        }
+        truckCell.setValue(name: data.name,
+                           logoImage: data.logoImage,
+                           image: data.detailImage ?? "",
+                           isOpen: data.open)
+        
+//        if allTruckArr[indexPath.item].open {
+//
+//            truckCell.animationView.isHidden = false
+//
+//            handGester(view: truckCell.animationView)
+//        } else {
+//            truckCell.animationView.isHidden = true
+//
+//        }
 
         return truckCell
     }
