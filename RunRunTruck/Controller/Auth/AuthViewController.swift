@@ -143,7 +143,8 @@ class AuthViewController: UIViewController {
             useAppleSingIn: useAppleSingIn,
             userId: user?.id) {[weak self] (data) in
                 guard data != nil else {
-                    print("老闆使用了吃貨登入")
+                    self?.errorResultLabel.isHidden = false
+                    self?.errorResultLabel.text = "目前找不到此帳號主人喔！"
                     //老闆使用了吃貨登入, 提示請使用者使用老闆登入
                     do {
                         try Auth.auth().signOut()
@@ -170,7 +171,8 @@ class AuthViewController: UIViewController {
             isAppleSingIn: useAppleSingIn,
             userid: user?.id) { [weak self] (bossData) in
                 guard bossData != nil else {
-                    print("吃貨使用了老闆登入")
+                    self?.errorResultLabel.isHidden = false
+                    self?.errorResultLabel.text = "目前找不到此帳號主人喔！"
                     //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
                     do {
                         try Auth.auth().signOut()

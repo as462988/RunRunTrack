@@ -32,9 +32,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access your camera for scanning QR code</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We’ll use this to personalize your app experience</string>
+	<string>We’ll use this to find the nearest FoodTruck with you.
+We’ll use this to find the nearest FoodTruck with you.
+We'll use this to find the nearest Food Truck with you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We’ll use this to personalize your app experience</string>
+	<string>We'll use this to find the nearest Food Truck with you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

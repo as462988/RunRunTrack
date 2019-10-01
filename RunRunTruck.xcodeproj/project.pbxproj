@@ -33,7 +33,6 @@
 		091EEB912316866700BF066F /* TruckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB902316866700BF066F /* TruckData.swift */; };
 		0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBE82334DD2F00774759 /* TruckNavigationController.swift */; };
 		0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBEA233503C300774759 /* Lottie+Handler.swift */; };
-		0928BC092335565400774759 /* onboardingCar.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC042335565300774759 /* onboardingCar.json */; };
 		0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC052335565300774759 /* hand-click-gesture.json */; };
 		0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC062335565300774759 /* lf30_editor_envOAW.json */; };
 		0928BC0C2335565400774759 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC072335565300774759 /* camera.json */; };
@@ -81,8 +80,6 @@
 		09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */; };
 		09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A1233927EE00DD5768 /* SettingRow.swift */; };
 		09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* AppleUser.swift */; };
-		09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */ = {isa = PBXBuildFile; fileRef = 09FE3EDE23406C8400C9CC7B /* isOpen.json */; };
-		09FE3EE52343B77E00C9CC7B /* welcome.json in Resources */ = {isa = PBXBuildFile; fileRef = 09FE3EE42343B77E00C9CC7B /* welcome.json */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +112,6 @@
 		091EEB902316866700BF066F /* TruckData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckData.swift; sourceTree = "<group>"; };
 		0928BBE82334DD2F00774759 /* TruckNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNavigationController.swift; sourceTree = "<group>"; };
 		0928BBEA233503C300774759 /* Lottie+Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lottie+Handler.swift"; sourceTree = "<group>"; };
-		0928BC042335565300774759 /* onboardingCar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboardingCar.json; sourceTree = "<group>"; };
 		0928BC052335565300774759 /* hand-click-gesture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hand-click-gesture.json"; sourceTree = "<group>"; };
 		0928BC062335565300774759 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
 		0928BC072335565300774759 /* camera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
@@ -164,8 +160,6 @@
 		09FC78A1233927EE00DD5768 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		09FC78A32339BC4900DD5768 /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
 		09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunRunTruck.entitlements; sourceTree = "<group>"; };
-		09FE3EDE23406C8400C9CC7B /* isOpen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isOpen.json; sourceTree = "<group>"; };
-		09FE3EE42343B77E00C9CC7B /* welcome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = welcome.json; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,9 +314,6 @@
 				0928BC0D2335567E00774759 /* geolocation.json */,
 				0928BC052335565300774759 /* hand-click-gesture.json */,
 				0928BC062335565300774759 /* lf30_editor_envOAW.json */,
-				09FE3EE42343B77E00C9CC7B /* welcome.json */,
-				0928BC042335565300774759 /* onboardingCar.json */,
-				09FE3EDE23406C8400C9CC7B /* isOpen.json */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -503,19 +494,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09FE3EE52343B77E00C9CC7B /* welcome.json in Resources */,
 				0928BC0E2335567E00774759 /* geolocation.json in Resources */,
 				090AFB5E231CC8660072E646 /* Auth.storyboard in Resources */,
 				091EEB78231579D400BF066F /* Profile.storyboard in Resources */,
 				091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */,
 				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
-				0928BC092335565400774759 /* onboardingCar.json in Resources */,
 				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
 				0928BC0C2335565400774759 /* camera.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */,
 				0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */,
-				09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
 				09EA2D49233F6FA5005456CD /* GoogleService-Info.plist in Resources */,
@@ -814,7 +802,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
@@ -840,7 +828,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
