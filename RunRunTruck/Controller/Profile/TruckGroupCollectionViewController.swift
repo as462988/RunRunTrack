@@ -79,7 +79,8 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                 
                 DispatchQueue.main.async {
                     guard let rootVC = AppDelegate.shared.window?.rootViewController
-                        as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
+                        as? TabBarViewController,
+                        let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
                     nc.pushViewController(truckVC, animated: true)
                 }
         }
