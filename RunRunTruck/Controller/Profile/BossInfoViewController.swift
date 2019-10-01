@@ -170,7 +170,6 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-//                        FirebaseManager.shared.updataDetailImageText(image: imageUrl)
                         FirebaseManager.shared.updataTruckData(forImage: imageUrl)
                 })
         }
