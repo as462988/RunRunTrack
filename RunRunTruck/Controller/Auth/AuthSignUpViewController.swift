@@ -117,7 +117,8 @@ class AuthRegisterViewController: UIViewController {
     
     func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
         
-        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
         
         addTruckVC.modalPresentationStyle = .overCurrentContext

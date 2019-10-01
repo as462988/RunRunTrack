@@ -72,7 +72,8 @@ class AuthViewController: UIViewController {
     @IBAction func signUpPage(_ sender: Any) {
         
         guard let authVC =
-            UIStoryboard.auth.instantiateViewController(withIdentifier: "RegisterPage")
+            UIStoryboard.auth.instantiateViewController(
+                withIdentifier: String(describing: AuthRegisterViewController.self))
                 as? AuthRegisterViewController else { return }
         
         authVC.modalPresentationStyle = .overCurrentContext
@@ -138,55 +139,55 @@ class AuthViewController: UIViewController {
     func userLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
         FirebaseManager.shared.listenUserData(isAppleSingIn: useAppleSingIn, userid: user?.id)
-        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: useAppleSingIn,
-                                                  userId: user?.id) {[weak self] (data) in
-                                                    guard data != nil else {
-                                                        print("老闆使用了吃貨登入")
-                                                        //老闆使用了吃貨登入, 提示請使用者使用老闆登入
-                                                        do {
-                                                            try Auth.auth().signOut()
-                                                        } catch let err {
-                                                            print(err.localizedDescription)
-                                                        }
-                                                        return
-                                                    }
-                                                    //吃貨登入成功
-                                                    FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-                                                    ProgressHUD.showSuccess(text: "登入成功")
-                                                    
-                                                    DispatchQueue.main.async {
-                                                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                                            as? TabBarViewController else { return }
-                                                        rootVC.tabBar.isHidden = false
-                                                    }
+        FirebaseManager.shared.getCurrentUserData(
+            useAppleSingIn: useAppleSingIn,
+            userId: user?.id) {[weak self] (data) in
+                guard data != nil else {
+                    print("老闆使用了吃貨登入")
+                    //老闆使用了吃貨登入, 提示請使用者使用老闆登入
+                    do {
+                        try Auth.auth().signOut()
+                    } catch let err {
+                        print(err.localizedDescription)
+                    }
+                    return
+                }
+                //吃貨登入成功
+                FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
+                ProgressHUD.showSuccess(text: "登入成功")
+                DispatchQueue.main.async {
+                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                    guard let rootVC = AppDelegate.shared.window?.rootViewController
+                        as? TabBarViewController else { return }
+                    rootVC.tabBar.isHidden = false
+                }
         }
     }
     
     func bossLogin(useAppleSingIn: Bool, user: AppleUser? = nil) {
         
-        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: useAppleSingIn,
-                                                  userid: user?.id) { [weak self] (bossData) in
-                                                    guard bossData != nil else {
-                                                        print("吃貨使用了老闆登入")
-                                                        //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
-                                                        do {
-                                                            try Auth.auth().signOut()
-                                                        } catch let err {
-                                                            print(err.localizedDescription)
-                                                        }
-                                                        return
-                                                    }
-                                                    //老闆登入成功
-                                                    FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-                                                    ProgressHUD.showSuccess(text: "登入成功")
-                                                    
-                                                    DispatchQueue.main.async {
-                                                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                                            as? TabBarViewController else { return }
-                                                        rootVC.tabBar.isHidden = false
-                                                    }
+        FirebaseManager.shared.getCurrentBossData(
+            isAppleSingIn: useAppleSingIn,
+            userid: user?.id) { [weak self] (bossData) in
+                guard bossData != nil else {
+                    print("吃貨使用了老闆登入")
+                    //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
+                    do {
+                        try Auth.auth().signOut()
+                    } catch let err {
+                        print(err.localizedDescription)
+                    }
+                    return
+                }
+                //老闆登入成功
+                FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
+                ProgressHUD.showSuccess(text: "登入成功")
+                DispatchQueue.main.async {
+                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
+                    guard let rootVC = AppDelegate.shared.window?.rootViewController
+                        as? TabBarViewController else { return }
+                    rootVC.tabBar.isHidden = false
+                }
         }
     }
     
@@ -312,7 +313,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
     
     func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
         
-        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
         
         addTruckVC.modalPresentationStyle = .overCurrentContext

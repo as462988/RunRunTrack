@@ -196,7 +196,7 @@ UICollectionViewDataSource {
         self.hidesBottomBarWhenPushed = true
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
-            withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
         
         truckVC.detailInfo = allTruckArr[indexPath.item]
         

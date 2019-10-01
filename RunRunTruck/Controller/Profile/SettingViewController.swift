@@ -182,14 +182,16 @@ extension SettingViewController: SettingRowDelegate {
             
         case privateCheckRow:
             guard let privateVC = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+                withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
+                else {  return  }
             
             navigationController?.pushViewController(privateVC, animated: true)
             return
             
         case feedbackRow:
             guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+                withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
+                else {  return  }
             
             navigationController?.pushViewController(feedbackVC, animated: true)
             return

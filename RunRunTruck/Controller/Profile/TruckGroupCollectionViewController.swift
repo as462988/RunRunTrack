@@ -65,7 +65,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     override func collectionView(_ collectionView: UICollectionView,
                                  didSelectItemAt indexPath: IndexPath) {
          guard let truckVC = UIStoryboard.truck.instantiateViewController(
-                    withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+                    withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
         
         guard let location = trucks[indexPath.item].location else {return}
         addressManager.getLocationAddress(
@@ -84,11 +84,5 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                     nc.pushViewController(truckVC, animated: true)
                 }
         }
-        
-////        truckVC.detailInfo = trucks[indexPath.item]
-//        //tricky way
-//        guard let rootVC = AppDelegate.shared.window?.rootViewController
-//            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
-//        nc.pushViewController(truckVC, animated: true)
     }
 }

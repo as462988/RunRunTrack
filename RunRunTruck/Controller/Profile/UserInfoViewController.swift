@@ -61,7 +61,7 @@ extension UserInfoViewController: UserUIViewDelegate {
     
     func clickEditNameBtn() {
         guard let editNameVc = UIStoryboard.profile.instantiateViewController(
-            identifier: "editVC") as? EditNameViewController else {return}
+            identifier: String(describing: EditNameViewController.self)) as? EditNameViewController else {return}
         setNarBackBtn(vc: editNameVc)
         if let user = FirebaseManager.shared.currentUser {
             editNameVc.name = user.name

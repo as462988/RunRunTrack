@@ -98,14 +98,15 @@ extension BossInfoViewController: BossUIViewDelegate {
     
     func clickFeedbackBtn() {
         guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+            withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
+            else {  return  }
         
         navigationController?.pushViewController(feedbackVC, animated: true)
     }
     
     func clickPrivateBtn() {
          guard let privateVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+            withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController else {  return  }
         
         navigationController?.pushViewController(privateVC, animated: true)
     }
@@ -136,7 +137,7 @@ extension BossInfoViewController: BossUIViewDelegate {
     func creatQrcode() {
         
         guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController else { return }
         
         qrcodeVc.modalPresentationStyle = .overCurrentContext
         

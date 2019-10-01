@@ -101,9 +101,9 @@ extension LobbyViewController: LobbyViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        collectionView.deselectItem(at: indexPath, animated: false)
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "truckInfoCell", for: indexPath) as? TurckInfoCollectionViewCell else {
+            withReuseIdentifier: String(describing: TurckInfoCollectionViewCell.self),
+            for: indexPath) as? TurckInfoCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
@@ -255,7 +255,7 @@ extension LobbyViewController: TurckInfoCellDelegate {
             return
         }
         
-        let auth = UIStoryboard.auth.instantiateViewController(withIdentifier: "authVC")
+        guard let auth = UIStoryboard.auth.instantiateInitialViewController() else {return}
 
         guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = true
@@ -268,7 +268,7 @@ extension LobbyViewController: TurckInfoCellDelegate {
         self.hidesBottomBarWhenPushed = true
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
-            withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
         
         truckVC.detailInfo = truckData
         

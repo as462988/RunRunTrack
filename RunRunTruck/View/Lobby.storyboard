@@ -26,12 +26,12 @@
         <!--Lobby View Controller-->
         <scene sceneID="Qqm-3e-p0W">
             <objects>
-                <viewController id="IQs-tb-hNL" customClass="LobbyViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IQs-tb-hNL" customClass="LobbyViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2cz-N0-d47">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjP-Ed-cgZ" customClass="LobbyView" customModule="RunRunTruck" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjP-Ed-cgZ" customClass="LobbyView" customModule="餐車在哪兒" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xz2-qg-iir" customClass="GMSMapView">
@@ -51,7 +51,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckInfoCell" id="c01-q4-YWD" customClass="TurckInfoCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TurckInfoCollectionViewCell" id="c01-q4-YWD" customClass="TurckInfoCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
                                                 <rect key="frame" x="57" y="0.0" width="300" height="156"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">

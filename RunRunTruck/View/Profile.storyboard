@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="STv-Ad-bTd">
             <objects>
-                <navigationController id="DQM-e2-M2z" customClass="NavigationController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="DQM-e2-M2z" customClass="NavigationController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MTk-iD-i3l">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,12 +26,12 @@
         <!--Profile-->
         <scene sceneID="Iy1-6n-NQU">
             <objects>
-                <viewController storyboardIdentifier="BossInfoViewController" id="IeC-vD-fem" customClass="BossInfoViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BossInfoViewController" id="IeC-vD-fem" customClass="BossInfoViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M6c-Yp-bwO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LO6-Ze-rbm" customClass="BossUIView" customModule="餐車去哪兒" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LO6-Ze-rbm" customClass="BossUIView" customModule="餐車在哪兒" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzt-k4-dQN">
@@ -479,7 +479,7 @@
         <!--Creat Qrcode View Controller-->
         <scene sceneID="Bvq-em-rgN">
             <objects>
-                <viewController storyboardIdentifier="qrcodeVc" id="vn7-rQ-nGG" customClass="CreatQrcodeViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatQrcodeViewController" id="vn7-rQ-nGG" customClass="CreatQrcodeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MaK-1H-AQ7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcI-q8-6AX" customClass="QrcodeView" customModule="餐車去哪兒" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcI-q8-6AX" customClass="QrcodeView" customModule="餐車在哪兒" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="540" width="414" height="356"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-yH-2a6">
@@ -554,7 +554,7 @@
         <!--Private View Controller-->
         <scene sceneID="Ui3-e2-qSv">
             <objects>
-                <viewController storyboardIdentifier="privateVC" id="tpJ-jv-2Yt" customClass="PrivateViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivateViewController" id="tpJ-jv-2Yt" customClass="PrivateViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jNJ-w7-Dze">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -620,12 +620,12 @@
         <!--User Info View Controller-->
         <scene sceneID="HKS-26-yvh">
             <objects>
-                <viewController storyboardIdentifier="UserInfoViewController" id="KXd-ym-MfT" customClass="UserInfoViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserInfoViewController" id="KXd-ym-MfT" customClass="UserInfoViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sPK-Ql-jVq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-vw-yyQ" customClass="UserUIView" customModule="餐車去哪兒" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-vw-yyQ" customClass="UserUIView" customModule="餐車在哪兒" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="803"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQ6-k6-9h6">
@@ -740,7 +740,7 @@
         <!--Edit Name View Controller-->
         <scene sceneID="bop-yv-8zo">
             <objects>
-                <viewController storyboardIdentifier="editVC" id="9aa-UT-GvF" customClass="EditNameViewController" customModule="餐車在哪兒" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditNameViewController" id="9aa-UT-GvF" customClass="EditNameViewController" customModule="餐車在哪兒" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3bV-Gi-W6t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -787,7 +787,7 @@
         <!--profile-->
         <scene sceneID="Db7-h8-dEr">
             <objects>
-                <viewController storyboardIdentifier="profileVC" title="profile" id="wh1-s1-tYS" customClass="ProfileViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" title="profile" id="wh1-s1-tYS" customClass="ProfileViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R6q-ro-LgA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -807,8 +807,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="8bi-2V-Gue"/>
                     <connections>
-                        <segue destination="IeC-vD-fem" kind="show" identifier="bossInfo" customClass="PushNoAnimationSegue" customModule="餐車去哪兒" customModuleProvider="target" animates="NO" id="Eax-hI-cT7"/>
-                        <segue destination="KXd-ym-MfT" kind="showDetail" identifier="userInfo" customClass="PushNoAnimationSegue" customModule="餐車去哪兒" customModuleProvider="target" animates="NO" id="zht-n6-8cK"/>
+                        <segue destination="IeC-vD-fem" kind="show" identifier="bossInfo" customClass="PushNoAnimationSegue" customModule="餐車在哪兒" customModuleProvider="target" animates="NO" id="Eax-hI-cT7"/>
+                        <segue destination="KXd-ym-MfT" kind="showDetail" identifier="userInfo" customClass="PushNoAnimationSegue" customModule="餐車在哪兒" customModuleProvider="target" animates="NO" id="zht-n6-8cK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6V-XT-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -818,7 +818,7 @@
         <!--Feedback View Controller-->
         <scene sceneID="bTb-c5-FsA">
             <objects>
-                <viewController storyboardIdentifier="feedbackVC" id="Waj-C8-X4N" customClass="FeedbackViewController" customModule="餐車去哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedbackViewController" id="Waj-C8-X4N" customClass="FeedbackViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ynR-jG-e7A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

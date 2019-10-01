@@ -84,7 +84,7 @@ class BadgeViewController: UIViewController {
         }
         
        guard let scannerVC = UIStoryboard.badge.instantiateViewController(
-        withIdentifier: "scannerVC") as? QRScannerController else {return}
+        withIdentifier: String(describing: QRScannerController.self)) as? QRScannerController else {return}
         
         scannerVC.delegate = self
         
