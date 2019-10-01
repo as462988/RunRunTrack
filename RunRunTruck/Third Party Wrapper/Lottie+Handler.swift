@@ -20,4 +20,6 @@ enum Lottie: String {
     case openTruck = "isOpen"
     
     case location = "geolocation"
+    
+    case welcome
 }

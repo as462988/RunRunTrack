@@ -105,7 +105,7 @@ UICollectionViewDelegateFlowLayout {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let truckDataWithBadgeIsAchieved = allTrucks[indexPath.item]
         guard let badgeCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
+            withReuseIdentifier: String(describing: BadgeCollectionViewCell.self), for: indexPath) as? BadgeCollectionViewCell else {
             return UICollectionViewCell()
         }
         

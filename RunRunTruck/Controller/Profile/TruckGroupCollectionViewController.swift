@@ -65,7 +65,8 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     override func collectionView(_ collectionView: UICollectionView,
                                  didSelectItemAt indexPath: IndexPath) {
          guard let truckVC = UIStoryboard.truck.instantiateViewController(
-                    withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
+                    withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
+            else {return}
         
         guard let location = trucks[indexPath.item].location else {return}
         addressManager.getLocationAddress(

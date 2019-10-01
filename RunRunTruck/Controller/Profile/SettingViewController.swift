@@ -184,7 +184,7 @@ extension SettingViewController: SettingRowDelegate {
             guard let privateVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
                 else {  return  }
-            
+            self.navigationController?.navigationBar.barTintColor = .black
             navigationController?.pushViewController(privateVC, animated: true)
             return
             

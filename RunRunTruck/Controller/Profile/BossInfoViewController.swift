@@ -107,11 +107,10 @@ extension BossInfoViewController: BossUIViewDelegate {
     func clickPrivateBtn() {
          guard let privateVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController else {  return  }
-        
         navigationController?.pushViewController(privateVC, animated: true)
     }
 
-    func clickChenckBtn() {
+    func clickOpenStatusBtn() {
         
         guard let lat = self.latitude, let lon = self.longitude else {return}
         
@@ -137,7 +136,8 @@ extension BossInfoViewController: BossUIViewDelegate {
     func creatQrcode() {
         
         guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController else { return }
+            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController
+            else { return }
         
         qrcodeVc.modalPresentationStyle = .overCurrentContext
         
@@ -146,7 +146,6 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-//        FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
         FirebaseManager.shared.updataTruckData(forStory: bossView.storyTextView.text)
     }
     

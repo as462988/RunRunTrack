@@ -140,8 +140,8 @@ class TruckViewController: UIViewController {
     }
     func handGester(view: AnimationView) {
         
-        view.animation = Animation.named(Lottie.openTruck.rawValue)
-        view.loopMode = .loop
+        view.animation = Animation.named(Lottie.welcome.rawValue)
+        view.loopMode = .autoReverse
         view.play()
     }
 }
@@ -196,7 +196,8 @@ UICollectionViewDataSource {
         self.hidesBottomBarWhenPushed = true
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
-            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
+            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
+            else {return}
         
         truckVC.detailInfo = allTruckArr[indexPath.item]
         

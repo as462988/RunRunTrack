@@ -71,8 +71,8 @@
                                                         <constraint firstAttribute="trailing" secondItem="Zmw-VY-BJJ" secondAttribute="trailing" id="zSi-gp-6y2"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-YE-AYy" customClass="AnimationView" customModule="Lottie">
-                                                    <rect key="frame" x="334.5" y="11.5" width="47.5" height="48"/>
+                                                <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-YE-AYy" customClass="AnimationView" customModule="Lottie">
+                                                    <rect key="frame" x="234.5" y="-28" width="127.5" height="127"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="OKK-YE-AYy" secondAttribute="height" multiplier="1:1" id="kFP-7k-NHd"/>
@@ -82,7 +82,7 @@
                                                     <rect key="frame" x="8" y="71" width="374" height="162"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJ0-fp-Hfm">
-                                                    <rect key="frame" x="79" y="25.5" width="255.5" height="20.5"/>
+                                                    <rect key="frame" x="79" y="25.5" width="155.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -99,11 +99,11 @@
                                             <constraint firstItem="qJ0-fp-Hfm" firstAttribute="centerY" secondItem="lPx-Ma-0gv" secondAttribute="centerY" id="Xxk-tP-TQU"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" id="Y5i-aF-bhH"/>
                                             <constraint firstItem="OKK-YE-AYy" firstAttribute="leading" secondItem="qJ0-fp-Hfm" secondAttribute="trailing" id="bRk-V9-XyZ"/>
-                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="width" secondItem="dZ4-Vb-kFp" secondAttribute="width" multiplier="1:8" id="cLP-pe-mm0"/>
+                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="width" secondItem="dZ4-Vb-kFp" secondAttribute="width" multiplier="1:3" id="cLP-pe-mm0"/>
                                             <constraint firstItem="OKK-YE-AYy" firstAttribute="centerY" secondItem="lPx-Ma-0gv" secondAttribute="centerY" id="eHj-e2-DfU"/>
                                             <constraint firstItem="qJ0-fp-Hfm" firstAttribute="leading" secondItem="lPx-Ma-0gv" secondAttribute="trailing" constant="10" id="fz7-Ks-PGa"/>
                                             <constraint firstItem="lPx-Ma-0gv" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="1:3" constant="-30" id="pKU-oM-05S"/>
-                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="zSQ-LS-wgM"/>
+                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="-20" id="zSQ-LS-wgM"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="animationView" destination="OKK-YE-AYy" id="lE4-X5-RBJ"/>

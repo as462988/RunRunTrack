@@ -268,7 +268,8 @@ extension LobbyViewController: TurckInfoCellDelegate {
         self.hidesBottomBarWhenPushed = true
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
-            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController else {return}
+            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
+            else {return}
         
         truckVC.detailInfo = truckData
         
