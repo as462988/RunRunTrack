@@ -145,7 +145,8 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
+//        FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
+        FirebaseManager.shared.updataTruckData(forStory: bossView.storyTextView.text)
     }
     
     func clickChangeImage() {
@@ -158,13 +159,6 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
-        if let image = FirebaseManager.shared.currentUser?.logoImage {
-            
-            FirebaseStorageManager.shared.deleteImageFile(
-                type: Truck.detailImage.rawValue,
-                imageName: image)
-        }
-        
         openChoseCamera.upLoadImage(
             image: bossView.detailImage,
             info: info) { (data) in
@@ -176,10 +170,9 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-                        FirebaseManager.shared.updataDetailImageText(image: imageUrl)
+                        FirebaseManager.shared.updataTruckData(forImage: imageUrl)
                 })
         }
-        
             self.dismiss(animated: true, completion: nil)
     }
 }

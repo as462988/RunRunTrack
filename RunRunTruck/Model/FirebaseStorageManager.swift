@@ -31,29 +31,10 @@ class FirebaseStorageManager {
             
             upLoadImageRef.downloadURL(completion: { (url, error) in
                 
-                guard let downloadURL = url else {
-                    
-                    print("Uh-oh, an error occurred!")
-                    return
-                }
-                
-                print("Photo Url: \(downloadURL)")
+                guard let downloadURL = url else { return }
+
                 completion(downloadURL.absoluteString)
             })
-        }
-
-    }
-
-    func deleteImageFile(type: String, imageName: String) {
-        
-        let desertRef = storageRef.child("\(type)/\(imageName).jpg")
-        // Delete the file
-        desertRef.delete { error in
-            if let error = error {
-                print(error)
-            } else {
-                print("delete success")
-            }
         }
     }
 }

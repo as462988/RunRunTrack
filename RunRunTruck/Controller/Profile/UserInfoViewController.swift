@@ -71,10 +71,10 @@ extension UserInfoViewController: UserUIViewDelegate {
     func setNarBackBtn(vc: UIViewController) {
         navigationController?.isNavigationBarHidden = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-               image: UIImage.asset(.Icon_back),
-               style: .plain,
-               target: self,
-               action: nil)
+            image: UIImage.asset(.Icon_back),
+            style: .plain,
+            target: self,
+            action: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -83,13 +83,6 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
-        if let image = FirebaseManager.shared.currentUser?.logoImage {
-            
-            FirebaseStorageManager.shared.deleteImageFile(
-                type: User.logoImage.rawValue,
-                imageName: image)
-        }
         
         openChoseCameraManager.upLoadImage(
             image: userView.logoImage,
@@ -106,9 +99,7 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         FirebaseManager.shared.updataUserImage(image: imageUrl)
                 })
-                
         }
         dismiss(animated: true, completion: nil)
     }
-    
 }

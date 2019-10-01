@@ -97,6 +97,11 @@ class SettingRow: UIView {
             rightArrow.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor, constant: -10).isActive = true
         }
+        setupRowLabel()
+
+    }
+    
+    func setupRowLabel() {
         
         topButton.addSubview(subTitleLabel)
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -116,14 +121,14 @@ class SettingRow: UIView {
         
         if let contentVc = contentViewController {
             self.addSubview(contentVc.view)
-            contentVc.view.translatesAutoresizingMaskIntoConstraints = false
-            contentVc.view.topAnchor.constraint(equalTo: topButton.bottomAnchor).isActive = true
-            contentVc.view.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            contentVc.view.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            contentVc.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
+            contentVc.view.anchor(top: topButton.bottomAnchor,
+                                  leading: self.leadingAnchor,
+                                  bottom: self.bottomAnchor,
+                                  trailing: self.trailingAnchor)
+            
         }
     }
+    
 }
 
 extension SettingRow {

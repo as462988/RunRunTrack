@@ -10,6 +10,8 @@ import UIKit
 
 class TruckGroupCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var trucks: [TruckData] = []
+    let addressManager = AddressManager()
+    
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -64,10 +66,29 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                                  didSelectItemAt indexPath: IndexPath) {
          guard let truckVC = UIStoryboard.truck.instantiateViewController(
                     withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
-        truckVC.detailInfo = trucks[indexPath.item]
-        //tricky way
-        guard let rootVC = AppDelegate.shared.window?.rootViewController
-            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
-        nc.pushViewController(truckVC, animated: true)
+        
+        guard let location = trucks[indexPath.item].location else {return}
+        addressManager.getLocationAddress(
+            lat: location.latitude,
+            long: location.longitude) {[weak self] (location, error) in
+                                             guard let location = location else {return}
+                let address = location.subAdministrativeArea
+                                                  + location.city + location.street
+                self?.trucks[indexPath.item].address = address
+                truckVC.detailInfo = self?.trucks[indexPath.item]
+                
+                DispatchQueue.main.async {
+                    guard let rootVC = AppDelegate.shared.window?.rootViewController
+                        as? TabBarViewController,
+                        let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
+                    nc.pushViewController(truckVC, animated: true)
+                }
+        }
+        
+////        truckVC.detailInfo = trucks[indexPath.item]
+//        //tricky way
+//        guard let rootVC = AppDelegate.shared.window?.rootViewController
+//            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
+//        nc.pushViewController(truckVC, animated: true)
     }
 }

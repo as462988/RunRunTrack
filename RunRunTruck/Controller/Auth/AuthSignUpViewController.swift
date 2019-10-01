@@ -214,7 +214,6 @@ extension AuthRegisterViewController: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         checkUserInput()
     }
 }
