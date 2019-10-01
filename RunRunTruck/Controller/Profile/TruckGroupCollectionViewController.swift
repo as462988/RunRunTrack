@@ -59,7 +59,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 5, left: 8, bottom: 0, right: 8)
+        return .init(top: 10, left: 8, bottom: 0, right: 8)
     }
     
     override func collectionView(_ collectionView: UICollectionView,
