@@ -162,6 +162,11 @@ class AuthViewController: UIViewController {
                                                       uid: Auth.auth().currentUser?.uid ?? "",
                                                       key: User.token.rawValue,
                                                       value: FirebaseManager.shared.currentUserToken)
+                
+                for truckId in data?.favorite ?? [""] {
+                    FirebaseNotificationManager.share.subscribeTopic(toTopic: truckId, completion: nil)
+                }
+
                 ProgressHUD.showSuccess(text: "登入成功")
                 DispatchQueue.main.async {
                     self?.presentingViewController?.dismiss(animated: false, completion: nil)

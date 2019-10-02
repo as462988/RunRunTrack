@@ -49,7 +49,6 @@ class SettingViewController: UIViewController {
         let row = SettingRow(
             title: Title.versionLabel,
             subTitle: Bundle.ValueForString(key: Constant.version),
-//            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             withRightArrow: false,
             associatedContentViewController: nil)
         return row
@@ -206,6 +205,7 @@ extension SettingViewController: SettingRowDelegate {
             return
             
         case logoutRow:
+            
             FirebaseManager.shared.signOut()
             
             let appDelegate = UIApplication.shared.delegate as? AppDelegate

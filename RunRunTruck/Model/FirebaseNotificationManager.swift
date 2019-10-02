@@ -49,6 +49,16 @@ class FirebaseNotificationManager {
         }
     }
     
+//    func deleteFCMToken() {
+//        
+//        let instance = InstanceID.instanceID()
+//        
+//        instance.deleteID { (error) in
+//            
+//            print("error.debugDescription is \(error.debugDescription)")
+//        }
+//    }
+    
     func sendPushNotification(toTopic topic: String, title: String, body: String) {
         let urlString = Bundle.ValueForString(key: Constant.notificationURL)
         guard let url = NSURL(string: urlString) else {return}

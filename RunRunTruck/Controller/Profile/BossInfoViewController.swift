@@ -13,7 +13,8 @@ import Lottie
 class BossInfoViewController: UIViewController {
     
     struct NotificationContent {
-        static let title = "開店啦！"
+        static let title = "你喜愛的餐車"
+        static let open = "開店啦！"
         static let body = "現在就去找他們吧"
     }
     
@@ -123,7 +124,7 @@ extension BossInfoViewController: BossUIViewDelegate {
         // 只推送訊息給訂閱此餐車的用戶
         FirebaseNotificationManager.share.sendPushNotification(
             toTopic: currentTruck.id,
-            title: currentTruck.name + NotificationContent.title,
+            title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
             body: NotificationContent.body)
     }
     
