@@ -112,7 +112,10 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
-                FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
+                FirebaseManager.shared.updataArrayData(type: User.user.rawValue,
+                                                        id: uid,
+                                                        key: User.badge.rawValue,
+                                                        value: truckId) {}
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     

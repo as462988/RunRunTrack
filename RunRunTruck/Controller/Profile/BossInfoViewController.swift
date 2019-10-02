@@ -116,7 +116,8 @@ extension BossInfoViewController: BossUIViewDelegate {
         
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
         
-        FirebaseNotificationManager.share.sendPushNotification(toTopic: "Test", title: "測試", body: "你收到囉！")
+        FirebaseNotificationManager.share.sendPushNotification(
+            toTopic: "Test", title: "測試", body: "你收到囉！")
     }
     
     func clickCancelBtn() {
@@ -148,7 +149,14 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        FirebaseManager.shared.updataTruckData(forStory: bossView.storyTextView.text)
+        
+        guard let truckId =  FirebaseManager.shared.bossTruck?.id else {return}
+        
+        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                                              uid: truckId,
+                                              key: Truck.story.rawValue,
+                                              value: bossView.storyTextView.text)
+
     }
     
     func clickChangeImage() {
@@ -172,7 +180,13 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-                        FirebaseManager.shared.updataTruckData(forImage: imageUrl)
+                        if let truckId = FirebaseManager.shared.bossTruck?.id {
+                        
+                        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                                                          uid: truckId,
+                                                          key: Truck.detailImage.rawValue,
+                                                          value: imageUrl)
+                        }
                 })
         }
             self.dismiss(animated: true, completion: nil)

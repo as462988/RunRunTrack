@@ -164,21 +164,7 @@ class FirebaseManager {
             ])
         }
     }
-    
-    func updataTruckData(forStory story: String? = nil, forImage detailImage: String? = nil) {
-        guard let truckId = bossTruck?.id else { return }
-        
-        if let story = story {
-            db.collection(Truck.truck.rawValue).document(truckId).updateData([
-                Truck.story.rawValue: story
-            ])
-        } else if let image = detailImage {
-            db.collection(Truck.truck.rawValue).document(truckId).updateData([
-                Truck.detailImage.rawValue: image
-            ])
-        }
-    }
-    
+
     func getTruckId(truckName: String) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -192,6 +178,35 @@ class FirebaseManager {
                     
                 }
         }
+    }
+    
+    // MARK: About All
+    func updataData(type: String, uid: String, key: String, value: String) {
+
+        db.collection(type).document(uid).updateData([ key: value ])
+    }
+    
+    func updataArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+        
+        db.collection(type).document(id).updateData([key: FieldValue.arrayUnion([value])]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func updataRemoveArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+        db.collection(type).document(id).updateData([key: FieldValue.arrayRemove([value])]) { (error) in
+                 
+                 if let error = error {
+                     print("Error adding document: \(error)")
+                 } else {
+                     completion()
+                 }
+             }
     }
     
     // MARK: About User
@@ -270,8 +285,6 @@ class FirebaseManager {
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
-//                self?.currentUser = UserData(
-                
                 self?.currentUser = UserData(name: name, email: email,
                                              token: token,
                                              logoImage: image, badge: badge,
@@ -309,56 +322,7 @@ class FirebaseManager {
             }
         }
     }
-    
-    func updataUserData(type: String, uid: String, key: String, value: String) {
-         guard let uid = self.userID else { return }
-        
-        db.collection(type).document(uid).updateData([ key: value ])
-    }
-    
-    func addUserBadge(uid: String, truckId: String) {
-        
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.badge.rawValue: FieldValue.arrayUnion([truckId])
-        ]) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            }
-        }
-    }
-    
-    func addUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.block.rawValue: FieldValue.arrayUnion([blockId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func deleteUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.block.rawValue: FieldValue.arrayRemove([blockId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
+
     func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
         
         db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
@@ -374,57 +338,7 @@ class FirebaseManager {
             completion(name)
         }
     }
-    
-    func addUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.favorite.rawValue: FieldValue.arrayUnion([truckId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func deleteUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.favorite.rawValue: FieldValue.arrayRemove([truckId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func addUserToTruckFavoritedBy(userId: String, truckId: String) {
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                }
-                
-        }
-    }
-    
-    func deleteUserFromTruckFavoritedBy(userId: String, truckId: String) {
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                }
-                
-        }
-    }
-    
+
     func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckShortInfo?) -> Void) {
         
         db.collection(Truck.truck.rawValue).document(truckId).getDocument { (snapshot, error) in

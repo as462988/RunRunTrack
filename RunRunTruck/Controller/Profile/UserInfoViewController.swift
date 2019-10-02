@@ -97,9 +97,7 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-//                        FirebaseManager.shared.updataUserImage(image: imageUrl)
-                        
-                        FirebaseManager.shared.updataUserData(type: User.user.rawValue,
+                        FirebaseManager.shared.updataData(type: User.user.rawValue,
                                                               uid: FirebaseManager.shared.userID ?? "",
                                                               key: User.logoImage.rawValue,
                                                               value: imageUrl)

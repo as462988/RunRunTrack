@@ -93,23 +93,40 @@ class TruckDetailViewController: UIViewController {
         
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            FirebaseManager.shared.addUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-            truckId: detailInfo.id) {
-                //新增最愛成功，把使用者同步到餐車的喜愛者
-                FirebaseManager.shared.addUserToTruckFavoritedBy(
-                    userId: (uid == nil ? bossId : uid) ?? "",
-                    truckId: detailInfo.id)
+            
+            FirebaseManager.shared.updataArrayData(
+                type: User.user.rawValue,
+                id: (uid == nil ? bossId : uid) ?? "",
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updataArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: (uid == nil ? bossId : uid) ?? "") {}
             }
         } else {
-            FirebaseManager.shared.deleteUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-                truckId: detailInfo.id) {
-                    //移除最愛成功，把使用者同步移除餐車的喜愛者
-                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
-                        userId: (uid == nil ? bossId : uid) ?? "",
-                        truckId: detailInfo.id)
+            
+            FirebaseManager.shared.updataRemoveArrayData(
+                type: User.user.rawValue,
+                id: (uid == nil ? bossId : uid) ?? "",
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updataRemoveArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: (uid == nil ? bossId : uid) ?? "", completion: {})
             }
+
+//            FirebaseManager.shared.deleteUserFavorite(
+//                uid: (uid == nil ? bossId : uid) ?? "",
+//                truckId: detailInfo.id) {
+//                    //移除最愛成功，把使用者同步移除餐車的喜愛者
+//                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
+//                        userId: (uid == nil ? bossId : uid) ?? "",
+//                        truckId: detailInfo.id)
+//            }
         }
     }
     

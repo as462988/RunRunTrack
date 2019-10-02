@@ -12,6 +12,7 @@ import FirebaseMessaging
 
 struct PostKey {
     static let toTopicKey = "to"
+    static let topicValue = "/topics/"
     static let titleKey = "title"
     static let bodyKey = "body"
     static let notificationKey = "notification"
@@ -40,7 +41,7 @@ class FirebaseNotificationManager {
         let urlString = Bundle.ValueForString(key: Constant.notificationURL)
         guard let url = NSURL(string: urlString) else {return}
 
-        let paramString: [String: Any] = [PostKey.toTopicKey: topic,
+        let paramString: [String: Any] = [PostKey.toTopicKey: PostKey.topicValue + topic,
                                           PostKey.notificationKey: [PostKey.titleKey: title,
                                                                     PostKey.bodyKey: body]]
         

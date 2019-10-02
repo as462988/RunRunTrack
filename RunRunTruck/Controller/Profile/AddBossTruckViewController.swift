@@ -156,7 +156,7 @@ class AddBossTruckViewController: UIViewController {
 //                    uid: self?.appleSinginBossID ?? "",
 //                    name: self?.truckNameInput.text ?? "")
                 
-                FirebaseManager.shared.updataUserData(type: Boss.boss.rawValue,
+                FirebaseManager.shared.updataData(type: Boss.boss.rawValue,
                                                       uid: self?.appleSinginBossID ?? "",
                                                       key: Boss.name.rawValue,
                                                       value: self?.truckNameInput.text ?? "")

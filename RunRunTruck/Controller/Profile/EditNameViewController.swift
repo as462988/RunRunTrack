@@ -29,7 +29,7 @@ class EditNameViewController: UIViewController {
         guard let text = editNameText.text else { return }
 //        FirebaseManager.shared.updataUserName(name: text)
         
-        FirebaseManager.shared.updataUserData(type: User.user.rawValue,
+        FirebaseManager.shared.updataData(type: User.user.rawValue,
                                               uid: FirebaseManager.shared.userID ?? "",
                                               key: User.name.rawValue,
                                               value: text)
