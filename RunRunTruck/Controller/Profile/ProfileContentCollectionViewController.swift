@@ -20,6 +20,9 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         fatalError("init(coder:) has not been implemented")
     }
     
+    let favoriteCell = "favoriteCell"
+    let exploreCell = "exploreCell"
+    
     var favoriteTrucks: [TruckData] = []
     var exploreTrucks: [TruckData] = []
     
@@ -32,8 +35,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
             layout.minimumLineSpacing = 30
             layout.minimumInteritemSpacing = 0
         }
-        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "favoriteCell")
-        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "exploreCell")
+        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: favoriteCell)
+        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: exploreCell)
         collectionView.showsVerticalScrollIndicator = false
         updateDataFromFirebaseManager()
         observerAllTruckData()
@@ -96,7 +99,7 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         case 0:
             //傳入探索的餐車
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "exploreCell",
+                withReuseIdentifier: exploreCell,
                 for: indexPath) as? TrucksCardGroupCell else {
                 let newCell = TrucksCardGroupCell()
                 return newCell
@@ -108,7 +111,7 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         case 1:
             //傳入已收藏的餐車
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "favoriteCell",
+                withReuseIdentifier: favoriteCell,
                 for: indexPath) as? TrucksCardGroupCell else {
                 let newCell = TrucksCardGroupCell()
                 return newCell

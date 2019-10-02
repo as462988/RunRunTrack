@@ -34,9 +34,9 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We’ll use this to find the nearest FoodTruck with you.
 We’ll use this to find the nearest FoodTruck with you.
-We'll use this to find the nearest Food Truck with you</string>
+We&apos;ll use this to find the nearest Food Truck with you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We'll use this to find the nearest Food Truck with you</string>
+	<string>We&apos;ll use this to find the nearest Food Truck with you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
@@ -64,5 +64,9 @@ We'll use this to find the nearest Food Truck with you</string>
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>notificationRequestKey</key>
+	<string>key=AAAAhf_j2_g:APA91bFzg0NhgyMC9ddCGUYnBPN_SqAGkJVHd5VrVgpLmNfdynXAK4-ikk36vWmqoQhEM7VouvCFr7G8fVPwfs_QagxY5n3pPFqvDTjEbRYSkzJ6jc7Ugp8RyxNXWZHed6hyUWWyPLp1</string>
+	<key>pushNotificationURL</key>
+	<string>https://fcm.googleapis.com/fcm/send</string>
 </dict>
 </plist>

@@ -115,6 +115,8 @@ enum User: String {
     
     case email
     
+    case token
+    
     case logoImage
     
     case text
@@ -138,6 +140,8 @@ struct UserData {
     
     let logoImage: String?
     
+    var token: String?
+    
     let badge: [String]
     
     let truckId: String?
@@ -148,12 +152,13 @@ struct UserData {
     
     let feedback: [String]
     
-    init(name: String, email: String, logoImage: String? = nil,
+    init(name: String, email: String, token: String? = nil, logoImage: String? = nil,
          badge: [String] = [], truckId: String? = nil,
          block: [String] = [], favorite: [String] = [],
          feedback: [String] = []) {
         self.name = name
         self.email = email
+        self.token = token
         self.logoImage = logoImage
         self.badge = badge
         self.truckId = truckId

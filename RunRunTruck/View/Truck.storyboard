@@ -41,7 +41,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckCell" id="dZ4-Vb-kFp" customClass="TrcukCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TrcukCollectionViewCell" id="dZ4-Vb-kFp" customClass="TrcukCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
                                         <rect key="frame" x="16" y="10" width="382" height="243"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">

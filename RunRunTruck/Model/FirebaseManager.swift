@@ -13,8 +13,10 @@ import FirebaseAuth
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class FirebaseManager {
+    
     static let userNotificationName = "userInfoUpdatedNotificaton"
     static let allTruckDataNotificationName = "allTruckDataUpdatedNotification"
+    
     static let shared = FirebaseManager()
     
     var openIngTruckData = [TruckData]()
@@ -26,6 +28,8 @@ class FirebaseManager {
     var bossTruck: TruckData?
     
     var message = [Message]()
+    
+    var currentUserToken: String = ""
     
     let db = Firestore.firestore()
     
@@ -75,7 +79,6 @@ class FirebaseManager {
                 name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
                 object: nil)
         }
-        
     }
     
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
@@ -218,16 +221,19 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
+                let token = data[User.token.rawValue] as? String,
                 let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              badge: badge, block: block,
                                              favorite: favorite)
             }
@@ -257,20 +263,24 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
+                let token = data[User.token.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
                 let favorite = data[User.favorite.rawValue] as? [String]else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
+//                self?.currentUser = UserData(
+                
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             badge: badge, block: block,
-                                             favorite: favorite)
+                                             token: token, badge: badge,
+                                             block: block, favorite: favorite)
             }
             
             completion(self?.currentUser)
@@ -280,7 +290,6 @@ class FirebaseManager {
     func setUserData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
         
         var userid = ""
-        
         if isAppleSingIn {
             userid = appleUID
         } else {
@@ -301,26 +310,10 @@ class FirebaseManager {
         }
     }
     
-    func updataUserName(name: String) {
+    func updataUserData(type: String, uid: String, key: String, value: String) {
+         guard let uid = self.userID else { return }
         
-        guard let uid = self.userID else {
-                 return
-             }
-        db.collection(User.user.rawValue).document(uid).updateData([
-            User.name.rawValue: name
-        ])
-        
-    }
-    
-    func updataUserImage(image: String) {
-        
-        guard let uid = self.userID else {
-            return
-        }
-        
-        db.collection(User.user.rawValue).document(uid).updateData([
-            User.logoImage.rawValue: image
-        ])
+        db.collection(type).document(uid).updateData([ key: value ])
     }
     
     func addUserBadge(uid: String, truckId: String) {
@@ -541,12 +534,7 @@ class FirebaseManager {
         }
         
     }
-    func updataBossName(uid: String, name: String) {
-        db.collection(Boss.boss.rawValue).document(uid).updateData([
-            Boss.name.rawValue: name
-        ])
-    }
-        
+    
     func addTurckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
         
         guard isAppleSingIn  else {

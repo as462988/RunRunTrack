@@ -103,6 +103,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
         guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {return}
         
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            
             // 倘若發現的元資料與 QR code 元資料相同，便更新狀態標籤的文字並設定邊界
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
@@ -112,6 +113,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
                 FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     
                     self?.navigationController?.popViewController(animated: true)

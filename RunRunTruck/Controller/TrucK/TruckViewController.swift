@@ -157,7 +157,7 @@ UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let truckCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "truckCell",
+            withReuseIdentifier: String(describing: TrcukCollectionViewCell.self),
             for: indexPath) as? TrcukCollectionViewCell else {
                 return UICollectionViewCell()
         }
@@ -170,16 +170,6 @@ UICollectionViewDataSource {
                            logoImage: data.logoImage,
                            image: data.detailImage ?? "",
                            isOpen: data.open)
-        
-//        if allTruckArr[indexPath.item].open {
-//
-//            truckCell.animationView.isHidden = false
-//
-//            handGester(view: truckCell.animationView)
-//        } else {
-//            truckCell.animationView.isHidden = true
-//
-//        }
 
         return truckCell
     }

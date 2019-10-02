@@ -10,6 +10,7 @@ import UIKit
 
 class TruckGroupCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var trucks: [TruckData] = []
+    let cellId = "cellId"
     let addressManager = AddressManager()
     
     init() {
@@ -23,7 +24,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        collectionView.register(TruckCardCollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(TruckCardCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.showsHorizontalScrollIndicator = false
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -39,7 +40,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let truckInfo = trucks[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cellId",
+            withReuseIdentifier: cellId,
             for: indexPath) as? TruckCardCollectionViewCell else {
                 let newCell = TruckCardCollectionViewCell()
                 return newCell

@@ -46,6 +46,10 @@ class AuthViewController: UIViewController {
         loginSegment.addTarget(self, action: #selector(handleUIStatusChange), for: .valueChanged)
         singInBtn.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         checkUserInput()
+        
+        emailTextField.text = "yueh@gmail.com"
+        pswTextField.text = "yyyyyy"
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -145,7 +149,6 @@ class AuthViewController: UIViewController {
                 guard data != nil else {
                     self?.errorResultLabel.isHidden = false
                     self?.errorResultLabel.text = "目前找不到此帳號主人喔！"
-                    //老闆使用了吃貨登入, 提示請使用者使用老闆登入
                     do {
                         try Auth.auth().signOut()
                     } catch let err {
@@ -155,6 +158,13 @@ class AuthViewController: UIViewController {
                 }
                 //吃貨登入成功
                 FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
+//                if
+                FirebaseManager.shared.updataUserData(type: User.user.rawValue,
+                                                      uid: Auth.auth().currentUser?.uid ?? "",
+                                                      key: User.token.rawValue,
+                                                      value: FirebaseManager.shared.currentUserToken)
+                // 註冊 subscribeTopic
+                FirebaseNotificationManager.share.subscribeTopic(toTopic: "Test", completion: nil)
                 ProgressHUD.showSuccess(text: "登入成功")
                 DispatchQueue.main.async {
                     self?.presentingViewController?.dismiss(animated: false, completion: nil)
@@ -173,7 +183,6 @@ class AuthViewController: UIViewController {
                 guard bossData != nil else {
                     self?.errorResultLabel.isHidden = false
                     self?.errorResultLabel.text = "目前找不到此帳號主人喔！"
-                    //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
                     do {
                         try Auth.auth().signOut()
                     } catch let err {
@@ -286,6 +295,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             uid: user.id) { [weak self](isExist) in
                 
                 if isExist == false {
+                    
                     FirebaseManager.shared.setBossData(
                         name: user.lastName + ", " + user.firstName,
                         email: user.email,

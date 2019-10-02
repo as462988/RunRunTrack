@@ -8,14 +8,22 @@
 
 import UIKit
 
+struct Title {
+    static let setingTitle = "設定"
+    static let blockLabel = "封鎖名單"
+    static let privateLabel = "隱私權政策"
+    static let feedbacLabel = "意見回饋"
+    static let versionLabel = "版本"
+    static let logoutLabel = "登出"
+}
+
 class SettingViewController: UIViewController {
     ///標題
     var titleLabel: UILabel!
-    
     var contentView: UIView!
     var blockRow: SettingRow = {
         let row = SettingRow(
-            title: "封鎖名單",
+            title: Title.blockLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: BlockListViewController())
@@ -23,7 +31,7 @@ class SettingViewController: UIViewController {
     }()
     var privateCheckRow: SettingRow = {
         let row = SettingRow(
-            title: "隱私權政策",
+            title: Title.privateLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -31,7 +39,7 @@ class SettingViewController: UIViewController {
     }()
     var feedbackRow: SettingRow = {
         let row = SettingRow(
-            title: "意見回饋",
+            title: Title.feedbacLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -39,15 +47,16 @@ class SettingViewController: UIViewController {
     }()
     var versionRow: SettingRow = {
         let row = SettingRow(
-            title: "版本",
-            subTitle: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            title: Title.versionLabel,
+            subTitle: Bundle.ValueForString(key: Constant.version),
+//            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             withRightArrow: false,
             associatedContentViewController: nil)
         return row
     }()
     var logoutRow: SettingRow = {
         let row = SettingRow(
-            title: "登出",
+            title: Title.logoutLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -127,7 +136,7 @@ extension SettingViewController {
     func setupText() {
         
         titleLabel = UILabel()
-        titleLabel.text = "設定"
+        titleLabel.text = Title.setingTitle
         titleLabel.font = .boldSystemFont(ofSize: 30)
         contentView.addSubview(titleLabel)
         titleLabel.anchor(

@@ -115,6 +115,8 @@ extension BossInfoViewController: BossUIViewDelegate {
         guard let lat = self.latitude, let lon = self.longitude else {return}
         
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+        
+        FirebaseNotificationManager.share.sendPushNotification(toTopic: "Test", title: "測試", body: "你收到囉！")
     }
     
     func clickCancelBtn() {
