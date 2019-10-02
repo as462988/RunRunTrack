@@ -37,6 +37,18 @@ class FirebaseNotificationManager {
         }
     }
     
+    func unSubscribeTopic(fromTopic topic: String, completion: (() -> Void)?) {
+        
+        Messaging.messaging().unsubscribe(fromTopic: topic) { (error) in
+            guard let error = error else {
+                print("success unsubscribe")
+            completion?()
+                return
+            }
+            print(error)
+        }
+    }
+    
     func sendPushNotification(toTopic topic: String, title: String, body: String) {
         let urlString = Bundle.ValueForString(key: Constant.notificationURL)
         guard let url = NSURL(string: urlString) else {return}

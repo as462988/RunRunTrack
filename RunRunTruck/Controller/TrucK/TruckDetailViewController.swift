@@ -79,20 +79,26 @@ class TruckDetailViewController: UIViewController {
     
     @objc func clickFavorite(_ sender: UIButton) {
         
-       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-
-          ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
-
-              return
-          }
+        AppDelegate.shared.handlerNotfication(application: UIApplication.shared)
+        
+        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+            
+            ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
+            
+            return
+        }
         
         guard let detailInfo = detailInfo else { return }
         
         let uid = FirebaseManager.shared.userID
         let bossId = FirebaseManager.shared.bossID
-        
+        let topic = detailInfo.id
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
+            
+            //喜愛時訂閱推播
+            FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
+            print("topicName:\(topic)")
             
             FirebaseManager.shared.updataArrayData(
                 type: User.user.rawValue,
@@ -107,6 +113,7 @@ class TruckDetailViewController: UIViewController {
             }
         } else {
             
+            FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: topic, completion: nil)
             FirebaseManager.shared.updataRemoveArrayData(
                 type: User.user.rawValue,
                 id: (uid == nil ? bossId : uid) ?? "",
@@ -118,15 +125,6 @@ class TruckDetailViewController: UIViewController {
                         key: Truck.favoritedBy.rawValue,
                         value: (uid == nil ? bossId : uid) ?? "", completion: {})
             }
-
-//            FirebaseManager.shared.deleteUserFavorite(
-//                uid: (uid == nil ? bossId : uid) ?? "",
-//                truckId: detailInfo.id) {
-//                    //移除最愛成功，把使用者同步移除餐車的喜愛者
-//                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
-//                        userId: (uid == nil ? bossId : uid) ?? "",
-//                        truckId: detailInfo.id)
-//            }
         }
     }
     

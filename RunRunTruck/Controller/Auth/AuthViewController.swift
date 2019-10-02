@@ -158,7 +158,6 @@ class AuthViewController: UIViewController {
                 }
                 //吃貨登入成功
                 FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-                FirebaseNotificationManager.share.subscribeTopic(toTopic: "Test", completion: nil)
                 FirebaseManager.shared.updataData(type: User.user.rawValue,
                                                       uid: Auth.auth().currentUser?.uid ?? "",
                                                       key: User.token.rawValue,

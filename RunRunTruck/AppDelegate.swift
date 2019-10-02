@@ -34,23 +34,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         FirebaseManager.shared.listenAllTruckData()
         
-        self.handlerNotfication(application: application)
+        UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
         
         return true
     }
 
     func handlerNotfication(application: UIApplication) {
         
-        UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
+//        UNUserNotificationCenter.current().delegate = self
+//        Messaging.messaging().delegate = self
+        
         let authOption: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
         options: authOption) { (_, _) in
-            
         }
         application.registerForRemoteNotifications()
     }
-
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -65,7 +65,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        
+        //執行點擊後要做的事情
         let userInfo = response.notification.request.content.userInfo
         print("userInfo: \(userInfo)")
         completionHandler()

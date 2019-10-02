@@ -11,7 +11,12 @@ import GoogleMaps
 import Lottie
 
 class BossInfoViewController: UIViewController {
-
+    
+    struct NotificationContent {
+        static let title = "開店啦！"
+        static let body = "現在就去找他們吧"
+    }
+    
     @IBOutlet weak var bossView: BossUIView! {
         didSet {
             bossView.delegate = self
@@ -113,11 +118,13 @@ extension BossInfoViewController: BossUIViewDelegate {
     func clickOpenStatusBtn() {
         
         guard let lat = self.latitude, let lon = self.longitude else {return}
-        
+        guard let currentTruck = FirebaseManager.shared.bossTruck else {return}
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
-        
+        // 只推送訊息給訂閱此餐車的用戶
         FirebaseNotificationManager.share.sendPushNotification(
-            toTopic: "Test", title: "測試", body: "你收到囉！")
+            toTopic: currentTruck.id,
+            title: currentTruck.name + NotificationContent.title,
+            body: NotificationContent.body)
     }
     
     func clickCancelBtn() {
