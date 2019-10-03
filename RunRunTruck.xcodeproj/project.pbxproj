@@ -56,6 +56,7 @@
 		098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2628233A3C8000E8010C /* PrivateViewController.swift */; };
 		098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B262A233A622F00E8010C /* FeedbackViewController.swift */; };
 		09A142922345C2C200E1EC34 /* HandleOpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A142912345C2C200E1EC34 /* HandleOpenURL.swift */; };
+		09A142942345C90500E1EC34 /* HandleSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A142932345C90500E1EC34 /* HandleSettingAlert.swift */; };
 		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
 		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
@@ -139,6 +140,7 @@
 		098B2628233A3C8000E8010C /* PrivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateViewController.swift; sourceTree = "<group>"; };
 		098B262A233A622F00E8010C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		09A142912345C2C200E1EC34 /* HandleOpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleOpenURL.swift; sourceTree = "<group>"; };
+		09A142932345C90500E1EC34 /* HandleSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleSettingAlert.swift; sourceTree = "<group>"; };
 		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				091EEB902316866700BF066F /* TruckData.swift */,
 				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 				09FE3EEA2344748000C9CC7B /* HTTPClient.swift */,
+				09A142932345C90500E1EC34 /* HandleSettingAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				09A142942345C90500E1EC34 /* HandleSettingAlert.swift in Sources */,
 				09FE3EE72344408600C9CC7B /* FirebaseMessageManager.swift in Sources */,
 				09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */,
 				09168B9D2332458B002E1737 /* OpenChoseCameraManager.swift in Sources */,

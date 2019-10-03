@@ -35,6 +35,8 @@ class LobbyViewController: UIViewController {
     
     let handleOpenURL = HandleOpenURL()
     
+    let handleSettingAlert = HandleSettingAlert()
+    
     var centerLat = 25.027758
     
     var centeyLon = 121.550017
@@ -217,24 +219,12 @@ extension LobbyViewController: LobbyViewDelegate {
             
         } else {
 
-            let alertController = UIAlertController(title: "無法定位", message: "沒有開啟定位系統無法定位喔！", preferredStyle: .alert)
+            let VC = handleSettingAlert.openSetting(title: "無法定位",
+                                                    msg: "沒有開啟定位系統無法定位喔！",
+                                                    settingTitle: "去設定",
+                                                    cancelTitle: "我知道了")
             
-            let settingsAction = UIAlertAction(title: "去設定", style: .default) { (_) -> Void in
-                
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                    return
-                }
-                
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                    })
-                }
-            }
-            alertController.addAction(settingsAction)
-            let cancelAction = UIAlertAction(title: "我知道了", style: .default, handler: nil)
-            alertController.addAction(cancelAction)
-            
-            present(alertController, animated: true, completion: nil)
+            present(VC, animated: true, completion: nil)
         }
         return true
     }
