@@ -36,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseManager.shared.listenAllTruckData()
         
+        handlerNotfication(application: application)
+        
         return true
     }
 
