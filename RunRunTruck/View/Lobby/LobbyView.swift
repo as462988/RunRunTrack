@@ -68,10 +68,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
         super.awakeFromNib()
         
         setCollectionView()
-        
-//        setMapView()
-        
-        getCurrentLocation()
+//        getCurrentLocation()
         
     }
     
@@ -80,7 +77,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: zoom)
         mapView.camera = camera
         mapView.settings.myLocationButton = true
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
         
     }
@@ -149,24 +146,24 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
     }
     
-    func updataMapView(lat: Double, long: Double) {
+    func updataMapView(lat: Double, long: Double, zoom: Float) {
         
         let camera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: long ,
-                                              zoom: 15)
+                                              zoom: zoom)
+        
         mapView.animate(to: camera)
     }
     
     func getCurrentLocation() {
         
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self.delegate
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
-            
         }
     }
     

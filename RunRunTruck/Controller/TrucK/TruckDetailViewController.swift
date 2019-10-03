@@ -79,8 +79,6 @@ class TruckDetailViewController: UIViewController {
     
     @objc func clickFavorite(_ sender: UIButton) {
         
-        AppDelegate.shared.handlerNotfication(application: UIApplication.shared)
-        
         guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
             
             ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")

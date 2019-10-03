@@ -75,6 +75,24 @@ class QRScannerController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let handleSettingAlert = HandleSettingAlert()
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .denied, .restricted:
+            
+            let alertVc = handleSettingAlert.openSetting(title: "未開啟相機權限",
+                                                         msg: "沒有開啟相機權限無法掃描喔！",
+                                                         settingTitle: "去設定",
+                                                         cancelTitle: "我知道了")
+            
+            present(alertVc, animated: true) {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        default:
+            break
+        }
+        
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
 

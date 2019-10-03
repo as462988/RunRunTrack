@@ -226,7 +226,6 @@
 				091EEB7423156BF900BF066F /* Model */,
 				091EEB7323156BEE00BF066F /* Controller */,
 				091EEB7223156BE800BF066F /* View */,
-				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
 				09329DD7231779AE003C851A /* Assets.xcassets */,
 				091EEB6923153B0300BF066F /* Info.plist */,
 				09EA2D48233F6FA5005456CD /* GoogleService-Info.plist */,
@@ -238,9 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
+				091EEB8B23166C9100BF066F /* Lobby */,
 				09E6C4A823338D8C009EA849 /* Truck */,
 				095238C72330A9460015AEDA /* Badge */,
-				091EEB8B23166C9100BF066F /* Lobby */,
 				093365F4231E36F700F0D503 /* Chatroom */,
 				09F78E502327974200FD6099 /* Profile */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
@@ -257,6 +256,7 @@
 		091EEB7323156BEE00BF066F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				0928BBE82334DD2F00774759 /* TruckNavigationController.swift */,
 				09336624231ECAB400F0D503 /* Lobby */,
@@ -281,9 +281,9 @@
 				09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */,
 				09A142912345C2C200E1EC34 /* HandleOpenURL.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
+				09A142932345C90500E1EC34 /* HandleSettingAlert.swift */,
 				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 				09FE3EEA2344748000C9CC7B /* HTTPClient.swift */,
-				09A142932345C90500E1EC34 /* HandleSettingAlert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

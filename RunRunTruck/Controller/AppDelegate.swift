@@ -31,20 +31,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(Bundle.ValueForString(key: Constant.googleMapKey))
         
         IQKeyboardManager.shared().isEnabled = true
-        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        FirebaseManager.shared.listenAllTruckData()
         
-        UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        
+        FirebaseManager.shared.listenAllTruckData()
         
         return true
     }
 
     func handlerNotfication(application: UIApplication) {
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        Messaging.messaging().delegate = self
+        
         let authOption: UNAuthorizationOptions = [.alert, .badge, .sound]
+        
         UNUserNotificationCenter.current().requestAuthorization(
-        options: authOption) { (_, _) in
-        }
+        options: authOption) { (_, _) in }
+        
         application.registerForRemoteNotifications()
     }
 }
@@ -63,20 +68,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         //執行點擊後要做的事情
         let userInfo = response.notification.request.content.userInfo
-        
-        let latString = userInfo["latitude"] as? String
-        let lonString = userInfo["longitude"] as? String
-        let lat = Double(latString!)
-        let lon = Double(lonString!)
-        
-        guard let lobbyVC = UIStoryboard.lobby.instantiateViewController(
-            identifier: String(describing: LobbyViewController.self)) as? LobbyViewController else { return }
     
-        lobbyVC.centerLat = lat ?? 0.0
-        lobbyVC.centeyLon = lon ?? 0.0
+        guard let latString = userInfo["latitude"] as? String,
+                let lonString = userInfo["longitude"] as? String else { return }
+
+        guard let rootVC = window?.rootViewController as? TabBarViewController,
+            let navigationVc = rootVC.viewControllers?[0] as? UINavigationController else { return }
         
-        let root = window?.rootViewController as? TabBarViewController
-        root?.selectedIndex = 0
+        if let lobbyVC = navigationVc.viewControllers[0] as? LobbyViewController {
+            
+            lobbyVC.reloadLobbyViewWithChangeLocation(lat: Double(latString)!, lon: Double(lonString)!, zoom: 15)
+            
+            rootVC.selectedIndex = 0
+        }
         
         completionHandler()
     }

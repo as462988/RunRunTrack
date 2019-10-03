@@ -13,16 +13,6 @@ import Crashlytics
 
 class LobbyViewController: UIViewController {
     
-    private struct NavLocation {
-        
-        static let saddr = "?saddr="
-        static let daddr = "&daddr="
-        static let center = "&center="
-        static let type = "&directionsmode="
-        static let drive = "driving"
-        static let zoom = "&zoom="
-    }
-    
     @IBOutlet weak var lobbyView: LobbyView! {
         
         didSet {
@@ -44,35 +34,39 @@ class LobbyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        lobbyView.setMapView(lat: centerLat, lon: centeyLon, zoom: 15)
+        
         //拿取所有營業中的餐車顯示在地圖
         FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
             if let truckDatas = truckDatas {
                 let dispatchGroup = DispatchGroup()
                 for var truckData in truckDatas {
-                    
+
                     switch truckData.1 {
                     case .added:
                         //新增
                         dispatchGroup.enter()
-                        self?.lobbyView.addMarker(lat: truckData.0.location!.latitude,
-                                                  long: truckData.0.location!.longitude,
-                                                  imageUrl: truckData.0.logoImage)
-                        
-                        self?.addressManager.getLocationAddress(lat: truckData.0.location!.latitude,
-                                                           long: truckData.0.location!.longitude,
-                                                           completion: {(location, error) in
+                        self?.lobbyView.addMarker(
+                            lat: truckData.0.location!.latitude,
+                            long: truckData.0.location!.longitude,
+                            imageUrl: truckData.0.logoImage)
 
-                                                            guard let location = location else {return}
+                        self?.addressManager.getLocationAddress(
+                            lat: truckData.0.location!.latitude,
+                            long: truckData.0.location!.longitude,
+                            completion: {(location, error) in
 
-                                                            let address = location.subAdministrativeArea
-                                                                + location.city + location.street
+                                guard let location = location else {return}
 
-                                                             truckData.0.address = address
-                                                            FirebaseManager.shared.openIngTruckData.append(truckData.0)
-                                                            dispatchGroup.leave()
-                                                            
+                                let address = location.subAdministrativeArea
+                                    + location.city + location.street
+
+                                truckData.0.address = address
+                                FirebaseManager.shared.openIngTruckData.append(truckData.0)
+                                dispatchGroup.leave()
+
                         })
-                        
+
                     case .removed:
                         //刪除
                         dispatchGroup.enter()
@@ -82,7 +76,7 @@ class LobbyViewController: UIViewController {
                             self?.lobbyView.markers[markerIndex].map = nil
                             self?.lobbyView.markers.remove(at: markerIndex)
                         }
-                        
+
                         if let index = FirebaseManager.shared.openIngTruckData.firstIndex(
                             where: { (truckdata) -> Bool in
                                 return truckdata.id == truckData.0.id
@@ -105,9 +99,7 @@ class LobbyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        lobbyView.setMapView(lat: centerLat, lon: centeyLon, zoom: 15)
         navigationController?.isNavigationBarHidden = true
-        
     }
 }
 
@@ -178,18 +170,25 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let location = FirebaseManager.shared.openIngTruckData[targetIndex].location
         
-        lobbyView.updataMapView(lat: location!.latitude, long: location!.longitude)
+        lobbyView.updataMapView(lat: location!.latitude, long: location!.longitude, zoom: 15)
     }
     
     // MARK: - GoogleMap
     // 點擊 marker
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
+        self.reloadLobbyViewWithChangeLocation(lat: marker.position.latitude, lon: marker.position.longitude, zoom: 15)
+        
+        return true
+    }
+    
+    func reloadLobbyViewWithChangeLocation(lat: Double, lon: Double, zoom: Float) {
+        
         var indexNum = Int()
         
         for (index, data) in FirebaseManager.shared.openIngTruckData.enumerated() where
             
-            marker.position.latitude == data.location!.latitude {
+            lat == data.location!.latitude {
                 
                 indexNum = index
         }
@@ -200,31 +199,29 @@ extension LobbyViewController: LobbyViewDelegate {
             animated: true
         )
         
-        self.lobbyView.updataMapView(lat: marker.position.latitude, long: marker.position.longitude)
+        self.lobbyView.updataMapView(lat: lat, long: lon, zoom: zoom)
         
-        return true
     }
     
     //點擊 MyLocationButton
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         
+        lobbyView.locationManager.requestWhenInUseAuthorization()
+        
         if let myLocation = lobbyView.locationManager.location {
-            
-            self.centerLat = myLocation.coordinate.latitude
-            
-            self.centeyLon = myLocation.coordinate.longitude
-            
+
             self.lobbyView.updataMapView(lat: myLocation.coordinate.latitude,
-                                         long: myLocation.coordinate.longitude)
+                                         long: myLocation.coordinate.longitude,
+                                         zoom: 15)
             
         } else {
 
-            let VC = handleSettingAlert.openSetting(title: "無法定位",
+            let alertVc = handleSettingAlert.openSetting(title: "無法定位",
                                                     msg: "沒有開啟定位系統無法定位喔！",
                                                     settingTitle: "去設定",
                                                     cancelTitle: "我知道了")
             
-            present(VC, animated: true, completion: nil)
+            present(alertVc, animated: true, completion: nil)
         }
         return true
     }
@@ -236,7 +233,9 @@ extension LobbyViewController: TurckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
         handleOpenURL.openUrl(lat: location.lat, lon: location.lon, zoom: 10)
+        
     }
+    
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {
         

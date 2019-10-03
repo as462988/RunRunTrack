@@ -31,7 +31,7 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access your camera for scanning QR code</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<key>Privacy - Location Always and When In Use Usage Description2</key>
 	<string>We’ll use this to find the nearest FoodTruck with you.
 We’ll use this to find the nearest FoodTruck with you.
 We&apos;ll use this to find the nearest Food Truck with you</string>
