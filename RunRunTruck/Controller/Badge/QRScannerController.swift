@@ -78,16 +78,16 @@ class QRScannerController: UIViewController {
         let handleSettingAlert = HandleSettingAlert()
         
         switch AVCaptureDevice.authorizationStatus(for: .video) {
+            
         case .denied, .restricted:
             
             let alertVc = handleSettingAlert.openSetting(title: "未開啟相機權限",
                                                          msg: "沒有開啟相機權限無法掃描喔！",
                                                          settingTitle: "去設定",
-                                                         cancelTitle: "我知道了")
+                                                         cancelTitle: "我知道了",
+                                                         vc: self)
             
-            present(alertVc, animated: true) {
-                self.navigationController?.popViewController(animated: true)
-            }
+            present(alertVc, animated: true, completion: nil)
             
         default:
             break

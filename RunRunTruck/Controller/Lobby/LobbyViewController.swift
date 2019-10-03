@@ -219,7 +219,8 @@ extension LobbyViewController: LobbyViewDelegate {
             let alertVc = handleSettingAlert.openSetting(title: "無法定位",
                                                     msg: "沒有開啟定位系統無法定位喔！",
                                                     settingTitle: "去設定",
-                                                    cancelTitle: "我知道了")
+                                                    cancelTitle: "我知道了",
+                                                    vc: self)
             
             present(alertVc, animated: true, completion: nil)
         }
