@@ -17,4 +17,6 @@ struct Constant {
     static let ncRequestKey = "notificationRequestKey"
 
     static let notificationURL = "pushNotificationURL"
+    
+    static let openGooleMapURL = "OpenGoogleMapURL"
 }

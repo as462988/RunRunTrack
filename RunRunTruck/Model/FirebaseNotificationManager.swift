@@ -10,14 +10,15 @@ import Foundation
 import Firebase
 import FirebaseMessaging
 
-struct PostKey {
+private struct PostKey {
     static let toTopicKey = "to"
     static let topicValue = "/topics/"
     static let titleKey = "title"
     static let bodyKey = "body"
     static let notificationKey = "notification"
     static let dataKey = "data"
-    static let userKey = "user"
+    static let lat = "latitude"
+    static let lon = "longitude"
 }
 
 class FirebaseNotificationManager {
@@ -48,24 +49,17 @@ class FirebaseNotificationManager {
             print(error)
         }
     }
-    
-//    func deleteFCMToken() {
-//        
-//        let instance = InstanceID.instanceID()
-//        
-//        instance.deleteID { (error) in
-//            
-//            print("error.debugDescription is \(error.debugDescription)")
-//        }
-//    }
-    
-    func sendPushNotification(toTopic topic: String, title: String, body: String) {
+
+    func sendPushNotification(toTopic topic: String, title: String, body: String, latitude: Double, longitude: Double) {
         let urlString = Bundle.ValueForString(key: Constant.notificationURL)
         guard let url = NSURL(string: urlString) else {return}
 
         let paramString: [String: Any] = [PostKey.toTopicKey: PostKey.topicValue + topic,
                                           PostKey.notificationKey: [PostKey.titleKey: title,
-                                                                    PostKey.bodyKey: body]]
+                                                                    PostKey.bodyKey: body],
+                                          PostKey.dataKey: [PostKey.lat: latitude,
+                                                            PostKey.lon: longitude]
+        ]
         
         let request = NSMutableURLRequest(url: url as URL)
         

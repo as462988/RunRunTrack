@@ -206,6 +206,12 @@ extension SettingViewController: SettingRowDelegate {
             
         case logoutRow:
             
+            // 登出取消訂閱
+            if let user = FirebaseManager.shared.currentUser {
+            for truckId in user.favorite {
+                FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: truckId, completion: nil)
+                }
+            }
             FirebaseManager.shared.signOut()
             
             let appDelegate = UIApplication.shared.delegate as? AppDelegate

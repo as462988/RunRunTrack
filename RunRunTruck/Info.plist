@@ -68,5 +68,7 @@ We&apos;ll use this to find the nearest Food Truck with you</string>
 	<string>key=AAAAhf_j2_g:APA91bFzg0NhgyMC9ddCGUYnBPN_SqAGkJVHd5VrVgpLmNfdynXAK4-ikk36vWmqoQhEM7VouvCFr7G8fVPwfs_QagxY5n3pPFqvDTjEbRYSkzJ6jc7Ugp8RyxNXWZHed6hyUWWyPLp1</string>
 	<key>pushNotificationURL</key>
 	<string>https://fcm.googleapis.com/fcm/send</string>
+	<key>OpenGoogleMapURL</key>
+	<string>comgooglemaps://</string>
 </dict>
 </plist>

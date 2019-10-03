@@ -103,6 +103,7 @@ class BossInfoViewController: UIViewController {
 extension BossInfoViewController: BossUIViewDelegate {
     
     func clickFeedbackBtn() {
+        
         guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
             else {  return  }
@@ -111,24 +112,38 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func clickPrivateBtn() {
+        
          guard let privateVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController else {  return  }
+            withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
+            else { return }
+        
         navigationController?.pushViewController(privateVC, animated: true)
     }
 
     func clickOpenStatusBtn() {
         
-        guard let lat = self.latitude, let lon = self.longitude else {return}
-        guard let currentTruck = FirebaseManager.shared.bossTruck else {return}
+        guard let lat = self.latitude, let lon = self.longitude else { return }
+        
+        guard let currentTruck = FirebaseManager.shared.bossTruck else { return }
+        
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+        
         // 只推送訊息給訂閱此餐車的用戶
+//        FirebaseNotificationManager.share.sendPushNotification(
+//            toTopic: currentTruck.id,
+//            title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
+//            body: NotificationContent.body)
+        
         FirebaseNotificationManager.share.sendPushNotification(
             toTopic: currentTruck.id,
             title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
-            body: NotificationContent.body)
+            body: NotificationContent.body,
+            latitude: lat,
+            longitude: lon)
     }
     
     func clickCancelBtn() {
+        
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn)
     }
     
@@ -158,7 +173,7 @@ extension BossInfoViewController: BossUIViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         
-        guard let truckId =  FirebaseManager.shared.bossTruck?.id else {return}
+        guard let truckId =  FirebaseManager.shared.bossTruck?.id else { return }
         
         FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
                                               uid: truckId,
@@ -168,7 +183,9 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func clickChangeImage() {
+        
         openChoseCamera.showImagePickerAlert(self)
+        
     }
 }
 

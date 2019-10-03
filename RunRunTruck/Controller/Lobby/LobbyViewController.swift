@@ -13,6 +13,16 @@ import Crashlytics
 
 class LobbyViewController: UIViewController {
     
+    private struct NavLocation {
+        
+        static let saddr = "?saddr="
+        static let daddr = "&daddr="
+        static let center = "&center="
+        static let type = "&directionsmode="
+        static let drive = "driving"
+        static let zoom = "&zoom="
+    }
+    
     @IBOutlet weak var lobbyView: LobbyView! {
         
         didSet {
@@ -22,7 +32,13 @@ class LobbyViewController: UIViewController {
     }
     
     let addressManager = AddressManager()
-
+    
+    let handleOpenURL = HandleOpenURL()
+    
+    var centerLat = 25.027758
+    
+    var centeyLon = 121.550017
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -87,7 +103,7 @@ class LobbyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        lobbyView.setMapView(lat: centerLat, lon: centeyLon, zoom: 15)
         navigationController?.isNavigationBarHidden = true
         
     }
@@ -192,6 +208,10 @@ extension LobbyViewController: LobbyViewDelegate {
         
         if let myLocation = lobbyView.locationManager.location {
             
+            self.centerLat = myLocation.coordinate.latitude
+            
+            self.centeyLon = myLocation.coordinate.longitude
+            
             self.lobbyView.updataMapView(lat: myLocation.coordinate.latitude,
                                          long: myLocation.coordinate.longitude)
             
@@ -222,22 +242,10 @@ extension LobbyViewController: LobbyViewDelegate {
 }
 
 extension LobbyViewController: TurckInfoCellDelegate {
+    
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
-        let location = "\(location.lat),\(location.lon)"
-        
-        guard let openUrl = URL(string: "comgooglemaps://") else {return}
-        
-        if UIApplication.shared.canOpenURL(openUrl) {
-            
-            guard let url = URL(
-                string: "comgooglemaps://?saddr=&daddr=\(location)&center=\(location)&directionsmode=driving&zoom=10")
-                else {
-                    return
-            }
-            
-            UIApplication.shared.open(url)
-        }
+        handleOpenURL.openUrl(lat: location.lat, lon: location.lon, zoom: 10)
     }
     func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {

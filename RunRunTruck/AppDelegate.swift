@@ -41,10 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func handlerNotfication(application: UIApplication) {
-        
-//        UNUserNotificationCenter.current().delegate = self
-//        Messaging.messaging().delegate = self
-        
         let authOption: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
         options: authOption) { (_, _) in
@@ -67,7 +63,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         //執行點擊後要做的事情
         let userInfo = response.notification.request.content.userInfo
-        print("userInfo: \(userInfo)")
+        
+        let latString = userInfo["latitude"] as? String
+        let lonString = userInfo["longitude"] as? String
+        let lat = Double(latString!)
+        let lon = Double(lonString!)
+        
+        guard let lobbyVC = UIStoryboard.lobby.instantiateViewController(
+            identifier: String(describing: LobbyViewController.self)) as? LobbyViewController else { return }
+    
+        lobbyVC.centerLat = lat ?? 0.0
+        lobbyVC.centeyLon = lon ?? 0.0
+        
+        let root = window?.rootViewController as? TabBarViewController
+        root?.selectedIndex = 0
+        
         completionHandler()
     }
 }

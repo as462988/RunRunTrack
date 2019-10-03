@@ -26,7 +26,7 @@
         <!--Lobby View Controller-->
         <scene sceneID="Qqm-3e-p0W">
             <objects>
-                <viewController id="IQs-tb-hNL" customClass="LobbyViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LobbyViewController" id="IQs-tb-hNL" customClass="LobbyViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2cz-N0-d47">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

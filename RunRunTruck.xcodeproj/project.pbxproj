@@ -13,7 +13,7 @@
 		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
 		091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A323224074008EFCF5 /* ChatroomViewController.swift */; };
 		091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A5232240BF008EFCF5 /* TruckChatroomView.swift */; };
-		09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* openChoseCameraManager.swift */; };
+		09168B9D2332458B002E1737 /* OpenChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */; };
 		09168BBD23328478002E1737 /* getBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168BBC23328478002E1737 /* getBadgeView.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
@@ -55,6 +55,7 @@
 		098B2627233A367E00E8010C /* BlockRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2626233A367E00E8010C /* BlockRowCell.swift */; };
 		098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2628233A3C8000E8010C /* PrivateViewController.swift */; };
 		098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B262A233A622F00E8010C /* FeedbackViewController.swift */; };
+		09A142922345C2C200E1EC34 /* HandleOpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A142912345C2C200E1EC34 /* HandleOpenURL.swift */; };
 		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
 		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
@@ -93,7 +94,7 @@
 		090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		091508A323224074008EFCF5 /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
-		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
+		09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChoseCameraManager.swift; sourceTree = "<group>"; };
 		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* 餐車在哪兒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "餐車在哪兒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		098B2626233A367E00E8010C /* BlockRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRowCell.swift; sourceTree = "<group>"; };
 		098B2628233A3C8000E8010C /* PrivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateViewController.swift; sourceTree = "<group>"; };
 		098B262A233A622F00E8010C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		09A142912345C2C200E1EC34 /* HandleOpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleOpenURL.swift; sourceTree = "<group>"; };
 		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -267,15 +269,16 @@
 		091EEB7423156BF900BF066F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
 				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
 				09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */,
 				09FE3EE62344408600C9CC7B /* FirebaseMessageManager.swift */,
 				09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */,
 				095238BB23307AB50015AEDA /* AddressManager.swift */,
 				09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */,
+				09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */,
+				09A142912345C2C200E1EC34 /* HandleOpenURL.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
-				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
-				09168B9C2332458B002E1737 /* openChoseCameraManager.swift */,
 				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 				09FE3EEA2344748000C9CC7B /* HTTPClient.swift */,
 			);
@@ -626,7 +629,7 @@
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
 				09FE3EE72344408600C9CC7B /* FirebaseMessageManager.swift in Sources */,
 				09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */,
-				09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */,
+				09168B9D2332458B002E1737 /* OpenChoseCameraManager.swift in Sources */,
 				09FE3EE923446F4D00C9CC7B /* FirebaseNotificationManager.swift in Sources */,
 				095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */,
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
@@ -664,6 +667,7 @@
 				098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */,
 				09168BBD23328478002E1737 /* getBadgeView.swift in Sources */,
 				09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */,
+				09A142922345C2C200E1EC34 /* HandleOpenURL.swift in Sources */,
 				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
