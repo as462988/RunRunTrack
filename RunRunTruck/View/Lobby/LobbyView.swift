@@ -20,7 +20,9 @@ CLLocationManagerDelegate, AnyObject {
 class LobbyView: UIView, UICollectionViewDelegate {
     
     static let cardItemSize: CGSize = CGSize(width: 200, height: 150)
+    
     var markers: [GMSMarker] = []
+    
     @IBOutlet weak var truckCollectionView: UICollectionView! {
         
         didSet {
@@ -146,7 +148,7 @@ class LobbyView: UIView, UICollectionViewDelegate {
         
     }
     
-    func updataMapView(lat: Double, long: Double, zoom: Float) {
+    func updateMapView(lat: Double, long: Double, zoom: Float) {
         
         let camera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: long ,
@@ -156,14 +158,14 @@ class LobbyView: UIView, UICollectionViewDelegate {
     }
     
     func getCurrentLocation() {
-        
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.requestWhenInUseAuthorization()
-        
+ 
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self.delegate
+            
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            
             locationManager.startUpdatingLocation()
+            
         }
     }
     
@@ -173,8 +175,11 @@ class LobbyView: UIView, UICollectionViewDelegate {
     }
     
     private func setCollectionView() {
+        
         truckCollectionView.showsHorizontalScrollIndicator = false
+        
         truckCollectionView.collectionViewLayout = cardLayout
+        
     }
 
 }

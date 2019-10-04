@@ -51,8 +51,8 @@ class BossInfoViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         playTapAnimation()
         
-        if let tabbarVc = self.navigationController?.tabBarController {
-                  tabbarVc.tabBar.isHidden = false
+        if let tabBarVc = self.navigationController?.tabBarController {
+                  tabBarVc.tabBar.isHidden = false
               }
     }
     
@@ -73,9 +73,9 @@ class BossInfoViewController: UIViewController {
     
     func playLocationAnimation() {
         
-        bossView.loactionAnimationView.animation = Animation.named(Lottie.location.rawValue)
-        bossView.loactionAnimationView.loopMode = .loop
-        bossView.loactionAnimationView.play()
+        bossView.locationAnimationView.animation = Animation.named(Lottie.location.rawValue)
+        bossView.locationAnimationView.loopMode = .loop
+        bossView.locationAnimationView.play()
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -155,15 +155,15 @@ extension BossInfoViewController: BossUIViewDelegate {
         
     }
     
-    func creatQrcode() {
+    func createQrCode() {
         
-        guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController
+        guard let qrCodeVc = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: String(describing: CreateQrCodeViewController.self)) as? CreateQrCodeViewController
             else { return }
         
-        qrcodeVc.modalPresentationStyle = .overCurrentContext
+        qrCodeVc.modalPresentationStyle = .overCurrentContext
         
-        present(qrcodeVc, animated: false, completion: nil)
+        present(qrCodeVc, animated: false, completion: nil)
         
     }
     
@@ -171,7 +171,7 @@ extension BossInfoViewController: BossUIViewDelegate {
         
         guard let truckId =  FirebaseManager.shared.bossTruck?.id else { return }
         
-        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+        FirebaseManager.shared.updateData(type: Truck.truck.rawValue,
                                               uid: truckId,
                                               key: Truck.story.rawValue,
                                               value: bossView.storyTextView.text)
@@ -203,7 +203,7 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         if let truckId = FirebaseManager.shared.bossTruck?.id {
                         
-                        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                        FirebaseManager.shared.updateData(type: Truck.truck.rawValue,
                                                           uid: truckId,
                                                           key: Truck.detailImage.rawValue,
                                                           value: imageUrl)

@@ -18,13 +18,13 @@ class AddBossTruckViewController: UIViewController {
     @IBOutlet weak var animationView: AnimationView!
     
     var needEnterName: Bool = false
-    var appleSinginBossID: String?
+    var appleLoginBossID: String?
     
     var logoImageUrl: String?
     
     let openChoseCameraManager = OpenChoseCameraManager()
     
-    var userCreatTruckFinished = false {
+    var userCreateTruckFinished = false {
         didSet {
             updateSendBtnStatus()
         }
@@ -82,7 +82,7 @@ class AddBossTruckViewController: UIViewController {
     
     func updateSendBtnStatus() {
         
-        setBtnStatus(userCreatTruckFinished ? .enable: .disable, btn: clickSendBtn)
+        setBtnStatus(userCreateTruckFinished ? .enable: .disable, btn: clickSendBtn)
     }
     
     func checkBossAddTruck() {
@@ -90,17 +90,17 @@ class AddBossTruckViewController: UIViewController {
         if needEnterName {
             
             if !truckTextInput.text.isEmpty, logoImageUrl != nil, !truckNameInput.text!.isEmpty {
-                userCreatTruckFinished = true
+                userCreateTruckFinished = true
             } else {
-                userCreatTruckFinished = false
+                userCreateTruckFinished = false
             }
             
         } else {
             
             if !truckTextInput.text.isEmpty, logoImageUrl != nil {
-                userCreatTruckFinished = true
+                userCreateTruckFinished = true
             } else {
-                userCreatTruckFinished = false
+                userCreateTruckFinished = false
             }
             
         }
@@ -125,11 +125,11 @@ class AddBossTruckViewController: UIViewController {
                 return
             }
             
-            FirebaseManager.shared.addTurck(
+            FirebaseManager.shared.addTruck(
                 name: name,
                 img: url,
                 story: inputText) { [weak self] (truckID) in
-                    FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: false, truckId: truckID)
+                    FirebaseManager.shared.addTruckIDInBoss(isAppleSingIn: false, truckId: truckID)
                     
                     DispatchQueue.main.async {
                         guard let rootVC = AppDelegate.shared.window?.rootViewController
@@ -145,16 +145,16 @@ class AddBossTruckViewController: UIViewController {
     
     func appleSingInAddTruck(url: String, inputText: String) {
         
-        FirebaseManager.shared.addTurck(
+        FirebaseManager.shared.addTruck(
             name: truckNameInput.text!,
             img: url,
             story: inputText) { [weak self] (truckId) in
                 
-                FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: true,
-                                                        appleID: self?.appleSinginBossID, truckId: truckId)
+                FirebaseManager.shared.addTruckIDInBoss(isAppleSingIn: true,
+                                                        appleID: self?.appleLoginBossID, truckId: truckId)
                 
-                FirebaseManager.shared.updataData(type: Boss.boss.rawValue,
-                                                  uid: self?.appleSinginBossID ?? "",
+                FirebaseManager.shared.updateData(type: Boss.boss.rawValue,
+                                                  uid: self?.appleLoginBossID ?? "",
                                                   key: Boss.name.rawValue,
                                                   value: self?.truckNameInput.text ?? "")
                 
@@ -179,22 +179,6 @@ class AddBossTruckViewController: UIViewController {
                 self.dismiss(animated: false) {
                     if self.needEnterName == false {
                         vc?.dismiss(animated: false, completion: nil)
-                    } else {
-                        FirebaseManager.shared.getCurrentBossData(
-                            isAppleSingIn: true,
-                            userid: self.appleSinginBossID) { [weak self] (bossData) in
-                                guard bossData != nil else {
-                                    return
-                                }
-                                ProgressHUD.showSuccess(text: "登入成功")
-                                DispatchQueue.main.async {
-                                    self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                    guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                        as? TabBarViewController else { return }
-                                    rootVC.tabBar.isHidden = false
-                                }
-                        }
-                        
                     }
                 }
             }

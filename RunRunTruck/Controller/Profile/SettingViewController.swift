@@ -9,10 +9,10 @@
 import UIKit
 
 struct Title {
-    static let setingTitle = "設定"
+    static let settingTitle = "設定"
     static let blockLabel = "封鎖名單"
     static let privateLabel = "隱私權政策"
-    static let feedbacLabel = "意見回饋"
+    static let feedbackLabel = "意見回饋"
     static let versionLabel = "版本"
     static let logoutLabel = "登出"
 }
@@ -39,7 +39,7 @@ class SettingViewController: UIViewController {
     }()
     var feedbackRow: SettingRow = {
         let row = SettingRow(
-            title: Title.feedbacLabel,
+            title: Title.feedbackLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -135,7 +135,7 @@ extension SettingViewController {
     func setupText() {
         
         titleLabel = UILabel()
-        titleLabel.text = Title.setingTitle
+        titleLabel.text = Title.settingTitle
         titleLabel.font = .boldSystemFont(ofSize: 30)
         contentView.addSubview(titleLabel)
         titleLabel.anchor(
@@ -177,6 +177,7 @@ extension SettingViewController: SettingRowDelegate {
             
         case blockRow:
             blockRow.toggleContent()
+            
             UIView.animate(
                 withDuration: 0.3,
                 delay: 0,
@@ -186,22 +187,28 @@ extension SettingViewController: SettingRowDelegate {
                 animations: {
                     self.view.layoutIfNeeded()
             }, completion: nil)
+            
             return
             
         case privateCheckRow:
+            
             guard let privateVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
                 else {  return  }
+            
             self.navigationController?.navigationBar.barTintColor = .black
+            
             navigationController?.pushViewController(privateVC, animated: true)
             return
             
         case feedbackRow:
+            
             guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
                 else {  return  }
             
             navigationController?.pushViewController(feedbackVC, animated: true)
+            
             return
             
         case logoutRow:
@@ -219,6 +226,7 @@ extension SettingViewController: SettingRowDelegate {
             let root = appDelegate?.window?.rootViewController as? TabBarViewController
             
             root?.selectedIndex = 0
+            
             return
             
         default:

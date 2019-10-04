@@ -16,7 +16,7 @@ protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
     func clickOpenStatusBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
-    func creatQrcode()
+    func createQrCode()
     func clickChangeImage()
     func clickFeedbackBtn()
     func clickPrivateBtn()
@@ -36,7 +36,7 @@ class BossUIView: UIView {
     
     @IBOutlet weak var btnContainView: UIView!
     @IBOutlet weak var logoOutBtn: UIButton!
-    @IBOutlet weak var creatQrcodeBtn: UIButton!
+    @IBOutlet weak var createQrcodeBtn: UIButton!
     @IBOutlet weak var feedbackBtn: UIButton!
     @IBOutlet weak var privateBtn: UIButton!
     
@@ -56,7 +56,7 @@ class BossUIView: UIView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var openBtn: UIButton!
-    @IBOutlet weak var loactionAnimationView: AnimationView!
+    @IBOutlet weak var locationAnimationView: AnimationView!
 
     weak var delegate: BossUIViewDelegate?
 
@@ -83,7 +83,7 @@ class BossUIView: UIView {
         
         openBtn.addTarget(self, action: #selector(clickOpenStatusBtn), for: .touchUpInside)
         
-        creatQrcodeBtn.addTarget(self, action: #selector(creatQrcode), for: .touchUpInside)
+        createQrcodeBtn.addTarget(self, action: #selector(createQrCode), for: .touchUpInside)
         
         mapView.delegate = self.delegate
         storyTextView.delegate = self.delegate
@@ -95,7 +95,7 @@ class BossUIView: UIView {
         mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
-        mapView.bringSubviewToFront(loactionAnimationView)
+        mapView.bringSubviewToFront(locationAnimationView)
     }
 
     func setupValue(name: String, story: String, image: String, detailImage: String, open: Bool) {
@@ -176,9 +176,9 @@ class BossUIView: UIView {
         cleanValue()
     }
     
-    @objc func creatQrcode() {
+    @objc func createQrcode() {
         
-        self.delegate?.creatQrcode()
+        self.delegate?.createQrCode()
 
     }
     

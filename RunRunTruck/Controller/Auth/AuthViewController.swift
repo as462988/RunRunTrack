@@ -194,7 +194,7 @@ class AuthViewController: UIViewController {
         
         addTruckVC.modalPresentationStyle = .overCurrentContext
         addTruckVC.needEnterName = needEnterName
-        addTruckVC.appleSinginBossID = bossId
+        addTruckVC.appleLoginBossID = bossId
         self.present(addTruckVC, animated: false, completion: nil)
     }
     
@@ -213,7 +213,7 @@ class AuthViewController: UIViewController {
                         return
                     }
                     //吃貨登入成功
-                    FirebaseManager.shared.updataData(type: User.user.rawValue,
+                    FirebaseManager.shared.updateData(type: User.user.rawValue,
                                                           uid: Auth.auth().currentUser?.uid ?? "",
                                                           key: User.token.rawValue,
                                                           value: FirebaseManager.shared.currentUserToken)

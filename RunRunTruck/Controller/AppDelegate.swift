@@ -72,14 +72,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
     
         guard let latString = userInfo["latitude"] as? String,
-                let lonString = userInfo["longitude"] as? String else { return }
+                let longString = userInfo["longitude"] as? String else { return }
 
         guard let rootVC = window?.rootViewController as? TabBarViewController,
             let navigationVc = rootVC.viewControllers?[0] as? UINavigationController else { return }
         
         if let lobbyVC = navigationVc.viewControllers[0] as? LobbyViewController {
             
-            lobbyVC.reloadLobbyViewWithChangeLocation(lat: Double(latString)!, lon: Double(lonString)!, zoom: 15)
+            lobbyVC.reloadLobbyViewWithChangeLocation(lat: Double(latString)!, lon: Double(longString)!, zoom: 15)
             
             rootVC.selectedIndex = 0
         }

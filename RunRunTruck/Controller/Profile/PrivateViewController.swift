@@ -19,7 +19,7 @@ class PrivateViewController: UIViewController {
         
         showInfo()
         privateWebView.navigationDelegate = self
-//        navigationController?.navigationBar.barTintColor = UIColor(r: 39, g: 89, b: 166)
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(
                    image: UIImage.asset(.Icon_back),
                    style: .plain,
@@ -31,8 +31,8 @@ class PrivateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        if let tabbarVc = self.navigationController?.tabBarController {
-            tabbarVc.tabBar.isHidden = true
+        if let tabBarVc = self.navigationController?.tabBarController {
+            tabBarVc.tabBar.isHidden = true
         }
     }
     

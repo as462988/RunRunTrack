@@ -440,11 +440,11 @@
                                     <outlet property="backgroundView" destination="zsb-T0-NqB" id="bAR-EJ-4gJ"/>
                                     <outlet property="btnContainView" destination="Hm1-oz-oUG" id="GE5-n1-umm"/>
                                     <outlet property="cancelBtn" destination="7wm-9a-XHR" id="euA-na-fnG"/>
-                                    <outlet property="creatQrcodeBtn" destination="eBR-E8-EPE" id="ybm-da-zjS"/>
+                                    <outlet property="createQrcodeBtn" destination="eBR-E8-EPE" id="ybm-da-zjS"/>
                                     <outlet property="detailImage" destination="OIx-Yy-t50" id="BfN-Dk-k97"/>
                                     <outlet property="feedbackBtn" destination="Bg9-hc-hk4" id="5pb-Nr-HIz"/>
                                     <outlet property="infoView" destination="Qzt-k4-dQN" id="mXN-h7-brZ"/>
-                                    <outlet property="loactionAnimationView" destination="1yw-xS-Nk9" id="Cj4-bQ-4nY"/>
+                                    <outlet property="locationAnimationView" destination="1yw-xS-Nk9" id="Cj4-bQ-4nY"/>
                                     <outlet property="logoImage" destination="dNi-7B-o9P" id="TP8-ZL-H0i"/>
                                     <outlet property="logoOutBtn" destination="AX4-je-MLv" id="ImB-ON-t89"/>
                                     <outlet property="mapView" destination="UoX-fJ-Y7n" id="d7X-Zp-UC5"/>
@@ -476,10 +476,10 @@
             </objects>
             <point key="canvasLocation" x="440.57971014492756" y="245.75892857142856"/>
         </scene>
-        <!--Creat Qrcode View Controller-->
+        <!--Create Qr Code View Controller-->
         <scene sceneID="Bvq-em-rgN">
             <objects>
-                <viewController storyboardIdentifier="CreatQrcodeViewController" id="vn7-rQ-nGG" customClass="CreatQrcodeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateQrcodeViewController" id="vn7-rQ-nGG" customClass="CreateQrCodeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MaK-1H-AQ7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcI-q8-6AX" customClass="QrcodeView" customModule="餐車在哪兒" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcI-q8-6AX" customClass="QrCodeView" customModule="餐車在哪兒" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="540" width="414" height="356"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-yH-2a6">
@@ -600,11 +600,11 @@
             <objects>
                 <viewController storyboardIdentifier="UserInfoViewController" id="KXd-ym-MfT" customClass="UserInfoViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sPK-Ql-jVq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-vw-yyQ" customClass="UserUIView" customModule="餐車在哪兒" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="803"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="813"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQ6-k6-9h6">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="243.5"/>
@@ -674,7 +674,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dQ-pt-fXs">
-                                        <rect key="frame" x="0.0" y="243.5" width="414" height="559.5"/>
+                                        <rect key="frame" x="0.0" y="243.5" width="414" height="569.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                 </subviews>
@@ -784,10 +784,6 @@
                         <viewLayoutGuide key="safeArea" id="T1e-0k-JfL"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="8bi-2V-Gue"/>
-                    <connections>
-                        <segue destination="IeC-vD-fem" kind="show" identifier="bossInfo" customClass="PushNoAnimationSegue" customModule="餐車在哪兒" customModuleProvider="target" animates="NO" id="Eax-hI-cT7"/>
-                        <segue destination="KXd-ym-MfT" kind="showDetail" identifier="userInfo" customClass="PushNoAnimationSegue" customModule="餐車在哪兒" customModuleProvider="target" animates="NO" id="zht-n6-8cK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X6V-XT-EV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

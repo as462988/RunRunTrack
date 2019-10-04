@@ -9,7 +9,7 @@
 import UIKit
 private let cellId = "cellId"
 
-typealias BlockUser = (userNmae: String, userId: String)
+typealias BlockUser = (userName: String, userId: String)
 
 class BlockListViewController: UIViewController {
     var tableView: UITableView!

@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 
-class TrcukCollectionViewCell: UICollectionViewCell {
+class TruckCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var truckImage: UIImageView!
     
@@ -18,8 +18,6 @@ class TrcukCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var truckNameLabel: UILabel!
     
     @IBOutlet weak var truckOpenStatusImage: UIImageView!
-    
-//    @IBOutlet weak var animationView: AnimationView!
     
     func setValue(name: String, logoImage: String, image: String, isOpen: Bool) {
         

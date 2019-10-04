@@ -26,7 +26,3 @@ enum HTTPHeaderValue: String {
 
     case json = "application/json"
 }
-
-class HTTPClient {
-    
-}

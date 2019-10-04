@@ -123,7 +123,7 @@ class AuthRegisterViewController: UIViewController {
         
         addTruckVC.modalPresentationStyle = .overCurrentContext
         addTruckVC.needEnterName = needEnterName
-        addTruckVC.appleSinginBossID = bossId
+        addTruckVC.appleLoginBossID = bossId
         self.present(addTruckVC, animated: false, completion: nil)
     }
 

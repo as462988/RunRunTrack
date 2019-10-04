@@ -14,7 +14,7 @@ import FirebaseAuth
 // swiftlint:disable file_length
 class FirebaseManager {
     
-    static let userNotificationName = "userInfoUpdatedNotificaton"
+    static let userNotificationName = "userInfoUpdatedNotification"
     static let allTruckDataNotificationName = "allTruckDataUpdatedNotification"
     
     static let shared = FirebaseManager()
@@ -51,7 +51,9 @@ class FirebaseManager {
             var detailImage: String?
             
             snapshot?.documentChanges.forEach({ (documentChange) in
+                
                 if documentChange.type == .added {
+                    
                     let data = documentChange.document.data()
                     
                     guard let name = data[Truck.name.rawValue] as? String,
@@ -61,7 +63,9 @@ class FirebaseManager {
                         let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
                     
                     openTimestamp = data[Truck.openTime.rawValue] as? Double
+                    
                     location = data[Truck.location.rawValue] as? GeoPoint
+                    
                     detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,
@@ -72,9 +76,11 @@ class FirebaseManager {
                                           openTimestamp,
                                           location,
                                           favorited)
+                    
                     self.allTruckData.append(truck)
                 }
             })
+            
             NotificationCenter.default.post(
                 name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
                 object: nil)
@@ -84,7 +90,9 @@ class FirebaseManager {
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         var openTimestamp: Double?
+        
         var location: GeoPoint?
+        
         var detailImage: String?
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -93,7 +101,9 @@ class FirebaseManager {
                 guard let snapshot = snapshot else { return }
                 
                 var rtnTruckDatas: [(TruckData, DocumentChangeType)] = []
+                
                 snapshot.documentChanges.forEach({ (documentChange) in
+                    
                     let data = documentChange.document.data()
                     
                     guard let name = data[Truck.name.rawValue] as? String,
@@ -103,7 +113,9 @@ class FirebaseManager {
                         let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
                     
                     openTimestamp = data[Truck.openTime.rawValue] as? Double
+                    
                     location = data[Truck.location.rawValue] as? GeoPoint
+                    
                     detailImage = data[Truck.detailImage.rawValue] as? String
                     
                     let truck = TruckData(documentChange.document.documentID,
@@ -122,7 +134,7 @@ class FirebaseManager {
         
     }
     
-    func addTurck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
+    func addTruck(name: String, img: String, story: String, completion: @escaping (String) -> Void) {
         
         let ref = db.collection(Truck.truck.rawValue).document()
         
@@ -181,12 +193,12 @@ class FirebaseManager {
     }
     
     // MARK: About All
-    func updataData(type: String, uid: String, key: String, value: String) {
+    func updateData(type: String, uid: String, key: String, value: String) {
 
         db.collection(type).document(uid).updateData([ key: value ])
     }
     
-    func updataArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+    func updateArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
         
         db.collection(type).document(id).updateData([key: FieldValue.arrayUnion([value])]) { (error) in
             
@@ -198,7 +210,7 @@ class FirebaseManager {
         }
     }
     
-    func updataRemoveArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+    func updateRemoveArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
         db.collection(type).document(id).updateData([key: FieldValue.arrayRemove([value])]) { (error) in
                  
                  if let error = error {
@@ -258,17 +270,24 @@ class FirebaseManager {
         var currentUserId: String = ""
         
         if useAppleSingIn {
+            
             if let userId = userId {
+                
                 currentUserId = userId
             }
         } else {
+            
         guard let uid = Auth.auth().currentUser?.uid else { return }
+            
         currentUserId = uid
+            
         }
         db.collection(User.user.rawValue).document(currentUserId).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
+                
                 completion(nil)
+                
                 return
             }
             guard let data = document.data() else { return }
@@ -289,7 +308,9 @@ class FirebaseManager {
                 self?.currentUser = UserData(name: name, email: email, badge: badge,
                                              block: block, favorite: favorite)
             }
+            
             self?.userID = currentUserId
+            
             completion(self?.currentUser)
         }
     }
@@ -297,20 +318,28 @@ class FirebaseManager {
     func setUserData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
         
         var userid = ""
+        
         if isAppleSingIn {
+            
             userid = appleUID
+            
         } else {
+            
             guard let authUid = Auth.auth().currentUser?.uid else { return }
+            
             userid = authUid
         }
         
         db.collection(User.user.rawValue).document(userid).setData([
+            
             User.name.rawValue: name,
             User.email.rawValue: email,
             User.badge.rawValue: [],
             User.block.rawValue: [],
             User.favorite.rawValue: []
+            
         ]) { error in
+            
             if let error = error {
                 print("Error adding document: \(error)")
             }
@@ -336,6 +365,7 @@ class FirebaseManager {
     func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckShortInfo?) -> Void) {
         
         db.collection(Truck.truck.rawValue).document(truckId).getDocument { (snapshot, error) in
+            
             guard let data = snapshot?.data() else {
                 print("Document data was empty.")
                 completion(nil)
@@ -346,6 +376,7 @@ class FirebaseManager {
                 let logoImage = data[Truck.logoImage.rawValue] as? String else {return }
             
             let truck = TruckShortInfo(truckId: truckId, name: name, logoImage: logoImage)
+            
             completion(truck)
         }
     }
@@ -358,17 +389,22 @@ class FirebaseManager {
         if isAppleSingIn {
             
             guard let userId = userid else { return }
+            
             currentBossId = userId
             
         } else {
+            
              guard let uid = Auth.auth().currentUser?.uid else { return }
+            
             currentBossId = uid
         }
         
         db.collection(Boss.boss.rawValue).document(currentBossId).getDocument { [weak self](snapshot, error) in
             
             guard let data = snapshot?.data() else {
+                
                 completion(nil)
+                
                 return
             }
             
@@ -377,7 +413,9 @@ class FirebaseManager {
                 let truckId = data[Truck.truckId.rawValue] as? String  else { return }
             
             self?.currentUser = UserData(name: name, email: email, truckId: truckId)
+            
             self?.bossID = currentBossId
+            
             completion(self?.currentUser)
         }
     }
@@ -387,14 +425,15 @@ class FirebaseManager {
         var detailImage: String?
         
         guard let truckId = currentUser?.truckId else {
+            
             completion(nil)
+            
             return
         }
         
         db.collection(Truck.truck.rawValue).document(truckId).getDocument {(snapshot, error) in
-            guard let snapshot = snapshot else {
-                return
-            }
+            
+            guard let snapshot = snapshot else { return }
             
             guard let name = snapshot.data()?[Truck.name.rawValue] as? String,
                 let logoImage = snapshot.data()?[Truck.logoImage.rawValue] as? String,
@@ -426,13 +465,17 @@ class FirebaseManager {
         }
         
         db.collection(Boss.boss.rawValue).document(userid).setData([
+            
             Boss.name.rawValue: name,
             Boss.email.rawValue: email,
             Truck.truckId.rawValue: nil]
+            
         ) { [weak self] error in
             
             if let error = error {
+                
                 print("Error adding document: \(error)")
+                
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email, truckId: nil)
@@ -443,15 +486,18 @@ class FirebaseManager {
         
     }
     
-    func addTurckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
+    func addTruckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
         
         guard isAppleSingIn  else {
             
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
             db.collection(Boss.boss.rawValue).document(uid).updateData([
+                
                 Truck.truckId.rawValue: truckId
+                
             ])
+            
             return
         }
         
@@ -467,8 +513,10 @@ class FirebaseManager {
             
             guard error == nil else {
                 
-                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else { return }
+                
                 completion(false, errorCode.errorMessage)
+                
                 return
             }
             completion(true, "Success")
@@ -509,15 +557,18 @@ class FirebaseManager {
         db.collection(userType).document(uid).getDocument { (snapshot, error) in
             
             guard snapshot?.data() != nil else {
+                
                 completion(false)
+                
                 return
             }
+            
             completion(true)
         }
     }
     // MARK: About ChatRoom
     
-    func creatChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {
+    func createChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {
         
         db.collection(Truck.truck.rawValue).document(truckID).collection(
             Truck.chatRoom.rawValue).addDocument(data: [
@@ -556,7 +607,9 @@ class FirebaseManager {
             descending: false)
         
         order.addSnapshotListener { (snapshot, error) in
+            
             guard let snapshot = snapshot else { return }
+            
             var rtnMessage: [Message] = []
             
             var image: String?
@@ -564,6 +617,7 @@ class FirebaseManager {
             snapshot.documentChanges.forEach({ (documentChange) in
                 
                 let data = documentChange.document.data()
+                
                 guard let uid = data[User.uid.rawValue] as? String,
                     let name = data[User.name.rawValue] as? String,
                     let text = data[User.text.rawValue] as? String,
@@ -576,25 +630,23 @@ class FirebaseManager {
                     rtnMessage.append(Message(uid, name, image, text, createTime))
                 }
             })
+            
             if rtnMessage.count > 0 {
+                
                 completion(rtnMessage)
+                
             }
         }
     }
     
-    func creatFeedback(user: String, uid: String, title: String, detailText: String) {
+    func createFeedback(user: String, uid: String, title: String, detailText: String) {
         
         db.collection(user).document(uid).collection(Feedback.feedback.rawValue).addDocument(data: [
+            
                 Feedback.title.rawValue: title,
                 Feedback.detailText.rawValue: detailText,
                 User.createTime.rawValue: Date().timeIntervalSince1970
-            ]) { (error) in
-                if let err = error {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-        }
+            
+            ])
     }
-
 }

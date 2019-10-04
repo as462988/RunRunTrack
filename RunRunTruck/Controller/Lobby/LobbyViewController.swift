@@ -29,12 +29,12 @@ class LobbyViewController: UIViewController {
     
     var centerLat = 25.027758
     
-    var centeyLon = 121.550017
+    var centerLon = 121.550017
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        lobbyView.setMapView(lat: centerLat, lon: centeyLon, zoom: 15)
+        lobbyView.setMapView(lat: centerLat, lon: centerLon, zoom: 15)
         
         //拿取所有營業中的餐車顯示在地圖
         FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
@@ -112,24 +112,30 @@ extension LobbyViewController: LobbyViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: TurckInfoCollectionViewCell.self),
-            for: indexPath) as? TurckInfoCollectionViewCell else {
+            withReuseIdentifier: String(describing: TruckInfoCollectionViewCell.self),
+            for: indexPath) as? TruckInfoCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
         let data = FirebaseManager.shared.openIngTruckData[indexPath.row]
         
         cell.delegate = self
+        
         cell.configureWithTruckData(truckData: data)
+        
         cell.setValue(name: data.name,
                       openTime: data.openTime!,
                       logoImage: data.logoImage,
                       truckLocationText: data.address)
         
         cell.latitude = data.location!.latitude
+        
         cell.longitude = data.location!.longitude
+        
         cell.layer.cornerRadius = 20
+        
         cell.clipsToBounds = true
+        
         return cell
     }
     
@@ -170,7 +176,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         let location = FirebaseManager.shared.openIngTruckData[targetIndex].location
         
-        lobbyView.updataMapView(lat: location!.latitude, long: location!.longitude, zoom: 15)
+        lobbyView.updateMapView(lat: location!.latitude, long: location!.longitude, zoom: 15)
     }
     
     // MARK: - GoogleMap
@@ -199,7 +205,7 @@ extension LobbyViewController: LobbyViewDelegate {
             animated: true
         )
         
-        self.lobbyView.updataMapView(lat: lat, long: lon, zoom: zoom)
+        self.lobbyView.updateMapView(lat: lat, long: lon, zoom: zoom)
         
     }
     
@@ -210,7 +216,7 @@ extension LobbyViewController: LobbyViewDelegate {
         
         if let myLocation = lobbyView.locationManager.location {
 
-            self.lobbyView.updataMapView(lat: myLocation.coordinate.latitude,
+            self.lobbyView.updateMapView(lat: myLocation.coordinate.latitude,
                                          long: myLocation.coordinate.longitude,
                                          zoom: 15)
             
@@ -229,15 +235,15 @@ extension LobbyViewController: LobbyViewDelegate {
     
 }
 
-extension LobbyViewController: TurckInfoCellDelegate {
+extension LobbyViewController: TruckInfoCellDelegate {
     
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell, didNavigateTo location: GeoLocation) {
         
-        handleOpenURL.openUrl(lat: location.lat, lon: location.lon, zoom: 10)
+        handleOpenURL.openUrl(lat: location.lat, lon: location.long, zoom: 10)
         
     }
     
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell,
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {
         
         guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
@@ -261,7 +267,7 @@ extension LobbyViewController: TurckInfoCellDelegate {
         present(auth, animated: false, completion: nil)
         
     }
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData) {
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData) {
         
         self.hidesBottomBarWhenPushed = true
         

@@ -74,14 +74,14 @@ class FeedbackViewController: UIViewController {
         
         if FirebaseManager.shared.userID != nil {
         
-            FirebaseManager.shared.creatFeedback(user: User.user.rawValue,
+            FirebaseManager.shared.createFeedback(user: User.user.rawValue,
                                              uid: FirebaseManager.shared.userID!,
                                              title: titleText.text!,
                                              detailText: questionText.text!)
             
         } else if FirebaseManager.shared.bossID != nil {
             
-            FirebaseManager.shared.creatFeedback(
+            FirebaseManager.shared.createFeedback(
                 user: Boss.boss.rawValue,
                 uid: FirebaseManager.shared.bossID!,
                 title: titleText.text!,

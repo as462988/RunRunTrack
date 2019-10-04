@@ -23,15 +23,15 @@ class HandleSettingAlert {
               }
               
               if UIApplication.shared.canOpenURL(settingsUrl) {
+                
                   UIApplication.shared.open(settingsUrl, completionHandler: nil)
-//                (settingsUrl, completionHandler: { (success) in
-//                  })
               }
           }
           alertController.addAction(settingsAction)
         let cancelAction = UIAlertAction(title: cancelTitle, style: .default) { (action) in
             
             vc.navigationController?.popViewController(animated: true)
+            
             print("cancel")
         }
           alertController.addAction(cancelAction)

@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 enum BtnStatus {
+    
     case enable
+    
     case disable
 }
 
@@ -18,10 +20,15 @@ enum BtnStatus {
 func setBtnStatus(_ status: BtnStatus, btn: UIButton) {
     switch status {
     case .enable:
+        
         btn.isUserInteractionEnabled = true
+        
         btn.alpha = 1
+        
     case .disable:
+        
         btn.isUserInteractionEnabled = false
+        
         btn.alpha = 0.5
     }
 }

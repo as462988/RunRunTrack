@@ -154,6 +154,7 @@ struct UserData {
          badge: [String] = [], truckId: String? = nil,
          block: [String] = [], favorite: [String] = [],
          feedback: [String] = []) {
+        
         self.name = name
         self.email = email
         self.logoImage = logoImage

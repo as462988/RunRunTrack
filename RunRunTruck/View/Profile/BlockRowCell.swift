@@ -72,7 +72,7 @@ class BlockRowCell: UITableViewCell {
         
         guard let uid = FirebaseManager.shared.userID else { return }
 
-        FirebaseManager.shared.updataRemoveArrayData(
+        FirebaseManager.shared.updateRemoveArrayData(
             type: User.user.rawValue,
             id: uid,
             key: User.block.rawValue,

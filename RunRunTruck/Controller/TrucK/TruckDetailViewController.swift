@@ -98,12 +98,12 @@ class TruckDetailViewController: UIViewController {
             FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
             print("topicName:\(topic)")
             
-            FirebaseManager.shared.updataArrayData(
+            FirebaseManager.shared.updateArrayData(
                 type: User.user.rawValue,
                 id: (uid == nil ? bossId : uid) ?? "",
                 key: User.favorite.rawValue,
                 value: detailInfo.id) {
-                    FirebaseManager.shared.updataArrayData(
+                    FirebaseManager.shared.updateArrayData(
                         type: Truck.truck.rawValue,
                         id: detailInfo.id,
                         key: Truck.favoritedBy.rawValue,
@@ -112,12 +112,12 @@ class TruckDetailViewController: UIViewController {
         } else {
             
             FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: topic, completion: nil)
-            FirebaseManager.shared.updataRemoveArrayData(
+            FirebaseManager.shared.updateRemoveArrayData(
                 type: User.user.rawValue,
                 id: (uid == nil ? bossId : uid) ?? "",
                 key: User.favorite.rawValue,
                 value: detailInfo.id) {
-                    FirebaseManager.shared.updataRemoveArrayData(
+                    FirebaseManager.shared.updateRemoveArrayData(
                         type: Truck.truck.rawValue,
                         id: detailInfo.id,
                         key: Truck.favoritedBy.rawValue,
