@@ -118,6 +118,7 @@ class AddBossTruckViewController: UIViewController {
         if self.needEnterName {
             
             self.appleSingInAddTruck(url: url, inputText: inputText)
+            
         } else {
             
             guard let name = truckName else {
@@ -151,9 +152,14 @@ class AddBossTruckViewController: UIViewController {
                                             
                 FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: true,
                                                         appleID: self?.appleSinginBossID, truckId: truckId)
-                FirebaseManager.shared.updataBossName(
-                    uid: self?.appleSinginBossID ?? "",
-                    name: self?.truckNameInput.text ?? "")
+//                FirebaseManager.shared.updataBossName(
+//                    uid: self?.appleSinginBossID ?? "",
+//                    name: self?.truckNameInput.text ?? "")
+                
+                FirebaseManager.shared.updataData(type: Boss.boss.rawValue,
+                                                      uid: self?.appleSinginBossID ?? "",
+                                                      key: Boss.name.rawValue,
+                                                      value: self?.truckNameInput.text ?? "")
                 
                 DispatchQueue.main.async {
                     guard let rootVC = AppDelegate.shared.window?.rootViewController
@@ -175,8 +181,10 @@ class AddBossTruckViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             let vc = self.presentingViewController
             self.dismiss(animated: true) {
-                    self.dismiss(animated: false) {
-                    vc?.dismiss(animated: false, completion: nil)
+                self.dismiss(animated: false) {
+                    if self.needEnterName == false {
+                        vc?.dismiss(animated: false, completion: nil)
+                    }
                 }
             }
         }

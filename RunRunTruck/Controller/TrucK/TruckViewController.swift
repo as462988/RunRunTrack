@@ -138,12 +138,12 @@ class TruckViewController: UIViewController {
            }
        }
     }
-    func handGester(view: AnimationView) {
-        
-        view.animation = Animation.named(Lottie.openTruck.rawValue)
-        view.loopMode = .loop
-        view.play()
-    }
+//    func handGester(view: AnimationView) {
+//
+//        view.animation = Animation.named(Lottie.welcome.rawValue)
+//        view.loopMode = .autoReverse
+//        view.play()
+//    }
 }
 
 extension TruckViewController:
@@ -157,26 +157,19 @@ UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let truckCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "truckCell",
+            withReuseIdentifier: String(describing: TrcukCollectionViewCell.self),
             for: indexPath) as? TrcukCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
         allTruckArr = openTruckArr + disOpenTruckArr
         
-        truckCell.setValue(name: allTruckArr[indexPath.item].name,
-                           logoImage: allTruckArr[indexPath.item].logoImage,
-                           image: allTruckArr[indexPath.item].detailImage ?? "")
+        let data = allTruckArr[indexPath.item]
         
-        if allTruckArr[indexPath.item].open {
-            
-            truckCell.animationView.isHidden = false
-
-            handGester(view: truckCell.animationView)
-        } else {
-            truckCell.animationView.isHidden = true
-
-        }
+        truckCell.setValue(name: data.name,
+                           logoImage: data.logoImage,
+                           image: data.detailImage ?? "",
+                           isOpen: data.open)
 
         return truckCell
     }
@@ -196,7 +189,8 @@ UICollectionViewDataSource {
         self.hidesBottomBarWhenPushed = true
         
         guard let truckVC = UIStoryboard.truck.instantiateViewController(
-            withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+            withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
+            else {return}
         
         truckVC.detailInfo = allTruckArr[indexPath.item]
         

@@ -13,7 +13,7 @@
 		090AFB67231D0B4C0072E646 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */; };
 		091508A423224074008EFCF5 /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A323224074008EFCF5 /* ChatroomViewController.swift */; };
 		091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091508A5232240BF008EFCF5 /* TruckChatroomView.swift */; };
-		09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* openChoseCameraManager.swift */; };
+		09168B9D2332458B002E1737 /* OpenChoseCameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */; };
 		09168BBD23328478002E1737 /* getBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09168BBC23328478002E1737 /* getBadgeView.swift */; };
 		091EEB5E23153B0200BF066F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5D23153B0200BF066F /* AppDelegate.swift */; };
 		091EEB6023153B0200BF066F /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB5F23153B0200BF066F /* LobbyViewController.swift */; };
@@ -33,7 +33,6 @@
 		091EEB912316866700BF066F /* TruckData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091EEB902316866700BF066F /* TruckData.swift */; };
 		0928BBE92334DD2F00774759 /* TruckNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBE82334DD2F00774759 /* TruckNavigationController.swift */; };
 		0928BBEB233503C400774759 /* Lottie+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0928BBEA233503C300774759 /* Lottie+Handler.swift */; };
-		0928BC092335565400774759 /* onboardingCar.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC042335565300774759 /* onboardingCar.json */; };
 		0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC052335565300774759 /* hand-click-gesture.json */; };
 		0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC062335565300774759 /* lf30_editor_envOAW.json */; };
 		0928BC0C2335565400774759 /* camera.json in Resources */ = {isa = PBXBuildFile; fileRef = 0928BC072335565300774759 /* camera.json */; };
@@ -56,6 +55,8 @@
 		098B2627233A367E00E8010C /* BlockRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2626233A367E00E8010C /* BlockRowCell.swift */; };
 		098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B2628233A3C8000E8010C /* PrivateViewController.swift */; };
 		098B262B233A622F00E8010C /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098B262A233A622F00E8010C /* FeedbackViewController.swift */; };
+		09A142922345C2C200E1EC34 /* HandleOpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A142912345C2C200E1EC34 /* HandleOpenURL.swift */; };
+		09A142942345C90500E1EC34 /* HandleSettingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A142932345C90500E1EC34 /* HandleSettingAlert.swift */; };
 		09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */; };
 		09B2E4CA23378F84007FF161 /* BlockMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4C923378F84007FF161 /* BlockMessageCell.swift */; };
 		09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */; };
@@ -81,7 +82,9 @@
 		09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F78E5A2328E98600FD6099 /* UserInfoViewController.swift */; };
 		09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A1233927EE00DD5768 /* SettingRow.swift */; };
 		09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC78A32339BC4900DD5768 /* AppleUser.swift */; };
-		09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */ = {isa = PBXBuildFile; fileRef = 09FE3EDE23406C8400C9CC7B /* isOpen.json */; };
+		09FE3EE72344408600C9CC7B /* FirebaseMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE3EE62344408600C9CC7B /* FirebaseMessageManager.swift */; };
+		09FE3EE923446F4D00C9CC7B /* FirebaseNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */; };
+		09FE3EEB2344748000C9CC7B /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE3EEA2344748000C9CC7B /* HTTPClient.swift */; };
 		C793196B77820E1E04648D2B /* Pods_RunRunTruck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */; };
 /* End PBXBuildFile section */
 
@@ -92,7 +95,7 @@
 		090AFB66231D0B4C0072E646 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		091508A323224074008EFCF5 /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
 		091508A5232240BF008EFCF5 /* TruckChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckChatroomView.swift; sourceTree = "<group>"; };
-		09168B9C2332458B002E1737 /* openChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openChoseCameraManager.swift; sourceTree = "<group>"; };
+		09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChoseCameraManager.swift; sourceTree = "<group>"; };
 		09168BBC23328478002E1737 /* getBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getBadgeView.swift; sourceTree = "<group>"; };
 		091EEB5A23153B0200BF066F /* 餐車在哪兒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "餐車在哪兒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		091EEB5D23153B0200BF066F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +117,6 @@
 		091EEB902316866700BF066F /* TruckData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckData.swift; sourceTree = "<group>"; };
 		0928BBE82334DD2F00774759 /* TruckNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckNavigationController.swift; sourceTree = "<group>"; };
 		0928BBEA233503C300774759 /* Lottie+Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lottie+Handler.swift"; sourceTree = "<group>"; };
-		0928BC042335565300774759 /* onboardingCar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboardingCar.json; sourceTree = "<group>"; };
 		0928BC052335565300774759 /* hand-click-gesture.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hand-click-gesture.json"; sourceTree = "<group>"; };
 		0928BC062335565300774759 /* lf30_editor_envOAW.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf30_editor_envOAW.json; sourceTree = "<group>"; };
 		0928BC072335565300774759 /* camera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = camera.json; sourceTree = "<group>"; };
@@ -137,6 +139,8 @@
 		098B2626233A367E00E8010C /* BlockRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRowCell.swift; sourceTree = "<group>"; };
 		098B2628233A3C8000E8010C /* PrivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateViewController.swift; sourceTree = "<group>"; };
 		098B262A233A622F00E8010C /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		09A142912345C2C200E1EC34 /* HandleOpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleOpenURL.swift; sourceTree = "<group>"; };
+		09A142932345C90500E1EC34 /* HandleSettingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleSettingAlert.swift; sourceTree = "<group>"; };
 		09B2E4C723368FF0007FF161 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		09B2E4C923378F84007FF161 /* BlockMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessageCell.swift; sourceTree = "<group>"; };
 		09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckCardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -163,7 +167,9 @@
 		09FC78A1233927EE00DD5768 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		09FC78A32339BC4900DD5768 /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
 		09FC78A52339BE7400DD5768 /* RunRunTruck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunRunTruck.entitlements; sourceTree = "<group>"; };
-		09FE3EDE23406C8400C9CC7B /* isOpen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isOpen.json; sourceTree = "<group>"; };
+		09FE3EE62344408600C9CC7B /* FirebaseMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageManager.swift; sourceTree = "<group>"; };
+		09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNotificationManager.swift; sourceTree = "<group>"; };
+		09FE3EEA2344748000C9CC7B /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		2A3B9A69466F1C73DAEEECBE /* Pods-RunRunTruck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.release.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.release.xcconfig"; sourceTree = "<group>"; };
 		A22E3976D49F268CDE569BB0 /* Pods-RunRunTruck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunRunTruck.debug.xcconfig"; path = "Target Support Files/Pods-RunRunTruck/Pods-RunRunTruck.debug.xcconfig"; sourceTree = "<group>"; };
 		E80023D6BE0F686C5AE1B36C /* Pods_RunRunTruck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunRunTruck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +226,6 @@
 				091EEB7423156BF900BF066F /* Model */,
 				091EEB7323156BEE00BF066F /* Controller */,
 				091EEB7223156BE800BF066F /* View */,
-				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
 				09329DD7231779AE003C851A /* Assets.xcassets */,
 				091EEB6923153B0300BF066F /* Info.plist */,
 				09EA2D48233F6FA5005456CD /* GoogleService-Info.plist */,
@@ -232,9 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				09F78E3A23263F0800FD6099 /* BtnStatus.swift */,
+				091EEB8B23166C9100BF066F /* Lobby */,
 				09E6C4A823338D8C009EA849 /* Truck */,
 				095238C72330A9460015AEDA /* Badge */,
-				091EEB8B23166C9100BF066F /* Lobby */,
 				093365F4231E36F700F0D503 /* Chatroom */,
 				09F78E502327974200FD6099 /* Profile */,
 				091EEB6123153B0200BF066F /* Main.storyboard */,
@@ -251,6 +256,7 @@
 		091EEB7323156BEE00BF066F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				091EEB5D23153B0200BF066F /* AppDelegate.swift */,
 				091EEB7D23157AE700BF066F /* TabBarViewController.swift */,
 				0928BBE82334DD2F00774759 /* TruckNavigationController.swift */,
 				09336624231ECAB400F0D503 /* Lobby */,
@@ -265,14 +271,19 @@
 		091EEB7423156BF900BF066F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
 				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
 				09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */,
+				09FE3EE62344408600C9CC7B /* FirebaseMessageManager.swift */,
+				09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */,
 				095238BB23307AB50015AEDA /* AddressManager.swift */,
 				09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */,
+				09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */,
+				09A142912345C2C200E1EC34 /* HandleOpenURL.swift */,
 				091EEB902316866700BF066F /* TruckData.swift */,
-				095238BD233086880015AEDA /* PushNoAnimationSegue.swift */,
-				09168B9C2332458B002E1737 /* openChoseCameraManager.swift */,
+				09A142932345C90500E1EC34 /* HandleSettingAlert.swift */,
 				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
+				09FE3EEA2344748000C9CC7B /* HTTPClient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -318,8 +329,6 @@
 				0928BC0D2335567E00774759 /* geolocation.json */,
 				0928BC052335565300774759 /* hand-click-gesture.json */,
 				0928BC062335565300774759 /* lf30_editor_envOAW.json */,
-				0928BC042335565300774759 /* onboardingCar.json */,
-				09FE3EDE23406C8400C9CC7B /* isOpen.json */,
 			);
 			name = Lottie;
 			sourceTree = "<group>";
@@ -505,13 +514,11 @@
 				091EEB78231579D400BF066F /* Profile.storyboard in Resources */,
 				091EEB6823153B0300BF066F /* LaunchScreen.storyboard in Resources */,
 				091EEB7C23157AA500BF066F /* Badge.storyboard in Resources */,
-				0928BC092335565400774759 /* onboardingCar.json in Resources */,
 				091EEB7A23157A7A00BF066F /* Truck.storyboard in Resources */,
 				0928BC0C2335565400774759 /* camera.json in Resources */,
 				091EEB762315790E00BF066F /* Lobby.storyboard in Resources */,
 				0928BC0B2335565400774759 /* lf30_editor_envOAW.json in Resources */,
 				0928BC0A2335565400774759 /* hand-click-gesture.json in Resources */,
-				09FE3EDF23406C8500C9CC7B /* isOpen.json in Resources */,
 				09329DD8231779AE003C851A /* Assets.xcassets in Resources */,
 				091EEB6323153B0200BF066F /* Main.storyboard in Resources */,
 				09EA2D49233F6FA5005456CD /* GoogleService-Info.plist in Resources */,
@@ -606,6 +613,7 @@
 				091EEB8D23166EAC00BF066F /* TruckInfoCollectionViewLayout.swift in Sources */,
 				09329DE1231BBBB3003C851A /* UIColor+Extension.swift in Sources */,
 				090AFB63231CD5420072E646 /* AuthSignUpViewController.swift in Sources */,
+				09FE3EEB2344748000C9CC7B /* HTTPClient.swift in Sources */,
 				09EA2BE22332172B00FC8347 /* FirebaseStorageManager.swift in Sources */,
 				095238C2233093A90015AEDA /* QrcodeView.swift in Sources */,
 				091EEB912316866700BF066F /* TruckData.swift in Sources */,
@@ -622,8 +630,11 @@
 				091EEB8F23167CDA00BF066F /* FirebaseManager.swift in Sources */,
 				09F78E3B23263F0800FD6099 /* BtnStatus.swift in Sources */,
 				091EEB8A23166C8800BF066F /* TurckInfoCollectionViewCell.swift in Sources */,
+				09A142942345C90500E1EC34 /* HandleSettingAlert.swift in Sources */,
+				09FE3EE72344408600C9CC7B /* FirebaseMessageManager.swift in Sources */,
 				09B2E4C823368FF0007FF161 /* JGProgressHUDWrapper.swift in Sources */,
-				09168B9D2332458B002E1737 /* openChoseCameraManager.swift in Sources */,
+				09168B9D2332458B002E1737 /* OpenChoseCameraManager.swift in Sources */,
+				09FE3EE923446F4D00C9CC7B /* FirebaseNotificationManager.swift in Sources */,
 				095238C62330A8D40015AEDA /* BadgeViewController.swift in Sources */,
 				091508A6232240BF008EFCF5 /* TruckChatroomView.swift in Sources */,
 				09F78E5B2328E98600FD6099 /* UserInfoViewController.swift in Sources */,
@@ -660,6 +671,7 @@
 				098B2629233A3C8000E8010C /* PrivateViewController.swift in Sources */,
 				09168BBD23328478002E1737 /* getBadgeView.swift in Sources */,
 				09FC78A42339BC4900DD5768 /* AppleUser.swift in Sources */,
+				09A142922345C2C200E1EC34 /* HandleOpenURL.swift in Sources */,
 				09F78E542327A4CA00FD6099 /* UserUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -810,7 +822,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
@@ -836,7 +848,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RunRunTruck/RunRunTruck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KQ5YU2R5VY;
 				INFOPLIST_FILE = RunRunTruck/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

@@ -79,36 +79,49 @@ class TruckDetailViewController: UIViewController {
     
     @objc func clickFavorite(_ sender: UIButton) {
         
-       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-
-          ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
-
-              return
-          }
+        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+            
+            ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
+            
+            return
+        }
         
         guard let detailInfo = detailInfo else { return }
         
         let uid = FirebaseManager.shared.userID
         let bossId = FirebaseManager.shared.bossID
-        
+        let topic = detailInfo.id
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            FirebaseManager.shared.addUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-            truckId: detailInfo.id) {
-                //新增最愛成功，把使用者同步到餐車的喜愛者
-                FirebaseManager.shared.addUserToTruckFavoritedBy(
-                    userId: (uid == nil ? bossId : uid) ?? "",
-                    truckId: detailInfo.id)
+            
+            //喜愛時訂閱推播
+            FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
+            print("topicName:\(topic)")
+            
+            FirebaseManager.shared.updataArrayData(
+                type: User.user.rawValue,
+                id: (uid == nil ? bossId : uid) ?? "",
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updataArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: (uid == nil ? bossId : uid) ?? "") {}
             }
         } else {
-            FirebaseManager.shared.deleteUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-                truckId: detailInfo.id) {
-                    //移除最愛成功，把使用者同步移除餐車的喜愛者
-                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
-                        userId: (uid == nil ? bossId : uid) ?? "",
-                        truckId: detailInfo.id)
+            
+            FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: topic, completion: nil)
+            FirebaseManager.shared.updataRemoveArrayData(
+                type: User.user.rawValue,
+                id: (uid == nil ? bossId : uid) ?? "",
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updataRemoveArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: (uid == nil ? bossId : uid) ?? "", completion: {})
             }
         }
     }

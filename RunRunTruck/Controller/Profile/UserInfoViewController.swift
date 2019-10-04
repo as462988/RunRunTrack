@@ -61,7 +61,7 @@ extension UserInfoViewController: UserUIViewDelegate {
     
     func clickEditNameBtn() {
         guard let editNameVc = UIStoryboard.profile.instantiateViewController(
-            identifier: "editVC") as? EditNameViewController else {return}
+            identifier: String(describing: EditNameViewController.self)) as? EditNameViewController else {return}
         setNarBackBtn(vc: editNameVc)
         if let user = FirebaseManager.shared.currentUser {
             editNameVc.name = user.name
@@ -97,7 +97,10 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-                        FirebaseManager.shared.updataUserImage(image: imageUrl)
+                        FirebaseManager.shared.updataData(type: User.user.rawValue,
+                                                              uid: FirebaseManager.shared.userID ?? "",
+                                                              key: User.logoImage.rawValue,
+                                                              value: imageUrl)
                 })
         }
         dismiss(animated: true, completion: nil)

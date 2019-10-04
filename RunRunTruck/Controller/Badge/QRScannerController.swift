@@ -75,6 +75,24 @@ class QRScannerController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let handleSettingAlert = HandleSettingAlert()
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+            
+        case .denied, .restricted:
+            
+            let alertVc = handleSettingAlert.openSetting(title: "未開啟相機權限",
+                                                         msg: "沒有開啟相機權限無法掃描喔！",
+                                                         settingTitle: "去設定",
+                                                         cancelTitle: "我知道了",
+                                                         vc: self)
+            
+            present(alertVc, animated: true, completion: nil)
+            
+        default:
+            break
+        }
+        
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
 
@@ -103,6 +121,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
         guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {return}
         
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            
             // 倘若發現的元資料與 QR code 元資料相同，便更新狀態標籤的文字並設定邊界
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
@@ -111,7 +130,11 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                
                 guard let uid = FirebaseManager.shared.userID else {return}
                 
-                FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
+                FirebaseManager.shared.updataArrayData(type: User.user.rawValue,
+                                                        id: uid,
+                                                        key: User.badge.rawValue,
+                                                        value: truckId) {}
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     
                     self?.navigationController?.popViewController(animated: true)

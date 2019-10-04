@@ -13,8 +13,10 @@ import FirebaseAuth
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class FirebaseManager {
+    
     static let userNotificationName = "userInfoUpdatedNotificaton"
     static let allTruckDataNotificationName = "allTruckDataUpdatedNotification"
+    
     static let shared = FirebaseManager()
     
     var openIngTruckData = [TruckData]()
@@ -26,6 +28,8 @@ class FirebaseManager {
     var bossTruck: TruckData?
     
     var message = [Message]()
+    
+    var currentUserToken: String = ""
     
     let db = Firestore.firestore()
     
@@ -75,7 +79,6 @@ class FirebaseManager {
                 name: Notification.Name(FirebaseManager.allTruckDataNotificationName),
                 object: nil)
         }
-        
     }
     
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
@@ -161,21 +164,7 @@ class FirebaseManager {
             ])
         }
     }
-    
-    func updataTruckData(forStory story: String? = nil, forImage detailImage: String? = nil) {
-        guard let truckId = bossTruck?.id else { return }
-        
-        if let story = story {
-            db.collection(Truck.truck.rawValue).document(truckId).updateData([
-                Truck.story.rawValue: story
-            ])
-        } else if let image = detailImage {
-            db.collection(Truck.truck.rawValue).document(truckId).updateData([
-                Truck.detailImage.rawValue: image
-            ])
-        }
-    }
-    
+
     func getTruckId(truckName: String) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -189,6 +178,35 @@ class FirebaseManager {
                     
                 }
         }
+    }
+    
+    // MARK: About All
+    func updataData(type: String, uid: String, key: String, value: String) {
+
+        db.collection(type).document(uid).updateData([ key: value ])
+    }
+    
+    func updataArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+        
+        db.collection(type).document(id).updateData([key: FieldValue.arrayUnion([value])]) { (error) in
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    func updataRemoveArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+        db.collection(type).document(id).updateData([key: FieldValue.arrayRemove([value])]) { (error) in
+                 
+                 if let error = error {
+                     print("Error adding document: \(error)")
+                 } else {
+                     completion()
+                 }
+             }
     }
     
     // MARK: About User
@@ -218,16 +236,19 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
+                let token = data[User.token.rawValue] as? String,
                 let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              badge: badge, block: block,
                                              favorite: favorite)
             }
@@ -257,6 +278,7 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
+                let token = data[User.token.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
                 let favorite = data[User.favorite.rawValue] as? [String]else { return }
@@ -264,13 +286,14 @@ class FirebaseManager {
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
+                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             badge: badge, block: block,
-                                             favorite: favorite)
+                                             token: token, badge: badge,
+                                             block: block, favorite: favorite)
             }
             
             completion(self?.currentUser)
@@ -280,7 +303,6 @@ class FirebaseManager {
     func setUserData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
         
         var userid = ""
-        
         if isAppleSingIn {
             userid = appleUID
         } else {
@@ -300,72 +322,7 @@ class FirebaseManager {
             }
         }
     }
-    
-    func updataUserName(name: String) {
-        
-        guard let uid = self.userID else {
-                 return
-             }
-        db.collection(User.user.rawValue).document(uid).updateData([
-            User.name.rawValue: name
-        ])
-        
-    }
-    
-    func updataUserImage(image: String) {
-        
-        guard let uid = self.userID else {
-            return
-        }
-        
-        db.collection(User.user.rawValue).document(uid).updateData([
-            User.logoImage.rawValue: image
-        ])
-    }
-    
-    func addUserBadge(uid: String, truckId: String) {
-        
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.badge.rawValue: FieldValue.arrayUnion([truckId])
-        ]) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            }
-        }
-    }
-    
-    func addUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.block.rawValue: FieldValue.arrayUnion([blockId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func deleteUserBlock(uid: String, blockId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.block.rawValue: FieldValue.arrayRemove([blockId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
+
     func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
         
         db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
@@ -381,57 +338,7 @@ class FirebaseManager {
             completion(name)
         }
     }
-    
-    func addUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.favorite.rawValue: FieldValue.arrayUnion([truckId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func deleteUserFavorite(uid: String, truckId: String, completion: @escaping () -> Void) {
-        db.collection(User.user.rawValue).document(uid).updateData([
-            
-            User.favorite.rawValue: FieldValue.arrayRemove([truckId])
-            
-        ]) { (error) in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                completion()
-            }
-        }
-    }
-    
-    func addUserToTruckFavoritedBy(userId: String, truckId: String) {
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.favoritedBy.rawValue: FieldValue.arrayUnion([userId])]) { (error) in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                }
-                
-        }
-    }
-    
-    func deleteUserFromTruckFavoritedBy(userId: String, truckId: String) {
-        db.collection(Truck.truck.rawValue).document(truckId).updateData([
-            Truck.favoritedBy.rawValue: FieldValue.arrayRemove([userId])]) { (error) in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                }
-                
-        }
-    }
-    
+
     func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckShortInfo?) -> Void) {
         
         db.collection(Truck.truck.rawValue).document(truckId).getDocument { (snapshot, error) in
@@ -541,12 +448,7 @@ class FirebaseManager {
         }
         
     }
-    func updataBossName(uid: String, name: String) {
-        db.collection(Boss.boss.rawValue).document(uid).updateData([
-            Boss.name.rawValue: name
-        ])
-    }
-        
+    
     func addTurckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
         
         guard isAppleSingIn  else {

@@ -279,11 +279,21 @@ extension ChatroomViewController: ChatMessageCellDelegate {
         
         let text = "封鎖此用戶"
         
-        let action = UIAlertAction(title: text, style: .default) { (action) in
+        let action = UIAlertAction(title: text, style: .default) {[weak self] (action) in
             
-            FirebaseManager.shared.addUserBlock(
-                uid: FirebaseManager.shared.userID!,
-                blockId: self.messages[index].uid) { [weak self] in
+            guard let uid = FirebaseManager.shared.userID else {return}
+            
+//            FirebaseManager.shared.addUserBlock(
+//                uid: FirebaseManager.shared.userID!,
+//                blockId: self.messages[index].uid) { [weak self] in
+//                    self?.chatRoomView.msgCollectionView.reloadData()
+//            }
+            
+            FirebaseManager.shared.updataArrayData(
+                type: User.user.rawValue,
+                id: uid,
+                key: User.block.rawValue,
+                value: self?.messages[index].uid ?? "") {[weak self] in
                     self?.chatRoomView.msgCollectionView.reloadData()
             }
         }

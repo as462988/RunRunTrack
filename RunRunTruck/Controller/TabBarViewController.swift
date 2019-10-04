@@ -52,8 +52,8 @@ private enum Tab {
         case .truck:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_car),
-                selectedImage: UIImage.asset(.Icon_car)
+                image: UIImage.asset(.Icon_food),
+                selectedImage: UIImage.asset(.Icon_food)
             )
             
         case .badge:

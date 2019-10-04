@@ -13,7 +13,7 @@ import Contacts
 import Lottie
 
 protocol BossUIViewDelegate: GMSMapViewDelegate, UITextViewDelegate, AnyObject {
-    func clickChenckBtn()
+    func clickOpenStatusBtn()
     func clickCancelBtn()
     func clickLogoutBtn()
     func creatQrcode()
@@ -81,7 +81,7 @@ class BossUIView: UIView {
         
         cancelBtn.addTarget(self, action: #selector(clickCancelBtn), for: .touchUpInside)
         
-        openBtn.addTarget(self, action: #selector(clickChenckBtn), for: .touchUpInside)
+        openBtn.addTarget(self, action: #selector(clickOpenStatusBtn), for: .touchUpInside)
         
         creatQrcodeBtn.addTarget(self, action: #selector(creatQrcode), for: .touchUpInside)
         
@@ -133,11 +133,11 @@ class BossUIView: UIView {
     
     }
 
-    @objc func clickChenckBtn() {
+    @objc func clickOpenStatusBtn() {
         openSwitch.isOn = true
         openView.isHidden = true
         backgroundView.isHidden = true
-        self.delegate?.clickChenckBtn()
+        self.delegate?.clickOpenStatusBtn()
 
     }
     

@@ -11,7 +11,7 @@ import UIKit
 class TrucksCardGroupCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 24)
+        label.font = .systemFont(ofSize: 20)
         return label
     }()
     let truckGroupCollectionViewController: TruckGroupCollectionViewController = TruckGroupCollectionViewController()

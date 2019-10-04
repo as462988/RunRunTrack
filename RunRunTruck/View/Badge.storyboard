@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rPs-GD-sfE">
             <objects>
-                <navigationController id="4vf-XS-cly" customClass="NavigationController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="4vf-XS-cly" customClass="NavigationController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lgg-VW-GtG">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,7 +26,7 @@
         <!--徽章搜集-->
         <scene sceneID="wXV-8e-TAz">
             <objects>
-                <viewController id="sGl-R5-t2o" customClass="BadgeViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sGl-R5-t2o" customClass="BadgeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oLM-Hn-p1x">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="badgeCell" id="LJf-MA-XU6" customClass="BadgeCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BadgeCollectionViewCell" id="LJf-MA-XU6" customClass="BadgeCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
                                         <rect key="frame" x="79.5" y="0.0" width="255" height="247"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -110,7 +110,7 @@
         <!--Scanner Controller-->
         <scene sceneID="4qC-kq-UkG">
             <objects>
-                <viewController storyboardIdentifier="scannerVC" id="GkJ-Ru-bUH" customClass="QRScannerController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRScannerController" id="GkJ-Ru-bUH" customClass="QRScannerController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LPs-zk-gx6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

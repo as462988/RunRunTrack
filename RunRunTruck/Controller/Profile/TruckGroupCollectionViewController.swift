@@ -10,6 +10,7 @@ import UIKit
 
 class TruckGroupCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var trucks: [TruckData] = []
+    let cellId = "cellId"
     let addressManager = AddressManager()
     
     init() {
@@ -23,7 +24,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        collectionView.register(TruckCardCollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(TruckCardCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.showsHorizontalScrollIndicator = false
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -39,7 +40,7 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let truckInfo = trucks[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cellId",
+            withReuseIdentifier: cellId,
             for: indexPath) as? TruckCardCollectionViewCell else {
                 let newCell = TruckCardCollectionViewCell()
                 return newCell
@@ -59,13 +60,14 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 5, left: 8, bottom: 0, right: 8)
+        return .init(top: 10, left: 8, bottom: 0, right: 8)
     }
     
     override func collectionView(_ collectionView: UICollectionView,
                                  didSelectItemAt indexPath: IndexPath) {
          guard let truckVC = UIStoryboard.truck.instantiateViewController(
-                    withIdentifier: "truckInfoVC") as? TruckDetailViewController else {return}
+                    withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
+            else {return}
         
         guard let location = trucks[indexPath.item].location else {return}
         addressManager.getLocationAddress(
@@ -84,11 +86,5 @@ class TruckGroupCollectionViewController: UICollectionViewController, UICollecti
                     nc.pushViewController(truckVC, animated: true)
                 }
         }
-        
-////        truckVC.detailInfo = trucks[indexPath.item]
-//        //tricky way
-//        guard let rootVC = AppDelegate.shared.window?.rootViewController
-//            as? TabBarViewController, let nc = rootVC.viewControllers?[3] as? NavigationController else { return }
-//        nc.pushViewController(truckVC, animated: true)
     }
 }

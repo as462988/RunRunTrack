@@ -68,19 +68,16 @@ class LobbyView: UIView, UICollectionViewDelegate {
         super.awakeFromNib()
         
         setCollectionView()
-        
-        setMapView()
-        
-        getCurrentLocation()
+//        getCurrentLocation()
         
     }
     
-    func setMapView() {
+    func setMapView(lat: Double, lon: Double, zoom: Float) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lon, zoom: zoom)
         mapView.camera = camera
         mapView.settings.myLocationButton = true
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
         
     }
@@ -143,55 +140,32 @@ class LobbyView: UIView, UICollectionViewDelegate {
         imgView.contentMode = .scaleAspectFill
         imgView.layer.cornerRadius = 25
         imgView.clipsToBounds = true
-//        imgView.layer.borderWidth = 3
-//        imgView.layer.borderColor = UIColor.hexStringToUIColor(hex: "#CAD5E6").cgColor
-        
         marker.iconView = imgView
         marker.tracksViewChanges = true
         marker.map = self.mapView
         
     }
     
-    func updataMapView(lat: Double, long: Double) {
+    func updataMapView(lat: Double, long: Double, zoom: Float) {
         
         let camera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: long ,
-                                              zoom: 15)
+                                              zoom: zoom)
+        
         mapView.animate(to: camera)
     }
     
     func getCurrentLocation() {
         
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self.delegate
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
-            
         }
     }
-    
-//    func getLocationAddress(lat: Double, long: Double, completion: @escaping (CNPostalAddress?, Error?) -> Void) {
-//        let locale = Locale(identifier: "zh_TW")
-//        
-//        let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
-//        
-//        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
-//            
-//            guard let placemark = placemarks?.first, error == nil else {
-//                
-//                UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-//                
-//                completion(nil, error)
-//                
-//                return
-//            }
-//            
-//            completion(placemark.postalAddress, nil)
-//        }
-//    }
     
     func reloadData() {
         

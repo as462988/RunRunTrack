@@ -27,7 +27,12 @@ class EditNameViewController: UIViewController {
             editNameText.text = name
         }
         guard let text = editNameText.text else { return }
-        FirebaseManager.shared.updataUserName(name: text)
+//        FirebaseManager.shared.updataUserName(name: text)
+        
+        FirebaseManager.shared.updataData(type: User.user.rawValue,
+                                              uid: FirebaseManager.shared.userID ?? "",
+                                              key: User.name.rawValue,
+                                              value: text)
         
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: true)

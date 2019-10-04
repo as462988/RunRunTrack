@@ -17,15 +17,20 @@ class TrcukCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var truckNameLabel: UILabel!
     
-    @IBOutlet weak var animationView: AnimationView!
+    @IBOutlet weak var truckOpenStatusImage: UIImageView!
     
-    func setValue(name: String, logoImage: String, image: String) {
+//    @IBOutlet weak var animationView: AnimationView!
+    
+    func setValue(name: String, logoImage: String, image: String, isOpen: Bool) {
         
         truckImage.loadImage(image, placeHolder: UIImage.asset(.Image_truckPic))
         
         truckLogoImage.loadImage(logoImage, placeHolder: UIImage.asset(.Icon_logo))
         
         truckNameLabel.text = name
+        
+        truckOpenStatusImage.image = UIImage.asset(isOpen ? .Icon_open: .Icon_close)
+        
     }
 
     override func layoutSubviews() {

@@ -13,43 +13,39 @@ class PrivateViewController: UIViewController {
     
     @IBOutlet weak var privateWebView: WKWebView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var backBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         showInfo()
-        setLayout()
         privateWebView.navigationDelegate = self
+//        navigationController?.navigationBar.barTintColor = UIColor(r: 39, g: 89, b: 166)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+                   image: UIImage.asset(.Icon_back),
+                   style: .plain,
+                   target: self,
+                   action: #selector(backToRoot))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        backBtn.addTarget(self, action: #selector(backToRoot), for: .touchUpInside)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-      
+        self.navigationController?.isNavigationBarHidden = false
         if let tabbarVc = self.navigationController?.tabBarController {
             tabbarVc.tabBar.isHidden = true
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
     }
-    
-    func setLayout() {
-        backBtn.layer.cornerRadius = backBtn.frame.width / 2
-        backBtn.clipsToBounds = true
-    }
-    
+
     func showInfo() {
         
         let link = "https://www.privacypolicies.com/privacy/view/c082ee6447f9e7283c678be24b07d477"
         
         if let url = URL(string: link) {
             let request = URLRequest(url: url)
-            
             privateWebView.load(request)
         }
     }

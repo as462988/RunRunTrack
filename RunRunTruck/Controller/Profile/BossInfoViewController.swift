@@ -11,7 +11,13 @@ import GoogleMaps
 import Lottie
 
 class BossInfoViewController: UIViewController {
-
+    
+    struct NotificationContent {
+        static let title = "你喜愛的餐車"
+        static let open = "開店啦！"
+        static let body = "現在就去找他們吧"
+    }
+    
     @IBOutlet weak var bossView: BossUIView! {
         didSet {
             bossView.delegate = self
@@ -97,27 +103,43 @@ class BossInfoViewController: UIViewController {
 extension BossInfoViewController: BossUIViewDelegate {
     
     func clickFeedbackBtn() {
+        
         guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+            withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
+            else {  return  }
         
         navigationController?.pushViewController(feedbackVC, animated: true)
     }
     
     func clickPrivateBtn() {
+        
          guard let privateVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+            withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
+            else { return }
         
         navigationController?.pushViewController(privateVC, animated: true)
     }
 
-    func clickChenckBtn() {
+    func clickOpenStatusBtn() {
         
-        guard let lat = self.latitude, let lon = self.longitude else {return}
+        guard let lat = self.latitude, let lon = self.longitude else { return }
+        
+        guard let currentTruck = FirebaseManager.shared.bossTruck else { return }
         
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+        
+        // 只推送訊息給訂閱此餐車的用戶
+
+        FirebaseNotificationManager.share.sendPushNotification(
+            toTopic: currentTruck.id,
+            title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
+            body: NotificationContent.body,
+            latitude: lat,
+            longitude: lon)
     }
     
     func clickCancelBtn() {
+        
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn)
     }
     
@@ -136,7 +158,8 @@ extension BossInfoViewController: BossUIViewDelegate {
     func creatQrcode() {
         
         guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: "qrcodeVc") as? CreatQrcodeViewController else { return }
+            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController
+            else { return }
         
         qrcodeVc.modalPresentationStyle = .overCurrentContext
         
@@ -145,12 +168,20 @@ extension BossInfoViewController: BossUIViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-//        FirebaseManager.shared.updataStoryText(text: bossView.storyTextView.text)
-        FirebaseManager.shared.updataTruckData(forStory: bossView.storyTextView.text)
+        
+        guard let truckId =  FirebaseManager.shared.bossTruck?.id else { return }
+        
+        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                                              uid: truckId,
+                                              key: Truck.story.rawValue,
+                                              value: bossView.storyTextView.text)
+
     }
     
     func clickChangeImage() {
+        
         openChoseCamera.showImagePickerAlert(self)
+        
     }
 }
 
@@ -170,7 +201,13 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         guard let imageUrl = url else {return}
                         
-                        FirebaseManager.shared.updataTruckData(forImage: imageUrl)
+                        if let truckId = FirebaseManager.shared.bossTruck?.id {
+                        
+                        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                                                          uid: truckId,
+                                                          key: Truck.detailImage.rawValue,
+                                                          value: imageUrl)
+                        }
                 })
         }
             self.dismiss(animated: true, completion: nil)

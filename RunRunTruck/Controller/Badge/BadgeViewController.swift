@@ -84,7 +84,7 @@ class BadgeViewController: UIViewController {
         }
         
        guard let scannerVC = UIStoryboard.badge.instantiateViewController(
-        withIdentifier: "scannerVC") as? QRScannerController else {return}
+        withIdentifier: String(describing: QRScannerController.self)) as? QRScannerController else {return}
         
         scannerVC.delegate = self
         
@@ -105,9 +105,9 @@ UICollectionViewDelegateFlowLayout {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let truckDataWithBadgeIsAchieved = allTrucks[indexPath.item]
         guard let badgeCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "badgeCell", for: indexPath) as? BadgeCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+            withReuseIdentifier: String(
+                describing: BadgeCollectionViewCell.self), for: indexPath) as? BadgeCollectionViewCell
+            else { return UICollectionViewCell() }
         
         badgeCell.setValue(logo: truckDataWithBadgeIsAchieved.0.logoImage, name: truckDataWithBadgeIsAchieved.0.name)
         
