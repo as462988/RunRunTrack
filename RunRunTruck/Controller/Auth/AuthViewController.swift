@@ -204,6 +204,13 @@ class AuthViewController: UIViewController {
         }
     }
     
+    func handleUserLoggin(useAppleSingIn: Bool, user: AppleUser? = nil) {
+        
+        
+        
+    }
+    
+    
     @objc func handleUIStatusChange() {
         uiStatus = loginSegment.selectedSegmentIndex == 0 ? .userLogin : .bossLogin
         updateUIWithStatus()

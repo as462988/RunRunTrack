@@ -129,11 +129,7 @@ extension BossInfoViewController: BossUIViewDelegate {
         FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
         
         // 只推送訊息給訂閱此餐車的用戶
-//        FirebaseNotificationManager.share.sendPushNotification(
-//            toTopic: currentTruck.id,
-//            title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
-//            body: NotificationContent.body)
-        
+
         FirebaseNotificationManager.share.sendPushNotification(
             toTopic: currentTruck.id,
             title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
