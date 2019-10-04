@@ -19,7 +19,7 @@ class FeedbackViewController: UIViewController {
     
     var userLoginIsFinished = false {
         didSet {
-            updateRegisteBtnStatus()
+            updateRegisterBtnStatus()
         }
     }
 
@@ -123,7 +123,7 @@ extension FeedbackViewController: UITextFieldDelegate {
         }
     }
     
-    func updateRegisteBtnStatus() {
+    func updateRegisterBtnStatus() {
         
         setBtnStatus(userLoginIsFinished ? .enable: .disable, btn: checkBtn)
     }

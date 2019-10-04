@@ -236,19 +236,16 @@ class FirebaseManager {
                 let email = data[User.email.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
-                let token = data[User.token.rawValue] as? String,
                 let favorite = data[User.favorite.rawValue] as? [String] else { return }
             
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             token: token,
                                              badge: badge, block: block,
                                              favorite: favorite)
             }
@@ -258,17 +255,17 @@ class FirebaseManager {
     
     func getCurrentUserData(useAppleSingIn: Bool, userId: String? = nil, completion: @escaping (UserData?) -> Void) {
        
-        var currentUser: String = ""
+        var currentUserId: String = ""
         
         if useAppleSingIn {
             if let userId = userId {
-                currentUser = userId
+                currentUserId = userId
             }
         } else {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        currentUser = uid
+        currentUserId = uid
         }
-        db.collection(User.user.rawValue).document(currentUser).getDocument { [weak self ] (snapshot, error) in
+        db.collection(User.user.rawValue).document(currentUserId).getDocument { [weak self ] (snapshot, error) in
             
             guard let document = snapshot else {
                 completion(nil)
@@ -278,7 +275,6 @@ class FirebaseManager {
             
             guard let name = data[User.name.rawValue] as? String,
                 let email = data[User.email.rawValue] as? String,
-                let token = data[User.token.rawValue] as? String,
                 let badge = data[User.badge.rawValue] as? [String],
                 let block = data[User.block.rawValue] as? [String],
                 let favorite = data[User.favorite.rawValue] as? [String]else { return }
@@ -286,16 +282,14 @@ class FirebaseManager {
             if let image = data[User.logoImage.rawValue] as? String {
                 
                 self?.currentUser = UserData(name: name, email: email,
-                                             token: token,
                                              logoImage: image, badge: badge,
                                              block: block, favorite: favorite)
             } else {
                 
-                self?.currentUser = UserData(name: name, email: email,
-                                             token: token, badge: badge,
+                self?.currentUser = UserData(name: name, email: email, badge: badge,
                                              block: block, favorite: favorite)
             }
-            
+            self?.userID = currentUserId
             completion(self?.currentUser)
         }
     }
@@ -359,19 +353,19 @@ class FirebaseManager {
     // MARK: About Boss
     func getCurrentBossData(isAppleSingIn: Bool, userid: String? = nil, completion: @escaping (UserData?) -> Void) {
         
-        var currentBoss: String = ""
+        var currentBossId: String = ""
         
         if isAppleSingIn {
             
             guard let userId = userid else { return }
-            currentBoss = userId
+            currentBossId = userId
             
         } else {
              guard let uid = Auth.auth().currentUser?.uid else { return }
-            currentBoss = uid
+            currentBossId = uid
         }
         
-        db.collection(Boss.boss.rawValue).document(currentBoss).getDocument { [weak self](snapshot, error) in
+        db.collection(Boss.boss.rawValue).document(currentBossId).getDocument { [weak self](snapshot, error) in
             
             guard let data = snapshot?.data() else {
                 completion(nil)
@@ -383,7 +377,7 @@ class FirebaseManager {
                 let truckId = data[Truck.truckId.rawValue] as? String  else { return }
             
             self?.currentUser = UserData(name: name, email: email, truckId: truckId)
-            
+            self?.bossID = currentBossId
             completion(self?.currentUser)
         }
     }

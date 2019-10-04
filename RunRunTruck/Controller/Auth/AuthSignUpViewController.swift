@@ -33,9 +33,9 @@ class AuthRegisterViewController: UIViewController {
     
      private var uiStatus: RegisterVcUIStatus = .userRegister
     
-    var userRegisteIsFinished = false {
+    var userRegisterIsFinished = false {
         didSet {
-            updateRegisteBtnStatus()
+            updateRegisterBtnStatus()
         }
     }
 
@@ -196,22 +196,22 @@ extension AuthRegisterViewController: UITextFieldDelegate {
             guard pswConfirm.elementsEqual(psw) else {
                     errorResultLabel.isHidden = false
                     errorResultLabel.text = "兩次密碼輸入不一致喔！"
-                    userRegisteIsFinished = false
+                    userRegisterIsFinished = false
                         return
                     }
             
-            userRegisteIsFinished = true
+            userRegisterIsFinished = true
             
         } else {
             errorResultLabel.isHidden = false
             errorResultLabel.text = "請輸入完整資料～"
-            userRegisteIsFinished = false
+            userRegisterIsFinished = false
         }
     }
     
-    func updateRegisteBtnStatus() {
+    func updateRegisterBtnStatus() {
         
-        setBtnStatus(userRegisteIsFinished ? .enable: .disable, btn: registerBtn)
+        setBtnStatus(userRegisterIsFinished ? .enable: .disable, btn: registerBtn)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
