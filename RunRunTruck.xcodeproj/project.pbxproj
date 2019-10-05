@@ -267,16 +267,13 @@
 		091EEB7423156BF900BF066F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
-				09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */,
-				09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */,
+				096B71182348709600B17789 /* Data */,
+				096B71172348707F00B17789 /* Firebase */,
 				095238BB23307AB50015AEDA /* AddressManager.swift */,
 				09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */,
 				09168B9C2332458B002E1737 /* OpenChoseCameraManager.swift */,
 				09A142912345C2C200E1EC34 /* HandleOpenURL.swift */,
-				091EEB902316866700BF066F /* TruckData.swift */,
 				09A142932345C90500E1EC34 /* HandleSettingAlert.swift */,
-				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
 				09FE3EEA2344748000C9CC7B /* HTTPClient.swift */,
 			);
 			path = Model;
@@ -371,6 +368,25 @@
 				09168BBC23328478002E1737 /* getBadgeView.swift */,
 			);
 			path = Badge;
+			sourceTree = "<group>";
+		};
+		096B71172348707F00B17789 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				091EEB8E23167CDA00BF066F /* FirebaseManager.swift */,
+				09EA2BE12332172B00FC8347 /* FirebaseStorageManager.swift */,
+				09FE3EE823446F4D00C9CC7B /* FirebaseNotificationManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		096B71182348709600B17789 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				09FC78A32339BC4900DD5768 /* AppleUser.swift */,
+				091EEB902316866700BF066F /* TruckData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		09E6C4A1233367F2009EA849 /* TrucK */ = {

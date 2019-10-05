@@ -59,10 +59,13 @@ class BossUIView: UIView {
     @IBOutlet weak var locationAnimationView: AnimationView!
 
     weak var delegate: BossUIViewDelegate?
-
+    let locationManager = CLLocationManager()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         setMapView()
+        
         openView.isHidden = true
         
         logoOutBtn.addTarget(self, action: #selector(clickLogoutBtn), for: .touchUpInside)
@@ -86,7 +89,9 @@ class BossUIView: UIView {
         createQrcodeBtn.addTarget(self, action: #selector(createQrCode), for: .touchUpInside)
         
         mapView.delegate = self.delegate
+        
         storyTextView.delegate = self.delegate
+        
     }
     
     func setMapView() {
@@ -94,7 +99,7 @@ class BossUIView: UIView {
         let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
         mapView.settings.myLocationButton = true
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
         mapView.bringSubviewToFront(locationAnimationView)
     }
 
@@ -176,7 +181,7 @@ class BossUIView: UIView {
         cleanValue()
     }
     
-    @objc func createQrcode() {
+    @objc func createQrCode() {
         
         self.delegate?.createQrCode()
 

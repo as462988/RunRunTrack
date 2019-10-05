@@ -70,7 +70,6 @@ class LobbyView: UIView, UICollectionViewDelegate {
         super.awakeFromNib()
         
         setCollectionView()
-//        getCurrentLocation()
         
     }
     
@@ -85,8 +84,11 @@ class LobbyView: UIView, UICollectionViewDelegate {
     }
     
     func addMarker(lat: Double, long: Double, imageUrl: String) {
+        
         let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: lat, longitude: long))
+        
         markers.append(marker)
+        
         if let url = URL(string: imageUrl) {
             
             URLSession.shared.dataTask(with: url) { [weak self] (data, rsp, err) in
@@ -99,9 +101,13 @@ class LobbyView: UIView, UICollectionViewDelegate {
                     
                     self?.setIconImage(marker: marker, img: img)
                 }
+                
                 }.resume()
+            
         } else {
-            guard let img = UIImage.asset(.Icon_logo) else {return}
+            
+            guard let img = UIImage.asset(.Icon_logo) else { return }
+            
             self.setIconImage(marker: marker, img: img)
         }
     }
@@ -124,7 +130,9 @@ class LobbyView: UIView, UICollectionViewDelegate {
                     
                      self?.setIconImage(marker: marker, img: img)
                 }
+                
             }.resume()
+            
         } else {
             
             guard let img = UIImage.asset(.Icon_logo) else {return}
@@ -158,8 +166,9 @@ class LobbyView: UIView, UICollectionViewDelegate {
     }
     
     func getCurrentLocation() {
- 
+        
         if CLLocationManager.locationServicesEnabled() {
+            
             locationManager.delegate = self.delegate
             
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters

@@ -28,6 +28,7 @@ class BossInfoViewController: UIViewController {
     var longitude: Double?
     let addressManager = AddressManager()
     let openChoseCamera = OpenChoseCameraManager()
+    let handleSettingAlert = HandleSettingAlert()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +103,34 @@ class BossInfoViewController: UIViewController {
 
 extension BossInfoViewController: BossUIViewDelegate {
     
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
+        bossView.locationManager.requestWhenInUseAuthorization()
+        
+        if let location = bossView.locationManager.location?.coordinate {
+            
+            let camera = GMSCameraPosition.camera(
+                withLatitude: location.latitude,
+                longitude: location.longitude,
+                zoom: 15)
+            
+            bossView.mapView.animate(to: camera)
+            
+        } else {
+            
+            let alertVc = handleSettingAlert.openSetting(title: "無法定位",
+                                                               msg: "沒有開啟定位系統無法定位喔！",
+                                                               settingTitle: "去設定",
+                                                               cancelTitle: "我知道了",
+                                                               vc: self)
+            
+        present(alertVc, animated: true, completion: nil)
+            
+        }
+        
+        return true
+    }
+    
     func clickFeedbackBtn() {
         
         guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
@@ -122,11 +151,11 @@ extension BossInfoViewController: BossUIViewDelegate {
 
     func clickOpenStatusBtn() {
         
-        guard let lat = self.latitude, let lon = self.longitude else { return }
+        guard let lat = self.latitude, let long = self.longitude else { return }
         
         guard let currentTruck = FirebaseManager.shared.bossTruck else { return }
         
-        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: long)
         
         // 只推送訊息給訂閱此餐車的用戶
 
@@ -135,7 +164,7 @@ extension BossInfoViewController: BossUIViewDelegate {
             title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
             body: NotificationContent.body,
             latitude: lat,
-            longitude: lon)
+            longitude: long)
     }
     
     func clickCancelBtn() {

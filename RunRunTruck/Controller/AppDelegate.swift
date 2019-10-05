@@ -79,7 +79,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         if let lobbyVC = navigationVc.viewControllers[0] as? LobbyViewController {
             
-            lobbyVC.reloadLobbyViewWithChangeLocation(lat: Double(latString)!, lon: Double(longString)!, zoom: 15)
+            lobbyVC.reloadLobbyViewWithChangeLocation(lat: Double(latString)!, long: Double(longString)!, zoom: 15)
             
             rootVC.selectedIndex = 0
         }

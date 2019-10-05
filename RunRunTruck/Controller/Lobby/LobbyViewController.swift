@@ -40,6 +40,7 @@ class LobbyViewController: UIViewController {
         FirebaseManager.shared.getOpeningTruckData(isOpen: true) {[weak self] (truckDatas) in
             if let truckDatas = truckDatas {
                 let dispatchGroup = DispatchGroup()
+                
                 for var truckData in truckDatas {
 
                     switch truckData.1 {
@@ -70,7 +71,7 @@ class LobbyViewController: UIViewController {
                     case .removed:
                         //刪除
                         dispatchGroup.enter()
-                        if let markerIndex = self?.lobbyView.markers.firstIndex(where: { (marker) -> Bool in
+                        if let markerIndex = self?.lobbyView.markers.firstIndex(of: { (marker) -> Bool in
                             return marker.position.longitude == truckData.0.location?.longitude
                         }) {
                             self?.lobbyView.markers[markerIndex].map = nil
@@ -183,12 +184,12 @@ extension LobbyViewController: LobbyViewDelegate {
     // 點擊 marker
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        self.reloadLobbyViewWithChangeLocation(lat: marker.position.latitude, lon: marker.position.longitude, zoom: 15)
+        self.reloadLobbyViewWithChangeLocation(lat: marker.position.latitude, long: marker.position.longitude, zoom: 15)
         
         return true
     }
     
-    func reloadLobbyViewWithChangeLocation(lat: Double, lon: Double, zoom: Float) {
+    func reloadLobbyViewWithChangeLocation(lat: Double, long: Double, zoom: Float) {
         
         var indexNum = Int()
         
@@ -205,7 +206,7 @@ extension LobbyViewController: LobbyViewDelegate {
             animated: true
         )
         
-        self.lobbyView.updateMapView(lat: lat, long: lon, zoom: zoom)
+        self.lobbyView.updateMapView(lat: lat, long: long, zoom: zoom)
         
     }
     

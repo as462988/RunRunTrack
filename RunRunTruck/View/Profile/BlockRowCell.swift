@@ -64,7 +64,7 @@ class BlockRowCell: UITableViewCell {
     
     func updateViewsWithBlockUser(blockUser: BlockUser) {
         self.blockUser = blockUser
-        nameLabel.text = self.blockUser.userNmae
+        nameLabel.text = self.blockUser.userName
         blockBtn.addTarget(self, action: #selector(blockBtnDidTap), for: .touchUpInside)
     }
     
