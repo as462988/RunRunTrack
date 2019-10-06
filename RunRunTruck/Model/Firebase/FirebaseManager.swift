@@ -51,38 +51,18 @@ class FirebaseManager {
     func listenAllTruckData() {
         allTruckDatasListener = db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
             guard error == nil else { return }
-            var openTimestamp: Double?
-            var location: GeoPoint?
-            var detailImage: String?
-            
+
             snapshot?.documentChanges.forEach({ (documentChange) in
                 
                 if documentChange.type == .added {
                     
                     let data = documentChange.document.data()
                     
-                    guard let name = data[Truck.name.rawValue] as? String,
-                        let logoImage = data[Truck.logoImage.rawValue] as? String,
-                        let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String,
-                        let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
-                    
-                    openTimestamp = data[Truck.openTime.rawValue] as? Double
-                    
-                    location = data[Truck.location.rawValue] as? GeoPoint
-                    
-                    detailImage = data[Truck.detailImage.rawValue] as? String
-                    
-                    let truck = TruckData(documentChange.document.documentID,
-                                          name, logoImage,
-                                          detailImage,
-                                          story,
-                                          open,
-                                          openTimestamp,
-                                          location,
-                                          favorited)
-                    
-                    self.allTruckData.append(truck)
+                    guard let truckData = self.getTruckDataFromDataDic(
+                        truckId: documentChange.document.documentID,
+                        dataDic: data) else { return }
+
+                    self.allTruckData.append(truckData)
                 }
             })
             
@@ -95,12 +75,6 @@ class FirebaseManager {
     ///監聽營業中餐車資料
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
-        var openTimestamp: Double?
-        
-        var location: GeoPoint?
-        
-        var detailImage: String?
-        
         openTruckDatasListener = db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
@@ -112,28 +86,11 @@ class FirebaseManager {
                     
                     let data = documentChange.document.data()
                     
-                    guard let name = data[Truck.name.rawValue] as? String,
-                        let logoImage = data[Truck.logoImage.rawValue] as? String,
-                        let open = data[Truck.open.rawValue] as? Bool,
-                        let story = data[Truck.story.rawValue] as? String,
-                        let favorited = data[Truck.favoritedBy.rawValue] as? [String] else {return}
+                    guard let truckData = self.getTruckDataFromDataDic(
+                                          truckId: documentChange.document.documentID,
+                                          dataDic: data) else { return }
                     
-                    openTimestamp = data[Truck.openTime.rawValue] as? Double
-                    
-                    location = data[Truck.location.rawValue] as? GeoPoint
-                    
-                    detailImage = data[Truck.detailImage.rawValue] as? String
-                    
-                    let truck = TruckData(documentChange.document.documentID,
-                                          name, logoImage,
-                                          detailImage,
-                                          story,
-                                          open,
-                                          openTimestamp,
-                                          location,
-                                          favorited)
-                    
-                    rtnTruckDatas.append((truck, documentChange.type))
+                    rtnTruckDatas.append((truckData, documentChange.type))
                 })
                 completion(rtnTruckDatas)
         }
@@ -204,14 +161,14 @@ class FirebaseManager {
         db.collection(type).document(uid).updateData([ key: value ])
     }
     
-    func updateArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
+    func updateArrayData(type: String, id: String, key: String, value: String, completion: (() -> Void)?) {
         
         db.collection(type).document(id).updateData([key: FieldValue.arrayUnion([value])]) { (error) in
             
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
-                completion()
+                completion?()
             }
         }
     }
@@ -253,10 +210,14 @@ class FirebaseManager {
     func listenCurrenUserData() {
         //判斷是否有使用者
         guard let currentUser = currentUser, let type = currentUser.type else { return }
+        
         var mainPath = ""
+        
         switch type {
+            
         case .boss:
             mainPath = User.boss.rawValue
+            
         case .normalUser:
             mainPath = User.user.rawValue
         }
@@ -297,6 +258,22 @@ class FirebaseManager {
         }
     }
     
+    ///確認使用者是否存在
+    func checkExistUser(userType: String, uid: String, completion: @escaping (Bool) -> Void) {
+        
+        db.collection(userType).document(uid).getDocument { (snapshot, error) in
+            
+            guard snapshot?.data() != nil else {
+                
+                completion(false)
+                
+                return
+            }
+            
+            completion(true)
+        }
+    }
+    
     ///拿到一次性使用者的名字
     func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
         db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
@@ -333,9 +310,7 @@ class FirebaseManager {
             completion(truck)
         }
     }
-    
-    // MARK: About Boss
-    
+
     func getBossTruck(completion: @escaping (TruckData?) -> Void) {
         
         var detailImage: String?
@@ -389,58 +364,6 @@ class FirebaseManager {
         ])
     }
     
-    // MARK: About Register/SingIn
-    func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
-    
-        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-            guard error == nil else {
-
-                guard let errorCode = AuthErrorCode(rawValue: error!._code) else { return }
-                
-                completion(false, errorCode.errorMessage)
-                
-                return
-            }
-            completion(true, "Success")
-        }
-    }
-    
-    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
-        
-        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
-            
-            guard error == nil else {
-                
-                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
-                completion(false, errorCode.errorMessage)
-                return
-            }
-            
-            completion(true, "Success")
-        }
-    }
-    
-    func signOut() {
-
-        try? Auth.auth().signOut()
-        
-        self.removeCurrentUserWhenLogOut()
-    }
-    
-    func checkExistUser(userType: String, uid: String, completion: @escaping (Bool) -> Void) {
-        
-        db.collection(userType).document(uid).getDocument { (snapshot, error) in
-            
-            guard snapshot?.data() != nil else {
-                
-                completion(false)
-                
-                return
-            }
-            
-            completion(true)
-        }
-    }
     // MARK: About ChatRoom
     
     func createChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {
@@ -520,7 +443,7 @@ class FirebaseManager {
             
             Feedback.title.rawValue: title,
             Feedback.detailText.rawValue: detailText,
-            User.createTime.rawValue: Date().timeIntervalSince1970
+            Feedback.createTime.rawValue: Date().timeIntervalSince1970
             
         ])
     }
@@ -529,6 +452,43 @@ class FirebaseManager {
 // MARK: Login / LogOut
 
 extension FirebaseManager {
+    
+    func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
+    
+        Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
+            guard error == nil else {
+
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else { return }
+                
+                completion(false, errorCode.errorMessage)
+                
+                return
+            }
+            completion(true, "Success")
+        }
+    }
+    
+    func singInWithEmail(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: psw) { (user, error) in
+            
+            guard error == nil else {
+                
+                guard let errorCode = AuthErrorCode(rawValue: error!._code) else {return}
+                completion(false, errorCode.errorMessage)
+                return
+            }
+            
+            completion(true, "Success")
+        }
+    }
+    
+    func signOut() {
+
+        try? Auth.auth().signOut()
+        
+        self.removeCurrentUserWhenLogOut()
+    }
     
     func setupCurrentUserDataWhenLoginSuccess(userData: UserData) {
         currentUser = userData
@@ -548,10 +508,14 @@ extension FirebaseManager {
     
     ///註冊當前所有喜愛餐車的開業推播
     func registerNotificationWhenFavoriteTrucksOpen() {
+        
         if let currentUser = currentUser {
+            
             if currentUser.type == .normalUser {
+                
                 //註冊喜愛餐車推播
                 for truckId in currentUser.favorite {
+                    
                     FirebaseNotificationManager.share.subscribeTopic(toTopic: truckId, completion: nil)
                 }
             }
@@ -559,10 +523,14 @@ extension FirebaseManager {
     }
     ///取消註冊當前所有喜愛餐車的開業推播
     func unregisterNotificationWhenFavoriteTrucksOpen() {
+        
         if let currentUser = currentUser {
+            
             if currentUser.type == .normalUser {
+                
                 //註冊喜愛餐車推播
                 for truckId in currentUser.favorite {
+                    
                     FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: truckId, completion: nil)
                 }
             }
@@ -574,20 +542,24 @@ extension FirebaseManager {
 // MARK: Utility methods
 
 extension FirebaseManager {
+    
     private func getUserDataFromDataDic(userType: UserType, dataDic: [String: Any]) -> UserData? {
         
         switch userType {
             
         case .boss:
+            
             guard
                 let uid = dataDic[User.uid.rawValue] as? String,
                 let name = dataDic[User.name.rawValue] as? String,
                 let email = dataDic[User.email.rawValue] as? String,
                 let badge = dataDic[User.badge.rawValue] as? [String],
                 let truckId = dataDic[Truck.truckId.rawValue] as? String else { return nil }
+            
             return UserData(uid: uid, name: name, email: email, badge: badge, truckId: truckId, type: .boss)
             
         case .normalUser:
+            
             guard
                 let uid = dataDic[User.uid.rawValue] as? String,
                 let name = dataDic[User.name.rawValue] as? String,
@@ -595,10 +567,35 @@ extension FirebaseManager {
                 let badge = dataDic[User.badge.rawValue] as? [String],
                 let block = dataDic[User.block.rawValue] as? [String],
                 let favorite = dataDic[User.favorite.rawValue] as? [String] else { return nil }
+            
             let image = dataDic[User.logoImage.rawValue] as? String ?? nil
+            
             return UserData(uid: uid, name: name, email: email,
                             logoImage: image, badge: badge, block: block,
                             favorite: favorite, type: .normalUser)
         }
+    }
+    
+    private func getTruckDataFromDataDic(truckId: String, dataDic: [String: Any]) -> TruckData? {
+        
+        var openTimestamp: Double?
+        var location: GeoPoint?
+        var detailImage: String?
+        
+        guard let name = dataDic[Truck.name.rawValue] as? String,
+            let logoImage = dataDic[Truck.logoImage.rawValue] as? String,
+            let open = dataDic[Truck.open.rawValue] as? Bool,
+            let story = dataDic[Truck.story.rawValue] as? String,
+            let favorited = dataDic[Truck.favoritedBy.rawValue] as? [String] else { return nil }
+                           
+        openTimestamp = dataDic[Truck.openTime.rawValue] as? Double
+        
+        location = dataDic[Truck.location.rawValue] as? GeoPoint
+        
+        detailImage = dataDic[Truck.detailImage.rawValue] as? String
+        
+        return TruckData(truckId, name, logoImage, detailImage, story,
+                         open, openTimestamp, location, favorited)
+
     }
 }

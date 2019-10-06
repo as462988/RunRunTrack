@@ -281,66 +281,83 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
         
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
             let appleUser = AppleUser(credentials: appleIDCredential)
+            
             switch uiStatus {
+                
             case .userLogin:
-                checkIfUserDataExisted(
-                userType: .normalUser,
-                userIdentifier: appleIDCredential.user) {[weak self] userData in
-                    guard let userData = userData else {
-                        //使用者還沒註冊，建立資料
-                        FirebaseManager.shared.setNormalUserData(
-                            name: appleUser.defaultDisplayName(),
-                            email: appleUser.email,
-                            userIdentifier: appleUser.id) { success in
-                                if success {
-                                    FirebaseManager.shared.getCurrentUserData(
-                                    userType: .normalUser,
-                                    userIdentifier: appleUser.id) { (user) in
-                                        if let user = user {
-                                            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: user)
-                                            self?.dismissModalWhenLoginSuccess()
-                                        }
-                                    }
-                                }
-                        }
-                        return
-                    }
-                    FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
-                    self?.dismissModalWhenLoginSuccess()
-                }
+                
+                handleAppleUserLogin(user: appleUser)
+                
             case .bossLogin:
-                checkIfUserDataExisted(userType: .boss, userIdentifier: appleUser.id) { [weak self] userData in
-                    guard let userData = userData else {
-                        //老闆還沒註冊，建立資料
-                        FirebaseManager.shared.setBossData(
-                            name: appleUser.defaultDisplayName(),
-                            email: appleUser.email, userIdentifier:
-                        appleUser.id) { success in
-                            if success {
-                                FirebaseManager.shared.getCurrentUserData(
-                                userType: .boss,
-                                userIdentifier: appleUser.id) { (user) in
-                                    if let user = user {
-                                        FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: user)
-                                        self?.goToCreateTruck()
-                                    }
-                                }
-                            }
-                        }
-                        return
-                    }
-                    guard userData.truckId != nil else {
-                        //老闆還沒新增餐車資料
-                        self?.goToCreateTruck()
-                        return
-                    }
-                    //老闆存在
-                    FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
-                    self?.dismissModalWhenLoginSuccess()
-                }
+                handleAppleBossLogin(user: appleUser)
+                
             }
         }
+    }
+    
+    private func handleAppleUserLogin(user: AppleUser) {
+        
+        checkIfUserDataExisted(
+            userType: .normalUser,
+            userIdentifier: user.id) {[weak self] userData in
+                guard let userData = userData else {
+                    //使用者還沒註冊，建立資料
+                    FirebaseManager.shared.setNormalUserData(
+                        name: user.defaultDisplayName(),
+                        email: user.email,
+                        userIdentifier: user.id) { success in
+                            if success {
+                                FirebaseManager.shared.getCurrentUserData(
+                                    userType: .normalUser,
+                                    userIdentifier: user.id) { (user) in
+                                        if let user = user {
+                                            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(
+                                                userData: user)
+                                            self?.dismissModalWhenLoginSuccess()
+                                        }
+                                }
+                            }
+                    }
+                    return
+                }
+                FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+                self?.dismissModalWhenLoginSuccess()
+        }
+    }
+    
+    private func handleAppleBossLogin(user: AppleUser) {
+        
+        checkIfUserDataExisted(userType: .boss, userIdentifier: user.id) { [weak self] userData in
+            guard let userData = userData else {
+                //老闆還沒註冊，建立資料
+                FirebaseManager.shared.setBossData(
+                    name: user.defaultDisplayName(),
+                    email: user.email, userIdentifier: user.id) { success in
+                    if success {
+                        FirebaseManager.shared.getCurrentUserData(
+                        userType: .boss,
+                        userIdentifier: user.id) { (user) in
+                            if let user = user {
+                                FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: user)
+                                self?.goToCreateTruck()
+                            }
+                        }
+                    }
+                }
+                return
+            }
+            guard userData.truckId != nil else {
+                //老闆還沒新增餐車資料
+                self?.goToCreateTruck()
+                return
+            }
+            //老闆存在
+            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+            self?.dismissModalWhenLoginSuccess()
+        }
+        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

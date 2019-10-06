@@ -48,23 +48,5 @@ class ProfileViewController: UIViewController {
             }
             
         }
-        
-//        if FirebaseManager.shared.bossID != nil {
-//            //老闆
-//            if let bossVC =
-//                UIStoryboard.profile.instantiateViewController(
-//                    withIdentifier: String(describing: BossInfoViewController.self)) as? BossInfoViewController {
-//
-//                self.navigationController?.pushViewController(bossVC, animated: false)
-//            }
-//        } else if FirebaseManager.shared.userID != nil {
-//            //使用者
-//            if let userVc =
-//                UIStoryboard.profile.instantiateViewController(
-//                    withIdentifier: String(describing: UserInfoViewController.self)) as? UserInfoViewController {
-//
-//                self.navigationController?.pushViewController(userVc, animated: false)
-//            }
-//        }
     }
 }

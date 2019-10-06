@@ -205,7 +205,7 @@ enum Feedback: String {
     
     case detailText
     
-    case creatTime
+    case createTime
 
 }
 
@@ -215,9 +215,9 @@ struct FeedbackMessage {
     var detailText: String
     var createTime: Double
     
-    init(title: String, detailText: String, creatTime: Double) {
+    init(title: String, detailText: String, createTime: Double) {
         self.title = title
         self.detailText = detailText
-        self.createTime = creatTime
+        self.createTime = createTime
     }
 }

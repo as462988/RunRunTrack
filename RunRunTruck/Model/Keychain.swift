@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Custom keychain error
 
-fileprivate enum KeychainError: Error {
+private enum KeychainError: Error {
     case encodePasswordFailed
     case noPassword
     case unexpectedPasswordData
@@ -29,11 +29,15 @@ struct Keychain {
     
     static var currentUserIdentifier: String {
         guard let bundleId = Bundle.main.bundleIdentifier  else { return "" }
+        
         do {
+            
             let storedIdentifier = try KeychainItem(
                 service: bundleId,
                 account: Constant.currentUserIdentifier.rawValue).readItem()
+            
             return storedIdentifier
+            
         } catch {
             //Get current user identifier failed
             return ""

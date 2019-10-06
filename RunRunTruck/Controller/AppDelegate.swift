@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // swiftlint:disable force_cast
     static let shared = UIApplication.shared.delegate as! AppDelegate
-    var token: String = ""
     // swiftlint:enable force_cast
 
     var window: UIWindow?
@@ -76,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         
         let appleIDProvider = ASAuthorizationAppleIDProvider()
-        appleIDProvider.getCredentialState(forUserID: Keychain.currentUserIdentifier) {[weak self] (credentialState, error) in
+        appleIDProvider.getCredentialState(forUserID: Keychain.currentUserIdentifier) { credentialState, error in
             switch credentialState {
             case .authorized:
                 break

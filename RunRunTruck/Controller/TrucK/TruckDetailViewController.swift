@@ -108,7 +108,7 @@ class TruckDetailViewController: UIViewController {
                         type: Truck.truck.rawValue,
                         id: detailInfo.id,
                         key: Truck.favoritedBy.rawValue,
-                        value: uid) {}
+                        value: uid, completion: nil)
             }
         } else {
             

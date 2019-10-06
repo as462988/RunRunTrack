@@ -99,7 +99,6 @@ class BossUIView: UIView {
         let camera = GMSCameraPosition.camera(withLatitude: 25.033128, longitude: 121.565806, zoom: 15)
         mapView.camera = camera
         mapView.settings.myLocationButton = true
-//        mapView.isMyLocationEnabled = true
         mapView.bringSubviewToFront(locationAnimationView)
     }
 
