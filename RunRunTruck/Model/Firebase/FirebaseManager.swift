@@ -248,11 +248,13 @@ class FirebaseManager {
     
     ///建立一筆Boss資料
     func setBossData(name: String, email: String, userIdentifier: String, completion: @escaping (Bool) -> Void) {
+        
         db.collection(User.boss.rawValue).document(userIdentifier).setData([
             User.uid.rawValue: userIdentifier,
             User.name.rawValue: name,
             User.email.rawValue: email,
-            User.badge.rawValue: []
+            User.badge.rawValue: [],
+            Truck.truckId.rawValue: ""
         ]) { error in
             completion(error == nil)
         }
@@ -363,7 +365,7 @@ class FirebaseManager {
             Truck.truckId.rawValue: truckId
         ])
     }
-    
+   
     // MARK: About ChatRoom
     
     func createChatRoom(truckID: String, uid: String, name: String, image: String?, text: String) {

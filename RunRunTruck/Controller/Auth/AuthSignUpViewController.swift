@@ -117,20 +117,22 @@ class AuthRegisterViewController: UIViewController {
     
     ///老闆註冊
     func bossRegister(name: String, email: String) {
-        goToCreateTruck()
         if let uid = Auth.auth().currentUser?.uid {
             FirebaseManager.shared.setBossData(
-            name: name, email: email, userIdentifier: uid) { success in
+            name: name, email: email, userIdentifier: uid) { [weak self] success in
                 //註冊成功
+                self?.goToCreateTruckWithBossId(uid)
             }
         }
     }
     
-    func goToCreateTruck() {
+    func goToCreateTruckWithBossId(_ bossId: String) {
         
         guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
+        
+        addTruckVC.bossId = bossId
         
         addTruckVC.modalPresentationStyle = .overCurrentContext
         

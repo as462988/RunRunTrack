@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     userType: .boss,
                     userIdentifier: Keychain.currentUserIdentifier) { (bossData) in
                         if let bossData = bossData {
+                            // TODO: 如果老闆還沒新增餐車，要跳出新增餐車頁面
                             FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: bossData)
                         }
                     }

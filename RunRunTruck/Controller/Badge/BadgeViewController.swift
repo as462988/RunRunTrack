@@ -68,10 +68,13 @@ class BadgeViewController: UIViewController {
     }
     
    @objc func updateDataFromFirebaseManager() {
+    
         let user = FirebaseManager.shared.currentUser
+    
         allTrucks = FirebaseManager.shared.allTruckData.map({ (truck) -> (TruckData, Bool) in
             return (truck, user != nil ? user!.badge.contains(truck.id) : false)
         })
+    
         self.badgeCollectionView.reloadData()
     }
     
@@ -90,7 +93,8 @@ class BadgeViewController: UIViewController {
         
         scannerVC.delegate = self
         
-        show(scannerVC, sender: nil)
+        self.navigationController?.pushViewController(scannerVC, animated: true)
+        
     }
 }
 
@@ -105,13 +109,17 @@ UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let truckDataWithBadgeIsAchieved = allTrucks[indexPath.item]
+        
         guard let badgeCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(
-                describing: BadgeCollectionViewCell.self), for: indexPath) as? BadgeCollectionViewCell
+                describing: BadgeCollectionViewCell.self),
+            for: indexPath) as? BadgeCollectionViewCell
             else { return UICollectionViewCell() }
         
-        badgeCell.setValue(logo: truckDataWithBadgeIsAchieved.0.logoImage, name: truckDataWithBadgeIsAchieved.0.name)
+        badgeCell.setValue(logo: truckDataWithBadgeIsAchieved.0.logoImage,
+                           name: truckDataWithBadgeIsAchieved.0.name)
         
         badgeCell.changeLayout(alpha: truckDataWithBadgeIsAchieved.1 ? 1 : 0.2)
         

@@ -19,4 +19,6 @@ struct Constant {
     static let notificationURL = "pushNotificationURL"
     
     static let openGooleMapURL = "OpenGoogleMapURL"
+    
+    static let privateLink = "PrivateWebLink"
 }

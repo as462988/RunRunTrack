@@ -92,7 +92,6 @@ class QRScannerController: UIViewController {
         default:
             break
         }
-        
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
 

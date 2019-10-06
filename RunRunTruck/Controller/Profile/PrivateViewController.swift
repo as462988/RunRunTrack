@@ -42,7 +42,7 @@ class PrivateViewController: UIViewController {
 
     func showInfo() {
         
-        let link = "https://www.privacypolicies.com/privacy/view/c082ee6447f9e7283c678be24b07d477"
+        let link = Bundle.ValueForString(key: Constant.privateLink)
         
         if let url = URL(string: link) {
             let request = URLRequest(url: url)

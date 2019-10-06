@@ -47,9 +47,6 @@ class AuthViewController: UIViewController {
         singInBtn.addTarget(self, action: #selector(handleEmailLogin), for: .touchUpInside)
         checkUserInput()
         
-        emailTextField.text = "yueh@gmail.com"
-        pswTextField.text = "yyyyyy"
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -196,12 +193,14 @@ extension AuthViewController {
         }
     }
     
-    fileprivate func goToCreateTruck() {
+    fileprivate func goToCreateTruckWithBossId(_ bossId: String) {
         
         guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
         
+        addTruckVC.bossId = bossId
+            
         addTruckVC.modalPresentationStyle = .overCurrentContext
         
         self.present(addTruckVC, animated: false, completion: nil)
@@ -261,7 +260,7 @@ extension AuthViewController {
                     }
                     guard userData.truckId != nil else {
                         //老闆還沒新增餐車資料
-                        self?.goToCreateTruck()
+                        self?.goToCreateTruckWithBossId(uid)
                         return
                     }
                     //老闆存在
@@ -341,7 +340,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                         userIdentifier: user.id) { (user) in
                             if let user = user {
                                 FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: user)
-                                self?.goToCreateTruck()
+                                self?.goToCreateTruckWithBossId(user.uid)
                             }
                         }
                     }
@@ -350,7 +349,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             }
             guard userData.truckId != nil else {
                 //老闆還沒新增餐車資料
-                self?.goToCreateTruck()
+                self?.goToCreateTruckWithBossId(userData.uid)
                 return
             }
             //老闆存在

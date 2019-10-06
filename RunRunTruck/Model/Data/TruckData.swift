@@ -117,8 +117,6 @@ enum User: String {
     
     case email
     
-    case token
-    
     case logoImage
     
     case text
