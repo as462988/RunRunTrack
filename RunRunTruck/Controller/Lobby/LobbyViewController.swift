@@ -71,7 +71,7 @@ class LobbyViewController: UIViewController {
                     case .removed:
                         //刪除
                         dispatchGroup.enter()
-                        if let markerIndex = self?.lobbyView.markers.firstIndex(of: { (marker) -> Bool in
+                        if let markerIndex = self?.lobbyView.markers.firstIndex(where: { (marker) -> Bool in
                             return marker.position.longitude == truckData.0.location?.longitude
                         }) {
                             self?.lobbyView.markers[markerIndex].map = nil
@@ -247,7 +247,7 @@ extension LobbyViewController: TruckInfoCellDelegate {
     func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell,
                        didEnterTruckChatRoom truckData: TruckData) {
         
-        guard FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil else {
+        guard FirebaseManager.shared.currentUser == nil else {
 
             let chatroomVC = ChatroomViewController()
             

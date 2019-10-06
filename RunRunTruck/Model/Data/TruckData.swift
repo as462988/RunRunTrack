@@ -109,6 +109,8 @@ enum User: String {
     
     case user = "User"
     
+    case boss = "Boss"
+    
     case uid
     
     case name
@@ -130,9 +132,17 @@ enum User: String {
     case favorite
     
     case feedback
+    
+    case type
+}
+
+enum UserType: Int {
+    case boss = 0, normalUser
 }
 
 struct UserData {
+    
+    let uid: String
     
     let name: String
     
@@ -150,11 +160,14 @@ struct UserData {
     
     let feedback: [String]
     
-    init(name: String, email: String, logoImage: String? = nil,
+    var type: UserType?
+    
+    init(uid: String, name: String, email: String, logoImage: String? = nil,
          badge: [String] = [], truckId: String? = nil,
          block: [String] = [], favorite: [String] = [],
-         feedback: [String] = []) {
+         feedback: [String] = [], type: UserType) {
         
+        self.uid = uid
         self.name = name
         self.email = email
         self.logoImage = logoImage
@@ -163,18 +176,8 @@ struct UserData {
         self.block = block
         self.favorite = favorite
         self.feedback = feedback
+        self.type = type
     }
-}
-
-enum Boss: String {
-    
-    case boss = "Boss"
-    
-    case uid
-    
-    case name
-    
-    case email
 }
 
 struct TruckShortInfo {

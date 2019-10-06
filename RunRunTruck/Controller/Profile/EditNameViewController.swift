@@ -26,10 +26,12 @@ class EditNameViewController: UIViewController {
         if editNameText.text == "" {
             editNameText.text = name
         }
-        guard let text = editNameText.text else { return }
+        guard
+            let text = editNameText.text,
+            let uid = FirebaseManager.shared.currentUser?.uid else { return }
 
         FirebaseManager.shared.updateData(type: User.user.rawValue,
-                                              uid: FirebaseManager.shared.userID ?? "",
+                                              uid: uid,
                                               key: User.name.rawValue,
                                               value: text)
         

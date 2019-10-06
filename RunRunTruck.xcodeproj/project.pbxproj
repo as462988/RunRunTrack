@@ -64,6 +64,7 @@
 		09B2E4DA23382229007FF161 /* TruckGroupCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */; };
 		09B2E4DC233825A0007FF161 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DB2338259F007FF161 /* UIView+Layout.swift */; };
 		09B2E4DE233825A0007FF161 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B2E4DD233825A0007FF161 /* SettingViewController.swift */; };
+		09C99EFE2349D67E008130BC /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C99EFD2349D67E008130BC /* Keychain.swift */; };
 		09D4B383233C586E001F444C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D4B382233C586E001F444C /* MapKit.framework */; };
 		09E6C4A32333682D009EA849 /* TruckDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */; };
 		09E6C4A523337D9F009EA849 /* TransformTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */; };
@@ -146,6 +147,7 @@
 		09B2E4D923382229007FF161 /* TruckGroupCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckGroupCollectionViewController.swift; sourceTree = "<group>"; };
 		09B2E4DB2338259F007FF161 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		09B2E4DD233825A0007FF161 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		09C99EFD2349D67E008130BC /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		09D4B382233C586E001F444C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		09E6C4A22333682D009EA849 /* TruckDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruckDetailViewController.swift; sourceTree = "<group>"; };
 		09E6C4A423337D9F009EA849 /* TransformTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformTimeManager.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		091EEB7423156BF900BF066F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				09C99EFD2349D67E008130BC /* Keychain.swift */,
 				096B71182348709600B17789 /* Data */,
 				096B71172348707F00B17789 /* Firebase */,
 				095238BB23307AB50015AEDA /* AddressManager.swift */,
@@ -660,6 +663,7 @@
 				09329DDF2318F81C003C851A /* ProfileViewController.swift in Sources */,
 				09E6C4A723338C9B009EA849 /* TruckViewController.swift in Sources */,
 				09F78E372324F39900FD6099 /* ChatCellForSelf.swift in Sources */,
+				09C99EFE2349D67E008130BC /* Keychain.swift in Sources */,
 				09329DD623175CD5003C851A /* KingFisherWrapper.swift in Sources */,
 				09B2E4D223381040007FF161 /* TruckCardCollectionViewCell.swift in Sources */,
 				09FC78A2233927EE00DD5768 /* SettingRow.swift in Sources */,

@@ -76,15 +76,17 @@ class BadgeViewController: UIViewController {
     }
     
     @objc func enterScannerButton(sender: UIButton) {
-       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
-
-        ProgressHUD.showFailure(text: "登入會員就可以蒐藏徽章囉！")
-
+       
+        guard FirebaseManager.shared.currentUser != nil else {
+            
+            ProgressHUD.showFailure(text: "登入會員就可以蒐藏徽章囉！")
+            
             return
         }
         
        guard let scannerVC = UIStoryboard.badge.instantiateViewController(
-        withIdentifier: String(describing: QRScannerController.self)) as? QRScannerController else {return}
+        withIdentifier: String(
+            describing: QRScannerController.self)) as? QRScannerController else { return }
         
         scannerVC.delegate = self
         

@@ -153,9 +153,9 @@ class AddBossTruckViewController: UIViewController {
                 FirebaseManager.shared.addTruckIDInBoss(isAppleSingIn: true,
                                                         appleID: self?.appleLoginBossID, truckId: truckId)
                 
-                FirebaseManager.shared.updateData(type: Boss.boss.rawValue,
+                FirebaseManager.shared.updateData(type: User.boss.rawValue,
                                                   uid: self?.appleLoginBossID ?? "",
-                                                  key: Boss.name.rawValue,
+                                                  key: User.name.rawValue,
                                                   value: self?.truckNameInput.text ?? "")
                 
                 DispatchQueue.main.async {

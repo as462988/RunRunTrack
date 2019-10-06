@@ -69,6 +69,10 @@ class ChatroomViewController: UIViewController {
         }
     }
     
+    deinit {
+        FirebaseManager.shared.messagesListener?.remove()
+    }
+    
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
             return
@@ -134,18 +138,15 @@ class ChatroomViewController: UIViewController {
         
         if text.isEmpty == false {
             
-            if let uid = FirebaseManager.shared.userID {
+            if let uid = FirebaseManager.shared.currentUser?.uid {
                 
                 createChatMessage(id: uid, text: text)
                 
-            } else if let boosId = FirebaseManager.shared.bossID {
-                
-                createChatMessage(id: boosId, text: text)
             }
             
             chatRoomView.inputTextField.text = ""
+            
         }
-        
     }
     
     func createChatMessage(id: String, text: String) {
@@ -190,7 +191,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         
         let messageData = messages[indexPath.item]
         
-        if messageData.uid == FirebaseManager.shared.userID || messageData.uid == FirebaseManager.shared.bossID {
+        if messageData.uid == FirebaseManager.shared.currentUser?.uid {
             
             guard let chatCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: cellForSelf,
@@ -268,7 +269,7 @@ extension ChatroomViewController: ChatMessageCellDelegate {
             return
         }
         
-        if FirebaseManager.shared.userID != nil {
+        if FirebaseManager.shared.currentUser?.type == .normalUser {
             
             showBlockAlert(cell: cell, index: indexPath.item)
         }
@@ -282,7 +283,7 @@ extension ChatroomViewController: ChatMessageCellDelegate {
         
         let action = UIAlertAction(title: text, style: .default) {[weak self] (action) in
             
-            guard let uid = FirebaseManager.shared.userID else {return}
+            guard let uid = FirebaseManager.shared.currentUser?.uid else {return}
             
             FirebaseManager.shared.updateArrayData(
                 type: User.user.rawValue,
@@ -311,7 +312,7 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
         
         let messageData = messages[indexPath.item]
         
-        if messageData.uid == FirebaseManager.shared.userID {
+        if messageData.uid == FirebaseManager.shared.currentUser?.uid {
             
             height = estimateFrameForText(text: messageData.text).height + 20
             

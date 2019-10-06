@@ -70,7 +70,7 @@ class BlockRowCell: UITableViewCell {
     
     @objc func blockBtnDidTap() {
         
-        guard let uid = FirebaseManager.shared.userID else { return }
+        guard let uid = FirebaseManager.shared.currentUser?.uid else { return }
 
         FirebaseManager.shared.updateRemoveArrayData(
             type: User.user.rawValue,

@@ -81,8 +81,11 @@ class AuthRegisterViewController: UIViewController {
         FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] (isSuccess, result) in
             
             guard isSuccess else {
+                
                 self?.errorResultLabel.isHidden = false
+                
                 self?.errorResultLabel.text = result
+                
                 return
             }
             
@@ -100,30 +103,37 @@ class AuthRegisterViewController: UIViewController {
             }
         }
     }
-    
+    ///吃貨註冊
     func userRegister(name: String, email: String) {
-
         self.presentingViewController?.dismiss(animated: false, completion: nil)
-        FirebaseManager.shared.setUserData(name: name, email: email, isAppleSingIn: false)
         
+        if let uid = Auth.auth().currentUser?.uid {
+            FirebaseManager.shared.setNormalUserData(
+            name: name, email: email, userIdentifier: uid) { success in
+                //註冊成功
+            }
+        }
     }
     
+    ///老闆註冊
     func bossRegister(name: String, email: String) {
-        
-        addTruckInBoss(needEnterName: false)
-        FirebaseManager.shared.setBossData(name: name, email: email, isAppleSingIn: false)
-        
+        goToCreateTruck()
+        if let uid = Auth.auth().currentUser?.uid {
+            FirebaseManager.shared.setBossData(
+            name: name, email: email, userIdentifier: uid) { success in
+                //註冊成功
+            }
+        }
     }
     
-    func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
+    func goToCreateTruck() {
         
         guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
         
         addTruckVC.modalPresentationStyle = .overCurrentContext
-        addTruckVC.needEnterName = needEnterName
-        addTruckVC.appleLoginBossID = bossId
+        
         self.present(addTruckVC, animated: false, completion: nil)
     }
 

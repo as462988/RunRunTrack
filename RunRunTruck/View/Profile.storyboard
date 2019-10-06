@@ -479,7 +479,7 @@
         <!--Create Qr Code View Controller-->
         <scene sceneID="Bvq-em-rgN">
             <objects>
-                <viewController storyboardIdentifier="CreateQrcodeViewController" id="vn7-rQ-nGG" customClass="CreateQrCodeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateQrCodeViewController" id="vn7-rQ-nGG" customClass="CreateQrCodeViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MaK-1H-AQ7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -526,7 +526,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="closeBtn" destination="ccH-2d-06L" id="MXb-9u-AMb"/>
-                                    <outlet property="qrcodeImage" destination="hCu-yH-2a6" id="j8s-w2-dMZ"/>
+                                    <outlet property="qrCodeImage" destination="hCu-yH-2a6" id="NNW-Eo-9yW"/>
                                     <outlet property="timeLabel" destination="2Ls-y4-CiM" id="tha-9r-EY9"/>
                                 </connections>
                             </view>
@@ -544,7 +544,7 @@
                         <viewLayoutGuide key="safeArea" id="pHU-Mx-JF0"/>
                     </view>
                     <connections>
-                        <outlet property="qrcodeView" destination="UcI-q8-6AX" id="awY-od-15F"/>
+                        <outlet property="qrCodeView" destination="UcI-q8-6AX" id="01V-NR-rUZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tx2-Xc-xbd" userLabel="First Responder" sceneMemberID="firstResponder"/>

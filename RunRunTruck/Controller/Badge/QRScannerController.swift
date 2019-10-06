@@ -128,7 +128,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             
             if let truckId = metadataObj.stringValue {
                
-                guard let uid = FirebaseManager.shared.userID else {return}
+                guard let uid = FirebaseManager.shared.currentUser?.uid else { return }
                 
                 FirebaseManager.shared.updateArrayData(type: User.user.rawValue,
                                                         id: uid,

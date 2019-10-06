@@ -12,6 +12,7 @@ import GoogleMaps
 import IQKeyboardManager
 import UserNotifications
 import FirebaseMessaging
+import AuthenticationServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,12 +37,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseManager.shared.listenAllTruckData()
         
-        handlerNotfication(application: application)
+        ///找回使用者
+        if Keychain.currentUserIdentifier != "" {
+            FirebaseManager.shared.getCurrentUserData(
+            userType: .normalUser,
+            userIdentifier: Keychain.currentUserIdentifier) { normalUserData in
+                guard let normalUserData = normalUserData else {
+                    FirebaseManager.shared.getCurrentUserData(
+                    userType: .boss,
+                    userIdentifier: Keychain.currentUserIdentifier) { (bossData) in
+                        if let bossData = bossData {
+                            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: bossData)
+                        }
+                    }
+                    return
+                }
+                FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: normalUserData)
+            }
+        }
+        handlerNotification(application: application)
         
         return true
     }
 
-    func handlerNotfication(application: UIApplication) {
+    func handlerNotification(application: UIApplication) {
         
         UNUserNotificationCenter.current().delegate = self
         
@@ -53,6 +72,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         options: authOption) { (_, _) in }
         
         application.registerForRemoteNotifications()
+    }
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: Keychain.currentUserIdentifier) {[weak self] (credentialState, error) in
+            switch credentialState {
+            case .authorized:
+                break
+            case .notFound:
+                break
+            case .revoked:
+                FirebaseManager.shared.signOut()
+            case .transferred:
+                fallthrough
+            @unknown default:
+                break
+            }
+        }
     }
 }
 
@@ -96,7 +133,6 @@ extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
 
-        FirebaseManager.shared.currentUserToken = fcmToken
         print("token: \(fcmToken)")
     }
 }

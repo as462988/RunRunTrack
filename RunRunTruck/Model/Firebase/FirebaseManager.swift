@@ -28,23 +28,28 @@ class FirebaseManager {
     var bossTruck: TruckData?
     
     var message = [Message]()
-    
-    var currentUserToken: String = ""
-    
+        
     let db = Firestore.firestore()
     
     var truckID: String?
     
-    var userID: String?
+//    var userID: String?
+//
+//    var bossID: String?
     
-    var bossID: String?
+    var userListener: ListenerRegistration?
+    
+    var allTruckDatasListener: ListenerRegistration?
+    
+    var openTruckDatasListener: ListenerRegistration?
+    
+    var messagesListener: ListenerRegistration?
     
     // MARK: About Truck
-    //getAllTruck
     
+    ///監聽所有餐車資料變更
     func listenAllTruckData() {
-        
-        db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
+        allTruckDatasListener = db.collection(Truck.truck.rawValue).addSnapshotListener { (snapshot, error) in
             guard error == nil else { return }
             var openTimestamp: Double?
             var location: GeoPoint?
@@ -87,6 +92,7 @@ class FirebaseManager {
         }
     }
     
+    ///監聽營業中餐車資料
     func getOpeningTruckData(isOpen: Bool, completion: @escaping ([(TruckData, DocumentChangeType)]?) -> Void) {
         
         var openTimestamp: Double?
@@ -95,7 +101,7 @@ class FirebaseManager {
         
         var detailImage: String?
         
-        db.collection(Truck.truck.rawValue).whereField(
+        openTruckDatasListener = db.collection(Truck.truck.rawValue).whereField(
             Truck.open.rawValue, isEqualTo: isOpen).addSnapshotListener { (snapshot, error) in
                 
                 guard let snapshot = snapshot else { return }
@@ -176,7 +182,7 @@ class FirebaseManager {
             ])
         }
     }
-
+    
     func getTruckId(truckName: String) {
         
         db.collection(Truck.truck.rawValue).whereField(
@@ -194,7 +200,7 @@ class FirebaseManager {
     
     // MARK: About All
     func updateData(type: String, uid: String, key: String, value: String) {
-
+        
         db.collection(type).document(uid).updateData([ key: value ])
     }
     
@@ -212,156 +218,103 @@ class FirebaseManager {
     
     func updateRemoveArrayData(type: String, id: String, key: String, value: String, completion: @escaping () -> Void) {
         db.collection(type).document(id).updateData([key: FieldValue.arrayRemove([value])]) { (error) in
-                 
-                 if let error = error {
-                     print("Error adding document: \(error)")
-                 } else {
-                     completion()
-                 }
-             }
+            
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                completion()
+            }
+        }
     }
     
     // MARK: About User
-    ///開始監聽使用者資料變更
-    func listenUserData(isAppleSingIn: Bool, userid: String? = nil) {
+
+    ///獲取一次性的使用者資料
+    func getCurrentUserData(userType: UserType, userIdentifier: String, completion: @escaping (UserData?) -> Void) {
         
-        var currentUser: String = ""
+        var mainPath = ""
         
-        if isAppleSingIn {
-            guard let userId = userid else {return}
-            currentUser = userId
-        } else {
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            currentUser = uid
+        switch userType {
+        case .boss:
+            mainPath = User.boss.rawValue
+        case .normalUser:
+            mainPath = User.user.rawValue
         }
-
-        db.collection(User.user.rawValue).document(currentUser).addSnapshotListener { [weak self ] (snapshot, error) in
-
-            guard let snapshot = snapshot else { return }
-            
-            guard let data = snapshot.data() else {
-                print("Document data was empty.")
+        db.collection(mainPath).document(userIdentifier).getDocument { [ weak self ] (snapshot, error) in
+            guard let dataDic = snapshot?.data() else {
+                completion(nil)
                 return
             }
-
-            guard let name = data[User.name.rawValue] as? String,
-                let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String],
-                let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String] else { return }
-            
-            if let image = data[User.logoImage.rawValue] as? String {
-                
-                self?.currentUser = UserData(name: name, email: email,
-                                             logoImage: image, badge: badge,
-                                             block: block, favorite: favorite)
-            } else {
-                
-                self?.currentUser = UserData(name: name, email: email,
-                                             badge: badge, block: block,
-                                             favorite: favorite)
-            }
+            completion(self?.getUserDataFromDataDic(userType: userType, dataDic: dataDic))
+        }
+    }
+    
+    ///監聽使用者資資料變更
+    func listenCurrenUserData() {
+        //判斷是否有使用者
+        guard let currentUser = currentUser, let type = currentUser.type else { return }
+        var mainPath = ""
+        switch type {
+        case .boss:
+            mainPath = User.boss.rawValue
+        case .normalUser:
+            mainPath = User.user.rawValue
+        }
+        //監聽
+        let doc = db.collection(mainPath).document(currentUser.uid)
+        
+        userListener = doc.addSnapshotListener { [weak self] (snapshot, error) in
+            guard let dataDic = snapshot?.data() else { return }
+            //拿到資料了
+            self?.currentUser = self?.getUserDataFromDataDic(userType: type, dataDic: dataDic)
             NotificationCenter.default.post(name: Notification.Name(FirebaseManager.userNotificationName), object: nil)
         }
     }
     
-    func getCurrentUserData(useAppleSingIn: Bool, userId: String? = nil, completion: @escaping (UserData?) -> Void) {
-       
-        var currentUserId: String = ""
-        
-        if useAppleSingIn {
-            
-            if let userId = userId {
-                
-                currentUserId = userId
-            }
-        } else {
-            
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-            
-        currentUserId = uid
-            
-        }
-        db.collection(User.user.rawValue).document(currentUserId).getDocument { [weak self ] (snapshot, error) in
-            
-            guard let document = snapshot else {
-                
-                completion(nil)
-                
-                return
-            }
-            guard let data = document.data() else { return }
-            
-            guard let name = data[User.name.rawValue] as? String,
-                let email = data[User.email.rawValue] as? String,
-                let badge = data[User.badge.rawValue] as? [String],
-                let block = data[User.block.rawValue] as? [String],
-                let favorite = data[User.favorite.rawValue] as? [String]else { return }
-            
-            if let image = data[User.logoImage.rawValue] as? String {
-                
-                self?.currentUser = UserData(name: name, email: email,
-                                             logoImage: image, badge: badge,
-                                             block: block, favorite: favorite)
-            } else {
-                
-                self?.currentUser = UserData(name: name, email: email, badge: badge,
-                                             block: block, favorite: favorite)
-            }
-            
-            self?.userID = currentUserId
-            
-            completion(self?.currentUser)
-        }
-    }
-    
-    func setUserData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
-        
-        var userid = ""
-        
-        if isAppleSingIn {
-            
-            userid = appleUID
-            
-        } else {
-            
-            guard let authUid = Auth.auth().currentUser?.uid else { return }
-            
-            userid = authUid
-        }
-        
-        db.collection(User.user.rawValue).document(userid).setData([
-            
+    ///建立一筆一般使用者資料
+    func setNormalUserData(name: String, email: String, userIdentifier: String, completion: @escaping (Bool) -> Void) {
+        db.collection(User.user.rawValue).document(userIdentifier).setData([
+            User.uid.rawValue: userIdentifier,
             User.name.rawValue: name,
             User.email.rawValue: email,
             User.badge.rawValue: [],
             User.block.rawValue: [],
             User.favorite.rawValue: []
-            
         ]) { error in
-            
-            if let error = error {
-                print("Error adding document: \(error)")
-            }
+             completion(error == nil)
         }
     }
-
+    
+    ///建立一筆Boss資料
+    func setBossData(name: String, email: String, userIdentifier: String, completion: @escaping (Bool) -> Void) {
+        db.collection(User.boss.rawValue).document(userIdentifier).setData([
+            User.uid.rawValue: userIdentifier,
+            User.name.rawValue: name,
+            User.email.rawValue: email,
+            User.badge.rawValue: []
+        ]) { error in
+            completion(error == nil)
+        }
+    }
+    
+    ///拿到一次性使用者的名字
     func getBlockUserName(blockId: String, completion: @escaping (String?) -> Void) {
-        
         db.collection(User.user.rawValue).document(blockId).getDocument { (snapshot, error) in
             
             guard let data = snapshot?.data() else {
-                print("Document data was empty.")
                 completion(nil)
                 return
             }
             
-            guard let name = data[User.name.rawValue] as? String else {return}
+            guard let name = data[User.name.rawValue] as? String else {
+                completion(nil)
+                return
+            }
             
             completion(name)
         }
     }
-
+    
     func getUserFavoriteTruck(truckId: String, completion: @escaping (TruckShortInfo?) -> Void) {
         
         db.collection(Truck.truck.rawValue).document(truckId).getDocument { (snapshot, error) in
@@ -382,43 +335,6 @@ class FirebaseManager {
     }
     
     // MARK: About Boss
-    func getCurrentBossData(isAppleSingIn: Bool, userid: String? = nil, completion: @escaping (UserData?) -> Void) {
-        
-        var currentBossId: String = ""
-        
-        if isAppleSingIn {
-            
-            guard let userId = userid else { return }
-            
-            currentBossId = userId
-            
-        } else {
-            
-             guard let uid = Auth.auth().currentUser?.uid else { return }
-            
-            currentBossId = uid
-        }
-        
-        db.collection(Boss.boss.rawValue).document(currentBossId).getDocument { [weak self](snapshot, error) in
-            
-            guard let data = snapshot?.data() else {
-                
-                completion(nil)
-                
-                return
-            }
-            
-            guard let name = data[Boss.name.rawValue] as? String,
-                let email = data[Boss.email.rawValue] as? String,
-                let truckId = data[Truck.truckId.rawValue] as? String  else { return }
-            
-            self?.currentUser = UserData(name: name, email: email, truckId: truckId)
-            
-            self?.bossID = currentBossId
-            
-            completion(self?.currentUser)
-        }
-    }
     
     func getBossTruck(completion: @escaping (TruckData?) -> Void) {
         
@@ -453,46 +369,13 @@ class FirebaseManager {
         
     }
     
-    func setBossData(name: String, email: String, isAppleSingIn: Bool, appleUID: String = "") {
-        
-        var userid = ""
-        
-        if isAppleSingIn {
-            userid = appleUID
-        } else {
-            guard let authUid = Auth.auth().currentUser?.uid else { return }
-            userid = authUid
-        }
-        
-        db.collection(Boss.boss.rawValue).document(userid).setData([
-            
-            Boss.name.rawValue: name,
-            Boss.email.rawValue: email,
-            Truck.truckId.rawValue: nil]
-            
-        ) { [weak self] error in
-            
-            if let error = error {
-                
-                print("Error adding document: \(error)")
-                
-            } else {
-                
-                self?.currentUser = UserData(name: name, email: email, truckId: nil)
-                
-                print("Document successfully written!")
-            }
-        }
-        
-    }
-    
     func addTruckIDInBoss(isAppleSingIn: Bool, appleID: String? = nil, truckId: String) {
         
         guard isAppleSingIn  else {
             
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
-            db.collection(Boss.boss.rawValue).document(uid).updateData([
+            db.collection(User.boss.rawValue).document(uid).updateData([
                 
                 Truck.truckId.rawValue: truckId
                 
@@ -501,18 +384,17 @@ class FirebaseManager {
             return
         }
         
-        db.collection(Boss.boss.rawValue).document(appleID!).updateData([
-                Truck.truckId.rawValue: truckId
-            ])
+        db.collection(User.boss.rawValue).document(appleID!).updateData([
+            Truck.truckId.rawValue: truckId
+        ])
     }
     
     // MARK: About Register/SingIn
     func userRegister(email: String, psw: String, completion: @escaping (_ isSuccess: Bool, String) -> Void) {
-        
+    
         Auth.auth().createUser(withEmail: email, password: psw) {(authResult, error) in
-            
             guard error == nil else {
-                
+
                 guard let errorCode = AuthErrorCode(rawValue: error!._code) else { return }
                 
                 completion(false, errorCode.errorMessage)
@@ -539,17 +421,10 @@ class FirebaseManager {
     }
     
     func signOut() {
+
+        try? Auth.auth().signOut()
         
-        let firebaseAuth = Auth.auth()
-        
-        do {
-            try firebaseAuth.signOut()
-            
-            self.userID = nil
-            self.bossID = nil
-            
-        } catch _ as NSError {
-        }
+        self.removeCurrentUserWhenLogOut()
     }
     
     func checkExistUser(userType: String, uid: String, completion: @escaping (Bool) -> Void) {
@@ -579,7 +454,7 @@ class FirebaseManager {
                 User.createTime.rawValue: Date().timeIntervalSince1970
             ])
     }
-
+    
     func deleteChatRoom(truckID: String) {
         
         let collection = db.collection(Truck.truck.rawValue).document(truckID).collection(Truck.chatRoom.rawValue)
@@ -606,7 +481,7 @@ class FirebaseManager {
             by: User.createTime.rawValue,
             descending: false)
         
-        order.addSnapshotListener { (snapshot, error) in
+        messagesListener = order.addSnapshotListener { (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -643,10 +518,87 @@ class FirebaseManager {
         
         db.collection(user).document(uid).collection(Feedback.feedback.rawValue).addDocument(data: [
             
-                Feedback.title.rawValue: title,
-                Feedback.detailText.rawValue: detailText,
-                User.createTime.rawValue: Date().timeIntervalSince1970
+            Feedback.title.rawValue: title,
+            Feedback.detailText.rawValue: detailText,
+            User.createTime.rawValue: Date().timeIntervalSince1970
             
-            ])
+        ])
+    }
+}
+
+// MARK: Login / LogOut
+
+extension FirebaseManager {
+    
+    func setupCurrentUserDataWhenLoginSuccess(userData: UserData) {
+        currentUser = userData
+        listenCurrenUserData()
+        if let uid = currentUser?.uid {
+            Keychain.setCurrentUserIdentifier(uid)
+        }
+        registerNotificationWhenFavoriteTrucksOpen()
+    }
+    
+    func removeCurrentUserWhenLogOut() {
+        currentUser = nil
+        Keychain.deleteCurrentUserIdentifier()
+        unregisterNotificationWhenFavoriteTrucksOpen()
+        userListener?.remove()
+    }
+    
+    ///註冊當前所有喜愛餐車的開業推播
+    func registerNotificationWhenFavoriteTrucksOpen() {
+        if let currentUser = currentUser {
+            if currentUser.type == .normalUser {
+                //註冊喜愛餐車推播
+                for truckId in currentUser.favorite {
+                    FirebaseNotificationManager.share.subscribeTopic(toTopic: truckId, completion: nil)
+                }
+            }
+        }
+    }
+    ///取消註冊當前所有喜愛餐車的開業推播
+    func unregisterNotificationWhenFavoriteTrucksOpen() {
+        if let currentUser = currentUser {
+            if currentUser.type == .normalUser {
+                //註冊喜愛餐車推播
+                for truckId in currentUser.favorite {
+                    FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: truckId, completion: nil)
+                }
+            }
+        }
+    }
+    
+}
+
+// MARK: Utility methods
+
+extension FirebaseManager {
+    private func getUserDataFromDataDic(userType: UserType, dataDic: [String: Any]) -> UserData? {
+        
+        switch userType {
+            
+        case .boss:
+            guard
+                let uid = dataDic[User.uid.rawValue] as? String,
+                let name = dataDic[User.name.rawValue] as? String,
+                let email = dataDic[User.email.rawValue] as? String,
+                let badge = dataDic[User.badge.rawValue] as? [String],
+                let truckId = dataDic[Truck.truckId.rawValue] as? String else { return nil }
+            return UserData(uid: uid, name: name, email: email, badge: badge, truckId: truckId, type: .boss)
+            
+        case .normalUser:
+            guard
+                let uid = dataDic[User.uid.rawValue] as? String,
+                let name = dataDic[User.name.rawValue] as? String,
+                let email = dataDic[User.email.rawValue] as? String,
+                let badge = dataDic[User.badge.rawValue] as? [String],
+                let block = dataDic[User.block.rawValue] as? [String],
+                let favorite = dataDic[User.favorite.rawValue] as? [String] else { return nil }
+            let image = dataDic[User.logoImage.rawValue] as? String ?? nil
+            return UserData(uid: uid, name: name, email: email,
+                            logoImage: image, badge: badge, block: block,
+                            favorite: favorite, type: .normalUser)
+        }
     }
 }

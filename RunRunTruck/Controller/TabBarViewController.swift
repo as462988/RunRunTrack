@@ -94,7 +94,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         guard let navVC = viewController as? UINavigationController,
             navVC.viewControllers.first is ProfileViewController else { return true }
         
-        if FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil {
+        if FirebaseManager.shared.currentUser == nil {
             
             if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
                 
