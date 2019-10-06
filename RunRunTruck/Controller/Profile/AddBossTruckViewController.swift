@@ -17,18 +17,17 @@ class AddBossTruckViewController: UIViewController {
     @IBOutlet weak var clickSendBtn: UIButton!
     @IBOutlet weak var animationView: AnimationView!
     
-    var needEnterName: Bool = false
-    var appleSinginBossID: String?
+    var bossId: String?
     
     var logoImageUrl: String?
     
     let openChoseCameraManager = OpenChoseCameraManager()
     
-    var userCreatTruckFinished = false {
-           didSet {
-               updateSendBtnStatus()
-           }
-       }
+    var userCreateTruckFinished = false {
+        didSet {
+            updateSendBtnStatus()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +41,7 @@ class AddBossTruckViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         handGester()
-        truckNameInput.isHidden = !needEnterName
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -82,109 +81,73 @@ class AddBossTruckViewController: UIViewController {
     
     func updateSendBtnStatus() {
         
-        setBtnStatus(userCreatTruckFinished ? .enable: .disable, btn: clickSendBtn)
+        setBtnStatus(userCreateTruckFinished ? .enable: .disable, btn: clickSendBtn)
     }
     
     func checkBossAddTruck() {
         
-        if needEnterName {
+        if !truckTextInput.text.isEmpty, logoImageUrl != nil, !truckNameInput.text!.isEmpty {
             
-            if !truckTextInput.text.isEmpty, logoImageUrl != nil, !truckNameInput.text!.isEmpty {
-                userCreatTruckFinished = true
-            } else {
-                userCreatTruckFinished = false
-            }
+            userCreateTruckFinished = true
             
         } else {
-            
-            if !truckTextInput.text.isEmpty, logoImageUrl != nil {
-                userCreatTruckFinished = true
-            } else {
-                userCreatTruckFinished = false
-            }
-            
+    
+            userCreateTruckFinished = false
         }
-
+        
     }
     
     @IBAction func clickSendBtn(_ sender: Any) {
         
         guard let inputText = truckTextInput.text else { return}
-
-        let truckName = FirebaseManager.shared.currentUser?.name
         
         guard let url = self.logoImageUrl else {return}
         
-        if self.needEnterName {
-            
-            self.appleSingInAddTruck(url: url, inputText: inputText)
-            
-        } else {
-            
-            guard let name = truckName else {
-                return
-            }
-            
-            FirebaseManager.shared.addTurck(
-                name: name,
-                img: url,
-                story: inputText) { [weak self] (truckID) in
-                    FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: false, truckId: truckID)
-                    
-                    DispatchQueue.main.async {
-                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-                            as? TabBarViewController else { return }
-                        rootVC.tabBar.isHidden = false
-                        
-                        self?.showAlert()
-                        
-                    }
-            }
-        }
+        addTruckData(url: url, inputText: inputText)
     }
-
-    func appleSingInAddTruck(url: String, inputText: String) {
+    
+    func addTruckData(url: String, inputText: String) {
         
-        FirebaseManager.shared.addTurck(
+        FirebaseManager.shared.addTruck(
             name: truckNameInput.text!,
             img: url,
             story: inputText) { [weak self] (truckId) in
-                                            
-                FirebaseManager.shared.addTurckIDInBoss(isAppleSingIn: true,
-                                                        appleID: self?.appleSinginBossID, truckId: truckId)
-//                FirebaseManager.shared.updataBossName(
-//                    uid: self?.appleSinginBossID ?? "",
-//                    name: self?.truckNameInput.text ?? "")
                 
-                FirebaseManager.shared.updataData(type: Boss.boss.rawValue,
-                                                      uid: self?.appleSinginBossID ?? "",
-                                                      key: Boss.name.rawValue,
-                                                      value: self?.truckNameInput.text ?? "")
+                guard let bossID = self?.bossId else { return }
+
+                FirebaseManager.shared.updateData(type: User.boss.rawValue,
+                                                  uid: bossID,
+                                                  key: Truck.truckId.rawValue,
+                                                  value: truckId)
+                
+                FirebaseManager.shared.updateData(type: User.boss.rawValue,
+                                                  uid: bossID,
+                                                  key: User.name.rawValue,
+                                                  value: self?.truckNameInput.text ?? "")
                 
                 DispatchQueue.main.async {
+                    
                     guard let rootVC = AppDelegate.shared.window?.rootViewController
                         as? TabBarViewController else { return }
+                    
                     rootVC.tabBar.isHidden = false
                     
                     self?.showAlert()
-                    
                 }
         }
-        
     }
     
     func showAlert() {
         
         let thankAlertVC = UIAlertController(title: "註冊成功！！！", message: "立即登入開始享受餐車旅程吧！", preferredStyle: .alert)
+        
         present(thankAlertVC, animated: true, completion: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let vc = self.presentingViewController
             self.dismiss(animated: true) {
                 self.dismiss(animated: false) {
-                    if self.needEnterName == false {
-                        vc?.dismiss(animated: false, completion: nil)
-                    }
+                    vc?.dismiss(animated: false, completion: nil)
                 }
             }
         }
@@ -194,7 +157,7 @@ class AddBossTruckViewController: UIViewController {
 extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
     
     func getTruckName(data: Data) {
-
+        
         FirebaseStorageManager.shared.upLoadUserLogo(
             type: Truck.logoImage.rawValue,
             data: data) { url in
@@ -218,7 +181,7 @@ extension AddBossTruckViewController: OpenChoseCameraManagerDelegate {
                 guard let data = data else {return}
                 
                 self?.getTruckName(data: data)
-
+                
                 self?.dismiss(animated: true, completion: nil)
         }
     }

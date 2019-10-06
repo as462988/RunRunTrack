@@ -18,17 +18,21 @@ class TruckViewController: UIViewController {
         }
     }
     
-    var allTruckArr = [TruckData]()
-    var openTruckArr = [TruckData]()
-    var disOpenTruckArr = [TruckData]()
+    var allTruckData = [TruckData]()
+    var openTruckData = [TruckData]()
+    var disOpenTruckData = [TruckData]()
     
     let addressManager = AddressManager()
     let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         handlerOpeningTruck()
+        
         handlerDisOpeningTruck()
+        
         truckCollectionView.showsVerticalScrollIndicator = false
     }
     
@@ -58,7 +62,7 @@ class TruckViewController: UIViewController {
                                     + location.city + location.street
 
                                 truckData.0.address = address
-                                self?.openTruckArr.append(truckData.0)
+                                self?.openTruckData.append(truckData.0)
 
                                 DispatchQueue.main.async {
                                     self?.truckCollectionView.reloadData()
@@ -68,11 +72,11 @@ class TruckViewController: UIViewController {
                     case .removed:
                         //刪除
 
-                        if let index = self?.openTruckArr.firstIndex(
+                        if let index = self?.openTruckData.firstIndex(
                             where: { (truckdata) -> Bool in
                                 return truckdata.id == truckData.0.id
                         }) {
-                            self?.openTruckArr.remove(at: index)
+                            self?.openTruckData.remove(at: index)
                         }
                     case .modified: break
                     @unknown default:
@@ -85,6 +89,7 @@ class TruckViewController: UIViewController {
     }
     
     func handlerDisOpeningTruck() {
+        
        FirebaseManager.shared.getOpeningTruckData(isOpen: false) {[weak self] (truckDatas) in
            if let truckDatas = truckDatas {
                
@@ -105,7 +110,7 @@ class TruckViewController: UIViewController {
                                    + location.city + location.street
                                
                                truckData.0.address = address
-                               self?.disOpenTruckArr.append(truckData.0)
+                               self?.disOpenTruckData.append(truckData.0)
                             
                             DispatchQueue.main.async {
                                 self?.truckCollectionView.reloadData()
@@ -113,7 +118,7 @@ class TruckViewController: UIViewController {
                        })
                        
                        } else {
-                        self?.disOpenTruckArr.append(truckData.0)
+                        self?.disOpenTruckData.append(truckData.0)
                         
                         DispatchQueue.main.async {
                             self?.truckCollectionView.reloadData()
@@ -123,11 +128,11 @@ class TruckViewController: UIViewController {
                    case .removed:
                        //刪除
                        
-                       if let index = self?.disOpenTruckArr.firstIndex(
+                       if let index = self?.disOpenTruckData.firstIndex(
                            where: { (truckdata) -> Bool in
                                return truckdata.id == truckData.0.id
                        }) {
-                           self?.disOpenTruckArr.remove(at: index)
+                           self?.disOpenTruckData.remove(at: index)
                        }
                    case .modified: break
                    @unknown default:
@@ -138,12 +143,6 @@ class TruckViewController: UIViewController {
            }
        }
     }
-//    func handGester(view: AnimationView) {
-//
-//        view.animation = Animation.named(Lottie.welcome.rawValue)
-//        view.loopMode = .autoReverse
-//        view.play()
-//    }
 }
 
 extension TruckViewController:
@@ -151,20 +150,20 @@ UICollectionViewDelegate,
 UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return openTruckArr.count + disOpenTruckArr.count
+        return openTruckData.count + disOpenTruckData.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let truckCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: TrcukCollectionViewCell.self),
-            for: indexPath) as? TrcukCollectionViewCell else {
+            withReuseIdentifier: String(describing: TruckCollectionViewCell.self),
+            for: indexPath) as? TruckCollectionViewCell else {
                 return UICollectionViewCell()
         }
         
-        allTruckArr = openTruckArr + disOpenTruckArr
+        allTruckData = openTruckData + disOpenTruckData
         
-        let data = allTruckArr[indexPath.item]
+        let data = allTruckData[indexPath.item]
         
         truckCell.setValue(name: data.name,
                            logoImage: data.logoImage,
@@ -192,7 +191,7 @@ UICollectionViewDataSource {
             withIdentifier: String(describing: TruckDetailViewController.self)) as? TruckDetailViewController
             else {return}
         
-        truckVC.detailInfo = allTruckArr[indexPath.item]
+        truckVC.detailInfo = allTruckData[indexPath.item]
         
         navigationController?.isNavigationBarHidden = true
         navigationController?.pushViewController(truckVC, animated: true)

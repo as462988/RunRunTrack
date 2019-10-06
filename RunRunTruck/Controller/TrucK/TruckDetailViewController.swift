@@ -42,9 +42,10 @@ class TruckDetailViewController: UIViewController {
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
         backBtnBg.clipsToBounds = true
         
-        if FirebaseManager.shared.bossID != nil {
-            favoriteBtn.isHidden = true
+        if FirebaseManager.shared.currentUser?.type == .boss {
+             favoriteBtn.isHidden = true
         }
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -79,17 +80,17 @@ class TruckDetailViewController: UIViewController {
     
     @objc func clickFavorite(_ sender: UIButton) {
         
-        guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+        guard FirebaseManager.shared.currentUser != nil else {
             
             ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
             
             return
         }
         
-        guard let detailInfo = detailInfo else { return }
-        
-        let uid = FirebaseManager.shared.userID
-        let bossId = FirebaseManager.shared.bossID
+        guard
+            let detailInfo = detailInfo,
+            let uid = FirebaseManager.shared.currentUser?.uid else { return }
+
         let topic = detailInfo.id
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
@@ -98,30 +99,30 @@ class TruckDetailViewController: UIViewController {
             FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
             print("topicName:\(topic)")
             
-            FirebaseManager.shared.updataArrayData(
+            FirebaseManager.shared.updateArrayData(
                 type: User.user.rawValue,
-                id: (uid == nil ? bossId : uid) ?? "",
+                id: uid,
                 key: User.favorite.rawValue,
                 value: detailInfo.id) {
-                    FirebaseManager.shared.updataArrayData(
+                    FirebaseManager.shared.updateArrayData(
                         type: Truck.truck.rawValue,
                         id: detailInfo.id,
                         key: Truck.favoritedBy.rawValue,
-                        value: (uid == nil ? bossId : uid) ?? "") {}
+                        value: uid, completion: nil)
             }
         } else {
             
             FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: topic, completion: nil)
-            FirebaseManager.shared.updataRemoveArrayData(
+            FirebaseManager.shared.updateRemoveArrayData(
                 type: User.user.rawValue,
-                id: (uid == nil ? bossId : uid) ?? "",
+                id: uid,
                 key: User.favorite.rawValue,
                 value: detailInfo.id) {
-                    FirebaseManager.shared.updataRemoveArrayData(
+                    FirebaseManager.shared.updateRemoveArrayData(
                         type: Truck.truck.rawValue,
                         id: detailInfo.id,
                         key: Truck.favoritedBy.rawValue,
-                        value: (uid == nil ? bossId : uid) ?? "", completion: {})
+                        value: uid, completion: {})
             }
         }
     }

@@ -16,10 +16,15 @@ protocol SettingRowDelegate: class {
 }
 
 class SettingRow: UIView {
+    
     static let closeRowHeight: CGFloat = 80
+    
     static let expandRowHeight: CGFloat = 300
+    
     static let topButtonHeight: CGFloat = SettingRow.closeRowHeight
+    
     static let contentViewHeight: CGFloat = SettingRow.expandRowHeight - SettingRow.closeRowHeight
+    
     var topButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.backgroundColor = .white
@@ -98,7 +103,6 @@ class SettingRow: UIView {
                 equalTo: self.trailingAnchor, constant: -10).isActive = true
         }
         setupRowLabel()
-
     }
     
     func setupRowLabel() {

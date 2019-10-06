@@ -92,7 +92,6 @@ class QRScannerController: UIViewController {
         default:
             break
         }
-        
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
 
@@ -128,12 +127,22 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             
             if let truckId = metadataObj.stringValue {
                
-                guard let uid = FirebaseManager.shared.userID else {return}
+                guard
+                    let currentUser = FirebaseManager.shared.currentUser,
+                    let type = currentUser.type else { return }
                 
-                FirebaseManager.shared.updataArrayData(type: User.user.rawValue,
-                                                        id: uid,
-                                                        key: User.badge.rawValue,
-                                                        value: truckId) {}
+                switch type {
+                case .boss :
+                    FirebaseManager.shared.updateArrayData(type: User.boss.rawValue,
+                                                           id: currentUser.uid,
+                                                           key: User.badge.rawValue,
+                                                           value: truckId, completion: nil)
+                case .normalUser:
+                     FirebaseManager.shared.updateArrayData(type: User.user.rawValue,
+                                                            id: currentUser.uid,
+                                                            key: User.badge.rawValue,
+                                                            value: truckId, completion: nil)
+                }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     

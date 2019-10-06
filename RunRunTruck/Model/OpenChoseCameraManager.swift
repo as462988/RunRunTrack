@@ -32,6 +32,7 @@ class OpenChoseCameraManager {
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 
                 imagePickerController.sourceType = .photoLibrary
+                
                 vc.present(imagePickerController, animated: true, completion: nil)
             }
         }
@@ -40,6 +41,7 @@ class OpenChoseCameraManager {
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 
                 imagePickerController.sourceType = .camera
+                
                 vc.present(imagePickerController, animated: true, completion: nil)
             }
         }
@@ -50,7 +52,9 @@ class OpenChoseCameraManager {
         }
         
         imagePickerAlertController.addAction(imageFromLibAction)
+        
         imagePickerAlertController.addAction(imageFromCameraAction)
+        
         imagePickerAlertController.addAction(cancelAction)
         
         vc.present(imagePickerAlertController, animated: true, completion: nil)
@@ -65,6 +69,7 @@ class OpenChoseCameraManager {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             selectedImageFromPicker = pickedImage
+            
             image.image = selectedImageFromPicker
         }
         

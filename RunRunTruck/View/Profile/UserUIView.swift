@@ -26,10 +26,15 @@ class UserUIView: UIView {
     weak var delegate: UserUIViewDelegate?
     
     override func awakeFromNib() {
+        
         super.awakeFromNib()
+        
         settingBtn.addTarget(self, action: #selector(clickSettingBtn), for: .touchUpInside)
+        
         editNameBtn.addTarget(self, action: #selector(clickEditNameBtn), for: .touchUpInside)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(choseUpLoadImage))
+        
         animationView.addGestureRecognizer(tapGesture)
         
     }
@@ -37,6 +42,7 @@ class UserUIView: UIView {
     func setupValue(name: String, image: String? = nil) {
         
         logoImage.loadImage(image, placeHolder: UIImage.asset(.Icon_myLogo))
+        
         nameLabel.text = name
     }
     
@@ -52,13 +58,18 @@ class UserUIView: UIView {
     }
     
     @objc func choseUpLoadImage() {
+        
         self.delegate?.clickUpLoadBtn()
     }
     
     @objc func clickSettingBtn() {
+        
         self.delegate?.clickSettingBtn()
+        
     }
     @objc func clickEditNameBtn() {
+        
         self.delegate?.clickEditNameBtn()
+        
     }
 }

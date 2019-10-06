@@ -85,9 +85,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         //收藏餐車, 繼續探索欄高
         case 0, 1:
             return .init(width: self.view.frame.size.width, height: 180)
-//        //更多設定欄高
-//        case 2:
-//            return .init(width: self.view.frame.size.width, height: 100)
         default:
             return .zero
         }

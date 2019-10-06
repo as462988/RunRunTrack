@@ -15,13 +15,18 @@ class UserInfoViewController: UIViewController {
     @IBOutlet weak var userView: UserUIView!
     
     let openChoseCameraManager = OpenChoseCameraManager()
+    
     var contentCollectionView: ProfileContentCollectionViewController = ProfileContentCollectionViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userView.delegate = self
+        
         openChoseCameraManager.delegate = self
+        
         contentView.addSubview(contentCollectionView.view)
+        
         contentCollectionView.view.fillSuperview()
     }
     
@@ -29,14 +34,19 @@ class UserInfoViewController: UIViewController {
         super.viewWillAppear(animated)
         
         handGester()
+        
         navigationController?.isNavigationBarHidden = true
+        
         if let user = FirebaseManager.shared.currentUser {
+            
             self.userView.setupValue(name: user.name, image: user.logoImage ?? nil)
+            
         }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         userView.setLayout()
     }
     
@@ -52,7 +62,8 @@ extension UserInfoViewController: UserUIViewDelegate {
     
     func clickSettingBtn() {
         let settingVC = SettingViewController()
-        setNarBackBtn(vc: settingVC)
+        
+        setNarVCBackBtn(vc: settingVC)
     }
     
     func clickUpLoadBtn() {
@@ -62,13 +73,13 @@ extension UserInfoViewController: UserUIViewDelegate {
     func clickEditNameBtn() {
         guard let editNameVc = UIStoryboard.profile.instantiateViewController(
             identifier: String(describing: EditNameViewController.self)) as? EditNameViewController else {return}
-        setNarBackBtn(vc: editNameVc)
+        setNarVCBackBtn(vc: editNameVc)
         if let user = FirebaseManager.shared.currentUser {
             editNameVc.name = user.name
         }
     }
     
-    func setNarBackBtn(vc: UIViewController) {
+    func setNarVCBackBtn(vc: UIViewController) {
         navigationController?.isNavigationBarHidden = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage.asset(.Icon_back),
@@ -95,10 +106,11 @@ extension UserInfoViewController: OpenChoseCameraManagerDelegate {
                     data: data,
                     completion: { (url) in
                         
-                        guard let imageUrl = url else {return}
+                        guard let imageUrl = url,
+                            let uid = FirebaseManager.shared.currentUser?.uid else {return}
                         
-                        FirebaseManager.shared.updataData(type: User.user.rawValue,
-                                                              uid: FirebaseManager.shared.userID ?? "",
+                        FirebaseManager.shared.updateData(type: User.user.rawValue,
+                                                              uid: uid,
                                                               key: User.logoImage.rawValue,
                                                               value: imageUrl)
                 })

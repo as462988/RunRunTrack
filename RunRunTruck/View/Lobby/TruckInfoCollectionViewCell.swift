@@ -9,16 +9,19 @@
 import UIKit
 
 struct GeoLocation {
+    
     let lat: Double
-    let lon: Double
+    
+    let long: Double
+    
 }
 
-protocol TurckInfoCellDelegate: AnyObject {
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didNavigateTo location: GeoLocation )
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData)
-    func truckInfoCell(truckInfoCell: TurckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
+protocol TruckInfoCellDelegate: AnyObject {
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell, didNavigateTo location: GeoLocation)
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell, didEnterTruckInfo truckData: TruckData)
+    func truckInfoCell(truckInfoCell: TruckInfoCollectionViewCell, didEnterTruckChatRoom truckData: TruckData)
 }
-class TurckInfoCollectionViewCell: UICollectionViewCell {
+class TruckInfoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var truckName: UILabel!
@@ -32,7 +35,7 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-    weak var delegate: TurckInfoCellDelegate?
+    weak var delegate: TruckInfoCellDelegate?
     var truckData: TruckData?
     
     func configureWithTruckData(truckData: TruckData) {
@@ -48,8 +51,11 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
         self.truckLocation.text = truckLocationText
         
         if logoImage != "" {
+            
             self.logoImage.loadImage(logoImage)
+            
         } else {
+            
             self.logoImage.image = UIImage.asset(.Icon_logo)
         }
     
@@ -69,16 +75,23 @@ class TurckInfoCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func clickGoogleMapBtn() {
-      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lat: latitude, lon: longitude))
+        
+      self.delegate?.truckInfoCell(truckInfoCell: self, didNavigateTo: GeoLocation(lat: latitude, long: longitude))
+        
     }
     
     private func setImage() {
+        
         self.logoImage.contentMode = .scaleAspectFill
+        
         self.logoImage.layer.cornerRadius = self.logoImage.frame.width / 2
+        
         self.logoImage.clipsToBounds = true
+        
     }
     
     @objc private func onGotoChatRoom() {
+        
         if let truckData = truckData {
              self.delegate?.truckInfoCell(truckInfoCell: self, didEnterTruckChatRoom: truckData)
         }

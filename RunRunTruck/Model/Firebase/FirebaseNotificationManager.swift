@@ -79,8 +79,8 @@ class FirebaseNotificationManager {
                         with: jsonData,
                         options: JSONSerialization
                             .ReadingOptions
-                            .allowFragments)
-                        as? [String: AnyObject] {
+                            .allowFragments) as? [String: AnyObject] {
+                        
                         NSLog("Received data:\n\(jsonDataDict))")
                     }
                 }

@@ -51,7 +51,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TurckInfoCollectionViewCell" id="c01-q4-YWD" customClass="TurckInfoCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TruckInfoCollectionViewCell" id="c01-q4-YWD" customClass="TruckInfoCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
                                                 <rect key="frame" x="57" y="0.0" width="300" height="156"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">

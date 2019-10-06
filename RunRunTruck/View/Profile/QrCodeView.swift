@@ -1,5 +1,5 @@
 //
-//  QrcodeView.swift
+//  QrCodeView.swift
 //  RunRunTruck
 //
 //  Created by yueh on 2019/9/17.
@@ -8,20 +8,20 @@
 
 import UIKit
 
-protocol QrcodeViewDelegate: AnyObject {
+protocol QrCodeViewDelegate: AnyObject {
     func clickCloseBtn()
 }
 
-class QrcodeView: UIView {
+class QrCodeView: UIView {
     
-    @IBOutlet weak var qrcodeImage: UIImageView!
+    @IBOutlet weak var qrCodeImage: UIImageView!
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     
     var timer = Timer()
     var count = 30
     
-   weak var delegate: QrcodeViewDelegate?
+   weak var delegate: QrCodeViewDelegate?
 
     override func awakeFromNib() {
         setLayout()
@@ -40,18 +40,18 @@ class QrcodeView: UIView {
 
         if count == 0 {
             stop()
-            qrcodeImage.image = generateQRCode(from: "連結失效囉！")
+            qrCodeImage.image = generateQRCode(from: "連結失效囉！")
             
         } else if count < 10 {
             
             count -= 1
             timeLabel.text = " 0 : 0\(count)"
-            qrcodeImage.image = generateQRCode(from: truckId)
+            qrCodeImage.image = generateQRCode(from: truckId)
         } else {
             
             count -= 1
             timeLabel.text = " 0 : \(count)"
-            qrcodeImage.image = generateQRCode(from: truckId)
+            qrCodeImage.image = generateQRCode(from: truckId)
         }
     }
     

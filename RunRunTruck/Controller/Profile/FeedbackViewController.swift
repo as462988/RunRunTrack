@@ -19,7 +19,7 @@ class FeedbackViewController: UIViewController {
     
     var userLoginIsFinished = false {
         didSet {
-            updateRegisteBtnStatus()
+            updateRegisterBtnStatus()
         }
     }
 
@@ -72,21 +72,25 @@ class FeedbackViewController: UIViewController {
     
     func sendFeedbackMessage() {
         
-        if FirebaseManager.shared.userID != nil {
+        guard
+            let currentUser =  FirebaseManager.shared.currentUser,
+            let type = currentUser.type else { return }
         
-            FirebaseManager.shared.creatFeedback(user: User.user.rawValue,
-                                             uid: FirebaseManager.shared.userID!,
-                                             title: titleText.text!,
-                                             detailText: questionText.text!)
-            
-        } else if FirebaseManager.shared.bossID != nil {
-            
-            FirebaseManager.shared.creatFeedback(
-                user: Boss.boss.rawValue,
-                uid: FirebaseManager.shared.bossID!,
+        switch type {
+        case .boss:
+            FirebaseManager.shared.createFeedback(
+                user: User.boss.rawValue,
+                uid: currentUser.uid,
                 title: titleText.text!,
                 detailText: questionText.text!)
             
+        case .normalUser:
+            
+            FirebaseManager.shared.createFeedback(
+                        user: User.user.rawValue,
+                        uid: currentUser.uid,
+                        title: titleText.text!,
+                        detailText: questionText.text!)
         }
         showAlert()
     }
@@ -123,7 +127,7 @@ extension FeedbackViewController: UITextFieldDelegate {
         }
     }
     
-    func updateRegisteBtnStatus() {
+    func updateRegisterBtnStatus() {
         
         setBtnStatus(userLoginIsFinished ? .enable: .disable, btn: checkBtn)
     }

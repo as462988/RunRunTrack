@@ -59,8 +59,8 @@ private enum Tab {
         case .badge:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.Icon_brdge),
-                selectedImage: UIImage.asset(.Icon_brdge)
+                image: UIImage.asset(.Icon_badge),
+                selectedImage: UIImage.asset(.Icon_badge)
             )
             
         case .profile:
@@ -94,7 +94,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         guard let navVC = viewController as? UINavigationController,
             navVC.viewControllers.first is ProfileViewController else { return true }
         
-        if FirebaseManager.shared.userID == nil && FirebaseManager.shared.bossID == nil {
+        if FirebaseManager.shared.currentUser == nil {
             
             if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
                 

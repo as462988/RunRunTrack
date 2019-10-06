@@ -26,11 +26,12 @@ class EditNameViewController: UIViewController {
         if editNameText.text == "" {
             editNameText.text = name
         }
-        guard let text = editNameText.text else { return }
-//        FirebaseManager.shared.updataUserName(name: text)
-        
-        FirebaseManager.shared.updataData(type: User.user.rawValue,
-                                              uid: FirebaseManager.shared.userID ?? "",
+        guard
+            let text = editNameText.text,
+            let uid = FirebaseManager.shared.currentUser?.uid else { return }
+
+        FirebaseManager.shared.updateData(type: User.user.rawValue,
+                                              uid: uid,
                                               key: User.name.rawValue,
                                               value: text)
         
@@ -43,18 +44,25 @@ class EditNameViewController: UIViewController {
 extension EditNameViewController {
     
     func setupNavBar() {
+        
         self.navigationController?.navigationBar.barTintColor = .white
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage.asset(.Icon_back),
             style: .plain,
             target: self,
             action: #selector(backToRoot))
+        
         let image = UIImage()
+        
         self.navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+        
         self.navigationController?.navigationBar.shadowImage = image
     }
         
     @objc func backToRoot() {
+        
         self.navigationController?.popViewController(animated: true)
+        
     }
 }

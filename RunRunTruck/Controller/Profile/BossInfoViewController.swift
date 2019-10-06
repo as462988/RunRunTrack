@@ -28,6 +28,7 @@ class BossInfoViewController: UIViewController {
     var longitude: Double?
     let addressManager = AddressManager()
     let openChoseCamera = OpenChoseCameraManager()
+    let handleSettingAlert = HandleSettingAlert()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +52,8 @@ class BossInfoViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         playTapAnimation()
         
-        if let tabbarVc = self.navigationController?.tabBarController {
-                  tabbarVc.tabBar.isHidden = false
+        if let tabBarVc = self.navigationController?.tabBarController {
+                  tabBarVc.tabBar.isHidden = false
               }
     }
     
@@ -73,9 +74,9 @@ class BossInfoViewController: UIViewController {
     
     func playLocationAnimation() {
         
-        bossView.loactionAnimationView.animation = Animation.named(Lottie.location.rawValue)
-        bossView.loactionAnimationView.loopMode = .loop
-        bossView.loactionAnimationView.play()
+        bossView.locationAnimationView.animation = Animation.named(Lottie.location.rawValue)
+        bossView.locationAnimationView.loopMode = .loop
+        bossView.locationAnimationView.play()
     }
     
     internal func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -102,6 +103,34 @@ class BossInfoViewController: UIViewController {
 
 extension BossInfoViewController: BossUIViewDelegate {
     
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
+        bossView.locationManager.requestWhenInUseAuthorization()
+        
+        if let location = bossView.locationManager.location?.coordinate {
+            
+            let camera = GMSCameraPosition.camera(
+                withLatitude: location.latitude,
+                longitude: location.longitude,
+                zoom: 15)
+            
+            bossView.mapView.animate(to: camera)
+            
+        } else {
+            
+            let alertVc = handleSettingAlert.openSetting(title: "無法定位",
+                                                               msg: "沒有開啟定位系統無法定位喔！",
+                                                               settingTitle: "去設定",
+                                                               cancelTitle: "我知道了",
+                                                               vc: self)
+            
+        present(alertVc, animated: true, completion: nil)
+            
+        }
+        
+        return true
+    }
+    
     func clickFeedbackBtn() {
         
         guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
@@ -122,11 +151,11 @@ extension BossInfoViewController: BossUIViewDelegate {
 
     func clickOpenStatusBtn() {
         
-        guard let lat = self.latitude, let lon = self.longitude else { return }
+        guard let lat = self.latitude, let long = self.longitude else { return }
         
         guard let currentTruck = FirebaseManager.shared.bossTruck else { return }
         
-        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: lon)
+        FirebaseManager.shared.changeOpenStatus(status: bossView.openSwitch.isOn, lat: lat, lon: long)
         
         // 只推送訊息給訂閱此餐車的用戶
 
@@ -135,7 +164,7 @@ extension BossInfoViewController: BossUIViewDelegate {
             title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
             body: NotificationContent.body,
             latitude: lat,
-            longitude: lon)
+            longitude: long)
     }
     
     func clickCancelBtn() {
@@ -155,15 +184,15 @@ extension BossInfoViewController: BossUIViewDelegate {
         
     }
     
-    func creatQrcode() {
+    func createQrCode() {
         
-        guard let qrcodeVc = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: String(describing: CreatQrcodeViewController.self)) as? CreatQrcodeViewController
+        guard let qrCodeVc = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: String(describing: CreateQrCodeViewController.self)) as? CreateQrCodeViewController
             else { return }
         
-        qrcodeVc.modalPresentationStyle = .overCurrentContext
+        qrCodeVc.modalPresentationStyle = .overCurrentContext
         
-        present(qrcodeVc, animated: false, completion: nil)
+        present(qrCodeVc, animated: false, completion: nil)
         
     }
     
@@ -171,7 +200,7 @@ extension BossInfoViewController: BossUIViewDelegate {
         
         guard let truckId =  FirebaseManager.shared.bossTruck?.id else { return }
         
-        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+        FirebaseManager.shared.updateData(type: Truck.truck.rawValue,
                                               uid: truckId,
                                               key: Truck.story.rawValue,
                                               value: bossView.storyTextView.text)
@@ -203,7 +232,7 @@ extension BossInfoViewController: OpenChoseCameraManagerDelegate {
                         
                         if let truckId = FirebaseManager.shared.bossTruck?.id {
                         
-                        FirebaseManager.shared.updataData(type: Truck.truck.rawValue,
+                        FirebaseManager.shared.updateData(type: Truck.truck.rawValue,
                                                           uid: truckId,
                                                           key: Truck.detailImage.rawValue,
                                                           value: imageUrl)

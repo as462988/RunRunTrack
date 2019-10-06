@@ -70,5 +70,7 @@ We&apos;ll use this to find the nearest Food Truck with you</string>
 	<string>https://fcm.googleapis.com/fcm/send</string>
 	<key>OpenGoogleMapURL</key>
 	<string>comgooglemaps://</string>
+	<key>PrivateWebLink</key>
+	<string>https://www.privacypolicies.com/privacy/view/c082ee6447f9e7283c678be24b07d477</string>
 </dict>
 </plist>

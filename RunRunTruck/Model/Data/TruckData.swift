@@ -109,13 +109,13 @@ enum User: String {
     
     case user = "User"
     
+    case boss = "Boss"
+    
     case uid
     
     case name
     
     case email
-    
-    case token
     
     case logoImage
     
@@ -130,17 +130,23 @@ enum User: String {
     case favorite
     
     case feedback
+    
+    case type
+}
+
+enum UserType: Int {
+    case boss = 0, normalUser
 }
 
 struct UserData {
+    
+    let uid: String
     
     let name: String
     
     let email: String
     
     let logoImage: String?
-    
-    var token: String?
     
     let badge: [String]
     
@@ -152,31 +158,24 @@ struct UserData {
     
     let feedback: [String]
     
-    init(name: String, email: String, token: String? = nil, logoImage: String? = nil,
+    var type: UserType?
+    
+    init(uid: String, name: String, email: String, logoImage: String? = nil,
          badge: [String] = [], truckId: String? = nil,
          block: [String] = [], favorite: [String] = [],
-         feedback: [String] = []) {
+         feedback: [String] = [], type: UserType) {
+        
+        self.uid = uid
         self.name = name
         self.email = email
-        self.token = token
         self.logoImage = logoImage
         self.badge = badge
         self.truckId = truckId
         self.block = block
         self.favorite = favorite
         self.feedback = feedback
+        self.type = type
     }
-}
-
-enum Boss: String {
-    
-    case boss = "Boss"
-    
-    case uid
-    
-    case name
-    
-    case email
 }
 
 struct TruckShortInfo {
@@ -204,7 +203,7 @@ enum Feedback: String {
     
     case detailText
     
-    case creatTime
+    case createTime
 
 }
 
@@ -214,9 +213,9 @@ struct FeedbackMessage {
     var detailText: String
     var createTime: Double
     
-    init(title: String, detailText: String, creatTime: Double) {
+    init(title: String, detailText: String, createTime: Double) {
         self.title = title
         self.detailText = detailText
-        self.createTime = creatTime
+        self.createTime = createTime
     }
 }
