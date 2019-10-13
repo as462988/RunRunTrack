@@ -412,10 +412,10 @@
 		09F78E502327974200FD6099 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */,
+				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
 				09F78E512327976D00FD6099 /* BossUIView.swift */,
 				095238C1233093A90015AEDA /* QrCodeView.swift */,
-				09F78E532327A4CA00FD6099 /* UserUIView.swift */,
+				09B2E4D323381AF3007FF161 /* TrucksCardGroupCell.swift */,
 				09B2E4D123381040007FF161 /* TruckCardCollectionViewCell.swift */,
 				09FC78A1233927EE00DD5768 /* SettingRow.swift */,
 				098B2626233A367E00E8010C /* BlockRowCell.swift */,
