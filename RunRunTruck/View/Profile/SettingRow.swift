@@ -16,10 +16,15 @@ protocol SettingRowDelegate: class {
 }
 
 class SettingRow: UIView {
+    
     static let closeRowHeight: CGFloat = 80
+    
     static let expandRowHeight: CGFloat = 300
+    
     static let topButtonHeight: CGFloat = SettingRow.closeRowHeight
+    
     static let contentViewHeight: CGFloat = SettingRow.expandRowHeight - SettingRow.closeRowHeight
+    
     var topButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.backgroundColor = .white
@@ -86,7 +91,6 @@ class SettingRow: UIView {
         
         if withRightArrow {
             //這裡可以改為圖片比較漂亮
-
             let rightArrow = UILabel()
             rightArrow.font = .boldSystemFont(ofSize: 24)
             rightArrow.text = "〉"
@@ -98,6 +102,10 @@ class SettingRow: UIView {
             rightArrow.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor, constant: -10).isActive = true
         }
+        setupRowLabel()
+    }
+    
+    func setupRowLabel() {
         
         topButton.addSubview(subTitleLabel)
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -117,14 +125,14 @@ class SettingRow: UIView {
         
         if let contentVc = contentViewController {
             self.addSubview(contentVc.view)
-            contentVc.view.translatesAutoresizingMaskIntoConstraints = false
-            contentVc.view.topAnchor.constraint(equalTo: topButton.bottomAnchor).isActive = true
-            contentVc.view.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            contentVc.view.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            contentVc.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-
+            contentVc.view.anchor(top: topButton.bottomAnchor,
+                                  leading: self.leadingAnchor,
+                                  bottom: self.bottomAnchor,
+                                  trailing: self.trailingAnchor)
+            
         }
     }
+    
 }
 
 extension SettingRow {

@@ -30,10 +30,10 @@ class AuthViewController: UIViewController {
     
     var userLoginIsFinished = false {
         didSet {
-            updateRegisteBtnStatus()
+            updateRegisterBtnStatus()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,9 +44,9 @@ class AuthViewController: UIViewController {
         singInBtn.layer.cornerRadius = 10
         singInBtn.clipsToBounds = true
         loginSegment.addTarget(self, action: #selector(handleUIStatusChange), for: .valueChanged)
-        singInBtn.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        singInBtn.addTarget(self, action: #selector(handleEmailLogin), for: .touchUpInside)
         checkUserInput()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,7 +57,6 @@ class AuthViewController: UIViewController {
     }
     
     func playAnimation() {
-        
         animationView.animation = Animation.named(Lottie.profile.rawValue)
         animationView.loopMode = .loop
         animationView.play()
@@ -67,26 +66,28 @@ class AuthViewController: UIViewController {
         
         guard let rootVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
         rootVC.tabBar.isHidden = false
-         presentingViewController?.dismiss(animated: false, completion: nil)
+        presentingViewController?.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func signUpPage(_ sender: Any) {
         
         guard let authVC =
-            UIStoryboard.auth.instantiateViewController(withIdentifier: "RegisterPage")
+            UIStoryboard.auth.instantiateViewController(
+                withIdentifier: String(describing: AuthRegisterViewController.self))
                 as? AuthRegisterViewController else { return }
         
         authVC.modalPresentationStyle = .overCurrentContext
         present(authVC, animated: false, completion: nil)
         emptyText()
     }
+    
     func setupView() {
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.translatesAutoresizingMaskIntoConstraints = false
         appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
-
+        
         view.addSubview(appleButton)
-
+        
         appleButton.anchor(top: singInBtn.bottomAnchor,
                            leading: view.leadingAnchor,
                            bottom: view.bottomAnchor,
@@ -98,20 +99,130 @@ class AuthViewController: UIViewController {
     @objc func didTapAppleButton() {
         
         let provider = ASAuthorizationAppleIDProvider()
-            let request = provider.createRequest()
-            request.requestedScopes = [.fullName, .email]
-
-            let controller = ASAuthorizationController(authorizationRequests: [request])
-
-            controller.delegate = self
-            controller.presentationContextProvider = self
-
-            controller.performRequests()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        
+        controller.performRequests()
         
     }
     
-    @objc func handleLogin() {
-        //登入
+    @objc func handleUIStatusChange() {
+        uiStatus = loginSegment.selectedSegmentIndex == 0 ? .userLogin : .bossLogin
+        updateUIWithStatus()
+    }
+    
+    func updateUIWithStatus() {
+        switch uiStatus {
+        case .userLogin:
+            singInBtn.setTitle("吃貨登入", for: .normal)
+            
+        case .bossLogin:
+            singInBtn.setTitle("老闆登入", for: .normal)
+            
+        }
+        emptyText()
+    }
+    
+    func emptyText() {
+        emailTextField.text = ""
+        pswTextField.text = ""
+        errorResultLabel.text = ""
+    }
+}
+
+// MARK: UITextFieldDelegate
+
+extension AuthViewController: UITextFieldDelegate {
+    
+    func checkUserInput() {
+        
+        guard let email = emailTextField.text,
+            let psw = pswTextField.text else { return }
+        
+        if !email.isEmpty, !psw.isEmpty {
+            
+            userLoginIsFinished = true
+            
+        } else {
+            
+            userLoginIsFinished = false
+        }
+    }
+    
+    func updateRegisterBtnStatus() {
+        
+        setBtnStatus(userLoginIsFinished ? .enable: .disable, btn: singInBtn)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        checkUserInput()
+    }
+}
+
+// MARK: Login flow
+
+extension AuthViewController {
+    
+    fileprivate func checkIfUserDataExisted(
+        userType: UserType,
+        userIdentifier: String,
+        completion: @escaping (UserData?) -> Void) {
+        
+        FirebaseManager.shared.getCurrentUserData(
+        userType: userType,
+        userIdentifier: userIdentifier) { [weak self] userData in
+            
+            guard userData != nil else {
+                
+                DispatchQueue.main.async {
+                    self?.errorResultLabel.isHidden = false
+                    self?.errorResultLabel.text = "目前找不到此帳號主人喔！"
+                }
+            
+                completion(nil)
+                
+                return
+            }
+            completion(userData)
+        }
+    }
+    
+    fileprivate func goToCreateTruckWithBossId(_ bossId: String) {
+        
+        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: String(describing: AddBossTruckViewController.self))
+            as? AddBossTruckViewController else { return }
+        
+        addTruckVC.bossId = bossId
+            
+        addTruckVC.modalPresentationStyle = .overCurrentContext
+        
+        self.present(addTruckVC, animated: false, completion: nil)
+    }
+    
+    fileprivate func dismissModalWhenLoginSuccess() {
+        ProgressHUD.showSuccess(text: "登入成功")
+        DispatchQueue.main.async {
+            self.presentingViewController?.dismiss(animated: false, completion: nil)
+            guard let rootVC = AppDelegate.shared.window?.rootViewController
+                as? TabBarViewController else { return }
+            rootVC.tabBar.isHidden = false
+        }
+    }
+}
+
+// MARK: Email Login
+
+extension AuthViewController {
+    ///用戶使用Email登入
+    @objc func handleEmailLogin() {
+        
         guard let email = emailTextField.text,
             let psw = pswTextField.text else { return }
         
@@ -126,202 +237,128 @@ class AuthViewController: UIViewController {
             guard let uiStatus = self?.uiStatus else {
                 return
             }
-            
+            ///驗證成功
+            guard let uid = Auth.auth().currentUser?.uid else { return }
             switch uiStatus {
             case .userLogin:
-                self?.userLogin()
+                self?.checkIfUserDataExisted(userType: .normalUser, userIdentifier: uid) { userData in
+                    guard let userData = userData else {
+                        //用戶不存在
+                        try? Auth.auth().signOut()
+                        return
+                    }
+                    //使用者存在
+                    FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+                    self?.dismissModalWhenLoginSuccess()
+                }
             case .bossLogin:
-                self?.bossLogin()
+                self?.checkIfUserDataExisted(userType: .boss, userIdentifier: uid) { userData in
+                    guard let userData = userData else {
+                        //用戶不存在
+                        try? Auth.auth().signOut()
+                        return
+                    }
+                    guard userData.truckId != nil else {
+                        //老闆還沒新增餐車資料
+                        self?.goToCreateTruckWithBossId(uid)
+                        return
+                    }
+                    //老闆存在
+                    FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+                    self?.dismissModalWhenLoginSuccess()
+                }
             }
         }
     }
-    
-    func userLogin() {
-        
-        FirebaseManager.shared.listenUserData(isAppleSingIn: false)
-        FirebaseManager.shared.getCurrentUserData(useAppleSingIn: false, completion: {[weak self] (data) in
-                            guard data != nil else {
-                                print("老闆使用了吃貨登入")
-                                //老闆使用了吃貨登入, 提示請使用者使用老闆登入
-                                do {
-                                    try Auth.auth().signOut()
-                                } catch let err {
-                                    print(err.localizedDescription)
-                                }
-                                return
-                            }
-                            //吃貨登入成功
-                            FirebaseManager.shared.userID = Auth.auth().currentUser?.uid
-                            ProgressHUD.showSuccess(text: "登入成功")
-                               
-                               DispatchQueue.main.async {
-                                   self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                   guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                       as? TabBarViewController else { return }
-                                   rootVC.tabBar.isHidden = false
-                               }
-                        })
-    }
-    
-    func bossLogin() {
-        
-//              FirebaseManager.shared.listenUserData(isAppleSingIn: false)
-        FirebaseManager.shared.getCurrentBossData(isAppleSingIn: false, completion: { [weak self] (bossData) in
-                            guard bossData != nil else {
-                                print("吃貨使用了老闆登入")
-                                //吃貨使用了老闆登入, 提示請使用者使用吃貨登入
-                                do {
-                                    try Auth.auth().signOut()
-                                } catch let err {
-                                    print(err.localizedDescription)
-                                }
-                                return
-                            }
-                            //老闆登入成功
-                            FirebaseManager.shared.bossID = Auth.auth().currentUser?.uid
-                            ProgressHUD.showSuccess(text: "登入成功")
-                            
-                            DispatchQueue.main.async {
-                                self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                                guard let rootVC = AppDelegate.shared.window?.rootViewController
-                                    as? TabBarViewController else { return }
-                                rootVC.tabBar.isHidden = false
-                            }
-                        })
-    }
-    
-    @objc func handleUIStatusChange() {
-        uiStatus = loginSegment.selectedSegmentIndex == 0 ? .userLogin : .bossLogin
-        updateUIWithStatus()
-    }
-    
-    func updateUIWithStatus() {
-        switch uiStatus {
-        case .userLogin:
-            singInBtn.setTitle("吃貨登入", for: .normal)
-
-        case .bossLogin:
-            singInBtn.setTitle("老闆登入", for: .normal)
-
-        }
-        emptyText()
-    }
-    
-    func emptyText() {
-        emailTextField.text = ""
-        pswTextField.text = ""
-        errorResultLabel.text = ""
-    }
 }
 
-extension AuthViewController: UITextFieldDelegate {
-    
-    func checkUserInput() {
-        
-        guard let email = emailTextField.text,
-            let psw = pswTextField.text else { return }
-                
-        if !email.isEmpty, !psw.isEmpty {
-            
-            userLoginIsFinished = true
-            
-        } else {
-
-            userLoginIsFinished = false
-        }
-    }
-    
-    func updateRegisteBtnStatus() {
-        
-        setBtnStatus(userLoginIsFinished ? .enable: .disable, btn: singInBtn)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        checkUserInput()
-    }
-}
+// MARK: Apple Sign In
 
 extension AuthViewController: ASAuthorizationControllerDelegate {
     
-    func checkUserLogoinWithApple(user: AppleUser) {
-        
-        FirebaseManager.shared.listenUserData(isAppleSingIn: true, userid: user.id)
-        FirebaseManager.shared.checkExistUser(
-            userType: User.user.rawValue,
-            uid: user.id) { (isExist) in
-                
-                if isExist == false {
-                    self.errorResultLabel.isHidden = false
-                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
-                    return
-                }
-                FirebaseManager.shared.getCurrentUserData(
-                useAppleSingIn: true, userId: user.id) { [weak self](userData) in
-                    guard userData != nil else { return }
-                    
-                    FirebaseManager.shared.userID = user.id
-                    ProgressHUD.showSuccess(text: "登入成功")
-                    
-                    DispatchQueue.main.async {
-                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-                            as? TabBarViewController else { return }
-                        rootVC.tabBar.isHidden = false
-                    }
-                }
-        }
-    }
-    func checkBossLogoinWithApple(user: AppleUser) {
-
-        FirebaseManager.shared.checkExistUser(
-            userType: Boss.boss.rawValue,
-            uid: user.id) { (isExist) in
-                
-                if isExist == false {
-                    self.errorResultLabel.isHidden = false
-                    self.errorResultLabel.text = "此帳號尚未註冊喔！"
-                    return
-                }
-                
-                FirebaseManager.shared.getCurrentBossData(
-                isAppleSingIn: true, userid: user.id) { [weak self](userData) in
-                    guard userData != nil else { return }
-                    
-                    FirebaseManager.shared.bossID = user.id
-                    ProgressHUD.showSuccess(text: "登入成功")
-                    
-                    DispatchQueue.main.async {
-                        self?.presentingViewController?.dismiss(animated: false, completion: nil)
-                        guard let rootVC = AppDelegate.shared.window?.rootViewController
-                            as? TabBarViewController else { return }
-                        rootVC.tabBar.isHidden = false
-                    }
-                }
-        }
-    }
-    
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
-
-        switch authorization.credential {
-
-        case let credentials as ASAuthorizationAppleIDCredential:
-            let user = AppleUser(credentials: credentials)
+        
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
+            let appleUser = AppleUser(credentials: appleIDCredential)
             
             switch uiStatus {
+                
             case .userLogin:
-                checkUserLogoinWithApple(user: user)
+                
+                handleAppleUserLogin(user: appleUser)
+                
             case .bossLogin:
-                checkBossLogoinWithApple(user: user)
+                handleAppleBossLogin(user: appleUser)
+                
             }
-    
-        default: break
-
         }
-
     }
-
+    
+    private func handleAppleUserLogin(user: AppleUser) {
+        
+        checkIfUserDataExisted(
+            userType: .normalUser,
+            userIdentifier: user.id) {[weak self] userData in
+                guard let userData = userData else {
+                    //使用者還沒註冊，建立資料
+                    FirebaseManager.shared.setNormalUserData(
+                        name: user.defaultDisplayName(),
+                        email: user.email,
+                        userIdentifier: user.id) { success in
+                            if success {
+                                FirebaseManager.shared.getCurrentUserData(
+                                    userType: .normalUser,
+                                    userIdentifier: user.id) { (user) in
+                                        if let user = user {
+                                            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(
+                                                userData: user)
+                                            self?.dismissModalWhenLoginSuccess()
+                                        }
+                                }
+                            }
+                    }
+                    return
+                }
+                FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+                self?.dismissModalWhenLoginSuccess()
+        }
+    }
+    
+    private func handleAppleBossLogin(user: AppleUser) {
+        
+        checkIfUserDataExisted(userType: .boss, userIdentifier: user.id) { [weak self] userData in
+            guard let userData = userData else {
+                //老闆還沒註冊，建立資料
+                FirebaseManager.shared.setBossData(
+                    name: user.defaultDisplayName(),
+                    email: user.email, userIdentifier: user.id) { success in
+                    if success {
+                        FirebaseManager.shared.getCurrentUserData(
+                        userType: .boss,
+                        userIdentifier: user.id) { (user) in
+                            if let user = user {
+                                FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: user)
+                                self?.goToCreateTruckWithBossId(user.uid)
+                            }
+                        }
+                    }
+                }
+                return
+            }
+            guard userData.truckId != nil else {
+                //老闆還沒新增餐車資料
+                self?.goToCreateTruckWithBossId(userData.uid)
+                return
+            }
+            //老闆存在
+            FirebaseManager.shared.setupCurrentUserDataWhenLoginSuccess(userData: userData)
+            self?.dismissModalWhenLoginSuccess()
+        }
+        
+    }
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("something bad happened", error)
     }
@@ -329,8 +366,8 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
 
 extension AuthViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-
+        
         return view.window!
-
+        
     }
 }

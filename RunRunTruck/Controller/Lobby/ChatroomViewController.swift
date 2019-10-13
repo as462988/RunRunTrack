@@ -55,6 +55,7 @@ class ChatroomViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if let tabbarVc = self.navigationController?.tabBarController {
             tabbarVc.tabBar.isHidden = true
         }
@@ -62,15 +63,18 @@ class ChatroomViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         if let tabbarVc = self.navigationController?.tabBarController {
             tabbarVc.tabBar.isHidden = false
         }
-
+    }
+    
+    deinit {
+        FirebaseManager.shared.messagesListener?.remove()
     }
     
     func observerChatRoom() {
         guard let truckID = truckData?.id else {
-            print("no turckID")
             return
         }
         
@@ -134,34 +138,28 @@ class ChatroomViewController: UIViewController {
         
         if text.isEmpty == false {
             
-            if let uid = FirebaseManager.shared.userID {
+            if let uid = FirebaseManager.shared.currentUser?.uid {
                 
-                creatChatMessage(id: uid, text: text)
+                createChatMessage(id: uid, text: text)
                 
-            } else if let boosId = FirebaseManager.shared.bossID {
-                
-                creatChatMessage(id: boosId, text: text)
             }
             
             chatRoomView.inputTextField.text = ""
+            
         }
-        
     }
     
-    func creatChatMessage(id: String, text: String) {
+    func createChatMessage(id: String, text: String) {
         
         var image: String?
         
         guard let truckID = truckData?.id,
             let name = FirebaseManager.shared.currentUser?.name
-            else {
-                print("uid nil")
-                return
-        }
+            else {return}
         
         image = FirebaseManager.shared.currentUser?.logoImage
         
-        FirebaseManager.shared.creatChatRoom(
+        FirebaseManager.shared.createChatRoom(
             truckID: truckID,
             uid: id,
             name: name,
@@ -193,7 +191,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
         
         let messageData = messages[indexPath.item]
         
-        if messageData.uid == FirebaseManager.shared.userID || messageData.uid == FirebaseManager.shared.bossID {
+        if messageData.uid == FirebaseManager.shared.currentUser?.uid {
             
             guard let chatCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: cellForSelf,
@@ -233,7 +231,7 @@ extension ChatroomViewController: TruckChatroomViewDelegate {
             chatCell.delegate = self
             
             return chatCell
-            //            }
+
         }
     }
     
@@ -271,7 +269,7 @@ extension ChatroomViewController: ChatMessageCellDelegate {
             return
         }
         
-        if FirebaseManager.shared.userID != nil {
+        if FirebaseManager.shared.currentUser?.type == .normalUser {
             
             showBlockAlert(cell: cell, index: indexPath.item)
         }
@@ -283,11 +281,15 @@ extension ChatroomViewController: ChatMessageCellDelegate {
         
         let text = "封鎖此用戶"
         
-        let action = UIAlertAction(title: text, style: .default) { (action) in
+        let action = UIAlertAction(title: text, style: .default) {[weak self] (action) in
             
-            FirebaseManager.shared.addUserBlock(
-                uid: FirebaseManager.shared.userID!,
-                blockId: self.messages[index].uid) { [weak self] in
+            guard let uid = FirebaseManager.shared.currentUser?.uid else {return}
+            
+            FirebaseManager.shared.updateArrayData(
+                type: User.user.rawValue,
+                id: uid,
+                key: User.block.rawValue,
+                value: self?.messages[index].uid ?? "") {[weak self] in
                     self?.chatRoomView.msgCollectionView.reloadData()
             }
         }
@@ -310,7 +312,7 @@ extension ChatroomViewController: UICollectionViewDelegateFlowLayout {
         
         let messageData = messages[indexPath.item]
         
-        if messageData.uid == FirebaseManager.shared.userID {
+        if messageData.uid == FirebaseManager.shared.currentUser?.uid {
             
             height = estimateFrameForText(text: messageData.text).height + 20
             

@@ -64,13 +64,20 @@ class BlockRowCell: UITableViewCell {
     
     func updateViewsWithBlockUser(blockUser: BlockUser) {
         self.blockUser = blockUser
-        nameLabel.text = self.blockUser.userNmae
+        nameLabel.text = self.blockUser.userName
         blockBtn.addTarget(self, action: #selector(blockBtnDidTap), for: .touchUpInside)
     }
     
     @objc func blockBtnDidTap() {
-        FirebaseManager.shared.deleteUserBlock(uid: FirebaseManager.shared.userID!, blockId: blockUser.userId) {
-            self.delegate?.blockRowCellDidSuccessBlockUser(lockRowCell: self)
+        
+        guard let uid = FirebaseManager.shared.currentUser?.uid else { return }
+
+        FirebaseManager.shared.updateRemoveArrayData(
+            type: User.user.rawValue,
+            id: uid,
+            key: User.block.rawValue,
+            value: blockUser.userId) {[weak self] in
+                self?.delegate?.blockRowCellDidSuccessBlockUser(lockRowCell: self!)
         }
     }
 }

@@ -10,6 +10,15 @@ import Foundation
 
 struct Constant {
     
-    static let googleMapKey = " GMSServicesAPIKey"
+    static let googleMapKey = "GMSServicesAPIKey"
+    
+    static let version = "CFBundleShortVersionString"
+    
+    static let ncRequestKey = "notificationRequestKey"
 
+    static let notificationURL = "pushNotificationURL"
+    
+    static let openGooleMapURL = "OpenGoogleMapURL"
+    
+    static let privateLink = "PrivateWebLink"
 }

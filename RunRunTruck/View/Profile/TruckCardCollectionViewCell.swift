@@ -13,6 +13,7 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
         let image = UIImageView()
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
         image.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return image
     }()
@@ -47,9 +48,10 @@ class TruckCardCollectionViewCell: UICollectionViewCell {
     func setupViews() {
         topImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         topImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
-        titleLabel.anchor(top: topImageView.bottomAnchor,
-                          leading: leadingAnchor, bottom: nil, trailing: trailingAnchor,
-                          padding: .init(top: 4, left: 4, bottom: 0, right: 0))
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: 5).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: topImageView.centerXAnchor).isActive = true
+
     }
     
     required init?(coder: NSCoder) {

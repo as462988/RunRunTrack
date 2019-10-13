@@ -20,7 +20,6 @@ class TruckDetailViewController: UIViewController {
     @IBOutlet weak var favoriteBtn: UIButton!
  
     var detailInfo: TruckData?
-    let dateManager = TransformTimeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +42,10 @@ class TruckDetailViewController: UIViewController {
         backBtnBg.layer.cornerRadius = backBtnBg.frame.width / 2
         backBtnBg.clipsToBounds = true
         
-        if FirebaseManager.shared.bossID != nil {
-            favoriteBtn.isHidden = true
+        if FirebaseManager.shared.currentUser?.type == .boss {
+             favoriteBtn.isHidden = true
         }
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,43 +76,53 @@ class TruckDetailViewController: UIViewController {
             showLocationTextView.text = detailInfo.address
 
         }
-        
     }
     
     @objc func clickFavorite(_ sender: UIButton) {
         
-       guard FirebaseManager.shared.bossID != nil || FirebaseManager.shared.userID != nil  else {
+        guard FirebaseManager.shared.currentUser != nil else {
+            
+            ProgressHUD.showFailure(text: "登入會員就可以蒐集喜愛清單囉！")
+            
+            return
+        }
+        
+        guard
+            let detailInfo = detailInfo,
+            let uid = FirebaseManager.shared.currentUser?.uid else { return }
 
-          ProgressHUD.showFailure(text: "登入會員就可以蒐集徽章囉！")
-
-              return
-          }
-        
-        guard let detailInfo = detailInfo else { return }
-        
-        let uid = FirebaseManager.shared.userID
-        let bossId = FirebaseManager.shared.bossID
-        
+        let topic = detailInfo.id
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            FirebaseManager.shared.addUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-            truckId: detailInfo.id) {
-                print("addSuccess")
-                //新增最愛成功，把使用者同步到餐車的喜愛者
-                FirebaseManager.shared.addUserToTruckFavoritedBy(
-                    userId: (uid == nil ? bossId : uid) ?? "",
-                    truckId: detailInfo.id)
+            
+            //喜愛時訂閱推播
+            FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
+            print("topicName:\(topic)")
+            
+            FirebaseManager.shared.updateArrayData(
+                type: User.user.rawValue,
+                id: uid,
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updateArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: uid, completion: nil)
             }
         } else {
-            FirebaseManager.shared.deleteUserFavorite(
-                uid: (uid == nil ? bossId : uid) ?? "",
-                truckId: detailInfo.id) {
-                    print("deleteSuccess")
-                    //移除最愛成功，把使用者同步移除餐車的喜愛者
-                    FirebaseManager.shared.deleteUserFromTruckFavoritedBy(
-                        userId: (uid == nil ? bossId : uid) ?? "",
-                        truckId: detailInfo.id)
+            
+            FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: topic, completion: nil)
+            FirebaseManager.shared.updateRemoveArrayData(
+                type: User.user.rawValue,
+                id: uid,
+                key: User.favorite.rawValue,
+                value: detailInfo.id) {
+                    FirebaseManager.shared.updateRemoveArrayData(
+                        type: Truck.truck.rawValue,
+                        id: detailInfo.id,
+                        key: Truck.favoritedBy.rawValue,
+                        value: uid, completion: {})
             }
         }
     }

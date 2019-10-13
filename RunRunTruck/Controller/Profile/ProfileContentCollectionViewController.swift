@@ -20,6 +20,9 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         fatalError("init(coder:) has not been implemented")
     }
     
+    let favoriteCell = "favoriteCell"
+    let exploreCell = "exploreCell"
+    
     var favoriteTrucks: [TruckData] = []
     var exploreTrucks: [TruckData] = []
     
@@ -29,12 +32,12 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         collectionView.backgroundColor = .white
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 0
+            layout.minimumLineSpacing = 30
             layout.minimumInteritemSpacing = 0
         }
-        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "favoriteCell")
-        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: "exploreCell")
-
+        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: favoriteCell)
+        collectionView.register(TrucksCardGroupCell.self, forCellWithReuseIdentifier: exploreCell)
+        collectionView.showsVerticalScrollIndicator = false
         updateDataFromFirebaseManager()
         observerAllTruckData()
     }
@@ -82,9 +85,6 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         //收藏餐車, 繼續探索欄高
         case 0, 1:
             return .init(width: self.view.frame.size.width, height: 180)
-        //更多設定欄高
-        case 2:
-            return .init(width: self.view.frame.size.width, height: 100)
         default:
             return .zero
         }
@@ -95,9 +95,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         switch indexPath.item {
         case 0:
             //傳入探索的餐車
-//            let exploreTrucks = exploreTruck
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "exploreCell",
+                withReuseIdentifier: exploreCell,
                 for: indexPath) as? TrucksCardGroupCell else {
                 let newCell = TrucksCardGroupCell()
                 return newCell
@@ -108,9 +107,8 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
             return cell
         case 1:
             //傳入已收藏的餐車
-//            let favoriteTrucks = favoriteTruck
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "favoriteCell",
+                withReuseIdentifier: favoriteCell,
                 for: indexPath) as? TrucksCardGroupCell else {
                 let newCell = TrucksCardGroupCell()
                 return newCell
@@ -122,6 +120,5 @@ class ProfileContentCollectionViewController: UICollectionViewController, UIColl
         default:
             return UICollectionViewCell()
         }
-
     }
 }

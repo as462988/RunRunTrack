@@ -17,9 +17,9 @@ class AddressManager {
         
         let loc: CLLocation = CLLocation(latitude: lat, longitude: long)
         
-        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placemarks, error in
+        CLGeocoder().reverseGeocodeLocation(loc, preferredLocale: locale) { placeMark, error in
             
-            guard let placemark = placemarks?.first, error == nil else {
+            guard let placeMark = placeMark?.first, error == nil else {
                 
                 UserDefaults.standard.removeObject(forKey: "AppleLanguages")
                 
@@ -28,7 +28,7 @@ class AddressManager {
                 return
             }
             
-            completion(placemark.postalAddress, nil)
+            completion(placeMark.postalAddress, nil)
         }
     }
 

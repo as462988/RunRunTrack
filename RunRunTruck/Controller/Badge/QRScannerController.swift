@@ -37,10 +37,7 @@ class QRScannerController: UIViewController {
             deviceTypes: [.builtInDualCamera],
             mediaType: AVMediaType.video, position: .back)
         
-        guard let captureDevice = deviceDiscoverySession.devices.first else {
-            print("Failed to get the camera device")
-            return
-        }
+        guard let captureDevice = deviceDiscoverySession.devices.first else {return }
         
         do {
             // 使用前一個裝置物件來取得 AVCaptureDeviceInput 類別的實例
@@ -72,16 +69,29 @@ class QRScannerController: UIViewController {
                 view.bringSubviewToFront(qrCodeFrameView)
             }
             
-        } catch {
-            // 假如有錯誤產生、單純輸出其狀況不再繼續執行
-            print(error)
-            return
-        }
+        } catch {return }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let handleSettingAlert = HandleSettingAlert()
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+            
+        case .denied, .restricted:
+            
+            let alertVc = handleSettingAlert.openSetting(title: "未開啟相機權限",
+                                                         msg: "沒有開啟相機權限無法掃描喔！",
+                                                         settingTitle: "去設定",
+                                                         cancelTitle: "我知道了",
+                                                         vc: self)
+            
+            present(alertVc, animated: true, completion: nil)
+            
+        default:
+            break
+        }
         self.navigationController?.tabBarController?.tabBar.isHidden = true
     }
 
@@ -103,24 +113,36 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
         
         if metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
-            print( "No QR code is detected")
-            return
+           return
         }
         
         // 取得元資料（metadata）物件
         guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {return}
         
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            
             // 倘若發現的元資料與 QR code 元資料相同，便更新狀態標籤的文字並設定邊界
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
             if let truckId = metadataObj.stringValue {
                
-                guard let uid = FirebaseManager.shared.userID else {return}
+                guard
+                    let currentUser = FirebaseManager.shared.currentUser,
+                    let type = currentUser.type else { return }
                 
-                FirebaseManager.shared.addUserBadge(uid: uid, truckId: truckId)
-                print(truckId)
+                switch type {
+                case .boss :
+                    FirebaseManager.shared.updateArrayData(type: User.boss.rawValue,
+                                                           id: currentUser.uid,
+                                                           key: User.badge.rawValue,
+                                                           value: truckId, completion: nil)
+                case .normalUser:
+                     FirebaseManager.shared.updateArrayData(type: User.user.rawValue,
+                                                            id: currentUser.uid,
+                                                            key: User.badge.rawValue,
+                                                            value: truckId, completion: nil)
+                }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
                     

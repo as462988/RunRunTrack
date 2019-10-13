@@ -10,7 +10,7 @@
         <!--Auth View Controller-->
         <scene sceneID="uid-vI-2h8">
             <objects>
-                <viewController storyboardIdentifier="authVC" hidesBottomBarWhenPushed="YES" id="MSr-eX-sMf" customClass="AuthViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" hidesBottomBarWhenPushed="YES" id="MSr-eX-sMf" customClass="AuthViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xmE-Lo-MK5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,7 +157,7 @@
         <!--Auth Register View Controller-->
         <scene sceneID="clv-ZZ-qs4">
             <objects>
-                <viewController storyboardIdentifier="RegisterPage" id="ObB-RV-ldp" customClass="AuthRegisterViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthRegisterViewController" id="ObB-RV-ldp" customClass="AuthRegisterViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u64-4s-CP2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,7 +168,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvx-YN-g1d">
-                                <rect key="frame" x="0.0" y="344" width="414" height="552"/>
+                                <rect key="frame" x="0.0" y="384" width="414" height="512"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMV-fz-dTy">
                                         <rect key="frame" x="0.0" y="23" width="414" height="110"/>
@@ -328,7 +328,7 @@
                                     <constraint firstAttribute="trailing" secondItem="BGh-WY-ve9" secondAttribute="trailing" constant="16" id="7kF-yA-E9J"/>
                                     <constraint firstItem="lwW-aY-KDG" firstAttribute="leading" secondItem="QjO-cs-nIp" secondAttribute="trailing" constant="17" id="Bph-zM-XTd"/>
                                     <constraint firstItem="QjO-cs-nIp" firstAttribute="leading" secondItem="6ND-oE-os3" secondAttribute="leading" id="C4F-ys-OM0"/>
-                                    <constraint firstAttribute="bottom" secondItem="45F-uW-K6G" secondAttribute="bottom" constant="100" id="DcJ-Qu-cJ6"/>
+                                    <constraint firstAttribute="bottom" secondItem="45F-uW-K6G" secondAttribute="bottom" constant="60" id="DcJ-Qu-cJ6"/>
                                     <constraint firstItem="Tz6-TY-9GO" firstAttribute="leading" secondItem="kvx-YN-g1d" secondAttribute="leading" constant="20" id="Fao-Gv-adP"/>
                                     <constraint firstItem="1Xk-D3-sZ4" firstAttribute="leading" secondItem="6ND-oE-os3" secondAttribute="trailing" constant="8" id="IJH-Hy-JW8"/>
                                     <constraint firstAttribute="trailing" secondItem="5T9-qd-U0s" secondAttribute="trailing" constant="20" id="Iay-qa-Tsf"/>
@@ -396,7 +396,7 @@
         <!--Add Boss Truck View Controller-->
         <scene sceneID="3aX-Tj-djD">
             <objects>
-                <viewController storyboardIdentifier="adTruckVC" id="rlo-tu-zTy" customClass="AddBossTruckViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddBossTruckViewController" id="rlo-tu-zTy" customClass="AddBossTruckViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3jL-jD-V0s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

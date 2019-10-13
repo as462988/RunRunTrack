@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key> GMSServicesAPIKey</key>
+	<key>GMSServicesAPIKey</key>
 	<string>AIzaSyD7n_QBYwz7l_3Rf16Uogn3oLMuG3aW9ug</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
@@ -31,10 +31,12 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to access your camera for scanning QR code</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We’ll use this to personalize your app experience</string>
+	<key>Privacy - Location Always and When In Use Usage Description2</key>
+	<string>We’ll use this to find the nearest FoodTruck with you.
+We’ll use this to find the nearest FoodTruck with you.
+We&apos;ll use this to find the nearest Food Truck with you</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We’ll use this to personalize your app experience</string>
+	<string>We&apos;ll use this to find the nearest Food Truck with you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
@@ -62,5 +64,13 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>notificationRequestKey</key>
+	<string>key=AAAAhf_j2_g:APA91bFzg0NhgyMC9ddCGUYnBPN_SqAGkJVHd5VrVgpLmNfdynXAK4-ikk36vWmqoQhEM7VouvCFr7G8fVPwfs_QagxY5n3pPFqvDTjEbRYSkzJ6jc7Ugp8RyxNXWZHed6hyUWWyPLp1</string>
+	<key>pushNotificationURL</key>
+	<string>https://fcm.googleapis.com/fcm/send</string>
+	<key>OpenGoogleMapURL</key>
+	<string>comgooglemaps://</string>
+	<key>PrivateWebLink</key>
+	<string>https://www.privacypolicies.com/privacy/view/c082ee6447f9e7283c678be24b07d477</string>
 </dict>
 </plist>

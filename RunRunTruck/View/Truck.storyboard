@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qo2-7W-s2A">
             <objects>
-                <navigationController id="hlh-Uc-J0t" customClass="NavigationController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="hlh-Uc-J0t" customClass="NavigationController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HHS-YZ-uui">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-617" y="40"/>
         </scene>
-        <!--TruckInfo-->
+        <!--餐車列表-->
         <scene sceneID="dHr-dT-Gzk">
             <objects>
-                <viewController id="alr-bo-VMA" customClass="TruckViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="alr-bo-VMA" customClass="TruckViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="urI-YM-CJ1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,70 +38,76 @@
                                     <size key="itemSize" width="382" height="243"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="20" maxX="0.0" maxY="10"/>
+                                    <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="truckCell" id="dZ4-Vb-kFp" customClass="TrcukCollectionViewCell" customModule="RunRunTruck" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="20" width="382" height="243"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TruckCollectionViewCell" id="dZ4-Vb-kFp" customClass="TruckCollectionViewCell" customModule="餐車在哪兒" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="10" width="382" height="243"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="243"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="LN0-Jo-PEC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="243"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_truckPic" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
-                                                    <rect key="frame" x="28" y="10" width="334" height="162"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSa-aj-Ger">
-                                                    <rect key="frame" x="28" y="182" width="334" height="56"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-YE-AYy" customClass="AnimationView" customModule="Lottie">
-                                                    <rect key="frame" x="311" y="182" width="51" height="51"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPx-Ma-0gv">
+                                                    <rect key="frame" x="18" y="10" width="51" height="51"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kzn-Ks-2aG">
+                                                            <rect key="frame" x="10" y="10" width="31" height="31"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_UserImage" translatesAutoresizingMaskIntoConstraints="NO" id="Zmw-VY-BJJ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="51" height="51"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="OKK-YE-AYy" secondAttribute="height" multiplier="1:1" id="odB-M0-4FF"/>
+                                                        <constraint firstAttribute="width" secondItem="lPx-Ma-0gv" secondAttribute="height" multiplier="1:1" id="02U-fG-xml"/>
+                                                        <constraint firstAttribute="bottom" secondItem="kzn-Ks-2aG" secondAttribute="bottom" constant="10" id="33k-1v-Bd7"/>
+                                                        <constraint firstItem="Zmw-VY-BJJ" firstAttribute="top" secondItem="lPx-Ma-0gv" secondAttribute="top" id="3Zd-tx-2jW"/>
+                                                        <constraint firstItem="kzn-Ks-2aG" firstAttribute="leading" secondItem="lPx-Ma-0gv" secondAttribute="leading" constant="10" id="5rs-ed-WPY"/>
+                                                        <constraint firstItem="Zmw-VY-BJJ" firstAttribute="leading" secondItem="lPx-Ma-0gv" secondAttribute="leading" id="QK3-Ya-Fra"/>
+                                                        <constraint firstItem="kzn-Ks-2aG" firstAttribute="top" secondItem="lPx-Ma-0gv" secondAttribute="top" constant="10" id="b72-KM-P4v"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kzn-Ks-2aG" secondAttribute="trailing" constant="10" id="idf-fw-COp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Zmw-VY-BJJ" secondAttribute="bottom" id="r7P-yW-cm9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Zmw-VY-BJJ" secondAttribute="trailing" id="zSi-gp-6y2"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4V-yp-uRw">
-                                                    <rect key="frame" x="28" y="243" width="278" height="0.0"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_truckPic" translatesAutoresizingMaskIntoConstraints="NO" id="1O9-yr-SSD">
+                                                    <rect key="frame" x="8" y="71" width="374" height="162"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJ0-fp-Hfm">
+                                                    <rect key="frame" x="79" y="25.5" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon_close" translatesAutoresizingMaskIntoConstraints="NO" id="heY-az-FHo">
+                                                    <rect key="frame" x="297.5" y="17.5" width="54.5" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="heY-az-FHo" secondAttribute="height" multiplier="3:2" id="C8n-y8-se0"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" constant="20" id="801-4g-eJX"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="R4V-yp-uRw" secondAttribute="bottom" id="8FB-jW-wYJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="heY-az-FHo" secondAttribute="trailing" constant="30" id="4wZ-Yh-SBU"/>
+                                            <constraint firstItem="lPx-Ma-0gv" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="10" id="5hg-vz-bhT"/>
+                                            <constraint firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="801-4g-eJX"/>
+                                            <constraint firstItem="heY-az-FHo" firstAttribute="width" secondItem="dZ4-Vb-kFp" secondAttribute="width" multiplier="1:7" id="8YH-75-DRS"/>
+                                            <constraint firstItem="lPx-Ma-0gv" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" constant="10" id="EF0-KD-zZL"/>
                                             <constraint firstItem="1O9-yr-SSD" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="2:3" id="GzL-gb-zj9"/>
-                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="Lf1-pJ-mcj"/>
-                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="leading" secondItem="R4V-yp-uRw" secondAttribute="trailing" constant="5" id="MOm-hz-3i6"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GSa-aj-Ger" secondAttribute="bottom" id="TIi-5U-lfK"/>
-                                            <constraint firstItem="R4V-yp-uRw" firstAttribute="top" secondItem="LN0-Jo-PEC" secondAttribute="bottom" id="UCO-kh-V5G"/>
-                                            <constraint firstItem="R4V-yp-uRw" firstAttribute="top" secondItem="GSa-aj-Ger" secondAttribute="bottom" constant="5" id="Wko-ke-qaI"/>
-                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" constant="20" id="Y5i-aF-bhH"/>
-                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="trailing" secondItem="1O9-yr-SSD" secondAttribute="trailing" id="cBj-9T-H7y"/>
-                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="top" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="10" id="cDf-ry-JIR"/>
-                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" constant="10" id="eUK-PA-Fhj"/>
-                                            <constraint firstItem="LN0-Jo-PEC" firstAttribute="top" secondItem="dZ4-Vb-kFp" secondAttribute="top" id="ghn-jM-ga7"/>
-                                            <constraint firstItem="R4V-yp-uRw" firstAttribute="leading" secondItem="GSa-aj-Ger" secondAttribute="leading" id="ioH-xe-eqc"/>
-                                            <constraint firstAttribute="bottom" secondItem="OKK-YE-AYy" secondAttribute="bottom" constant="10" id="mJu-3H-2fl"/>
-                                            <constraint firstItem="OKK-YE-AYy" firstAttribute="top" secondItem="GSa-aj-Ger" secondAttribute="top" id="mh9-Vx-L6b"/>
-                                            <constraint firstAttribute="trailing" secondItem="LN0-Jo-PEC" secondAttribute="trailing" id="n35-BW-khb"/>
-                                            <constraint firstItem="GSa-aj-Ger" firstAttribute="leading" secondItem="1O9-yr-SSD" secondAttribute="leading" id="pfi-hd-zsI"/>
-                                            <constraint firstItem="LN0-Jo-PEC" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leading" id="xXG-Kx-kkv"/>
+                                            <constraint firstAttribute="bottom" secondItem="1O9-yr-SSD" secondAttribute="bottom" constant="10" id="M2s-qF-enZ"/>
+                                            <constraint firstItem="heY-az-FHo" firstAttribute="centerY" secondItem="Zmw-VY-BJJ" secondAttribute="centerY" id="Ul6-Ap-9vJ"/>
+                                            <constraint firstItem="qJ0-fp-Hfm" firstAttribute="centerY" secondItem="lPx-Ma-0gv" secondAttribute="centerY" id="Xxk-tP-TQU"/>
+                                            <constraint firstItem="1O9-yr-SSD" firstAttribute="leading" secondItem="dZ4-Vb-kFp" secondAttribute="leadingMargin" id="Y5i-aF-bhH"/>
+                                            <constraint firstItem="qJ0-fp-Hfm" firstAttribute="leading" secondItem="lPx-Ma-0gv" secondAttribute="trailing" constant="10" id="fz7-Ks-PGa"/>
+                                            <constraint firstItem="lPx-Ma-0gv" firstAttribute="height" secondItem="dZ4-Vb-kFp" secondAttribute="height" multiplier="1:3" constant="-30" id="pKU-oM-05S"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="addressLabel" destination="R4V-yp-uRw" id="Fme-bi-x9L"/>
-                                            <outlet property="animationView" destination="OKK-YE-AYy" id="lE4-X5-RBJ"/>
                                             <outlet property="truckImage" destination="1O9-yr-SSD" id="twY-jr-zeW"/>
-                                            <outlet property="truckNameLabel" destination="GSa-aj-Ger" id="7Ys-Kf-YsB"/>
+                                            <outlet property="truckLogoImage" destination="kzn-Ks-2aG" id="Llq-sx-wVt"/>
+                                            <outlet property="truckNameLabel" destination="qJ0-fp-Hfm" id="OFl-Bd-LOo"/>
+                                            <outlet property="truckOpenStatusImage" destination="heY-az-FHo" id="zNd-M3-Jy2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -116,7 +122,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hCa-Gk-Sm3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TruckInfo" id="QMK-JJ-Bm5"/>
+                    <navigationItem key="navigationItem" title="餐車列表" id="QMK-JJ-Bm5"/>
                     <connections>
                         <outlet property="truckCollectionView" destination="VBW-pP-Orc" id="uQO-He-S0C"/>
                     </connections>
@@ -128,7 +134,7 @@
         <!--Truck Detail View Controller-->
         <scene sceneID="fFT-uZ-4AM">
             <objects>
-                <viewController storyboardIdentifier="truckInfoVC" id="5N2-l8-Gxl" customClass="TruckDetailViewController" customModule="RunRunTruck" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TruckDetailViewController" id="5N2-l8-Gxl" customClass="TruckDetailViewController" customModule="餐車在哪兒" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eDz-ZD-snb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,8 +143,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image_truckPic" translatesAutoresizingMaskIntoConstraints="NO" id="fMf-oR-T3t">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="287.50000000000011"/>
-                                        <color key="backgroundColor" red="0.1759090297" green="0.57496153999999999" blue="0.78508428100000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="287.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jc7-MW-9jE">
                                         <rect key="frame" x="155.5" y="235.5" width="103.5" height="103.5"/>
@@ -203,7 +209,7 @@
                                         <state key="selected" image="Icon_Favorite"/>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oad1e606bdc3307e7064b6349b5c55aa4_4620693218551263458_190925_0001" translatesAutoresizingMaskIntoConstraints="NO" id="80J-mS-8Rj">
-                                        <rect key="frame" x="20" y="762" width="374.00000000000045" height="100"/>
+                                        <rect key="frame" x="20" y="762" width="374" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="3Ly-BU-Hjs"/>
                                         </constraints>
@@ -283,10 +289,11 @@
     </scenes>
     <resources>
         <image name="Icon_Favorite" width="120" height="120"/>
+        <image name="Icon_UserImage" width="50" height="50"/>
+        <image name="Icon_close" width="66.666664123535156" height="40"/>
         <image name="Icon_disFavorite" width="120" height="120"/>
         <image name="Icon_whiteBack" width="40" height="40"/>
         <image name="Image_truckPic" width="640" height="425"/>
-        <image name="background" width="1157" height="2048"/>
         <image name="map" width="184" height="184"/>
         <image name="oad1e606bdc3307e7064b6349b5c55aa4_4620693218551263458_190925_0001" width="1964" height="424"/>
     </resources>

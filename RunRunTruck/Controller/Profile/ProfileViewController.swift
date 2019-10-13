@@ -13,30 +13,40 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("我出現了")
-        
-        Auth.auth().addStateDidChangeListener { (auth, user) in
 
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            
             if user == nil {
                 
                 self.navigationController?.popToRootViewController(animated: false)
             }
         }
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
-        if FirebaseManager.shared.bossID != nil {
-
-            performSegue(withIdentifier: "bossInfo", sender: nil)
-
-        } else if FirebaseManager.shared.userID != nil {
-            guard let userVc = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+        
+        guard let currentUser = FirebaseManager.shared.currentUser else { return }
+        
+        if currentUser.type == .boss {
+            //老闆
+            if let bossVC =
+                UIStoryboard.profile.instantiateViewController(
+                    withIdentifier: String(describing: BossInfoViewController.self)) as? BossInfoViewController {
+                
+                self.navigationController?.pushViewController(bossVC, animated: false)
+            }
+        } else if currentUser.type == .normalUser {
             
-            show(userVc, sender: nil)
+            if let userVc =
+                UIStoryboard.profile.instantiateViewController(
+                    withIdentifier: String(describing: UserInfoViewController.self)) as? UserInfoViewController {
+                
+                self.navigationController?.pushViewController(userVc, animated: false)
+            }
+            
         }
     }
-    
 }

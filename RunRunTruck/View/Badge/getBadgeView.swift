@@ -60,24 +60,4 @@ class GetBadgeView: UIView {
         group.animations = [scale, border]
         img.layer.add(group, forKey: nil)
     }
-    
-//    func animateDisAppear() {
-//        
-//        let group = CAAnimationGroup()
-////        group.beginTime = CACurrentMediaTime() + 1
-//        group.duration = 10
-//        group.fillMode = .backwards
-//        group.timingFunction = CAMediaTimingFunction(name: .easeOut)
-//        
-//        let scale = CASpringAnimation(keyPath: "transform.scale")
-//        scale.fromValue = 1
-//        scale.toValue = 0
-//
-//        let border = CASpringAnimation(keyPath: "borderWidth")
-//        border.fromValue = 0
-//        border.toValue = 150
-//
-//        group.animations = [scale, border]
-//        img.layer.add(group, forKey: nil)
-//    }
 }

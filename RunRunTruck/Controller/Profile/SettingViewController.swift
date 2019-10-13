@@ -8,14 +8,22 @@
 
 import UIKit
 
+struct Title {
+    static let settingTitle = "設定"
+    static let blockLabel = "封鎖名單"
+    static let privateLabel = "隱私權政策"
+    static let feedbackLabel = "意見回饋"
+    static let versionLabel = "版本"
+    static let logoutLabel = "登出"
+}
+
 class SettingViewController: UIViewController {
     ///標題
     var titleLabel: UILabel!
-    
     var contentView: UIView!
     var blockRow: SettingRow = {
         let row = SettingRow(
-            title: "封鎖名單",
+            title: Title.blockLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: BlockListViewController())
@@ -23,7 +31,7 @@ class SettingViewController: UIViewController {
     }()
     var privateCheckRow: SettingRow = {
         let row = SettingRow(
-            title: "隱私權政策",
+            title: Title.privateLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -31,7 +39,7 @@ class SettingViewController: UIViewController {
     }()
     var feedbackRow: SettingRow = {
         let row = SettingRow(
-            title: "意見回饋",
+            title: Title.feedbackLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -39,15 +47,15 @@ class SettingViewController: UIViewController {
     }()
     var versionRow: SettingRow = {
         let row = SettingRow(
-            title: "版本",
-            subTitle: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            title: Title.versionLabel,
+            subTitle: Bundle.ValueForString(key: Constant.version),
             withRightArrow: false,
             associatedContentViewController: nil)
         return row
     }()
     var logoutRow: SettingRow = {
         let row = SettingRow(
-            title: "登出",
+            title: Title.logoutLabel,
             subTitle: nil,
             withRightArrow: true,
             associatedContentViewController: nil)
@@ -106,6 +114,13 @@ extension SettingViewController {
         scrollView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         scrollView.backgroundColor = .white
+        
+        setupContentView(scrollView: scrollView)
+        setupText()
+        setupRows()
+    }
+    
+    func setupContentView(scrollView: UIScrollView) {
         //配置ScrollView的ContentView
         contentView = UIView()
         scrollView.addSubview(contentView)
@@ -115,9 +130,12 @@ extension SettingViewController {
         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         contentView.widthAnchor.constraint(equalToConstant: view.bounds.size.width).isActive = true
+    }
+    
+    func setupText() {
         
         titleLabel = UILabel()
-        titleLabel.text = "設定"
+        titleLabel.text = Title.settingTitle
         titleLabel.font = .boldSystemFont(ofSize: 30)
         contentView.addSubview(titleLabel)
         titleLabel.anchor(
@@ -126,6 +144,9 @@ extension SettingViewController {
             bottom: nil,
             trailing: nil,
             padding: .init(top: 15, left: 20, bottom: 0, right: 0), size: .zero)
+    }
+    
+    func setupRows() {
         //Rows
         contentView.addSubview(blockRow)
         contentView.addSubview(privateCheckRow)
@@ -156,6 +177,7 @@ extension SettingViewController: SettingRowDelegate {
             
         case blockRow:
             blockRow.toggleContent()
+            
             UIView.animate(
                 withDuration: 0.3,
                 delay: 0,
@@ -165,23 +187,38 @@ extension SettingViewController: SettingRowDelegate {
                 animations: {
                     self.view.layoutIfNeeded()
             }, completion: nil)
+            
             return
             
         case privateCheckRow:
+            
             guard let privateVC = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "privateVC") as? PrivateViewController else {  return  }
+                withIdentifier: String(describing: PrivateViewController.self)) as? PrivateViewController
+                else {  return  }
+            
+            self.navigationController?.navigationBar.barTintColor = .black
             
             navigationController?.pushViewController(privateVC, animated: true)
             return
             
         case feedbackRow:
+            
             guard let feedbackVC = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: "feedbackVC") as? FeedbackViewController else {  return  }
+                withIdentifier: String(describing: FeedbackViewController.self)) as? FeedbackViewController
+                else {  return  }
             
             navigationController?.pushViewController(feedbackVC, animated: true)
+            
             return
             
         case logoutRow:
+            
+            // 登出取消訂閱
+            if let user = FirebaseManager.shared.currentUser {
+            for truckId in user.favorite {
+                FirebaseNotificationManager.share.unSubscribeTopic(fromTopic: truckId, completion: nil)
+                }
+            }
             FirebaseManager.shared.signOut()
             
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -189,6 +226,7 @@ extension SettingViewController: SettingRowDelegate {
             let root = appDelegate?.window?.rootViewController as? TabBarViewController
             
             root?.selectedIndex = 0
+            
             return
             
         default:

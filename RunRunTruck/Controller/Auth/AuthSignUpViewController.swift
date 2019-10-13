@@ -33,9 +33,9 @@ class AuthRegisterViewController: UIViewController {
     
      private var uiStatus: RegisterVcUIStatus = .userRegister
     
-    var userRegisteIsFinished = false {
+    var userRegisterIsFinished = false {
         didSet {
-            updateRegisteBtnStatus()
+            updateRegisterBtnStatus()
         }
     }
 
@@ -58,8 +58,7 @@ class AuthRegisterViewController: UIViewController {
         segmentRegister.addTarget(self, action: #selector(handleRegisterChange), for: .valueChanged)
         
         checkUserInput()
-        
-        setupView()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,8 +81,11 @@ class AuthRegisterViewController: UIViewController {
         FirebaseManager.shared.userRegister(email: email, psw: psw) { [weak self] (isSuccess, result) in
             
             guard isSuccess else {
+                
                 self?.errorResultLabel.isHidden = false
+                
                 self?.errorResultLabel.text = result
+                
                 return
             }
             
@@ -101,29 +103,39 @@ class AuthRegisterViewController: UIViewController {
             }
         }
     }
-    
+    ///吃貨註冊
     func userRegister(name: String, email: String) {
-
         self.presentingViewController?.dismiss(animated: false, completion: nil)
-        FirebaseManager.shared.setUserData(name: name, email: email, isAppleSingIn: false)
         
+        if let uid = Auth.auth().currentUser?.uid {
+            FirebaseManager.shared.setNormalUserData(
+            name: name, email: email, userIdentifier: uid) { success in
+                //註冊成功
+            }
+        }
     }
     
+    ///老闆註冊
     func bossRegister(name: String, email: String) {
-        
-        addTruckInBoss(needEnterName: false)
-        FirebaseManager.shared.setBossData(name: name, email: email, isAppleSingIn: false)
-        
+        if let uid = Auth.auth().currentUser?.uid {
+            FirebaseManager.shared.setBossData(
+            name: name, email: email, userIdentifier: uid) { [weak self] success in
+                //註冊成功
+                self?.goToCreateTruckWithBossId(uid)
+            }
+        }
     }
     
-    func addTruckInBoss(needEnterName: Bool, bossId: String? = nil) {
+    func goToCreateTruckWithBossId(_ bossId: String) {
         
-        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "adTruckVC")
+        guard let addTruckVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: String(describing: AddBossTruckViewController.self))
             as? AddBossTruckViewController else { return }
         
+        addTruckVC.bossId = bossId
+        
         addTruckVC.modalPresentationStyle = .overCurrentContext
-        addTruckVC.needEnterName = needEnterName
-        addTruckVC.appleSinginBossID = bossId
+        
         self.present(addTruckVC, animated: false, completion: nil)
     }
 
@@ -143,9 +155,7 @@ class AuthRegisterViewController: UIViewController {
             }
             emptyText()
         }
-    
 
-    
     func emptyText() {
         nameTextField.text = ""
         emailTextField.text = ""
@@ -182,36 +192,6 @@ class AuthRegisterViewController: UIViewController {
             }, animationCache: nil)
 
     }
-     func setupView() {
-           let appleButton = ASAuthorizationAppleIDButton()
-           appleButton.translatesAutoresizingMaskIntoConstraints = false
-           appleButton.addTarget(self, action: #selector(didTapAppleButton), for: .touchUpInside)
-
-           view.addSubview(appleButton)
-
-           appleButton.anchor(top: registerBtn.bottomAnchor,
-                              leading: view.leadingAnchor,
-                              bottom: view.bottomAnchor,
-                              trailing: view.trailingAnchor,
-                              padding: .init(top: 10, left: 20, bottom: 30, right: 20),
-                              size: CGSize(width: registerBtn.frame.width, height: registerBtn.frame.height))
-       }
-       
-       @objc func didTapAppleButton() {
-           
-           let provider = ASAuthorizationAppleIDProvider()
-               let request = provider.createRequest()
-               request.requestedScopes = [.fullName, .email]
-
-               let controller = ASAuthorizationController(authorizationRequests: [request])
-
-               controller.delegate = self
-               controller.presentationContextProvider = self
-
-               controller.performRequests()
-           
-       }
-
 }
 
 extension AuthRegisterViewController: UITextFieldDelegate {
@@ -228,104 +208,25 @@ extension AuthRegisterViewController: UITextFieldDelegate {
             guard pswConfirm.elementsEqual(psw) else {
                     errorResultLabel.isHidden = false
                     errorResultLabel.text = "兩次密碼輸入不一致喔！"
-                    userRegisteIsFinished = false
+                    userRegisterIsFinished = false
                         return
                     }
             
-            userRegisteIsFinished = true
+            userRegisterIsFinished = true
             
         } else {
             errorResultLabel.isHidden = false
             errorResultLabel.text = "請輸入完整資料～"
-            userRegisteIsFinished = false
+            userRegisterIsFinished = false
         }
     }
     
-    func updateRegisteBtnStatus() {
+    func updateRegisterBtnStatus() {
         
-        setBtnStatus(userRegisteIsFinished ? .enable: .disable, btn: registerBtn)
+        setBtnStatus(userRegisterIsFinished ? .enable: .disable, btn: registerBtn)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         checkUserInput()
-    }
-}
-
-extension AuthRegisterViewController: ASAuthorizationControllerDelegate {
-    
-    func userAppleRegister(userType: String, user: AppleUser) {
-        
-        FirebaseManager.shared.checkExistUser(
-                userType: User.user.rawValue,
-                uid: user.id) { [weak self] (isExist) in
-            
-                    if isExist {
-                        self?.errorResultLabel.isHidden = false
-                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
-                    } else {
-                        
-                        FirebaseManager.shared.setUserData(
-                            name: user.lastName + ", " + user.firstName,
-                            email: user.email,
-                            isAppleSingIn: true,
-                            appleUID: user.id)
-                
-                    }
-            }
-    }
-    func bossAppleRegister(userType: String, user: AppleUser) {
-        
-        FirebaseManager.shared.checkExistUser(
-                userType: Boss.boss.rawValue,
-                uid: user.id) { [weak self] (isExist) in
-            
-                    if isExist {
-                        self?.errorResultLabel.isHidden = false
-                        self?.errorResultLabel.text = "此帳號已註冊,可直接登入喔～"
-                    } else {
-                        
-                        FirebaseManager.shared.setBossData(
-                            name: user.lastName + ", " + user.firstName,
-                            email: user.email,
-                            isAppleSingIn: true,
-                            appleUID: user.id)
-                    }
-            }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-
-        switch authorization.credential {
-
-        case let credentials as ASAuthorizationAppleIDCredential:
-            let user = AppleUser(credentials: credentials)
-            
-            print(user)
-            
-            switch uiStatus {
-            case .userRegister:
-                userAppleRegister(userType: User.user.rawValue, user: user)
-            case .bossRegister:
-                bossAppleRegister(userType: Boss.boss.rawValue, user: user)
-                addTruckInBoss(needEnterName: true, bossId: user.id)
-                
-            }
-        default: break
-
-        }
-    }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("something bad happened", error)
-    }
-}
-
-extension AuthRegisterViewController: ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-
-        return view.window!
-
     }
 }

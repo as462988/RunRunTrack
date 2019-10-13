@@ -16,8 +16,6 @@ enum Lottie: String {
     case handGesture = "hand-click-gesture"
     
     case camera
-    
-    case openTruck = "onboardingCar"
-    
+        
     case location = "geolocation"
 }
