@@ -1,6 +1,4 @@
-# 餐車在哪兒<left><img src="https://github.com/as462988/RunRunTrack/blob/addREADMEFile/appstore.png" alt="appstore" style="zoom:10%;" />
-
-
+# 餐車在哪兒<img src="https://github.com/as462988/RunRunTrack/blob/master/appstore.png" width="120" height="50" alt="图片描述文字"/>
 
 每一台餐車，都有背後的故事...<br> 
 這是一款專屬給餐車與吃貨的小天地
