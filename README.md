@@ -13,13 +13,13 @@
 * Google Map 自定義的 **GMSMarker** 顯示已營業的餐車位置<br>
 * 設計自定義的 **UICollectionViewFlowLayout** 呈現卡片式的餐車資訊<br>
 * 引用 **Core Location ＆ Contacts 的 postalAddress** 轉換經緯度為精確的地址<br>
-* 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置
+* 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Lobby.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/List.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Detail.PNG" width="180" height="360"/>
 
 #### 即時聊天室
 
-* 新增**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動
+* 新增**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動。
 * 並且針對用戶需求加入點擊頭像的封鎖功能
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoom.PNG" width="180" height="360"/>
@@ -33,7 +33,7 @@
 ### 個人頁面
 
 #### 註冊與登入
-使用 **Sing In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態
+使用 **Sing In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SingIn.PNG" width="180" height="360"/>
 
@@ -82,7 +82,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 * [Kingfisher](https://github.com/onevcat/Kingfisher) - 善用快取的方式處理網路圖片並呈現在 App
 * [SwiftLint](https://github.com/realm/SwiftLint) - 檢查 codeing Style 的工具
 * [Crashlytics](https://firebase.google.com/docs/crashlytics) - 掌握 App 的 Crash報告
-* [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) - 解決鍵盤彈起時遮住輸入匡的工具
+* [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) - 解決鍵盤彈起時遮住輸入框的工具
 * [lottie-ios](https://github.com/airbnb/lottie-ios) - 呈現動畫效果
 * [JGProgressHUD](https://github.com/JonasGessner/JGProgressHUD) - 顯示狀態的提示窗
 
