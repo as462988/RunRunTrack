@@ -1,4 +1,4 @@
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/icon.jpg" width="100" height="120"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/icon.jpg" width="100" height="120"/>
 
 # 餐車在哪兒
 
@@ -15,27 +15,27 @@
 * 引用 **Core Location ＆ Contacts 的 postalAddress** 轉換經緯度為精確的地址<br>
 * 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置
 
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Lobby.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/List.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Detail.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Lobby.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/List.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Detail.PNG" width="180" height="360"/>
 
 #### 即時聊天室
 
 * 新增**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動
 * 並且針對用戶需求加入點擊頭像的封鎖功能
 
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/ChatRoom.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoom.PNG" width="180" height="360"/>
 
 ### 成就系統
 
 * 透過掃描 QR Code 的方式蒐集餐車發送的徽章
 * 引用 **CASpringAnimation**達成收到徽章時的動畫
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Hnet-image.gif" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Hnet-image.gif" width="180" height="360"/>
 
 ### 個人頁面
 
 #### 註冊與登入
-使用 **Sing In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/addReadme/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態
+使用 **Sing In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態
 
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/SingIn.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SingIn.PNG" width="180" height="360"/>
 
 #### 我是吃貨
 
@@ -50,7 +50,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 //添加點擊通知後要做的事情
 }
 ```
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Profile.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Profile.PNG" width="180" height="360"/>
 
 #### 我是老闆
 
@@ -71,7 +71,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
         return nil
     }
 ```
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/ProfileBoss.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Open.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/addReadme/screenshot/Qrcode.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileBoss.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Open.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Qrcode.PNG" width="180" height="360"/>
 
 ### Third-party Libraries
 * [GoogleMaps](https://developers.google.com/maps/documentation/ios-sdk/start) - 顯示餐車位置及用戶位置
