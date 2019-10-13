@@ -40,7 +40,7 @@
 #### 我是吃貨
 
 * 提供修改照片的功能，設計 [OpenChoseCameraManager]() 開啟選擇相簿內的照片，並針對上傳的照片調整大小。
-* 探索餐車與喜愛餐車的顯示，設計在 CollectionView 的 cell 中再使用 CollectionView 呈現。
+* 探索餐車與喜愛餐車的顯示，設計在 CollectionView 的 cell 中再使用 CollectionView 呈現，並在兩個 view 間傳值。
 * 對喜愛餐車開店的提醒通知，並在點擊通知後跳轉至該餐車的資訊。
 
 ``` swift
