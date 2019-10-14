@@ -93,4 +93,4 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 A code signing key from Apple is required to deploy apps to a device.
 
 ## Download
-[![](https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/clients/buttons/appstore.png)](https://itunes.apple.com/app/owncloud/id1481326966)
+[<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/appstoreN.png" width="180"/>](https://itunes.apple.com/app/owncloud/id1481326966)
