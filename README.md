@@ -11,16 +11,16 @@
 #### 找尋餐車
 在首頁可以查看所有營業中的餐車並找尋他們的位置
 * Google Map 自定義的 **GMSMarker** 顯示已營業的餐車位置<br>
-* 設計自定義的 **UICollectionViewFlowLayout** 呈現卡片式的餐車資訊<br>
-* 引用 **Core Location ＆ Contacts 的 postalAddress** 轉換經緯度為精確的地址<br>
+* 設計自定義的 `UICollectionViewFlowLayout` 呈現卡片式的餐車資訊，並且在切換卡片時跳轉至該餐車位置<br>
+* 引用 `Core Location` ＆ `Contacts` 的 `postalAddress` 轉換經緯度為精確的地址<br>
 * 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Lobby.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/List.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Detail.PNG" width="180" height="360"/>
 
 #### 即時聊天室
 
-* 新增**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動。
-* 並且針對用戶需求加入點擊頭像的封鎖功能
+* 實作**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動。
+* 針對用戶需求加入點擊頭像的封鎖功能
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoom.PNG" width="180" height="360"/>
 
@@ -33,7 +33,7 @@
 ### 個人頁面
 
 #### 註冊與登入
-使用 **Sing In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態。
+使用 **Sign In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SingIn.PNG" width="180" height="360"/>
 
@@ -45,9 +45,9 @@
 
 ``` swift
 func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-                                //添加點擊通知後要做的事情
+                            didReceive response: UNNotificationResponse,
+                            withCompletionHandler completionHandler: @escaping () -> Void) {
+     //添加點擊通知後要做的事情
 }
 ```
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Profile.PNG" width="180" height="360"/>
@@ -55,7 +55,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 #### 我是老闆
 
 * 使用 Google Map 選取開店時的位置，同時在開店時發送開店通知給喜愛餐車的用戶
-* 建立 QR Code 的徽章，並在 30 秒後失效
+* 建立 QR Code 的徽章，並在限時內關閉 QR Code
 ``` swift
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
