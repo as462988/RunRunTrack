@@ -22,7 +22,7 @@
 * 實作**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動。
 * 針對用戶需求加入點擊頭像的封鎖功能
 
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoom.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoomGif.gif" width="180" height="360"/>
 
 ### 成就系統
 
@@ -50,7 +50,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
      //添加點擊通知後要做的事情
 }
 ```
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Profile.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/uploadImageGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SettingGif.gif" width="180" height="360"/>
 
 #### 我是老闆
 
