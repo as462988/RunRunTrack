@@ -10,9 +10,14 @@
 ### 關於餐車
 #### 找尋餐車
 在首頁可以查看所有營業中的餐車並找尋他們的位置
-* Google Map 自定義的 **GMSMarker** 顯示已營業的餐車位置<br>
+* Google Map 自定義的 **GMSMarker** 顯示營業中的餐車位置<br>
 * 設計自定義的 `UICollectionViewFlowLayout` 呈現卡片式的餐車資訊，並且在切換卡片時跳轉至該餐車位置<br>
 * 引用 `Core Location` ＆ `Contacts` 的 `postalAddress` 轉換經緯度為精確的地址<br>
+* 所有餐車列表依據營業與否的順序排列，並點擊後可以進入餐車的詳情頁面<br>
+* 用戶可增添喜愛餐車，並在該餐車營業時收到推播通知; 取消喜愛餐車選項時同步刪除訂閱推播。<br>
+```swift
+FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
+```
 * 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Lobby.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/List.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Detail.PNG" width="180" height="360"/>
