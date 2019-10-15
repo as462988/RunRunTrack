@@ -41,8 +41,8 @@
 #### 我是吃貨
 
 * 提供修改照片的功能，設計 [OpenChoseCameraManager]() 開啟選擇相簿內的照片，並針對上傳的照片調整大小。
-* 探索餐車與喜愛餐車的UI，使用巢狀 CollectionView 搭配 Delegate, 單一實例的設計模式完成.
-* 對喜愛餐車開店的提醒通知，並 ->。
+* 探索餐車與喜愛餐車的 UI，使用巢狀 CollectionView 搭配 Delegate, Singleton 的設計模式完成。
+* 對喜愛餐車開店的推播提醒通知，並處理點擊通知後跳轉至首頁該餐車的資訊。
 
 ``` swift
 func userNotificationCenter(_ center: UNUserNotificationCenter,
