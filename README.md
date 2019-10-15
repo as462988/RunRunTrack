@@ -46,7 +46,7 @@ let address = location.subAdministrativeArea + location.city + location.street
 #### 即時聊天室
 
 * 實作 **Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動
-* 設計 **auto layouut** 顯示聊天室的 bubble 對話框，並依據不同的對象繼承 `ChatMessageCell` 後更改顯示的樣式
+* 設計 **Auto Layout** 顯示聊天室的 bubble 對話框，並依據不同的對象繼承 `ChatMessageCell` 後更改顯示的樣式
 * 針對用戶需求加入`ChatMessageCellDelegate`實作長按頭像的封鎖功能
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoomGif.gif" width="180" height="360"/>
@@ -83,7 +83,12 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 
 * 使用 Google Map 選取開店時的位置，同時在開店時使用 `URLSession` 做發送開店通知的處理
 ``` swift
-
+     FirebaseNotificationManager.share.sendPushNotification(
+            toTopic: currentTruck.id,
+            title: NotificationContent.title + " [\(currentTruck.name)] " + NotificationContent.open,
+            body: NotificationContent.body,
+            latitude: lat,
+            longitude: long)
 ```
 * 建立 QR Code 的徽章，並在限時內關閉 QR Code
 ``` swift
@@ -101,7 +106,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
         return nil
     }
 ```
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileBoss.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Open.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Qrcode.PNG" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileBoss.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/profileBoss.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/open.gif" width="180" height="360"/>
 
 ### Third-party Libraries
 * [GoogleMaps](https://developers.google.com/maps/documentation/ios-sdk/start) - 顯示餐車位置及用戶位置
@@ -120,7 +125,6 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 * Xcode 11
 * iOS 13 SDK
 * An iPhone running iOS 13.0 
-A code signing key from Apple is required to deploy apps to a device.
 
 ## Download
 [<img src="https://github.com/as462988/WhereIsTheTruck/blob/develop/screenshot/appstore.png" width="180"/>](https://itunes.apple.com/app/owncloud/id1481326966)
