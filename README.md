@@ -13,10 +13,31 @@
 * Google Map 自定義的 **GMSMarker** 顯示營業中的餐車位置<br>
 * 設計自定義的 `UICollectionViewFlowLayout` 呈現卡片式的餐車資訊，並且在切換卡片時跳轉至該餐車位置<br>
 * 引用 `Core Location` ＆ `Contacts` 的 `postalAddress` 轉換經緯度為精確的地址<br>
-* 所有餐車列表依據營業與否的順序排列，並點擊後可以進入餐車的詳情頁面<br>
-* 用戶可增添喜愛餐車，並在該餐車營業時收到推播通知; 取消喜愛餐車選項時同步刪除訂閱推播。<br>
 ```swift
-FirebaseNotificationManager.share.subscribeTopic(toTopic: topic, completion: nil)
+let address = location.subAdministrativeArea + location.city + location.street
+```
+* 所有餐車列表依據營業與否的順序排列，並點擊後可以進入餐車的詳情頁面<br>
+* 用戶可增添喜愛餐車，並同時訂閱(toTopic)該餐車的推播通知; 取消喜愛餐車選項時同步刪除訂閱推播。<br>
+```swift
+    func subscribeTopic(toTopic topic: String, completion: (() -> Void)?) {
+        
+        Messaging.messaging().subscribe(toTopic: topic) { (error) in
+            guard let error = error else {
+                completion?()
+                return
+            }
+        }
+    }
+    
+    func unSubscribeTopic(fromTopic topic: String, completion: (() -> Void)?) {
+        
+        Messaging.messaging().unsubscribe(fromTopic: topic) { (error) in
+            guard let error = error else {
+            completion?()
+                return
+            }
+        }
+    }
 ```
 * 使用 [HandleOpenURL](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/HandleOpenURL.swift) 開啟 URL 的方式，讓用戶可以開啟 GoogleMap 的 App，導航到該餐車的位置。
 
@@ -60,7 +81,10 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 
 #### 我是老闆
 
-* 使用 Google Map 選取開店時的位置，同時在開店時發送開店通知給喜愛餐車的用戶
+* 使用 Google Map 選取開店時的位置，同時在開店時使用 `URLSession` 做發送開店通知的處理
+``` swift
+
+```
 * 建立 QR Code 的徽章，並在限時內關閉 QR Code
 ``` swift
     func generateQRCode(from string: String) -> UIImage? {
