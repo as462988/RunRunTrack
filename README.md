@@ -52,8 +52,9 @@ let address = location.subAdministrativeArea + location.city + location.street
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoomGif.gif" width="180" height="360"/>
 
 ### 成就系統
-透過QR Code 的方式蒐集餐車發送的徽章
-* 引用 **AVFoundatin** 的 `AVCaptureDevice` 製作 QR Code 的掃瞄器 
+透過QR Code 的方式蒐集餐車發送的徽章<br>
+
+* 開啟 QR Code 的掃瞄器 : **AVFoundatin** 的 `AVCaptureDevice`
 * 利用 **AVMetadataObject** 將 QRCode 收到的訊息轉換成字串並存入 User 內 -> `metadataObj.stringValue`
 * 引用 `CASpringAnimation` 達成收到徽章時的動畫效果<br>
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/badge.PNG" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Hnet-image.gif" width="180" height="360"/>
