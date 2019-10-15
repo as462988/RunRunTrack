@@ -124,7 +124,6 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 ## Requirements
 * Xcode 11
 * iOS 13 SDK
-* An iPhone running iOS 13.0 
 
 ## Download
 [<img src="https://github.com/as462988/WhereIsTheTruck/blob/develop/screenshot/appstore.png" width="180"/>](https://itunes.apple.com/app/owncloud/id1481326966)
