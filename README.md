@@ -19,29 +19,30 @@
 
 #### 即時聊天室
 
-* 實作**Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動。
-* 針對用戶需求加入點擊頭像的封鎖功能
+* 實作 **Firebase Snapshot Listener** 即時的顯示用戶發送的訊息，增添使用者間的互動
+* 設計 **auto layouut** 顯示聊天室的 bubble 對話框，並依據不同的對象繼承 `ChatMessageCell` 後更改顯示的樣式
+* 針對用戶需求加入`ChatMessageCellDelegate`實作長按頭像的封鎖功能
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ChatRoomGif.gif" width="180" height="360"/>
 
 ### 成就系統
 
 * 透過掃描 QR Code 的方式蒐集餐車發送的徽章
-* 引用 **CASpringAnimation**達成收到徽章時的動畫
+* 引用 `CASpringAnimation` 達成收到徽章時的動畫
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/Hnet-image.gif" width="180" height="360"/>
 
 ### 個人頁面
 
 #### 註冊與登入
-使用 **Sign In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 **[KeyChain](https://github.com/as462988/WhereIsTheTruck/blob/master/RunRunTruck/Model/Keychain.swift)** 儲存用戶的登入狀態。
+使用 **Sign In With Apple & Firebase Authorization** 作為用戶登入&註冊的方式，並使用 KeyChain 儲存用戶的登入狀態。
 
 <img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SingIn.PNG" width="180" height="360"/>
 
 #### 我是吃貨
 
 * 提供修改照片的功能，設計 [OpenChoseCameraManager]() 開啟選擇相簿內的照片，並針對上傳的照片調整大小。
-* 探索餐車與喜愛餐車的顯示，設計在 CollectionView 的 cell 中再使用 CollectionView 呈現，並在兩個 view 間傳值。
-* 對喜愛餐車開店的提醒通知，並在點擊通知後跳轉至該餐車的資訊。
+* 探索餐車與喜愛餐車的UI，使用巢狀 CollectionView 搭配 Delegate, 單一實例的設計模式完成.
+* 對喜愛餐車開店的提醒通知，並 ->。
 
 ``` swift
 func userNotificationCenter(_ center: UNUserNotificationCenter,
