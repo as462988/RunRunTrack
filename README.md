@@ -77,7 +77,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
      //添加點擊通知後要做的事情
 }
 ```
-<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/uploadImageGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SettingGif.gif" width="180" height="360"/>
+<img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/ProfileGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/uploadImageGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/SettingGif.gif" width="180" height="360"/><img src="https://github.com/as462988/WhereIsTheTruck/blob/master/screenshot/notification.gif" width="180" height="360"/>
 
 #### 我是老闆
 
